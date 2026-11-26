@@ -58,15 +58,17 @@ export function EntityThumbnail({
 
 export type InspectedEntity =
   | { kind: 'armor'; item: ArmorSet }
-  | { kind: 'mod'; item: ModItem }
+  | { kind: 'mod'; item: ModItem; variants?: ModItem[] }
   | { kind: 'deviation'; item: Deviation };
 
 export function EntityDetailModal({
   entity,
   onClose,
+  onSelectModVariant,
 }: {
   entity: InspectedEntity | null;
   onClose: () => void;
+  onSelectModVariant?: (mod: ModItem) => void;
 }) {
   if (!entity) return null;
 
@@ -153,16 +155,46 @@ export function EntityDetailModal({
           )}
 
           {kind === 'mod' && (
-            <div className="space-y-3 rounded-xl border border-obsidian-800 bg-obsidian-950/60 p-4">
-              <p className="leading-relaxed text-slate-200">{item.primaryEffect}</p>
-              <div className="grid grid-cols-2 gap-2 border-t border-obsidian-800 pt-2.5 text-slate-400">
-                <div><span className="text-slate-500">Keyword:</span> {item.archetype}</div>
-                <div><span className="text-slate-500">Element:</span> {item.element}</div>
+            <>
+              <div className="space-y-3 rounded-xl border border-obsidian-800 bg-obsidian-950/60 p-4">
+                <p className="leading-relaxed text-slate-200">{item.primaryEffect}</p>
+                <div className="grid grid-cols-2 gap-2 border-t border-obsidian-800 pt-2.5 text-slate-400">
+                  <div><span className="text-slate-500">Keyword:</span> {item.archetype}</div>
+                  <div><span className="text-slate-500">Element:</span> {item.element}</div>
+                </div>
+                <div className="text-slate-400">
+                  <span className="text-slate-500">Substats:</span> {item.recommendedSubstats.join(' · ')}
+                </div>
               </div>
-              <div className="text-slate-400">
-                <span className="text-slate-500">Substats:</span> {item.recommendedSubstats.join(' · ')}
-              </div>
-            </div>
+
+              {entity.variants && entity.variants.length > 1 && (
+                <div className="rounded-xl border border-obsidian-800 bg-obsidian-950/60 p-4">
+                  <div className="mb-2 text-[11px] font-medium uppercase tracking-wider text-slate-400">
+                    Suffix Variants ({entity.variants.length})
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {entity.variants.map((v) => {
+                      const active = v.id === item.id;
+                      return (
+                        <button
+                          key={v.id}
+                          type="button"
+                          onClick={() => onSelectModVariant?.(v)}
+                          className={cn(
+                            'rounded-md border px-2 py-1 text-[11px] transition',
+                            active
+                              ? 'border-stardust-400/60 bg-stardust-500/15 text-white'
+                              : 'border-obsidian-800 bg-obsidian-900 text-slate-400 hover:border-obsidian-700 hover:text-slate-200',
+                          )}
+                        >
+                          {v.variant}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </>
           )}
 
           {kind === 'deviation' && (

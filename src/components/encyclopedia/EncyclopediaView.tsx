@@ -50,7 +50,25 @@ const WEAPON_CATEGORIES: Array<'All' | Weapon['category']> = [
   'Rocket Launcher',
 ];
 
-const ELEMENTS: Array<'All' | ElementType> = ['All', 'Blaze', 'Frost', 'Shock', 'Blast', 'Physical', 'Universal'];
+const WEAPON_ELEMENTS: Array<{ id: 'All' | ElementType; label: string }> = [
+  { id: 'All', label: 'All Elements' },
+  { id: 'Blaze', label: 'Blaze · Burn' },
+  { id: 'Frost', label: 'Frost · Vortex' },
+  { id: 'Shock', label: 'Shock · Surge' },
+  { id: 'Blast', label: 'Blast · Bomber' },
+  { id: 'Physical', label: 'Physical' },
+];
+
+const MOD_ELEMENTS: Array<{ id: 'All' | ElementType; label: string }> = [
+  { id: 'All', label: 'All Elements' },
+  { id: 'Blaze', label: 'Blaze' },
+  { id: 'Frost', label: 'Frost' },
+  { id: 'Shock', label: 'Shock' },
+  { id: 'Blast', label: 'Blast' },
+  { id: 'Physical', label: 'Physical' },
+  { id: 'Universal', label: 'Universal' },
+];
+
 const KEYWORDS: Array<'All' | Archetype> = [
   'All',
   'Burn',
@@ -66,13 +84,44 @@ const KEYWORDS: Array<'All' | Archetype> = [
 ];
 
 const ARMOR_SLOTS: Array<'All' | ArmorSet['slot']> = ['All', 'Helmet', 'Mask', 'Top', 'Bottom', 'Gloves', 'Shoes'];
-const MOD_CATEGORIES: Array<'All' | ModItem['modCategory']> = ['All', 'Weapon Mod', 'Armor Mod'];
 const MOD_SLOTS: Array<'All' | ModItem['slot']> = ['All', 'Weapon', 'Helmet', 'Mask', 'Top', 'Bottom', 'Gloves', 'Shoes'];
 const DEV_TYPES: Array<'All' | Deviation['type']> = ['All', 'Combat', 'Territory', 'Crafting'];
 const RARITIES: Array<'All' | Rarity> = ['All', 'Legendary', 'Epic', 'Rare', 'Uncommon', 'Common'];
 
 const MOD_VARIANTS = ['All', ...Array.from(new Set(MODS.map((m) => m.variant))).sort((a, b) => a.localeCompare(b))];
+const ELEMENT_ORDER: ElementType[] = ['Blaze', 'Frost', 'Shock', 'Blast', 'Physical', 'Universal'];
+const MOD_SLOT_ORDER: ModItem['slot'][] = ['Weapon', 'Helmet', 'Mask', 'Top', 'Bottom', 'Gloves', 'Shoes'];
 const MOD_PAGE_SIZE = 60;
+
+interface ModFamilyGroup {
+  key: string;
+  representative: ModItem;
+  variants: ModItem[];
+}
+
+function groupBySection<T>(items: T[], getKey: (item: T) => string, preferredOrder?: string[]): Array<[string, T[]]> {
+  const map = new Map<string, T[]>();
+  for (const item of items) {
+    const k = getKey(item);
+    const list = map.get(k);
+    if (list) list.push(item);
+    else map.set(k, [item]);
+  }
+  const entries = Array.from(map.entries());
+  if (preferredOrder) {
+    entries.sort((a, b) => {
+      const ia = preferredOrder.indexOf(a[0]);
+      const ib = preferredOrder.indexOf(b[0]);
+      if (ia !== -1 && ib !== -1) return ia - ib;
+      if (ia !== -1) return -1;
+      if (ib !== -1) return 1;
+      return a[0].localeCompare(b[0]);
+    });
+  } else {
+    entries.sort((a, b) => a[0].localeCompare(b[0]));
+  }
+  return entries;
+}
 
 export function EncyclopediaView({
   subTab,
@@ -82,13 +131,17 @@ export function EncyclopediaView({
 }: EncyclopediaViewProps) {
   const [filterText, setFilterText] = useState('');
   const [weaponCategory, setWeaponCategory] = useState<'All' | Weapon['category']>('All');
+  const [weaponGroupMode, setWeaponGroupMode] = useState<'element' | 'category'>('element');
   const [elementFilter, setElementFilter] = useState<'All' | ElementType>('All');
   const [keywordFilter, setKeywordFilter] = useState<'All' | Archetype>('All');
+
   const [armorSlot, setArmorSlot] = useState<'All' | ArmorSet['slot']>('All');
-  const [modCategory, setModCategory] = useState<'All' | ModItem['modCategory']>('All');
+
   const [modSlot, setModSlot] = useState<'All' | ModItem['slot']>('All');
   const [modVariant, setModVariant] = useState<string>('All');
+  const [modViewMode, setModViewMode] = useState<'families' | 'variants'>('families');
   const [modVisibleLimit, setModVisibleLimit] = useState(MOD_PAGE_SIZE);
+
   const [devType, setDevType] = useState<'All' | Deviation['type']>('All');
   const [rarityFilter, setRarityFilter] = useState<'All' | Rarity>('All');
 
@@ -97,9 +150,29 @@ export function EncyclopediaView({
 
   const q = filterText.trim().toLowerCase();
 
+  // Map every mod family key `(slot::name)` to all its suffix variants (1,479 total)
+  const allModFamiliesMap = useMemo(() => {
+    const map = new Map<string, ModItem[]>();
+    for (const m of MODS) {
+      const key = `${m.slot}::${m.name}`;
+      const arr = map.get(key);
+      if (arr) arr.push(m);
+      else map.set(key, [m]);
+    }
+    return map;
+  }, []);
+
   useEffect(() => {
     setModVisibleLimit(MOD_PAGE_SIZE);
-  }, [q, modCategory, modSlot, modVariant, elementFilter, rarityFilter, subTab]);
+  }, [q, modSlot, modVariant, elementFilter, rarityFilter, modViewMode, subTab]);
+
+  // If jumped via Ctrl+K to a specific mod variant, open or focus cleanly
+  useEffect(() => {
+    if (subTab === 'mods' && highlightedId) {
+      const hit = MODS.find((m) => m.id === highlightedId);
+      if (hit) setModSlot(hit.slot);
+    }
+  }, [subTab, highlightedId]);
 
   const filteredWeapons = useMemo(
     () =>
@@ -123,6 +196,17 @@ export function EncyclopediaView({
     [q, weaponCategory, elementFilter, keywordFilter, rarityFilter],
   );
 
+  const weaponSections = useMemo(() => {
+    if (weaponGroupMode === 'element') {
+      return groupBySection(
+        filteredWeapons,
+        (w) => (w.archetype === 'Standard' ? 'Standard / Melee' : w.element),
+        ['Blaze', 'Frost', 'Shock', 'Blast', 'Physical', 'Standard / Melee'],
+      );
+    }
+    return groupBySection(filteredWeapons, (w) => w.category, WEAPON_CATEGORIES.slice(1));
+  }, [filteredWeapons, weaponGroupMode]);
+
   const filteredArmor = useMemo(
     () =>
       ARMOR_SETS.filter((a) => {
@@ -141,10 +225,18 @@ export function EncyclopediaView({
     [q, armorSlot, rarityFilter],
   );
 
+  const armorSections = useMemo(
+    () =>
+      groupBySection(
+        filteredArmor,
+        (a) => a.setName || (a.isKeyPiece ? 'Key Armor Pieces' : 'Standalone Gear'),
+      ),
+    [filteredArmor],
+  );
+
   const filteredMods = useMemo(
     () =>
       MODS.filter((m) => {
-        if (modCategory !== 'All' && m.modCategory !== modCategory) return false;
         if (modSlot !== 'All' && m.slot !== modSlot) return false;
         if (modVariant !== 'All' && m.variant !== modVariant) return false;
         if (elementFilter !== 'All' && m.element !== elementFilter) return false;
@@ -161,17 +253,32 @@ export function EncyclopediaView({
         }
         return true;
       }),
-    [q, modCategory, modSlot, modVariant, elementFilter, rarityFilter],
+    [q, modSlot, modVariant, elementFilter, rarityFilter],
   );
 
-  const visibleMods = useMemo(() => {
-    if (!highlightedId) return filteredMods.slice(0, modVisibleLimit);
-    const hitIdx = filteredMods.findIndex((m) => m.id === highlightedId);
-    if (hitIdx >= modVisibleLimit) {
-      return filteredMods.slice(0, hitIdx + 1);
+  const modFamilyGroups = useMemo<ModFamilyGroup[]>(() => {
+    const grouped = new Map<string, ModItem[]>();
+    for (const m of filteredMods) {
+      const key = `${m.slot}::${m.name}`;
+      const list = grouped.get(key);
+      if (list) list.push(m);
+      else grouped.set(key, [m]);
     }
-    return filteredMods.slice(0, modVisibleLimit);
-  }, [filteredMods, modVisibleLimit, highlightedId]);
+    return Array.from(grouped.entries()).map(([key, matches]) => {
+      const rep = matches.find((x) => x.variant === 'General') ?? matches[0];
+      const fullVariants = allModFamiliesMap.get(key) ?? matches;
+      return { key, representative: rep, variants: fullVariants };
+    });
+  }, [filteredMods, allModFamiliesMap]);
+
+  const modFamilySections = useMemo(() => {
+    if (modSlot === 'All') {
+      return groupBySection(modFamilyGroups, (g) => g.representative.slot, MOD_SLOT_ORDER);
+    }
+    return groupBySection(modFamilyGroups, (g) => g.representative.element, ELEMENT_ORDER);
+  }, [modFamilyGroups, modSlot]);
+
+  const visibleFlatMods = useMemo(() => filteredMods.slice(0, modVisibleLimit), [filteredMods, modVisibleLimit]);
 
   const filteredDeviations = useMemo(
     () =>
@@ -190,6 +297,16 @@ export function EncyclopediaView({
         return true;
       }),
     [q, devType, rarityFilter],
+  );
+
+  const deviationSections = useMemo(
+    () =>
+      groupBySection(
+        filteredDeviations,
+        (d) => d.element,
+        ['Blaze', 'Frost', 'Shock', 'Acid', 'Physical', 'Utility'],
+      ),
+    [filteredDeviations],
   );
 
   const filteredRecipes = useMemo(
@@ -228,24 +345,14 @@ export function EncyclopediaView({
     [q],
   );
 
-  const showingCount =
-    subTab === 'weapons'
-      ? `${filteredWeapons.length} / ${WEAPONS.length}`
-      : subTab === 'armor'
-        ? `${filteredArmor.length} / ${ARMOR_SETS.length}`
-        : subTab === 'mods'
-          ? `${filteredMods.length} / ${MODS.length}`
-          : subTab === 'deviations'
-            ? `${filteredDeviations.length} / ${DEVIATIONS.length}`
-            : null;
-
   return (
-    <div className="space-y-5">
+    <div className="space-y-4">
+      {/* Header + Toolbar */}
       <div className="flex flex-col justify-between gap-3 border-b border-obsidian-800 pb-4 lg:flex-row lg:items-end">
         <div>
           <h1 className="text-xl font-semibold text-white">Encyclopedia</h1>
           <p className="mt-0.5 text-xs text-slate-400">
-            Organized by weapon type, gear slot, element, keyword, and mod variant.
+            Organized by gear slot, element, keyword, set, and mod variant.
           </p>
         </div>
 
@@ -255,11 +362,11 @@ export function EncyclopediaView({
               <select
                 value={weaponCategory}
                 onChange={(e) => setWeaponCategory(e.target.value as 'All' | Weapon['category'])}
-                className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none focus:border-obsidian-600"
+                className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none"
               >
                 {WEAPON_CATEGORIES.map((cat) => (
                   <option key={cat} value={cat}>
-                    {cat === 'All' ? 'All Types' : cat}
+                    {cat === 'All' ? 'All Weapon Types' : cat}
                   </option>
                 ))}
               </select>
@@ -267,7 +374,7 @@ export function EncyclopediaView({
               <select
                 value={keywordFilter}
                 onChange={(e) => setKeywordFilter(e.target.value as 'All' | Archetype)}
-                className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none focus:border-obsidian-600"
+                className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none"
               >
                 {KEYWORDS.map((kw) => (
                   <option key={kw} value={kw}>
@@ -275,96 +382,48 @@ export function EncyclopediaView({
                   </option>
                 ))}
               </select>
-            </>
-          )}
 
-          {subTab === 'armor' && (
-            <select
-              value={armorSlot}
-              onChange={(e) => setArmorSlot(e.target.value as 'All' | ArmorSet['slot'])}
-              className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none focus:border-obsidian-600"
-            >
-              {ARMOR_SLOTS.map((s) => (
-                <option key={s} value={s}>
-                  {s === 'All' ? 'All Slots' : s}
-                </option>
-              ))}
-            </select>
+              <select
+                value={weaponGroupMode}
+                onChange={(e) => setWeaponGroupMode(e.target.value as 'element' | 'category')}
+                className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none"
+              >
+                <option value="element">Group: Element</option>
+                <option value="category">Group: Weapon Type</option>
+              </select>
+            </>
           )}
 
           {subTab === 'mods' && (
             <>
               <select
-                value={modCategory}
-                onChange={(e) => setModCategory(e.target.value as 'All' | ModItem['modCategory'])}
-                className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none focus:border-obsidian-600"
-              >
-                {MOD_CATEGORIES.map((c) => (
-                  <option key={c} value={c}>
-                    {c === 'All' ? 'All Categories' : `${c}s`}
-                  </option>
-                ))}
-              </select>
-
-              <select
-                value={modSlot}
-                onChange={(e) => setModSlot(e.target.value as 'All' | ModItem['slot'])}
-                className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none focus:border-obsidian-600"
-              >
-                {MOD_SLOTS.map((s) => (
-                  <option key={s} value={s}>
-                    {s === 'All' ? 'All Slots' : s}
-                  </option>
-                ))}
-              </select>
-
-              <select
                 value={modVariant}
                 onChange={(e) => setModVariant(e.target.value)}
-                className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none focus:border-obsidian-600"
+                className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none"
               >
                 {MOD_VARIANTS.map((v) => (
                   <option key={v} value={v}>
-                    {v === 'All' ? 'All Variants' : v}
+                    {v === 'All' ? 'All Suffixes' : v}
                   </option>
                 ))}
               </select>
+
+              <select
+                value={modViewMode}
+                onChange={(e) => setModViewMode(e.target.value as 'families' | 'variants')}
+                className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none"
+              >
+                <option value="families">Grouped ({modFamilyGroups.length} families)</option>
+                <option value="variants">All Variants ({filteredMods.length})</option>
+              </select>
             </>
-          )}
-
-          {subTab === 'deviations' && (
-            <select
-              value={devType}
-              onChange={(e) => setDevType(e.target.value as 'All' | Deviation['type'])}
-              className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none focus:border-obsidian-600"
-            >
-              {DEV_TYPES.map((t) => (
-                <option key={t} value={t}>
-                  {t === 'All' ? 'All Types' : t}
-                </option>
-              ))}
-            </select>
-          )}
-
-          {(subTab === 'weapons' || subTab === 'mods') && (
-            <select
-              value={elementFilter}
-              onChange={(e) => setElementFilter(e.target.value as 'All' | ElementType)}
-              className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none focus:border-obsidian-600"
-            >
-              {ELEMENTS.filter((el) => subTab === 'mods' || el !== 'Universal').map((el) => (
-                <option key={el} value={el}>
-                  {el === 'All' ? 'All Elements' : el}
-                </option>
-              ))}
-            </select>
           )}
 
           {(subTab === 'weapons' || subTab === 'armor' || subTab === 'mods' || subTab === 'deviations') && (
             <select
               value={rarityFilter}
               onChange={(e) => setRarityFilter(e.target.value as 'All' | Rarity)}
-              className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none focus:border-obsidian-600"
+              className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none"
             >
               {RARITIES.map((rar) => (
                 <option key={rar} value={rar}>
@@ -378,219 +437,428 @@ export function EncyclopediaView({
             type="text"
             value={filterText}
             onChange={(e) => setFilterText(e.target.value)}
-            placeholder="Filter..."
+            placeholder="Search..."
             className="w-40 rounded-lg border border-obsidian-800 bg-obsidian-900 px-3 py-1.5 text-xs text-white placeholder-slate-500 outline-none focus:border-obsidian-600 sm:w-48"
           />
         </div>
       </div>
 
-      {/* Sub-navigation strip */}
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <div className="flex flex-wrap gap-1">
-          {SUB_TABS.map((tab) => {
-            const Icon = tab.icon;
-            const active = subTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                type="button"
-                onClick={() => onChangeSubTab(tab.id)}
-                className={cn(
-                  'inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs font-medium transition',
-                  active
-                    ? 'border-obsidian-700 bg-obsidian-800 text-white'
-                    : 'border-transparent text-slate-400 hover:bg-obsidian-900 hover:text-slate-200',
-                )}
-              >
-                <Icon className="h-3.5 w-3.5" />
-                {tab.label}
-              </button>
-            );
-          })}
-        </div>
-
-        {showingCount && <span className="font-mono text-[11px] text-slate-500">{showingCount}</span>}
+      {/* Category Tabs */}
+      <div className="flex flex-wrap gap-1">
+        {SUB_TABS.map((tab) => {
+          const Icon = tab.icon;
+          const active = subTab === tab.id;
+          return (
+            <button
+              key={tab.id}
+              type="button"
+              onClick={() => onChangeSubTab(tab.id)}
+              className={cn(
+                'inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs font-medium transition',
+                active
+                  ? 'border-obsidian-700 bg-obsidian-800 text-white'
+                  : 'border-transparent text-slate-400 hover:bg-obsidian-900 hover:text-slate-200',
+              )}
+            >
+              <Icon className="h-3.5 w-3.5" />
+              {tab.label}
+            </button>
+          );
+        })}
       </div>
 
+      {/* WEAPONS */}
       {subTab === 'weapons' && (
-        <div className="grid gap-2.5 md:grid-cols-2 xl:grid-cols-3">
-          {filteredWeapons.map((w) => (
-            <button
-              key={w.id}
-              type="button"
-              onClick={() => setInspectedWeapon(w)}
-              className={cn(
-                'group flex items-center gap-3 rounded-xl border border-l-2 bg-obsidian-900/70 px-3.5 py-3 text-left transition hover:bg-obsidian-850',
-                RARITY_LEFT_BORDER[w.rarity],
-                highlightedId === w.id ? 'border-stardust-400/60 ring-1 ring-stardust-400/30' : 'border-obsidian-800',
-              )}
-            >
-              <WeaponThumbnail weapon={w} size="sm" />
-
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center justify-between gap-2">
-                  <h3 className="truncate text-sm font-medium text-slate-100 group-hover:text-white">
-                    {w.name}
-                  </h3>
-                  <span className={cn('shrink-0 text-[10px] font-medium uppercase tracking-wider', RARITY_TEXT[w.rarity])}>
-                    {w.rarity}
-                  </span>
-                </div>
-
-                <div className="mt-1 flex items-center gap-1.5 truncate text-[11px] text-slate-400">
-                  <span>{w.category}</span>
-                  <span className="text-slate-600">·</span>
-                  <span className={ELEMENT_TEXT[w.element]}>{w.element}</span>
-                  <span className="text-slate-600">·</span>
-                  <span className="font-mono">{w.baseDamage} DMG</span>
-                  <span className="text-slate-600">·</span>
-                  <span className="font-mono">{w.fireRateRpm} RPM</span>
-                </div>
-              </div>
-            </button>
-          ))}
-        </div>
-      )}
-
-      {subTab === 'armor' && (
-        <div className="grid gap-2.5 md:grid-cols-2 xl:grid-cols-3">
-          {filteredArmor.map((a) => (
-            <button
-              key={a.id}
-              type="button"
-              onClick={() => setInspectedEntity({ kind: 'armor', item: a })}
-              className={cn(
-                'group flex items-center gap-3 rounded-xl border border-l-2 bg-obsidian-900/70 px-3.5 py-3 text-left transition hover:bg-obsidian-850',
-                RARITY_LEFT_BORDER[a.rarity],
-                highlightedId === a.id ? 'border-stardust-400/60 ring-1 ring-stardust-400/30' : 'border-obsidian-800',
-              )}
-            >
-              <EntityThumbnail src={a.imageUrl} alt={a.name} rarity={a.rarity} size="md" fallbackKind="armor" />
-
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center justify-between gap-2">
-                  <h3 className="truncate text-sm font-medium text-slate-100 group-hover:text-white">
-                    {a.name}
-                  </h3>
-                  <span className={cn('shrink-0 text-[10px] font-medium uppercase tracking-wider', RARITY_TEXT[a.rarity])}>
-                    {a.rarity}
-                  </span>
-                </div>
-
-                <div className="mt-1 flex items-center gap-2 truncate text-[11px] text-slate-400">
-                  <span>{a.slot}</span>
-                  {a.hp > 0 && (
-                    <>
-                      <span className="text-slate-600">·</span>
-                      <span className="font-mono">{a.hp} HP</span>
-                    </>
+        <div className="space-y-5">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-obsidian-800/80 pb-3">
+            <div className="flex flex-wrap gap-1">
+              {WEAPON_ELEMENTS.map((el) => (
+                <button
+                  key={el.id}
+                  type="button"
+                  onClick={() => setElementFilter(el.id)}
+                  className={cn(
+                    'rounded-md border px-2.5 py-1 text-[11px] font-medium transition',
+                    elementFilter === el.id
+                      ? 'border-obsidian-700 bg-obsidian-800 text-white'
+                      : 'border-transparent text-slate-400 hover:bg-obsidian-900 hover:text-slate-200',
                   )}
-                  {a.setName && (
-                    <>
-                      <span className="text-slate-600">·</span>
-                      <span className="truncate text-slate-500">{a.setName}</span>
-                    </>
-                  )}
-                </div>
-              </div>
-            </button>
-          ))}
-        </div>
-      )}
-
-      {subTab === 'mods' && (
-        <div className="space-y-4">
-          <div className="grid gap-2.5 md:grid-cols-2 xl:grid-cols-3">
-            {visibleMods.map((m) => (
-              <button
-                key={m.id}
-                type="button"
-                onClick={() => setInspectedEntity({ kind: 'mod', item: m })}
-                className={cn(
-                  'group flex items-center gap-3 rounded-xl border border-l-2 bg-obsidian-900/70 px-3.5 py-3 text-left transition hover:bg-obsidian-850',
-                  RARITY_LEFT_BORDER[m.rarity],
-                  highlightedId === m.id ? 'border-stardust-400/60 ring-1 ring-stardust-400/30' : 'border-obsidian-800',
-                )}
-              >
-                <EntityThumbnail src={m.imageUrl} alt={m.name} rarity={m.rarity} size="md" fallbackKind="mod" />
-
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center justify-between gap-2">
-                    <h3 className="truncate text-sm font-medium text-slate-100 group-hover:text-white">
-                      {m.name}
-                    </h3>
-                    <span className="shrink-0 text-[10px] font-medium text-slate-400">
-                      {m.variant}
-                    </span>
-                  </div>
-
-                  <div className="mt-1 flex items-center gap-1.5 truncate text-[11px] text-slate-400">
-                    <span>{m.slot}</span>
-                    <span className="text-slate-600">·</span>
-                    <span className={ELEMENT_TEXT[m.element]}>{m.element}</span>
-                    <span className="text-slate-600">·</span>
-                    <span className="truncate text-slate-500">{m.primaryEffect}</span>
-                  </div>
-                </div>
-              </button>
-            ))}
+                >
+                  {el.label}
+                </button>
+              ))}
+            </div>
+            <span className="font-mono text-[11px] text-slate-500">
+              {filteredWeapons.length} / {WEAPONS.length}
+            </span>
           </div>
 
-          {filteredMods.length > visibleMods.length && (
-            <div className="flex items-center justify-center gap-2 pt-2">
-              <button
-                type="button"
-                onClick={() => setModVisibleLimit((v) => v + MOD_PAGE_SIZE)}
-                className="rounded-lg border border-obsidian-700 bg-obsidian-900 px-4 py-2 text-xs font-medium text-slate-200 hover:bg-obsidian-800"
-              >
-                Show next {Math.min(MOD_PAGE_SIZE, filteredMods.length - visibleMods.length)} ({visibleMods.length} / {filteredMods.length})
-              </button>
-              <button
-                type="button"
-                onClick={() => setModVisibleLimit(filteredMods.length)}
-                className="rounded-lg border border-obsidian-800 bg-obsidian-950 px-3 py-2 text-xs text-slate-400 hover:text-white"
-              >
-                Show all
-              </button>
+          {weaponSections.map(([sectionTitle, list]) => (
+            <section key={sectionTitle} className="space-y-2.5">
+              <div className="flex items-center justify-between border-b border-obsidian-800/60 pb-1.5">
+                <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+                  {sectionTitle}
+                </h2>
+                <span className="font-mono text-[11px] text-slate-500">{list.length}</span>
+              </div>
+
+              <div className="grid gap-2.5 md:grid-cols-2 xl:grid-cols-3">
+                {list.map((w) => (
+                  <button
+                    key={w.id}
+                    type="button"
+                    onClick={() => setInspectedWeapon(w)}
+                    className={cn(
+                      'group flex items-center gap-3 rounded-xl border border-l-2 bg-obsidian-900/70 px-3.5 py-3 text-left transition hover:bg-obsidian-850',
+                      RARITY_LEFT_BORDER[w.rarity],
+                      highlightedId === w.id ? 'border-stardust-400/60 ring-1 ring-stardust-400/30' : 'border-obsidian-800',
+                    )}
+                  >
+                    <WeaponThumbnail weapon={w} size="sm" />
+
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center justify-between gap-2">
+                        <h3 className="truncate text-sm font-medium text-slate-100 group-hover:text-white">
+                          {w.name}
+                        </h3>
+                        <span className={cn('shrink-0 text-[10px] font-medium uppercase tracking-wider', RARITY_TEXT[w.rarity])}>
+                          {w.rarity}
+                        </span>
+                      </div>
+
+                      <div className="mt-1 flex items-center gap-1.5 truncate text-[11px] text-slate-400">
+                        <span>{w.category}</span>
+                        {w.archetype !== 'Standard' && (
+                          <>
+                            <span className="text-slate-600">·</span>
+                            <span className={ELEMENT_TEXT[w.element]}>{w.archetype}</span>
+                          </>
+                        )}
+                        <span className="text-slate-600">·</span>
+                        <span className="font-mono">{w.baseDamage} DMG</span>
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+      )}
+
+      {/* ARMOR */}
+      {subTab === 'armor' && (
+        <div className="space-y-5">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-obsidian-800/80 pb-3">
+            <div className="flex flex-wrap gap-1">
+              {ARMOR_SLOTS.map((s) => (
+                <button
+                  key={s}
+                  type="button"
+                  onClick={() => setArmorSlot(s)}
+                  className={cn(
+                    'rounded-md border px-2.5 py-1 text-[11px] font-medium transition',
+                    armorSlot === s
+                      ? 'border-obsidian-700 bg-obsidian-800 text-white'
+                      : 'border-transparent text-slate-400 hover:bg-obsidian-900 hover:text-slate-200',
+                  )}
+                >
+                  {s === 'All' ? 'All Slots' : s}
+                </button>
+              ))}
+            </div>
+            <span className="font-mono text-[11px] text-slate-500">
+              {filteredArmor.length} / {ARMOR_SETS.length}
+            </span>
+          </div>
+
+          {armorSections.map(([setTitle, list]) => (
+            <section key={setTitle} className="space-y-2.5">
+              <div className="flex items-center justify-between border-b border-obsidian-800/60 pb-1.5">
+                <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+                  {setTitle}
+                </h2>
+                <span className="font-mono text-[11px] text-slate-500">{list.length}</span>
+              </div>
+
+              <div className="grid gap-2.5 md:grid-cols-2 xl:grid-cols-3">
+                {list.map((a) => (
+                  <button
+                    key={a.id}
+                    type="button"
+                    onClick={() => setInspectedEntity({ kind: 'armor', item: a })}
+                    className={cn(
+                      'group flex items-center gap-3 rounded-xl border border-l-2 bg-obsidian-900/70 px-3.5 py-3 text-left transition hover:bg-obsidian-850',
+                      RARITY_LEFT_BORDER[a.rarity],
+                      highlightedId === a.id ? 'border-stardust-400/60 ring-1 ring-stardust-400/30' : 'border-obsidian-800',
+                    )}
+                  >
+                    <EntityThumbnail src={a.imageUrl} alt={a.name} rarity={a.rarity} size="md" fallbackKind="armor" />
+
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center justify-between gap-2">
+                        <h3 className="truncate text-sm font-medium text-slate-100 group-hover:text-white">
+                          {a.name}
+                        </h3>
+                        <span className={cn('shrink-0 text-[10px] font-medium uppercase tracking-wider', RARITY_TEXT[a.rarity])}>
+                          {a.rarity}
+                        </span>
+                      </div>
+
+                      <div className="mt-1 flex items-center gap-2 truncate text-[11px] text-slate-400">
+                        <span>{a.slot}</span>
+                        {a.hp > 0 && (
+                          <>
+                            <span className="text-slate-600">·</span>
+                            <span className="font-mono">{a.hp} HP</span>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+      )}
+
+      {/* MODS */}
+      {subTab === 'mods' && (
+        <div className="space-y-5">
+          {/* In-game Slot Tabs + Element Filter Bar */}
+          <div className="space-y-2 border-b border-obsidian-800/80 pb-3">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex flex-wrap gap-1">
+                {MOD_SLOTS.map((s) => (
+                  <button
+                    key={s}
+                    type="button"
+                    onClick={() => setModSlot(s)}
+                    className={cn(
+                      'rounded-md border px-2.5 py-1 text-[11px] font-medium transition',
+                      modSlot === s
+                        ? 'border-obsidian-700 bg-obsidian-800 text-white'
+                        : 'border-transparent text-slate-400 hover:bg-obsidian-900 hover:text-slate-200',
+                    )}
+                  >
+                    {s === 'All' ? 'All Slots' : s}
+                  </button>
+                ))}
+              </div>
+
+              <span className="font-mono text-[11px] text-slate-500">
+                {modViewMode === 'families'
+                  ? `${modFamilyGroups.length} families (${filteredMods.length} variants)`
+                  : `${filteredMods.length} / ${MODS.length}`}
+              </span>
+            </div>
+
+            <div className="flex flex-wrap gap-1">
+              {MOD_ELEMENTS.map((el) => (
+                <button
+                  key={el.id}
+                  type="button"
+                  onClick={() => setElementFilter(el.id)}
+                  className={cn(
+                    'rounded-md border px-2 py-0.5 text-[11px] transition',
+                    elementFilter === el.id
+                      ? 'border-obsidian-700 bg-obsidian-800 text-slate-100'
+                      : 'border-transparent text-slate-500 hover:text-slate-300',
+                  )}
+                >
+                  {el.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {modViewMode === 'families' ? (
+            modFamilySections.map(([sectionTitle, groups]) => (
+              <section key={sectionTitle} className="space-y-2.5">
+                <div className="flex items-center justify-between border-b border-obsidian-800/60 pb-1.5">
+                  <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+                    {modSlot === 'All' ? `${sectionTitle} Slot` : `${sectionTitle} Element`}
+                  </h2>
+                  <span className="font-mono text-[11px] text-slate-500">{groups.length} mods</span>
+                </div>
+
+                <div className="grid gap-2.5 md:grid-cols-2 xl:grid-cols-3">
+                  {groups.map(({ key, representative: m, variants }) => (
+                    <button
+                      key={key}
+                      type="button"
+                      onClick={() => setInspectedEntity({ kind: 'mod', item: m, variants })}
+                      className={cn(
+                        'group flex items-center gap-3 rounded-xl border border-l-2 bg-obsidian-900/70 px-3.5 py-3 text-left transition hover:bg-obsidian-850',
+                        RARITY_LEFT_BORDER[m.rarity],
+                        variants.some((v) => v.id === highlightedId)
+                          ? 'border-stardust-400/60 ring-1 ring-stardust-400/30'
+                          : 'border-obsidian-800',
+                      )}
+                    >
+                      <EntityThumbnail src={m.imageUrl} alt={m.name} rarity={m.rarity} size="md" fallbackKind="mod" />
+
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center justify-between gap-2">
+                          <h3 className="truncate text-sm font-medium text-slate-100 group-hover:text-white">
+                            {m.name}
+                          </h3>
+                          <span className="shrink-0 font-mono text-[10px] text-slate-500">
+                            {variants.length} var
+                          </span>
+                        </div>
+
+                        <div className="mt-1 flex items-center gap-1.5 truncate text-[11px] text-slate-400">
+                          <span className={ELEMENT_TEXT[m.element]}>{m.element}</span>
+                          <span className="text-slate-600">·</span>
+                          <span className="truncate text-slate-400">{m.primaryEffect}</span>
+                        </div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </section>
+            ))
+          ) : (
+            <div className="space-y-4">
+              <div className="grid gap-2.5 md:grid-cols-2 xl:grid-cols-3">
+                {visibleFlatMods.map((m) => (
+                  <button
+                    key={m.id}
+                    type="button"
+                    onClick={() =>
+                      setInspectedEntity({
+                        kind: 'mod',
+                        item: m,
+                        variants: allModFamiliesMap.get(`${m.slot}::${m.name}`),
+                      })
+                    }
+                    className={cn(
+                      'group flex items-center gap-3 rounded-xl border border-l-2 bg-obsidian-900/70 px-3.5 py-3 text-left transition hover:bg-obsidian-850',
+                      RARITY_LEFT_BORDER[m.rarity],
+                      highlightedId === m.id ? 'border-stardust-400/60 ring-1 ring-stardust-400/30' : 'border-obsidian-800',
+                    )}
+                  >
+                    <EntityThumbnail src={m.imageUrl} alt={m.name} rarity={m.rarity} size="md" fallbackKind="mod" />
+
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center justify-between gap-2">
+                        <h3 className="truncate text-sm font-medium text-slate-100 group-hover:text-white">
+                          {m.name}
+                        </h3>
+                        <span className="shrink-0 text-[10px] font-medium text-slate-400">
+                          {m.variant}
+                        </span>
+                      </div>
+
+                      <div className="mt-1 flex items-center gap-1.5 truncate text-[11px] text-slate-400">
+                        <span>{m.slot}</span>
+                        <span className="text-slate-600">·</span>
+                        <span className={ELEMENT_TEXT[m.element]}>{m.element}</span>
+                        <span className="text-slate-600">·</span>
+                        <span className="truncate text-slate-500">{m.primaryEffect}</span>
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+
+              {filteredMods.length > visibleFlatMods.length && (
+                <div className="flex items-center justify-center gap-2 pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setModVisibleLimit((v) => v + MOD_PAGE_SIZE)}
+                    className="rounded-lg border border-obsidian-700 bg-obsidian-900 px-4 py-2 text-xs font-medium text-slate-200 hover:bg-obsidian-800"
+                  >
+                    Show next {Math.min(MOD_PAGE_SIZE, filteredMods.length - visibleFlatMods.length)} ({visibleFlatMods.length} / {filteredMods.length})
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setModVisibleLimit(filteredMods.length)}
+                    className="rounded-lg border border-obsidian-800 bg-obsidian-950 px-3 py-2 text-xs text-slate-400 hover:text-white"
+                  >
+                    Show all
+                  </button>
+                </div>
+              )}
             </div>
           )}
         </div>
       )}
 
+      {/* DEVIATIONS */}
       {subTab === 'deviations' && (
-        <div className="grid gap-2.5 md:grid-cols-2 xl:grid-cols-3">
-          {filteredDeviations.map((d) => (
-            <button
-              key={d.id}
-              type="button"
-              onClick={() => setInspectedEntity({ kind: 'deviation', item: d })}
-              className={cn(
-                'group flex items-center gap-3 rounded-xl border border-l-2 bg-obsidian-900/70 px-3.5 py-3 text-left transition hover:bg-obsidian-850',
-                RARITY_LEFT_BORDER[d.rarity],
-                highlightedId === d.id ? 'border-stardust-400/60 ring-1 ring-stardust-400/30' : 'border-obsidian-800',
-              )}
-            >
-              <EntityThumbnail src={d.imageUrl} alt={d.name} rarity={d.rarity} size="md" fallbackKind="deviation" />
+        <div className="space-y-5">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-obsidian-800/80 pb-3">
+            <div className="flex flex-wrap gap-1">
+              {DEV_TYPES.map((t) => (
+                <button
+                  key={t}
+                  type="button"
+                  onClick={() => setDevType(t)}
+                  className={cn(
+                    'rounded-md border px-2.5 py-1 text-[11px] font-medium transition',
+                    devType === t
+                      ? 'border-obsidian-700 bg-obsidian-800 text-white'
+                      : 'border-transparent text-slate-400 hover:bg-obsidian-900 hover:text-slate-200',
+                  )}
+                >
+                  {t === 'All' ? 'All Types' : t}
+                </button>
+              ))}
+            </div>
+            <span className="font-mono text-[11px] text-slate-500">
+              {filteredDeviations.length} / {DEVIATIONS.length}
+            </span>
+          </div>
 
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center justify-between gap-2">
-                  <h3 className="truncate text-sm font-medium text-slate-100 group-hover:text-white">
-                    {d.name}
-                  </h3>
-                  <span className="shrink-0 text-[10px] font-medium uppercase tracking-wider text-slate-400">
-                    {d.type}
-                  </span>
-                </div>
-
-                <div className="mt-1 truncate text-[11px] text-slate-400">
-                  {d.element} · {d.skillSummary}
-                </div>
+          {deviationSections.map(([elemTitle, list]) => (
+            <section key={elemTitle} className="space-y-2.5">
+              <div className="flex items-center justify-between border-b border-obsidian-800/60 pb-1.5">
+                <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+                  {elemTitle}
+                </h2>
+                <span className="font-mono text-[11px] text-slate-500">{list.length}</span>
               </div>
-            </button>
+
+              <div className="grid gap-2.5 md:grid-cols-2 xl:grid-cols-3">
+                {list.map((d) => (
+                  <button
+                    key={d.id}
+                    type="button"
+                    onClick={() => setInspectedEntity({ kind: 'deviation', item: d })}
+                    className={cn(
+                      'group flex items-center gap-3 rounded-xl border border-l-2 bg-obsidian-900/70 px-3.5 py-3 text-left transition hover:bg-obsidian-850',
+                      RARITY_LEFT_BORDER[d.rarity],
+                      highlightedId === d.id ? 'border-stardust-400/60 ring-1 ring-stardust-400/30' : 'border-obsidian-800',
+                    )}
+                  >
+                    <EntityThumbnail src={d.imageUrl} alt={d.name} rarity={d.rarity} size="md" fallbackKind="deviation" />
+
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center justify-between gap-2">
+                        <h3 className="truncate text-sm font-medium text-slate-100 group-hover:text-white">
+                          {d.name}
+                        </h3>
+                        <span className="shrink-0 text-[10px] font-medium uppercase tracking-wider text-slate-400">
+                          {d.type}
+                        </span>
+                      </div>
+
+                      <div className="mt-1 truncate text-[11px] text-slate-400">
+                        {d.skillSummary}
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </section>
           ))}
         </div>
       )}
 
+      {/* CHEF */}
       {subTab === 'chef' && (
         <div className="grid gap-3 md:grid-cols-2">
           {filteredRecipes.map((r) => (
@@ -618,6 +886,7 @@ export function EncyclopediaView({
         </div>
       )}
 
+      {/* ENCOUNTERS */}
       {subTab === 'encounters' && (
         <div className="grid gap-3 md:grid-cols-2">
           {filteredEncounters.map((e) => (
@@ -642,6 +911,7 @@ export function EncyclopediaView({
         </div>
       )}
 
+      {/* SPECIALIZATIONS */}
       {subTab === 'classes' && (
         <div className="grid gap-3 md:grid-cols-2">
           {filteredSpecs.map((s) => (
@@ -672,6 +942,11 @@ export function EncyclopediaView({
       <EntityDetailModal
         entity={inspectedEntity}
         onClose={() => setInspectedEntity(null)}
+        onSelectModVariant={(mod) =>
+          setInspectedEntity((prev) =>
+            prev && prev.kind === 'mod' ? { kind: 'mod', item: mod, variants: prev.variants } : prev,
+          )
+        }
       />
     </div>
   );
