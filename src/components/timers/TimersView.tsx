@@ -41,31 +41,30 @@ export function TimersView() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col justify-between gap-4 border-b border-obsidian-700/80 pb-4 sm:flex-row sm:items-center">
+    <div className="space-y-5">
+      <div className="flex flex-col justify-between gap-3 border-b border-obsidian-800 pb-4 sm:flex-row sm:items-center">
         <div>
-          <h1 className="text-2xl font-bold text-white">Event & Reset Timers</h1>
-          <p className="mt-1 text-sm text-slate-400">
-            Live countdowns for Cargo Scramble, Public Crisis waves, Prime Wars, and daily/weekly resets.
+          <h1 className="text-xl font-semibold text-white">Event & Reset Timers</h1>
+          <p className="mt-0.5 text-xs text-slate-400">
+            Countdowns for Cargo Scramble, Public Crisis waves, Prime Wars, and daily/weekly resets.
           </p>
         </div>
 
         <button
           type="button"
           onClick={toggleAlerts}
-          className={`inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-xs font-medium transition ${
+          className={`inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-xs font-medium transition ${
             alertsEnabled
-              ? 'border-emerald-400/50 bg-emerald-500/15 text-emerald-200'
-              : 'border-obsidian-700 bg-obsidian-900 text-slate-300 hover:text-white'
+              ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-300'
+              : 'border-obsidian-800 bg-obsidian-900 text-slate-300 hover:text-white'
           }`}
         >
           {alertsEnabled ? <Bell className="h-3.5 w-3.5" /> : <BellOff className="h-3.5 w-3.5" />}
-          {alertsEnabled ? 'Browser Alerts Armed' : 'Enable Browser Alerts'}
+          {alertsEnabled ? 'Alerts Armed' : 'Enable Alerts'}
         </button>
       </div>
 
-      {/* World Event Cards */}
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-3 md:grid-cols-2">
         {TIMER_EVENTS.map((evt) => {
           const status = getTimerStatus(evt, now);
           return (
@@ -73,8 +72,8 @@ export function TimersView() {
               key={evt.id}
               className={`rounded-xl border p-4 transition ${
                 status.isActive
-                  ? 'border-emerald-400/50 bg-emerald-500/5'
-                  : 'border-obsidian-700 bg-obsidian-900'
+                  ? 'border-emerald-500/35 bg-obsidian-900/90'
+                  : 'border-obsidian-800 bg-obsidian-900/60'
               }`}
             >
               <div className="flex items-start justify-between gap-3">
@@ -82,22 +81,22 @@ export function TimersView() {
                   <div className="flex items-center gap-2">
                     <Pill>{evt.category}</Pill>
                     {status.isActive && (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/20 px-2 py-0.5 text-[11px] font-semibold text-emerald-300">
-                        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
-                        LIVE NOW
+                      <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-400">
+                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                        Live
                       </span>
                     )}
                   </div>
-                  <h2 className="mt-2 text-base font-bold text-white">{evt.name}</h2>
+                  <h2 className="mt-2 text-sm font-semibold text-white">{evt.name}</h2>
                 </div>
 
                 <div className="text-right">
-                  <div className="text-[11px] uppercase text-slate-500">
+                  <div className="text-[10px] uppercase tracking-wider text-slate-500">
                     {status.isActive ? 'Ends in' : 'Starts in'}
                   </div>
                   <div
-                    className={`font-mono text-xl font-bold ${
-                      status.isActive ? 'text-emerald-300' : 'text-stardust-glow'
+                    className={`font-mono text-lg font-semibold ${
+                      status.isActive ? 'text-emerald-300' : 'text-slate-100'
                     }`}
                   >
                     {formatCountdown(
@@ -107,17 +106,11 @@ export function TimersView() {
                 </div>
               </div>
 
-              <p className="mt-2 text-xs text-slate-300">{evt.description}</p>
+              <p className="mt-2 text-xs text-slate-400">{evt.description}</p>
 
-              <div className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-obsidian-800 pt-2.5">
-                <div className="flex flex-wrap gap-1">
-                  {evt.rewards.map((r) => (
-                    <span key={r} className="rounded bg-obsidian-950 px-2 py-0.5 text-[11px] text-slate-300">
-                      {r}
-                    </span>
-                  ))}
-                </div>
-                <span className="text-[11px] text-slate-500">
+              <div className="mt-3 flex items-center justify-between gap-2 border-t border-obsidian-800 pt-2.5 text-[11px] text-slate-500">
+                <span>{evt.rewards.join(' · ')}</span>
+                <span className="shrink-0">
                   Next: {status.nextStartDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </span>
               </div>
@@ -126,11 +119,10 @@ export function TimersView() {
         })}
       </div>
 
-      {/* Personal Territory / Food / Refinery Timers */}
-      <div className="rounded-xl border border-obsidian-700 bg-obsidian-900 p-4">
-        <h2 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-slate-300">
-          <Clock className="h-4 w-4 text-stardust-400" />
-          Personal Territory & Buff Timers
+      <div className="rounded-xl border border-obsidian-800 bg-obsidian-900/60 p-4">
+        <h2 className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-slate-400">
+          <Clock className="h-3.5 w-3.5" />
+          Personal Timers
         </h2>
 
         <div className="mt-3 flex flex-wrap gap-2">
@@ -138,8 +130,8 @@ export function TimersView() {
             type="text"
             value={customLabel}
             onChange={(e) => setCustomLabel(e.target.value)}
-            placeholder="e.g. Brewing Barrel Corn Ale, Purification, Stardust Pump"
-            className="min-w-[220px] flex-1 rounded-lg border border-obsidian-700 bg-obsidian-950 px-3 py-2 text-xs text-white placeholder-slate-500 outline-none focus:border-stardust-400"
+            placeholder="e.g. Brewing Barrel, Purification, Stardust Pump"
+            className="min-w-[220px] flex-1 rounded-lg border border-obsidian-800 bg-obsidian-950 px-3 py-1.5 text-xs text-white placeholder-slate-500 outline-none focus:border-obsidian-600"
           />
           <input
             type="number"
@@ -147,35 +139,31 @@ export function TimersView() {
             max={1440}
             value={customMinutes}
             onChange={(e) => setCustomMinutes(Number(e.target.value))}
-            className="w-24 rounded-lg border border-obsidian-700 bg-obsidian-950 px-3 py-2 text-xs text-white outline-none"
+            className="w-20 rounded-lg border border-obsidian-800 bg-obsidian-950 px-2.5 py-1.5 text-xs text-white outline-none"
           />
           <button
             type="button"
             onClick={handleAddPersonalTimer}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-stardust-500 px-3 py-2 text-xs font-semibold text-obsidian-950 hover:bg-stardust-400"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-obsidian-700 bg-obsidian-800 px-3 py-1.5 text-xs font-medium text-white hover:bg-obsidian-700"
           >
             <Plus className="h-3.5 w-3.5" />
-            Start Timer (min)
+            Start (min)
           </button>
         </div>
 
         {personalTimers.length > 0 && (
-          <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
             {personalTimers.map((pt) => {
               const remSec = Math.max(0, Math.ceil((pt.targetEpochMs - now.getTime()) / 1000));
               const done = remSec === 0;
               return (
                 <div
                   key={pt.id}
-                  className={`flex items-center justify-between rounded-lg border px-3 py-2.5 text-xs ${
-                    done
-                      ? 'border-amber-400/50 bg-amber-500/10'
-                      : 'border-obsidian-800 bg-obsidian-950'
-                  }`}
+                  className="flex items-center justify-between rounded-lg border border-obsidian-800 bg-obsidian-950/60 px-3 py-2 text-xs"
                 >
                   <div className="min-w-0">
-                    <div className="truncate font-semibold text-white">{pt.label}</div>
-                    <div className={`font-mono text-sm ${done ? 'text-amber-300' : 'text-stardust-400'}`}>
+                    <div className="truncate font-medium text-slate-200">{pt.label}</div>
+                    <div className={`font-mono text-xs ${done ? 'text-amber-300' : 'text-slate-400'}`}>
                       {done ? 'READY' : formatCountdown(remSec)}
                     </div>
                   </div>
@@ -185,7 +173,7 @@ export function TimersView() {
                     className="text-slate-500 hover:text-rose-400"
                     aria-label={`Remove ${pt.label}`}
                   >
-                    <Trash2 className="h-4 w-4" />
+                    <Trash2 className="h-3.5 w-3.5" />
                   </button>
                 </div>
               );

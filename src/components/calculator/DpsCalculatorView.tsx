@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { BookmarkPlus, Eye, RotateCcw, Save, Trash2, Zap } from 'lucide-react';
+import { BookmarkPlus, Eye, RotateCcw, Save, Trash2 } from 'lucide-react';
 import { META_BUILDS } from '../../data/buildsAndTimers';
 import { WEAPONS } from '../../data/weapons';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
@@ -32,10 +32,10 @@ interface SliderControlProps {
 
 function SliderControl({ label, value, min, max, step = 1, suffix = '%', onChange }: SliderControlProps) {
   return (
-    <div className="rounded-lg border border-obsidian-700/70 bg-obsidian-950/70 p-3">
+    <div className="py-2">
       <div className="mb-1.5 flex items-center justify-between text-xs">
         <span className="text-slate-300">{label}</span>
-        <span className="font-mono font-semibold text-stardust-400">
+        <span className="font-mono text-xs font-medium text-slate-200">
           {value}
           {suffix}
         </span>
@@ -47,7 +47,7 @@ function SliderControl({ label, value, min, max, step = 1, suffix = '%', onChang
         step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-obsidian-700 accent-cyan-400"
+        className="h-1 w-full cursor-pointer appearance-none rounded-lg bg-obsidian-800 accent-slate-300"
       />
     </div>
   );
@@ -89,20 +89,20 @@ export function DpsCalculatorView({ preset, onChangePreset, activeBuildName }: D
   };
 
   const handleSaveLoadout = () => {
-    const trimmed = saveName.trim() || `${weapon.name.split('—')[0].trim()} Custom`;
+    const trimmed = saveName.trim() || `${weapon.name.split('-')[0].trim()} Custom`;
     setSavedLoadouts((prev) => [{ id: `custom-${Date.now()}`, name: trimmed, preset }, ...prev]);
     setSaveName('');
   };
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col justify-between gap-4 border-b border-obsidian-700/80 pb-4 sm:flex-row sm:items-center">
+      <div className="flex flex-col justify-between gap-3 border-b border-obsidian-800 pb-4 sm:flex-row sm:items-center">
         <div>
-          <h1 className="text-2xl font-bold text-white">Build & DPS Calculator</h1>
-          <p className="mt-1 text-sm text-slate-400">
-            Simulate Burst DPS, Sustained Mag-Cycle DPS, Crit/Weakspot scaling, and Elemental proc damage.
+          <h1 className="text-xl font-semibold text-white">DPS Calculator</h1>
+          <p className="mt-0.5 text-xs text-slate-400">
+            Burst DPS, sustained mag-cycle DPS, crit/weakspot scaling, and elemental proc simulation.
             {activeBuildName && (
-              <span className="ml-2 text-stardust-400">Loaded preset: {activeBuildName}</span>
+              <span className="ml-2 text-slate-200">Preset: {activeBuildName}</span>
             )}
           </p>
         </div>
@@ -110,15 +110,15 @@ export function DpsCalculatorView({ preset, onChangePreset, activeBuildName }: D
           <button
             type="button"
             onClick={() => setComparePreset(preset)}
-            className="inline-flex items-center gap-1.5 rounded-lg border border-obsidian-700 bg-obsidian-800 px-3 py-2 text-xs font-medium text-slate-200 transition hover:border-stardust-400/50"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-obsidian-800 bg-obsidian-900 px-3 py-1.5 text-xs font-medium text-slate-300 transition hover:border-obsidian-700 hover:text-white"
           >
-            <BookmarkPlus className="h-3.5 w-3.5 text-stardust-400" />
-            Pin Baseline for Compare
+            <BookmarkPlus className="h-3.5 w-3.5" />
+            Pin Baseline
           </button>
           <button
             type="button"
             onClick={() => onChangePreset(META_BUILDS[0].preset)}
-            className="inline-flex items-center gap-1.5 rounded-lg border border-obsidian-700 bg-obsidian-800 px-3 py-2 text-xs font-medium text-slate-300 transition hover:text-white"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-obsidian-800 bg-obsidian-900 px-3 py-1.5 text-xs font-medium text-slate-400 transition hover:text-white"
           >
             <RotateCcw className="h-3.5 w-3.5" />
             Reset
@@ -126,105 +126,103 @@ export function DpsCalculatorView({ preset, onChangePreset, activeBuildName }: D
         </div>
       </div>
 
-      {/* Top KPI Cards */}
+      {/* KPI Strip */}
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-        <div className="rounded-xl border border-stardust-400/30 bg-gradient-to-br from-obsidian-900 to-obsidian-850 p-4">
-          <div className="text-xs font-medium text-slate-400">Sustained DPS (incl. reload)</div>
-          <div className="mt-1 font-mono text-2xl font-bold text-stardust-glow">
+        <div className="rounded-xl border border-obsidian-700 bg-obsidian-900/80 p-4">
+          <div className="text-[11px] font-medium text-slate-400">Sustained DPS</div>
+          <div className="mt-1 font-mono text-2xl font-semibold text-stardust-400">
             {result.sustainedDps.toLocaleString()}
           </div>
-          {compareResult && (
-            <div className="mt-1 text-xs text-slate-400">
+          {compareResult ? (
+            <div className="mt-1 text-[11px] text-slate-400">
               vs {compareResult.dps.sustainedDps.toLocaleString()} (
-              <span
-                className={
-                  result.sustainedDps >= compareResult.dps.sustainedDps ? 'text-emerald-400' : 'text-rose-400'
-                }
-              >
+              <span className={result.sustainedDps >= compareResult.dps.sustainedDps ? 'text-emerald-400' : 'text-rose-400'}>
                 {result.sustainedDps >= compareResult.dps.sustainedDps ? '+' : ''}
                 {(result.sustainedDps - compareResult.dps.sustainedDps).toLocaleString()}
               </span>
               )
             </div>
+          ) : (
+            <div className="mt-1 text-[11px] text-slate-500">Includes reload cycle</div>
           )}
         </div>
 
-        <div className="rounded-xl border border-obsidian-700 bg-obsidian-900 p-4">
-          <div className="text-xs font-medium text-slate-400">Burst DPS (mag dump)</div>
-          <div className="mt-1 font-mono text-2xl font-bold text-white">
+        <div className="rounded-xl border border-obsidian-800 bg-obsidian-900/60 p-4">
+          <div className="text-[11px] font-medium text-slate-400">Burst DPS</div>
+          <div className="mt-1 font-mono text-2xl font-semibold text-white">
             {result.burstDps.toLocaleString()}
           </div>
-          <div className="mt-1 text-xs text-slate-500">
-            {result.effectiveFireRateRpm} RPM • {result.expectedPerShotDamage.toLocaleString()} / shot
+          <div className="mt-1 text-[11px] text-slate-500">
+            {result.effectiveFireRateRpm} RPM · {result.expectedPerShotDamage.toLocaleString()} / shot
           </div>
         </div>
 
-        <div className="rounded-xl border border-obsidian-700 bg-obsidian-900 p-4">
-          <div className="text-xs font-medium text-slate-400">Damage Per Magazine</div>
-          <div className="mt-1 font-mono text-2xl font-bold text-amber-300">
+        <div className="rounded-xl border border-obsidian-800 bg-obsidian-900/60 p-4">
+          <div className="text-[11px] font-medium text-slate-400">Magazine Damage</div>
+          <div className="mt-1 font-mono text-2xl font-semibold text-slate-100">
             {result.magazineTotalDamage.toLocaleString()}
           </div>
-          <div className="mt-1 text-xs text-slate-500">
-            {result.effectiveMagSize} rds • {result.effectiveReloadSeconds}s reload
+          <div className="mt-1 text-[11px] text-slate-500">
+            {result.effectiveMagSize} rds · {result.effectiveReloadSeconds}s reload
           </div>
         </div>
 
-        <div className="rounded-xl border border-obsidian-700 bg-obsidian-900 p-4">
-          <div className="text-xs font-medium text-slate-400">Crit / Weakspot / Status</div>
-          <div className="mt-1 font-mono text-lg font-bold text-emerald-300">
+        <div className="rounded-xl border border-obsidian-800 bg-obsidian-900/60 p-4">
+          <div className="text-[11px] font-medium text-slate-400">Crit / Weakspot / Status</div>
+          <div className="mt-1 font-mono text-lg font-semibold text-slate-100">
             {result.effectiveCritRatePct}% Crit ({result.critMultiplier}x)
           </div>
-          <div className="mt-1 text-xs text-slate-400">
-            Weakspot {result.weakspotMultiplier}x • Status share {result.elementalSharePct}%
+          <div className="mt-1 text-[11px] text-slate-500">
+            Weakspot {result.weakspotMultiplier}x · Status {result.elementalSharePct}%
           </div>
         </div>
       </div>
 
-      <div className="grid gap-6 xl:grid-cols-3">
-        {/* Weapon & Preset Picker */}
-        <div className="space-y-4 rounded-xl border border-obsidian-700 bg-obsidian-900 p-4">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-300">
-            1. Primary Weapon & Trait
-          </h2>
+      <div className="grid gap-5 xl:grid-cols-3">
+        {/* Weapon & Saved Loadouts */}
+        <div className="space-y-4 rounded-xl border border-obsidian-800 bg-obsidian-900/60 p-4">
+          <div className="text-xs font-medium uppercase tracking-wider text-slate-400">
+            Primary Weapon
+          </div>
 
           <select
             value={weapon.id}
             onChange={(e) => handleSelectWeapon(e.target.value)}
-            className="w-full rounded-lg border border-obsidian-700 bg-obsidian-950 px-3 py-2.5 text-sm text-white outline-none focus:border-stardust-400"
+            className="w-full rounded-lg border border-obsidian-800 bg-obsidian-950 px-3 py-2 text-xs text-white outline-none focus:border-obsidian-600"
           >
             {WEAPONS.map((w) => (
               <option key={w.id} value={w.id}>
-                {w.name} ({w.category} • {w.archetype})
+                {w.name} ({w.category})
               </option>
             ))}
           </select>
 
-          <div className="rounded-lg border border-obsidian-700/70 bg-obsidian-950 p-3 text-xs space-y-3">
+          <div className="space-y-3 rounded-lg border border-obsidian-800/80 bg-obsidian-950/60 p-3 text-xs">
             <WeaponThumbnail weapon={weapon} size="lg" />
 
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div className="flex flex-wrap items-center gap-1.5">
                 <RarityBadge rarity={weapon.rarity} />
-                <ArchetypeBadge archetype={weapon.archetype} />
+                {weapon.archetype !== 'Standard' && <ArchetypeBadge archetype={weapon.archetype} />}
               </div>
               <button
                 type="button"
                 onClick={() => setInspectOpen(true)}
-                className="inline-flex items-center gap-1 rounded border border-obsidian-700 bg-obsidian-800 px-2 py-1 text-[11px] font-medium text-stardust-400 hover:border-stardust-400/50 hover:text-white"
+                className="inline-flex items-center gap-1 text-[11px] font-medium text-slate-300 hover:text-white"
               >
-                <Eye className="h-3 w-3" />
+                <Eye className="h-3.5 w-3.5" />
                 Inspect
               </button>
             </div>
 
-            <p className="leading-relaxed text-slate-300">{weapon.trait}</p>
+            <p className="leading-relaxed text-slate-400">{weapon.trait}</p>
 
             <WeaponStatBars weapon={weapon} compact />
           </div>
 
           <div className="space-y-2 border-t border-obsidian-800 pt-3">
-            <div className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-              Save / Load Custom Loadouts
+            <div className="text-[11px] font-medium uppercase tracking-wider text-slate-500">
+              Saved Loadouts
             </div>
             <div className="flex gap-2">
               <input
@@ -232,28 +230,28 @@ export function DpsCalculatorView({ preset, onChangePreset, activeBuildName }: D
                 value={saveName}
                 onChange={(e) => setSaveName(e.target.value)}
                 placeholder="Loadout name..."
-                className="w-full rounded-lg border border-obsidian-700 bg-obsidian-950 px-3 py-1.5 text-xs text-white placeholder-slate-500 outline-none focus:border-stardust-400"
+                className="w-full rounded-lg border border-obsidian-800 bg-obsidian-950 px-2.5 py-1.5 text-xs text-white placeholder-slate-500 outline-none focus:border-obsidian-600"
               />
               <button
                 type="button"
                 onClick={handleSaveLoadout}
-                className="inline-flex shrink-0 items-center gap-1 rounded-lg bg-stardust-500 px-3 py-1.5 text-xs font-semibold text-obsidian-950 hover:bg-stardust-400"
+                className="inline-flex shrink-0 items-center gap-1 rounded-lg border border-obsidian-700 bg-obsidian-800 px-3 py-1.5 text-xs font-medium text-white hover:bg-obsidian-700"
               >
                 <Save className="h-3.5 w-3.5" />
                 Save
               </button>
             </div>
             {savedLoadouts.length > 0 && (
-              <div className="max-h-40 space-y-1.5 overflow-y-auto pt-1">
+              <div className="max-h-36 space-y-1 overflow-y-auto pt-1">
                 {savedLoadouts.map((item) => (
                   <div
                     key={item.id}
-                    className="flex items-center justify-between rounded-lg border border-obsidian-700/60 bg-obsidian-950 px-2.5 py-1.5 text-xs"
+                    className="flex items-center justify-between rounded-lg px-2.5 py-1.5 text-xs hover:bg-obsidian-800/60"
                   >
                     <button
                       type="button"
                       onClick={() => onChangePreset(item.preset)}
-                      className="truncate text-left font-medium text-slate-200 hover:text-stardust-400"
+                      className="truncate text-left text-slate-200 hover:text-white"
                     >
                       {item.name}
                     </button>
@@ -272,21 +270,21 @@ export function DpsCalculatorView({ preset, onChangePreset, activeBuildName }: D
           </div>
         </div>
 
-        {/* Offensive Stats */}
-        <div className="space-y-3 rounded-xl border border-obsidian-700 bg-obsidian-900 p-4">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-300">
-            2. Weapon, Crit & Status Modifiers
-          </h2>
-          <div className="grid gap-2.5 sm:grid-cols-2 xl:grid-cols-1">
+        {/* Offensive Modifiers */}
+        <div className="rounded-xl border border-obsidian-800 bg-obsidian-900/60 p-4">
+          <div className="mb-2 text-xs font-medium uppercase tracking-wider text-slate-400">
+            Offensive Modifiers
+          </div>
+          <div className="divide-y divide-obsidian-800/60">
             <SliderControl
-              label="Weapon Attack Bonus (Mods + Calib)"
+              label="Weapon Attack (Mods + Calib)"
               value={preset.weaponAttackBonusPct}
               min={0}
               max={120}
               onChange={(v) => updateField('weaponAttackBonusPct', v)}
             />
             <SliderControl
-              label="Elemental & Status DMG Bonus"
+              label="Elemental & Status DMG"
               value={preset.statusElementBonusPct}
               min={0}
               max={200}
@@ -307,7 +305,7 @@ export function DpsCalculatorView({ preset, onChangePreset, activeBuildName }: D
               onChange={(v) => updateField('critDamageBonusPct', v)}
             />
             <SliderControl
-              label="Weakspot Hit Ratio (Aim Accuracy)"
+              label="Weakspot Hit Ratio"
               value={preset.weakspotHitRatioPct}
               min={0}
               max={100}
@@ -323,56 +321,56 @@ export function DpsCalculatorView({ preset, onChangePreset, activeBuildName }: D
           </div>
         </div>
 
-        {/* Handling, Cradle & Set Multipliers */}
-        <div className="space-y-3 rounded-xl border border-obsidian-700 bg-obsidian-900 p-4">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-300">
-            3. Armor Sets, Cradle, Food & Handling
-          </h2>
-          <div className="grid gap-2.5 sm:grid-cols-2 xl:grid-cols-1">
+        {/* Sets, Buffs & Handling */}
+        <div className="rounded-xl border border-obsidian-800 bg-obsidian-900/60 p-4">
+          <div className="mb-2 text-xs font-medium uppercase tracking-wider text-slate-400">
+            Sets, Buffs & Handling
+          </div>
+          <div className="divide-y divide-obsidian-800/60">
             <SliderControl
-              label="Armor Set Multiplier (Lonewolf / Shelterer)"
+              label="Armor Set Multiplier"
               value={preset.armorSetBonusPct}
               min={0}
               max={80}
               onChange={(v) => updateField('armorSetBonusPct', v)}
             />
             <SliderControl
-              label="Cradle Overrides + Food + Deviant Buff"
+              label="Cradle + Food + Deviant Buff"
               value={preset.cradleAndFoodBonusPct}
               min={0}
               max={90}
               onChange={(v) => updateField('cradleAndFoodBonusPct', v)}
             />
             <SliderControl
-              label="Enemy Vulnerability (Bull's Eye / Great Ones)"
+              label="Enemy Vulnerability"
               value={preset.vulnerableEnemyBonusPct}
               min={0}
               max={60}
               onChange={(v) => updateField('vulnerableEnemyBonusPct', v)}
             />
             <SliderControl
-              label="Magazine Capacity Bonus"
+              label="Magazine Capacity"
               value={preset.magSizeBonusPct}
               min={0}
               max={80}
               onChange={(v) => updateField('magSizeBonusPct', v)}
             />
             <SliderControl
-              label="Fire Rate Bonus"
+              label="Fire Rate"
               value={preset.fireRateBonusPct}
               min={0}
               max={50}
               onChange={(v) => updateField('fireRateBonusPct', v)}
             />
             <SliderControl
-              label="Reload Speed Bonus"
+              label="Reload Speed"
               value={preset.reloadSpeedBonusPct}
               min={0}
               max={80}
               onChange={(v) => updateField('reloadSpeedBonusPct', v)}
             />
             <SliderControl
-              label="Archetype Proc Multiplier (Shrapnel / Vortex / Surge)"
+              label="Archetype Proc Multiplier"
               value={preset.archetypeProcMultiplier}
               min={1}
               max={2.2}
@@ -380,16 +378,6 @@ export function DpsCalculatorView({ preset, onChangePreset, activeBuildName }: D
               suffix="x"
               onChange={(v) => updateField('archetypeProcMultiplier', v)}
             />
-          </div>
-
-          <div className="rounded-lg border border-amber-500/30 bg-amber-500/5 p-3 text-xs text-amber-200/90">
-            <div className="flex items-center gap-1.5 font-semibold text-amber-300">
-              <Zap className="h-3.5 w-3.5" />
-              Quick Tip
-            </div>
-            <p className="mt-1 text-slate-300">
-              Switch to <strong>Meta Builds</strong> to load curated S+ presets (Shrapnel, Frost Vortex, Power Surge, Bomber, Burn, Bull’s Eye) directly into this simulator.
-            </p>
           </div>
         </div>
       </div>

@@ -122,15 +122,15 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-col justify-between gap-4 border-b border-obsidian-700/80 pb-4 lg:flex-row lg:items-end">
+      <div className="flex flex-col justify-between gap-3 border-b border-obsidian-800 pb-4 lg:flex-row lg:items-end">
         <div>
-          <h1 className="text-2xl font-bold text-white">Interactive Nalcott Tactical Map</h1>
-          <p className="mt-1 text-sm text-slate-400">
+          <h1 className="text-xl font-semibold text-white">Tactical Map</h1>
+          <p className="mt-0.5 text-xs text-slate-400">
             {scenario.name} — {scenario.subtitle}
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1.5">
           {MAP_SCENARIOS.map((s) => (
             <button
               key={s.id}
@@ -141,8 +141,8 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
               }}
               className={`rounded-lg border px-3 py-1.5 text-xs font-medium transition ${
                 scenarioId === s.id
-                  ? 'border-stardust-400/60 bg-stardust-500/15 text-stardust-glow'
-                  : 'border-obsidian-700 bg-obsidian-900 text-slate-400 hover:text-white'
+                  ? 'border-obsidian-700 bg-obsidian-800 text-white'
+                  : 'border-obsidian-800 bg-obsidian-900/60 text-slate-400 hover:text-white'
               }`}
             >
               {s.name.split('(')[0].trim()}
@@ -152,10 +152,10 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
       </div>
 
       {/* Controls Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-obsidian-700 bg-obsidian-900 p-3">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-obsidian-800 bg-obsidian-900/60 p-3">
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="mr-1 inline-flex items-center gap-1 text-xs text-slate-400">
-            <Filter className="h-3.5 w-3.5" />
+          <span className="mr-1 inline-flex items-center gap-1 text-[11px] text-slate-500">
+            <Filter className="h-3 w-3" />
             Layers:
           </span>
           {ALL_CATEGORIES.map((cat) => {
@@ -165,14 +165,14 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
                 key={cat}
                 type="button"
                 onClick={() => toggleCategory(cat)}
-                className={`inline-flex items-center gap-1.5 rounded-md border px-2 py-1 text-[11px] font-medium transition ${
+                className={`inline-flex items-center gap-1.5 rounded-md border px-2 py-1 text-[11px] transition ${
                   active
-                    ? 'border-obsidian-600 bg-obsidian-800 text-slate-100'
-                    : 'border-obsidian-800 bg-obsidian-950 text-slate-500 opacity-60'
+                    ? 'border-obsidian-700 bg-obsidian-800/80 text-slate-200'
+                    : 'border-transparent bg-obsidian-950/60 text-slate-500 opacity-55'
                 }`}
               >
                 <span
-                  className="h-2 w-2 rounded-full"
+                  className="h-1.5 w-1.5 rounded-full"
                   style={{ backgroundColor: CATEGORY_COLORS[cat] }}
                 />
                 {cat}
@@ -187,19 +187,19 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
             value={searchFilter}
             onChange={(e) => setSearchFilter(e.target.value)}
             placeholder="Filter POIs..."
-            className="rounded-lg border border-obsidian-700 bg-obsidian-950 px-2.5 py-1.5 text-xs text-white placeholder-slate-500 outline-none focus:border-stardust-400"
+            className="rounded-lg border border-obsidian-800 bg-obsidian-950 px-2.5 py-1.5 text-xs text-white placeholder-slate-500 outline-none focus:border-obsidian-600"
           />
           <button
             type="button"
             onClick={() => setPinMode((v) => !v)}
             className={`inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs font-medium transition ${
               pinMode
-                ? 'border-emerald-400 bg-emerald-500/20 text-emerald-200'
-                : 'border-obsidian-700 bg-obsidian-800 text-slate-300 hover:text-white'
+                ? 'border-emerald-500/40 bg-emerald-500/15 text-emerald-200'
+                : 'border-obsidian-800 bg-obsidian-800 text-slate-300 hover:text-white'
             }`}
           >
             <Plus className="h-3.5 w-3.5" />
-            {pinMode ? 'Click Map to Drop Pin' : 'Add Custom Pin'}
+            {pinMode ? 'Click Map to Pin' : 'Add Pin'}
           </button>
           {pinMode && (
             <input
