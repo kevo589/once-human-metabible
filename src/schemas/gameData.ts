@@ -1,0 +1,191 @@
+import { z } from 'zod';
+
+export const RaritySchema = z.enum(['Legendary', 'Epic', 'Rare']);
+
+export const ArchetypeSchema = z.enum([
+  'Shrapnel',
+  'Frost Vortex',
+  'Power Surge',
+  'Burn',
+  'Unstable Bomber',
+  "Bull's Eye",
+  'Fast Gunner',
+  'Fortress Warfare',
+]);
+
+export const ScenarioIdSchema = z.enum(['manibus', 'way_of_winter', 'isles_of_abyss']);
+
+export const WeaponSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  category: z.enum(['AR', 'SMG', 'Sniper', 'Shotgun', 'LMG', 'Pistol', 'Crossbow']),
+  rarity: RaritySchema,
+  archetype: ArchetypeSchema,
+  baseDamage: z.number().positive(),
+  fireRateRpm: z.number().positive(),
+  magSize: z.number().int().positive(),
+  reloadSeconds: z.number().positive(),
+  critRate: z.number().min(0).max(1),
+  critDamage: z.number().min(0),
+  weakspotDamage: z.number().min(0),
+  elementBonus: z.number().min(0),
+  trait: z.string(),
+  source: z.string(),
+});
+
+export const ArmorSetSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  rarity: RaritySchema,
+  isKeyPiece: z.boolean(),
+  slot: z.enum(['Set', 'Helmet', 'Mask', 'Top', 'Bottom', 'Gloves', 'Shoes']),
+  effectSummary: z.string(),
+  twoPieceBonus: z.string().optional(),
+  threePieceBonus: z.string().optional(),
+  fourPieceBonus: z.string().optional(),
+  archetypes: z.array(ArchetypeSchema),
+  source: z.string(),
+});
+
+export const ModSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  slot: z.enum(['Weapon', 'Helmet', 'Mask', 'Top', 'Bottom', 'Gloves', 'Shoes']),
+  archetype: z.union([ArchetypeSchema, z.literal('Universal')]),
+  primaryEffect: z.string(),
+  recommendedSubstats: z.array(z.string()),
+  dropSource: z.string(),
+});
+
+export const DeviationSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  type: z.enum(['Combat', 'Territory', 'Crafting']),
+  element: z.enum(['Physical', 'Frost', 'Shock', 'Blaze', 'Acid', 'Utility']),
+  skillName: z.string(),
+  skillSummary: z.string(),
+  moodRequirement: z.string(),
+  dropSource: z.string(),
+});
+
+export const RecipeSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  category: z.enum(['Combat Food', 'Survival Food', 'Brew', 'Stardust']),
+  rarity: RaritySchema,
+  durationMinutes: z.number().int().positive(),
+  effects: z.string(),
+  ingredients: z.array(z.string()),
+  station: z.string(),
+  damageBonusPct: z.number().min(0).default(0),
+});
+
+export const EncounterSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  type: z.enum(['Monolith Boss', 'Securement Silo', 'Prime War', 'Public Crisis']),
+  scenario: ScenarioIdSchema,
+  recommendedLevel: z.number().int().min(1).max(60),
+  weakElement: z.string(),
+  mechanicsSummary: z.string(),
+  keyDrops: z.array(z.string()),
+});
+
+export const ClassSpecSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  category: z.enum(['Combat', 'Craft', 'Gathering', 'Territory']),
+  tierLevel: z.number().int().min(5).max(50),
+  description: z.string(),
+  synergyNotes: z.string(),
+});
+
+export const MapCategorySchema = z.enum([
+  'Monolith',
+  'Silo',
+  'Teleport Tower',
+  'Mystical Crate',
+  'Resource Node',
+  'Vendor',
+  'Stronghold',
+  'Prime War',
+]);
+
+export const MapMarkerSchema = z.object({
+  id: z.string(),
+  scenario: ScenarioIdSchema,
+  name: z.string(),
+  category: MapCategorySchema,
+  x: z.number().min(0).max(1000),
+  y: z.number().min(0).max(1000),
+  level: z.number().int().min(1).max(60).optional(),
+  region: z.string(),
+  description: z.string(),
+  loot: z.array(z.string()),
+});
+
+export const MapRegionSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  levelRange: z.string(),
+  color: z.string(),
+  bounds: z.tuple([z.tuple([z.number(), z.number()]), z.tuple([z.number(), z.number()])]),
+  notes: z.string(),
+});
+
+export const MapScenarioSchema = z.object({
+  id: ScenarioIdSchema,
+  name: z.string(),
+  subtitle: z.string(),
+  environment: z.string(),
+  regions: z.array(MapRegionSchema),
+});
+
+export const CalculatorPresetSchema = z.object({
+  weaponId: z.string(),
+  weaponAttackBonusPct: z.number(),
+  statusElementBonusPct: z.number(),
+  critRateBonusPct: z.number(),
+  critDamageBonusPct: z.number(),
+  weakspotHitRatioPct: z.number(),
+  weakspotDamageBonusPct: z.number(),
+  fireRateBonusPct: z.number(),
+  magSizeBonusPct: z.number(),
+  reloadSpeedBonusPct: z.number(),
+  vulnerableEnemyBonusPct: z.number(),
+  cradleAndFoodBonusPct: z.number(),
+  armorSetBonusPct: z.number(),
+  archetypeProcMultiplier: z.number().min(1),
+});
+
+export const MetaBuildSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  archetype: ArchetypeSchema,
+  tier: z.enum(['S+', 'S', 'A']),
+  scenarioFit: z.array(ScenarioIdSchema),
+  weaponId: z.string(),
+  secondaryWeaponId: z.string(),
+  armorSetup: z.string(),
+  keyMods: z.array(z.string()),
+  deviationId: z.string(),
+  cradleOverrides: z.array(z.string()),
+  foodBuffId: z.string(),
+  playstyleNotes: z.string(),
+  preset: CalculatorPresetSchema,
+});
+
+export const TimerEventSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  category: z.enum(['World Event', 'Prime War', 'Weekly Reset', 'Vendor Reset']),
+  scheduleType: z.enum(['interval', 'daily', 'weekly']),
+  intervalMinutes: z.number().int().positive().optional(),
+  offsetMinutes: z.number().int().min(0).default(0),
+  utcHour: z.number().int().min(0).max(23).optional(),
+  utcWeekday: z.number().int().min(0).max(6).optional(),
+  durationMinutes: z.number().int().positive(),
+  scenario: z.union([ScenarioIdSchema, z.literal('all')]),
+  rewards: z.array(z.string()),
+  description: z.string(),
+});
