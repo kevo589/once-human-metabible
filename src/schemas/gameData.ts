@@ -60,32 +60,46 @@ export const ArmorSetSchema = z.object({
   rarity: RaritySchema,
   isKeyPiece: z.boolean(),
   slot: z.enum(['Set', 'Helmet', 'Mask', 'Top', 'Bottom', 'Gloves', 'Shoes']),
+  setName: z.string().optional(),
+  hp: z.number().min(0).default(0),
+  pollutionResist: z.number().min(0).default(0),
+  psiIntensity: z.number().min(0).default(0),
   effectSummary: z.string(),
+  onePieceBonus: z.string().optional(),
   twoPieceBonus: z.string().optional(),
   threePieceBonus: z.string().optional(),
   fourPieceBonus: z.string().optional(),
   archetypes: z.array(ArchetypeSchema),
+  imageUrl: z.string().min(1),
+  referenceUrl: z.string().url(),
   source: z.string(),
 });
 
 export const ModSchema = z.object({
   id: z.string(),
   name: z.string(),
+  rarity: RaritySchema,
   slot: z.enum(['Weapon', 'Helmet', 'Mask', 'Top', 'Bottom', 'Gloves', 'Shoes']),
   archetype: z.union([ArchetypeSchema, z.literal('Universal')]),
   primaryEffect: z.string(),
+  suffixes: z.array(z.string()).default([]),
   recommendedSubstats: z.array(z.string()),
+  imageUrl: z.string().min(1),
+  referenceUrl: z.string().url(),
   dropSource: z.string(),
 });
 
 export const DeviationSchema = z.object({
   id: z.string(),
   name: z.string(),
+  rarity: RaritySchema,
   type: z.enum(['Combat', 'Territory', 'Crafting']),
   element: z.enum(['Physical', 'Frost', 'Shock', 'Blaze', 'Acid', 'Utility']),
   skillName: z.string(),
   skillSummary: z.string(),
   moodRequirement: z.string(),
+  imageUrl: z.string().min(1),
+  referenceUrl: z.string().url(),
   dropSource: z.string(),
 });
 

@@ -34,11 +34,12 @@ export function buildSearchEntries(): SearchEntry[] {
     ...ARMOR_SETS.map((a) => ({
       id: `a-${a.id}`,
       title: a.name,
-      subtitle: `${a.rarity} ${a.isKeyPiece ? 'Key Armor' : 'Armor Set'} • ${a.archetypes.join(', ')}`,
+      subtitle: `${a.rarity} ${a.slot} • ${a.setName ?? a.archetypes.join(', ')}`,
       kind: 'Armor' as const,
       targetTab: 'encyclopedia' as const,
       targetSubTab: 'armor' as const,
       targetId: a.id,
+      imageUrl: a.imageUrl,
       keywords: `${a.effectSummary} ${a.source}`,
     })),
     ...MODS.map((m) => ({
@@ -49,6 +50,7 @@ export function buildSearchEntries(): SearchEntry[] {
       targetTab: 'encyclopedia' as const,
       targetSubTab: 'mods' as const,
       targetId: m.id,
+      imageUrl: m.imageUrl,
       keywords: `${m.primaryEffect} ${m.dropSource}`,
     })),
     ...DEVIATIONS.map((d) => ({
@@ -59,6 +61,7 @@ export function buildSearchEntries(): SearchEntry[] {
       targetTab: 'encyclopedia' as const,
       targetSubTab: 'deviations' as const,
       targetId: d.id,
+      imageUrl: d.imageUrl,
       keywords: `${d.skillName} ${d.skillSummary} ${d.dropSource}`,
     })),
     ...RECIPES.map((r) => ({

@@ -6,6 +6,7 @@ import { WEAPONS } from '../../data/weapons';
 import type { Archetype, MetaBuild, ScenarioId } from '../../types/game';
 import { calculateDps } from '../../utils/dpsCalculator';
 import { ArchetypeBadge } from '../common/Badge';
+import { EntityThumbnail } from '../common/ItemVisuals';
 import { WeaponThumbnail } from '../weapons/WeaponVisuals';
 
 interface MetaBuildsViewProps {
@@ -119,6 +120,15 @@ export function MetaBuildsView({ onLoadInCalculator }: MetaBuildsViewProps) {
                       <div>
                         <div className="text-[10px] uppercase tracking-wider text-slate-500">Secondary</div>
                         <div className="text-xs text-slate-300">{secondary.name}</div>
+                      </div>
+                    </div>
+                  )}
+                  {deviation && (
+                    <div className="flex items-center gap-2.5 border-l border-obsidian-800 pl-3">
+                      <EntityThumbnail src={deviation.imageUrl} alt={deviation.name} rarity={deviation.rarity} size="sm" fallbackKind="deviation" />
+                      <div>
+                        <div className="text-[10px] uppercase tracking-wider text-slate-500">Deviation</div>
+                        <div className="text-xs text-slate-300">{deviation.name}</div>
                       </div>
                     </div>
                   )}

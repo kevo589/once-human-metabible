@@ -38,12 +38,15 @@ describe('Once Human game data schemas', () => {
     for (const t of TIMER_EVENTS) TimerEventSchema.parse(t);
 
     expect(WEAPONS.length).toBeGreaterThanOrEqual(140);
+    expect(ARMOR_SETS.length).toBeGreaterThanOrEqual(160);
+    expect(MODS.length).toBeGreaterThanOrEqual(100);
+    expect(DEVIATIONS.length).toBeGreaterThanOrEqual(90);
     expect(MAP_SCENARIOS).toHaveLength(3);
 
-    for (const w of WEAPONS) {
-      const rel = w.imageUrl.replace(/^\.\//, '');
+    for (const item of [...WEAPONS, ...ARMOR_SETS, ...MODS, ...DEVIATIONS]) {
+      const rel = item.imageUrl.replace(/^\.\//, '');
       const absPath = path.resolve(process.cwd(), 'public', rel);
-      expect(fs.existsSync(absPath), `Missing image for ${w.id}: ${absPath}`).toBe(true);
+      expect(fs.existsSync(absPath), `Missing image for ${item.id}: ${absPath}`).toBe(true);
     }
   });
 });

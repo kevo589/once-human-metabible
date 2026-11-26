@@ -4,9 +4,10 @@ import { DEVIATIONS, RECIPES } from '../../data/deviationsAndChef';
 import { ARMOR_SETS, MODS } from '../../data/gearAndMods';
 import { CLASS_SPECS, ENCOUNTERS } from '../../data/mapsAndEncounters';
 import { WEAPONS } from '../../data/weapons';
-import type { EncyclopediaSubTab, Rarity, Weapon } from '../../types/game';
+import type { ArmorSet, Deviation, EncyclopediaSubTab, ModItem, Rarity, Weapon } from '../../types/game';
 import { cn } from '../../utils/cn';
 import { Pill, RARITY_LEFT_BORDER, RARITY_TEXT, RarityBadge } from '../common/Badge';
+import { EntityDetailModal, EntityThumbnail, type InspectedEntity } from '../common/ItemVisuals';
 import { WeaponDetailModal, WeaponThumbnail } from '../weapons/WeaponVisuals';
 
 interface EncyclopediaViewProps {
@@ -18,9 +19,9 @@ interface EncyclopediaViewProps {
 
 const SUB_TABS: Array<{ id: EncyclopediaSubTab; label: string; icon: typeof Crosshair }> = [
   { id: 'weapons', label: `Weapons (${WEAPONS.length})`, icon: Crosshair },
-  { id: 'armor', label: 'Armor', icon: Shield },
-  { id: 'mods', label: 'Mods', icon: Cpu },
-  { id: 'deviations', label: 'Deviations', icon: Sparkles },
+  { id: 'armor', label: `Armor (${ARMOR_SETS.length})`, icon: Shield },
+  { id: 'mods', label: `Mods (${MODS.length})`, icon: Cpu },
+  { id: 'deviations', label: `Deviations (${DEVIATIONS.length})`, icon: Sparkles },
   { id: 'chef', label: 'Chef', icon: ChefHat },
   { id: 'encounters', label: 'Encounters', icon: Skull },
   { id: 'classes', label: 'Specs', icon: Award },
@@ -40,7 +41,10 @@ const WEAPON_CATEGORIES: Array<'All' | Weapon['category']> = [
   'Rocket Launcher',
 ];
 
-const WEAPON_RARITIES: Array<'All' | Rarity> = ['All', 'Legendary', 'Epic', 'Rare', 'Uncommon', 'Common'];
+const ARMOR_SLOTS: Array<'All' | ArmorSet['slot']> = ['All', 'Helmet', 'Mask', 'Top', 'Bottom', 'Gloves', 'Shoes'];
+const MOD_SLOTS: Array<'All' | ModItem['slot']> = ['All', 'Weapon', 'Helmet', 'Mask', 'Top', 'Bottom', 'Gloves', 'Shoes'];
+const DEV_TYPES: Array<'All' | Deviation['type']> = ['All', 'Combat', 'Territory', 'Crafting'];
+const RARITIES: Array<'All' | Rarity> = ['All', 'Legendary', 'Epic', 'Rare', 'Uncommon', 'Common'];
 
 export function EncyclopediaView({
   subTab,
@@ -50,8 +54,13 @@ export function EncyclopediaView({
 }: EncyclopediaViewProps) {
   const [filterText, setFilterText] = useState('');
   const [weaponCategory, setWeaponCategory] = useState<'All' | Weapon['category']>('All');
-  const [weaponRarity, setWeaponRarity] = useState<'All' | Rarity>('All');
+  const [armorSlot, setArmorSlot] = useState<'All' | ArmorSet['slot']>('All');
+  const [modSlot, setModSlot] = useState<'All' | ModItem['slot']>('All');
+  const [devType, setDevType] = useState<'All' | Deviation['type']>('All');
+  const [rarityFilter, setRarityFilter] = useState<'All' | Rarity>('All');
+
   const [inspectedWeapon, setInspectedWeapon] = useState<Weapon | null>(null);
+  const [inspectedEntity, setInspectedEntity] = useState<InspectedEntity | null>(null);
 
   const q = filterText.trim().toLowerCase();
 
@@ -59,7 +68,7 @@ export function EncyclopediaView({
     () =>
       WEAPONS.filter((w) => {
         if (weaponCategory !== 'All' && w.category !== weaponCategory) return false;
-        if (weaponRarity !== 'All' && w.rarity !== weaponRarity) return false;
+        if (rarityFilter !== 'All' && w.rarity !== rarityFilter) return false;
         if (
           q &&
           !w.name.toLowerCase().includes(q) &&
@@ -71,43 +80,61 @@ export function EncyclopediaView({
         }
         return true;
       }),
-    [q, weaponCategory, weaponRarity],
+    [q, weaponCategory, rarityFilter],
   );
 
   const filteredArmor = useMemo(
     () =>
-      ARMOR_SETS.filter(
-        (a) =>
-          !q ||
-          a.name.toLowerCase().includes(q) ||
-          a.effectSummary.toLowerCase().includes(q) ||
-          a.archetypes.some((t) => t.toLowerCase().includes(q)),
-      ),
-    [q],
+      ARMOR_SETS.filter((a) => {
+        if (armorSlot !== 'All' && a.slot !== armorSlot) return false;
+        if (rarityFilter !== 'All' && a.rarity !== rarityFilter) return false;
+        if (
+          q &&
+          !a.name.toLowerCase().includes(q) &&
+          !(a.setName ?? '').toLowerCase().includes(q) &&
+          !a.effectSummary.toLowerCase().includes(q)
+        ) {
+          return false;
+        }
+        return true;
+      }),
+    [q, armorSlot, rarityFilter],
   );
 
   const filteredMods = useMemo(
     () =>
-      MODS.filter(
-        (m) =>
-          !q ||
-          m.name.toLowerCase().includes(q) ||
-          m.slot.toLowerCase().includes(q) ||
-          m.primaryEffect.toLowerCase().includes(q),
-      ),
-    [q],
+      MODS.filter((m) => {
+        if (modSlot !== 'All' && m.slot !== modSlot) return false;
+        if (rarityFilter !== 'All' && m.rarity !== rarityFilter) return false;
+        if (
+          q &&
+          !m.name.toLowerCase().includes(q) &&
+          !m.slot.toLowerCase().includes(q) &&
+          !m.primaryEffect.toLowerCase().includes(q)
+        ) {
+          return false;
+        }
+        return true;
+      }),
+    [q, modSlot, rarityFilter],
   );
 
   const filteredDeviations = useMemo(
     () =>
-      DEVIATIONS.filter(
-        (d) =>
-          !q ||
-          d.name.toLowerCase().includes(q) ||
-          d.type.toLowerCase().includes(q) ||
-          d.skillSummary.toLowerCase().includes(q),
-      ),
-    [q],
+      DEVIATIONS.filter((d) => {
+        if (devType !== 'All' && d.type !== devType) return false;
+        if (rarityFilter !== 'All' && d.rarity !== rarityFilter) return false;
+        if (
+          q &&
+          !d.name.toLowerCase().includes(q) &&
+          !d.type.toLowerCase().includes(q) &&
+          !d.skillSummary.toLowerCase().includes(q)
+        ) {
+          return false;
+        }
+        return true;
+      }),
+    [q, devType, rarityFilter],
   );
 
   const filteredRecipes = useMemo(
@@ -146,43 +173,96 @@ export function EncyclopediaView({
     [q],
   );
 
+  const showingCount =
+    subTab === 'weapons'
+      ? `${filteredWeapons.length} / ${WEAPONS.length}`
+      : subTab === 'armor'
+        ? `${filteredArmor.length} / ${ARMOR_SETS.length}`
+        : subTab === 'mods'
+          ? `${filteredMods.length} / ${MODS.length}`
+          : subTab === 'deviations'
+            ? `${filteredDeviations.length} / ${DEVIATIONS.length}`
+            : null;
+
   return (
     <div className="space-y-5">
       <div className="flex flex-col justify-between gap-3 border-b border-obsidian-800 pb-4 md:flex-row md:items-end">
         <div>
           <h1 className="text-xl font-semibold text-white">Encyclopedia</h1>
           <p className="mt-0.5 text-xs text-slate-400">
-            Weapons, armor sets, mods, Deviations, recipes, encounters, and specializations.
+            Weapons, armor, mods, Deviations, recipes, encounters, and specializations.
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
           {subTab === 'weapons' && (
-            <>
-              <select
-                value={weaponCategory}
-                onChange={(e) => setWeaponCategory(e.target.value as 'All' | Weapon['category'])}
-                className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none focus:border-obsidian-600"
-              >
-                {WEAPON_CATEGORIES.map((cat) => (
-                  <option key={cat} value={cat}>
-                    {cat === 'All' ? 'All Types' : cat}
-                  </option>
-                ))}
-              </select>
+            <select
+              value={weaponCategory}
+              onChange={(e) => setWeaponCategory(e.target.value as 'All' | Weapon['category'])}
+              className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none focus:border-obsidian-600"
+            >
+              {WEAPON_CATEGORIES.map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat === 'All' ? 'All Types' : cat}
+                </option>
+              ))}
+            </select>
+          )}
 
-              <select
-                value={weaponRarity}
-                onChange={(e) => setWeaponRarity(e.target.value as 'All' | Rarity)}
-                className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none focus:border-obsidian-600"
-              >
-                {WEAPON_RARITIES.map((rar) => (
-                  <option key={rar} value={rar}>
-                    {rar === 'All' ? 'All Rarities' : rar}
-                  </option>
-                ))}
-              </select>
-            </>
+          {subTab === 'armor' && (
+            <select
+              value={armorSlot}
+              onChange={(e) => setArmorSlot(e.target.value as 'All' | ArmorSet['slot'])}
+              className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none focus:border-obsidian-600"
+            >
+              {ARMOR_SLOTS.map((s) => (
+                <option key={s} value={s}>
+                  {s === 'All' ? 'All Slots' : s}
+                </option>
+              ))}
+            </select>
+          )}
+
+          {subTab === 'mods' && (
+            <select
+              value={modSlot}
+              onChange={(e) => setModSlot(e.target.value as 'All' | ModItem['slot'])}
+              className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none focus:border-obsidian-600"
+            >
+              {MOD_SLOTS.map((s) => (
+                <option key={s} value={s}>
+                  {s === 'All' ? 'All Slots' : s}
+                </option>
+              ))}
+            </select>
+          )}
+
+          {subTab === 'deviations' && (
+            <select
+              value={devType}
+              onChange={(e) => setDevType(e.target.value as 'All' | Deviation['type'])}
+              className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none focus:border-obsidian-600"
+            >
+              {DEV_TYPES.map((t) => (
+                <option key={t} value={t}>
+                  {t === 'All' ? 'All Types' : t}
+                </option>
+              ))}
+            </select>
+          )}
+
+          {(subTab === 'weapons' || subTab === 'armor' || subTab === 'mods' || subTab === 'deviations') && (
+            <select
+              value={rarityFilter}
+              onChange={(e) => setRarityFilter(e.target.value as 'All' | Rarity)}
+              className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none focus:border-obsidian-600"
+            >
+              {RARITIES.map((rar) => (
+                <option key={rar} value={rar}>
+                  {rar === 'All' ? 'All Rarities' : rar}
+                </option>
+              ))}
+            </select>
           )}
 
           <input
@@ -190,7 +270,7 @@ export function EncyclopediaView({
             value={filterText}
             onChange={(e) => setFilterText(e.target.value)}
             placeholder="Filter..."
-            className="w-44 rounded-lg border border-obsidian-800 bg-obsidian-900 px-3 py-1.5 text-xs text-white placeholder-slate-500 outline-none focus:border-obsidian-600 sm:w-56"
+            className="w-44 rounded-lg border border-obsidian-800 bg-obsidian-900 px-3 py-1.5 text-xs text-white placeholder-slate-500 outline-none focus:border-obsidian-600 sm:w-52"
           />
         </div>
       </div>
@@ -220,11 +300,7 @@ export function EncyclopediaView({
           })}
         </div>
 
-        {subTab === 'weapons' && (
-          <span className="font-mono text-[11px] text-slate-500">
-            {filteredWeapons.length} / {WEAPONS.length}
-          </span>
-        )}
+        {showingCount && <span className="font-mono text-[11px] text-slate-500">{showingCount}</span>}
       </div>
 
       {subTab === 'weapons' && (
@@ -266,83 +342,115 @@ export function EncyclopediaView({
       )}
 
       {subTab === 'armor' && (
-        <div className="grid gap-3 md:grid-cols-2">
+        <div className="grid gap-2.5 md:grid-cols-2 xl:grid-cols-3">
           {filteredArmor.map((a) => (
-            <div
+            <button
               key={a.id}
+              type="button"
+              onClick={() => setInspectedEntity({ kind: 'armor', item: a })}
               className={cn(
-                'rounded-xl border bg-obsidian-900/70 p-4',
-                highlightedId === a.id ? 'border-stardust-400/60' : 'border-obsidian-800',
+                'group flex items-center gap-3 rounded-xl border border-l-2 bg-obsidian-900/70 px-3.5 py-3 text-left transition hover:bg-obsidian-850',
+                RARITY_LEFT_BORDER[a.rarity],
+                highlightedId === a.id ? 'border-stardust-400/60 ring-1 ring-stardust-400/30' : 'border-obsidian-800',
               )}
             >
-              <div className="flex items-center justify-between gap-2">
-                <h3 className="text-sm font-semibold text-white">{a.name}</h3>
-                <div className="flex items-center gap-1.5">
-                  <RarityBadge rarity={a.rarity} />
-                  <Pill>{a.isKeyPiece ? `Key ${a.slot}` : 'Set'}</Pill>
+              <EntityThumbnail src={a.imageUrl} alt={a.name} rarity={a.rarity} size="md" fallbackKind="armor" />
+
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center justify-between gap-2">
+                  <h3 className="truncate text-sm font-medium text-slate-100 group-hover:text-white">
+                    {a.name}
+                  </h3>
+                  <span className={cn('shrink-0 text-[10px] font-medium uppercase tracking-wider', RARITY_TEXT[a.rarity])}>
+                    {a.rarity}
+                  </span>
+                </div>
+
+                <div className="mt-1 flex items-center gap-2 truncate text-[11px] text-slate-400">
+                  <span>{a.slot}</span>
+                  {a.hp > 0 && (
+                    <>
+                      <span className="text-slate-600">·</span>
+                      <span className="font-mono">{a.hp} HP</span>
+                    </>
+                  )}
+                  {a.setName && (
+                    <>
+                      <span className="text-slate-600">·</span>
+                      <span className="truncate text-slate-500">{a.setName}</span>
+                    </>
+                  )}
                 </div>
               </div>
-              <p className="mt-2 text-xs text-slate-300">{a.effectSummary}</p>
-              {(a.twoPieceBonus || a.threePieceBonus || a.fourPieceBonus) && (
-                <ul className="mt-2.5 space-y-1 border-t border-obsidian-800 pt-2.5 text-xs text-slate-400">
-                  {a.twoPieceBonus && <li><strong className="text-slate-200">2pc:</strong> {a.twoPieceBonus}</li>}
-                  {a.threePieceBonus && <li><strong className="text-slate-200">3pc:</strong> {a.threePieceBonus}</li>}
-                  {a.fourPieceBonus && <li><strong className="text-slate-200">4pc:</strong> {a.fourPieceBonus}</li>}
-                </ul>
-              )}
-              <div className="mt-2.5 text-[11px] text-slate-500">{a.source}</div>
-            </div>
+            </button>
           ))}
         </div>
       )}
 
       {subTab === 'mods' && (
-        <div className="grid gap-3 md:grid-cols-2">
+        <div className="grid gap-2.5 md:grid-cols-2 xl:grid-cols-3">
           {filteredMods.map((m) => (
-            <div
+            <button
               key={m.id}
+              type="button"
+              onClick={() => setInspectedEntity({ kind: 'mod', item: m })}
               className={cn(
-                'rounded-xl border bg-obsidian-900/70 p-4',
-                highlightedId === m.id ? 'border-stardust-400/60' : 'border-obsidian-800',
+                'group flex items-center gap-3 rounded-xl border border-l-2 bg-obsidian-900/70 px-3.5 py-3 text-left transition hover:bg-obsidian-850',
+                RARITY_LEFT_BORDER[m.rarity],
+                highlightedId === m.id ? 'border-stardust-400/60 ring-1 ring-stardust-400/30' : 'border-obsidian-800',
               )}
             >
-              <div className="flex items-center justify-between gap-2">
-                <h3 className="text-sm font-semibold text-white">{m.name}</h3>
-                <div className="flex items-center gap-1.5">
-                  <Pill>{m.slot}</Pill>
-                  <Pill>{m.archetype}</Pill>
+              <EntityThumbnail src={m.imageUrl} alt={m.name} rarity={m.rarity} size="md" fallbackKind="mod" />
+
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center justify-between gap-2">
+                  <h3 className="truncate text-sm font-medium text-slate-100 group-hover:text-white">
+                    {m.name}
+                  </h3>
+                  <span className={cn('shrink-0 text-[10px] font-medium uppercase tracking-wider', RARITY_TEXT[m.rarity])}>
+                    {m.rarity}
+                  </span>
+                </div>
+
+                <div className="mt-1 truncate text-[11px] text-slate-400">
+                  {m.slot} Mod · {m.primaryEffect}
                 </div>
               </div>
-              <p className="mt-2 text-xs text-slate-300">{m.primaryEffect}</p>
-              <div className="mt-2.5 text-[11px] text-slate-400">
-                Substats: <span className="text-slate-200">{m.recommendedSubstats.join(' · ')}</span>
-              </div>
-              <div className="mt-1 text-[11px] text-slate-500">{m.dropSource}</div>
-            </div>
+            </button>
           ))}
         </div>
       )}
 
       {subTab === 'deviations' && (
-        <div className="grid gap-3 md:grid-cols-2">
+        <div className="grid gap-2.5 md:grid-cols-2 xl:grid-cols-3">
           {filteredDeviations.map((d) => (
-            <div
+            <button
               key={d.id}
+              type="button"
+              onClick={() => setInspectedEntity({ kind: 'deviation', item: d })}
               className={cn(
-                'rounded-xl border bg-obsidian-900/70 p-4',
-                highlightedId === d.id ? 'border-stardust-400/60' : 'border-obsidian-800',
+                'group flex items-center gap-3 rounded-xl border border-l-2 bg-obsidian-900/70 px-3.5 py-3 text-left transition hover:bg-obsidian-850',
+                RARITY_LEFT_BORDER[d.rarity],
+                highlightedId === d.id ? 'border-stardust-400/60 ring-1 ring-stardust-400/30' : 'border-obsidian-800',
               )}
             >
-              <div className="flex items-center justify-between gap-2">
-                <h3 className="text-sm font-semibold text-white">{d.name}</h3>
-                <Pill>{d.type} · {d.element}</Pill>
+              <EntityThumbnail src={d.imageUrl} alt={d.name} rarity={d.rarity} size="md" fallbackKind="deviation" />
+
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center justify-between gap-2">
+                  <h3 className="truncate text-sm font-medium text-slate-100 group-hover:text-white">
+                    {d.name}
+                  </h3>
+                  <span className="shrink-0 text-[10px] font-medium uppercase tracking-wider text-slate-400">
+                    {d.type}
+                  </span>
+                </div>
+
+                <div className="mt-1 truncate text-[11px] text-slate-400">
+                  {d.element} · {d.skillSummary}
+                </div>
               </div>
-              <div className="mt-1.5 text-xs font-medium text-slate-200">{d.skillName}</div>
-              <p className="mt-1 text-xs text-slate-400">{d.skillSummary}</p>
-              <div className="mt-2.5 border-t border-obsidian-800 pt-2 text-[11px] text-slate-500">
-                Mood: {d.moodRequirement} · {d.dropSource}
-              </div>
-            </div>
+            </button>
           ))}
         </div>
       )}
@@ -423,6 +531,11 @@ export function EncyclopediaView({
         weapon={inspectedWeapon}
         onClose={() => setInspectedWeapon(null)}
         onSimulate={onSimulateWeapon}
+      />
+
+      <EntityDetailModal
+        entity={inspectedEntity}
+        onClose={() => setInspectedEntity(null)}
       />
     </div>
   );
