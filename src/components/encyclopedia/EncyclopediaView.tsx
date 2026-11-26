@@ -1,12 +1,21 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Award, ChefHat, Cpu, Crosshair, Shield, Skull, Sparkles } from 'lucide-react';
 import { DEVIATIONS, RECIPES } from '../../data/deviationsAndChef';
 import { ARMOR_SETS, MODS } from '../../data/gearAndMods';
 import { CLASS_SPECS, ENCOUNTERS } from '../../data/mapsAndEncounters';
 import { WEAPONS } from '../../data/weapons';
-import type { ArmorSet, Deviation, EncyclopediaSubTab, ModItem, Rarity, Weapon } from '../../types/game';
+import type {
+  Archetype,
+  ArmorSet,
+  Deviation,
+  ElementType,
+  EncyclopediaSubTab,
+  ModItem,
+  Rarity,
+  Weapon,
+} from '../../types/game';
 import { cn } from '../../utils/cn';
-import { Pill, RARITY_LEFT_BORDER, RARITY_TEXT, RarityBadge } from '../common/Badge';
+import { ELEMENT_TEXT, Pill, RARITY_LEFT_BORDER, RARITY_TEXT, RarityBadge } from '../common/Badge';
 import { EntityDetailModal, EntityThumbnail, type InspectedEntity } from '../common/ItemVisuals';
 import { WeaponDetailModal, WeaponThumbnail } from '../weapons/WeaponVisuals';
 
@@ -41,10 +50,29 @@ const WEAPON_CATEGORIES: Array<'All' | Weapon['category']> = [
   'Rocket Launcher',
 ];
 
+const ELEMENTS: Array<'All' | ElementType> = ['All', 'Blaze', 'Frost', 'Shock', 'Blast', 'Physical', 'Universal'];
+const KEYWORDS: Array<'All' | Archetype> = [
+  'All',
+  'Burn',
+  'Frost Vortex',
+  'Power Surge',
+  'Unstable Bomber',
+  'Shrapnel',
+  'Bounce',
+  "Bull's Eye",
+  'Fast Gunner',
+  'Fortress Warfare',
+  'Standard',
+];
+
 const ARMOR_SLOTS: Array<'All' | ArmorSet['slot']> = ['All', 'Helmet', 'Mask', 'Top', 'Bottom', 'Gloves', 'Shoes'];
+const MOD_CATEGORIES: Array<'All' | ModItem['modCategory']> = ['All', 'Weapon Mod', 'Armor Mod'];
 const MOD_SLOTS: Array<'All' | ModItem['slot']> = ['All', 'Weapon', 'Helmet', 'Mask', 'Top', 'Bottom', 'Gloves', 'Shoes'];
 const DEV_TYPES: Array<'All' | Deviation['type']> = ['All', 'Combat', 'Territory', 'Crafting'];
 const RARITIES: Array<'All' | Rarity> = ['All', 'Legendary', 'Epic', 'Rare', 'Uncommon', 'Common'];
+
+const MOD_VARIANTS = ['All', ...Array.from(new Set(MODS.map((m) => m.variant))).sort((a, b) => a.localeCompare(b))];
+const MOD_PAGE_SIZE = 60;
 
 export function EncyclopediaView({
   subTab,
@@ -54,8 +82,13 @@ export function EncyclopediaView({
 }: EncyclopediaViewProps) {
   const [filterText, setFilterText] = useState('');
   const [weaponCategory, setWeaponCategory] = useState<'All' | Weapon['category']>('All');
+  const [elementFilter, setElementFilter] = useState<'All' | ElementType>('All');
+  const [keywordFilter, setKeywordFilter] = useState<'All' | Archetype>('All');
   const [armorSlot, setArmorSlot] = useState<'All' | ArmorSet['slot']>('All');
+  const [modCategory, setModCategory] = useState<'All' | ModItem['modCategory']>('All');
   const [modSlot, setModSlot] = useState<'All' | ModItem['slot']>('All');
+  const [modVariant, setModVariant] = useState<string>('All');
+  const [modVisibleLimit, setModVisibleLimit] = useState(MOD_PAGE_SIZE);
   const [devType, setDevType] = useState<'All' | Deviation['type']>('All');
   const [rarityFilter, setRarityFilter] = useState<'All' | Rarity>('All');
 
@@ -64,15 +97,22 @@ export function EncyclopediaView({
 
   const q = filterText.trim().toLowerCase();
 
+  useEffect(() => {
+    setModVisibleLimit(MOD_PAGE_SIZE);
+  }, [q, modCategory, modSlot, modVariant, elementFilter, rarityFilter, subTab]);
+
   const filteredWeapons = useMemo(
     () =>
       WEAPONS.filter((w) => {
         if (weaponCategory !== 'All' && w.category !== weaponCategory) return false;
+        if (elementFilter !== 'All' && w.element !== elementFilter) return false;
+        if (keywordFilter !== 'All' && w.archetype !== keywordFilter) return false;
         if (rarityFilter !== 'All' && w.rarity !== rarityFilter) return false;
         if (
           q &&
           !w.name.toLowerCase().includes(q) &&
           !w.archetype.toLowerCase().includes(q) &&
+          !w.element.toLowerCase().includes(q) &&
           !w.category.toLowerCase().includes(q) &&
           !w.ammoType.toLowerCase().includes(q)
         ) {
@@ -80,7 +120,7 @@ export function EncyclopediaView({
         }
         return true;
       }),
-    [q, weaponCategory, rarityFilter],
+    [q, weaponCategory, elementFilter, keywordFilter, rarityFilter],
   );
 
   const filteredArmor = useMemo(
@@ -104,20 +144,34 @@ export function EncyclopediaView({
   const filteredMods = useMemo(
     () =>
       MODS.filter((m) => {
+        if (modCategory !== 'All' && m.modCategory !== modCategory) return false;
         if (modSlot !== 'All' && m.slot !== modSlot) return false;
+        if (modVariant !== 'All' && m.variant !== modVariant) return false;
+        if (elementFilter !== 'All' && m.element !== elementFilter) return false;
         if (rarityFilter !== 'All' && m.rarity !== rarityFilter) return false;
         if (
           q &&
           !m.name.toLowerCase().includes(q) &&
           !m.slot.toLowerCase().includes(q) &&
+          !m.variant.toLowerCase().includes(q) &&
+          !m.element.toLowerCase().includes(q) &&
           !m.primaryEffect.toLowerCase().includes(q)
         ) {
           return false;
         }
         return true;
       }),
-    [q, modSlot, rarityFilter],
+    [q, modCategory, modSlot, modVariant, elementFilter, rarityFilter],
   );
+
+  const visibleMods = useMemo(() => {
+    if (!highlightedId) return filteredMods.slice(0, modVisibleLimit);
+    const hitIdx = filteredMods.findIndex((m) => m.id === highlightedId);
+    if (hitIdx >= modVisibleLimit) {
+      return filteredMods.slice(0, hitIdx + 1);
+    }
+    return filteredMods.slice(0, modVisibleLimit);
+  }, [filteredMods, modVisibleLimit, highlightedId]);
 
   const filteredDeviations = useMemo(
     () =>
@@ -128,6 +182,7 @@ export function EncyclopediaView({
           q &&
           !d.name.toLowerCase().includes(q) &&
           !d.type.toLowerCase().includes(q) &&
+          !d.element.toLowerCase().includes(q) &&
           !d.skillSummary.toLowerCase().includes(q)
         ) {
           return false;
@@ -186,27 +241,41 @@ export function EncyclopediaView({
 
   return (
     <div className="space-y-5">
-      <div className="flex flex-col justify-between gap-3 border-b border-obsidian-800 pb-4 md:flex-row md:items-end">
+      <div className="flex flex-col justify-between gap-3 border-b border-obsidian-800 pb-4 lg:flex-row lg:items-end">
         <div>
           <h1 className="text-xl font-semibold text-white">Encyclopedia</h1>
           <p className="mt-0.5 text-xs text-slate-400">
-            Weapons, armor, mods, Deviations, recipes, encounters, and specializations.
+            Organized by weapon type, gear slot, element, keyword, and mod variant.
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
           {subTab === 'weapons' && (
-            <select
-              value={weaponCategory}
-              onChange={(e) => setWeaponCategory(e.target.value as 'All' | Weapon['category'])}
-              className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none focus:border-obsidian-600"
-            >
-              {WEAPON_CATEGORIES.map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat === 'All' ? 'All Types' : cat}
-                </option>
-              ))}
-            </select>
+            <>
+              <select
+                value={weaponCategory}
+                onChange={(e) => setWeaponCategory(e.target.value as 'All' | Weapon['category'])}
+                className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none focus:border-obsidian-600"
+              >
+                {WEAPON_CATEGORIES.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat === 'All' ? 'All Types' : cat}
+                  </option>
+                ))}
+              </select>
+
+              <select
+                value={keywordFilter}
+                onChange={(e) => setKeywordFilter(e.target.value as 'All' | Archetype)}
+                className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none focus:border-obsidian-600"
+              >
+                {KEYWORDS.map((kw) => (
+                  <option key={kw} value={kw}>
+                    {kw === 'All' ? 'All Keywords' : kw}
+                  </option>
+                ))}
+              </select>
+            </>
           )}
 
           {subTab === 'armor' && (
@@ -224,17 +293,43 @@ export function EncyclopediaView({
           )}
 
           {subTab === 'mods' && (
-            <select
-              value={modSlot}
-              onChange={(e) => setModSlot(e.target.value as 'All' | ModItem['slot'])}
-              className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none focus:border-obsidian-600"
-            >
-              {MOD_SLOTS.map((s) => (
-                <option key={s} value={s}>
-                  {s === 'All' ? 'All Slots' : s}
-                </option>
-              ))}
-            </select>
+            <>
+              <select
+                value={modCategory}
+                onChange={(e) => setModCategory(e.target.value as 'All' | ModItem['modCategory'])}
+                className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none focus:border-obsidian-600"
+              >
+                {MOD_CATEGORIES.map((c) => (
+                  <option key={c} value={c}>
+                    {c === 'All' ? 'All Categories' : `${c}s`}
+                  </option>
+                ))}
+              </select>
+
+              <select
+                value={modSlot}
+                onChange={(e) => setModSlot(e.target.value as 'All' | ModItem['slot'])}
+                className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none focus:border-obsidian-600"
+              >
+                {MOD_SLOTS.map((s) => (
+                  <option key={s} value={s}>
+                    {s === 'All' ? 'All Slots' : s}
+                  </option>
+                ))}
+              </select>
+
+              <select
+                value={modVariant}
+                onChange={(e) => setModVariant(e.target.value)}
+                className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none focus:border-obsidian-600"
+              >
+                {MOD_VARIANTS.map((v) => (
+                  <option key={v} value={v}>
+                    {v === 'All' ? 'All Variants' : v}
+                  </option>
+                ))}
+              </select>
+            </>
           )}
 
           {subTab === 'deviations' && (
@@ -246,6 +341,20 @@ export function EncyclopediaView({
               {DEV_TYPES.map((t) => (
                 <option key={t} value={t}>
                   {t === 'All' ? 'All Types' : t}
+                </option>
+              ))}
+            </select>
+          )}
+
+          {(subTab === 'weapons' || subTab === 'mods') && (
+            <select
+              value={elementFilter}
+              onChange={(e) => setElementFilter(e.target.value as 'All' | ElementType)}
+              className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none focus:border-obsidian-600"
+            >
+              {ELEMENTS.filter((el) => subTab === 'mods' || el !== 'Universal').map((el) => (
+                <option key={el} value={el}>
+                  {el === 'All' ? 'All Elements' : el}
                 </option>
               ))}
             </select>
@@ -270,7 +379,7 @@ export function EncyclopediaView({
             value={filterText}
             onChange={(e) => setFilterText(e.target.value)}
             placeholder="Filter..."
-            className="w-44 rounded-lg border border-obsidian-800 bg-obsidian-900 px-3 py-1.5 text-xs text-white placeholder-slate-500 outline-none focus:border-obsidian-600 sm:w-52"
+            className="w-40 rounded-lg border border-obsidian-800 bg-obsidian-900 px-3 py-1.5 text-xs text-white placeholder-slate-500 outline-none focus:border-obsidian-600 sm:w-48"
           />
         </div>
       </div>
@@ -328,8 +437,10 @@ export function EncyclopediaView({
                   </span>
                 </div>
 
-                <div className="mt-1 flex items-center gap-2 truncate text-[11px] text-slate-400">
+                <div className="mt-1 flex items-center gap-1.5 truncate text-[11px] text-slate-400">
                   <span>{w.category}</span>
+                  <span className="text-slate-600">·</span>
+                  <span className={ELEMENT_TEXT[w.element]}>{w.element}</span>
                   <span className="text-slate-600">·</span>
                   <span className="font-mono">{w.baseDamage} DMG</span>
                   <span className="text-slate-600">·</span>
@@ -388,36 +499,61 @@ export function EncyclopediaView({
       )}
 
       {subTab === 'mods' && (
-        <div className="grid gap-2.5 md:grid-cols-2 xl:grid-cols-3">
-          {filteredMods.map((m) => (
-            <button
-              key={m.id}
-              type="button"
-              onClick={() => setInspectedEntity({ kind: 'mod', item: m })}
-              className={cn(
-                'group flex items-center gap-3 rounded-xl border border-l-2 bg-obsidian-900/70 px-3.5 py-3 text-left transition hover:bg-obsidian-850',
-                RARITY_LEFT_BORDER[m.rarity],
-                highlightedId === m.id ? 'border-stardust-400/60 ring-1 ring-stardust-400/30' : 'border-obsidian-800',
-              )}
-            >
-              <EntityThumbnail src={m.imageUrl} alt={m.name} rarity={m.rarity} size="md" fallbackKind="mod" />
+        <div className="space-y-4">
+          <div className="grid gap-2.5 md:grid-cols-2 xl:grid-cols-3">
+            {visibleMods.map((m) => (
+              <button
+                key={m.id}
+                type="button"
+                onClick={() => setInspectedEntity({ kind: 'mod', item: m })}
+                className={cn(
+                  'group flex items-center gap-3 rounded-xl border border-l-2 bg-obsidian-900/70 px-3.5 py-3 text-left transition hover:bg-obsidian-850',
+                  RARITY_LEFT_BORDER[m.rarity],
+                  highlightedId === m.id ? 'border-stardust-400/60 ring-1 ring-stardust-400/30' : 'border-obsidian-800',
+                )}
+              >
+                <EntityThumbnail src={m.imageUrl} alt={m.name} rarity={m.rarity} size="md" fallbackKind="mod" />
 
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center justify-between gap-2">
-                  <h3 className="truncate text-sm font-medium text-slate-100 group-hover:text-white">
-                    {m.name}
-                  </h3>
-                  <span className={cn('shrink-0 text-[10px] font-medium uppercase tracking-wider', RARITY_TEXT[m.rarity])}>
-                    {m.rarity}
-                  </span>
-                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center justify-between gap-2">
+                    <h3 className="truncate text-sm font-medium text-slate-100 group-hover:text-white">
+                      {m.name}
+                    </h3>
+                    <span className="shrink-0 text-[10px] font-medium text-slate-400">
+                      {m.variant}
+                    </span>
+                  </div>
 
-                <div className="mt-1 truncate text-[11px] text-slate-400">
-                  {m.slot} Mod · {m.primaryEffect}
+                  <div className="mt-1 flex items-center gap-1.5 truncate text-[11px] text-slate-400">
+                    <span>{m.slot}</span>
+                    <span className="text-slate-600">·</span>
+                    <span className={ELEMENT_TEXT[m.element]}>{m.element}</span>
+                    <span className="text-slate-600">·</span>
+                    <span className="truncate text-slate-500">{m.primaryEffect}</span>
+                  </div>
                 </div>
-              </div>
-            </button>
-          ))}
+              </button>
+            ))}
+          </div>
+
+          {filteredMods.length > visibleMods.length && (
+            <div className="flex items-center justify-center gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => setModVisibleLimit((v) => v + MOD_PAGE_SIZE)}
+                className="rounded-lg border border-obsidian-700 bg-obsidian-900 px-4 py-2 text-xs font-medium text-slate-200 hover:bg-obsidian-800"
+              >
+                Show next {Math.min(MOD_PAGE_SIZE, filteredMods.length - visibleMods.length)} ({visibleMods.length} / {filteredMods.length})
+              </button>
+              <button
+                type="button"
+                onClick={() => setModVisibleLimit(filteredMods.length)}
+                className="rounded-lg border border-obsidian-800 bg-obsidian-950 px-3 py-2 text-xs text-slate-400 hover:text-white"
+              >
+                Show all
+              </button>
+            </div>
+          )}
         </div>
       )}
 

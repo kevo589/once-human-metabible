@@ -5,6 +5,7 @@ import {
   CalculatorPresetSchema,
   ClassSpecSchema,
   DeviationSchema,
+  ElementSchema,
   EncounterSchema,
   MapCategorySchema,
   MapMarkerSchema,
@@ -20,6 +21,7 @@ import {
 } from '../schemas/gameData';
 
 export type Rarity = z.infer<typeof RaritySchema>;
+export type ElementType = z.infer<typeof ElementSchema>;
 export type Archetype = z.infer<typeof ArchetypeSchema>;
 export type ScenarioId = z.infer<typeof ScenarioIdSchema>;
 export type Weapon = z.infer<typeof WeaponSchema>;

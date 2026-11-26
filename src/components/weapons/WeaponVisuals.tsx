@@ -123,8 +123,9 @@ export function WeaponDetailModal({ weapon, onClose, onSimulate }: WeaponDetailM
           <div>
             <div className="flex flex-wrap items-center gap-2">
               <RarityBadge rarity={weapon.rarity} />
-              {weapon.archetype !== 'Standard' && <ArchetypeBadge archetype={weapon.archetype} />}
               <Pill>{weapon.category}</Pill>
+              <Pill>{weapon.element}</Pill>
+              {weapon.archetype !== 'Standard' && <ArchetypeBadge archetype={weapon.archetype} />}
             </div>
             <h2 className="mt-2 text-lg font-semibold text-white">{weapon.name}</h2>
           </div>

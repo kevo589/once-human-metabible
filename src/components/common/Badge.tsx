@@ -1,6 +1,6 @@
 import React from 'react';
 import { cn } from '../../utils/cn';
-import type { Archetype, Rarity } from '../../types/game';
+import type { Archetype, ElementType, Rarity } from '../../types/game';
 
 export const RARITY_STYLES: Record<Rarity, string> = {
   Legendary: 'border-amber-500/25 bg-amber-500/5 text-amber-200/90',
@@ -8,6 +8,15 @@ export const RARITY_STYLES: Record<Rarity, string> = {
   Rare: 'border-sky-500/25 bg-sky-500/5 text-sky-200/90',
   Uncommon: 'border-emerald-500/25 bg-emerald-500/5 text-emerald-200/90',
   Common: 'border-slate-600/40 bg-slate-800/40 text-slate-300',
+};
+
+export const ELEMENT_TEXT: Record<ElementType, string> = {
+  Blaze: 'text-orange-300/90',
+  Frost: 'text-cyan-300/90',
+  Shock: 'text-indigo-300/90',
+  Blast: 'text-rose-300/90',
+  Physical: 'text-slate-300',
+  Universal: 'text-slate-400',
 };
 
 export const RARITY_TEXT: Record<Rarity, string> = {
@@ -40,6 +49,7 @@ const ARCHETYPE_STYLES: Record<Archetype, string> = {
   'Power Surge': 'border-obsidian-700 bg-obsidian-800/70 text-indigo-200/85',
   Burn: 'border-obsidian-700 bg-obsidian-800/70 text-orange-200/85',
   'Unstable Bomber': 'border-obsidian-700 bg-obsidian-800/70 text-rose-200/85',
+  Bounce: 'border-obsidian-700 bg-obsidian-800/70 text-teal-200/85',
   "Bull's Eye": 'border-obsidian-700 bg-obsidian-800/70 text-emerald-200/85',
   'Fast Gunner': 'border-obsidian-700 bg-obsidian-800/70 text-sky-200/85',
   'Fortress Warfare': 'border-obsidian-700 bg-obsidian-800/70 text-slate-200/85',

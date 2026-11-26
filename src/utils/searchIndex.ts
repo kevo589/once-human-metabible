@@ -23,13 +23,13 @@ export function buildSearchEntries(): SearchEntry[] {
     ...WEAPONS.map((w) => ({
       id: `w-${w.id}`,
       title: w.name,
-      subtitle: `${w.rarity} ${w.category} • ${w.archetype}`,
+      subtitle: `${w.rarity} ${w.category} • ${w.element} • ${w.archetype}`,
       kind: 'Weapon' as const,
       targetTab: 'encyclopedia' as const,
       targetSubTab: 'weapons' as const,
       targetId: w.id,
       imageUrl: w.imageUrl,
-      keywords: `${w.trait} ${w.source} ${w.archetype} ${w.ammoType}`,
+      keywords: `${w.trait} ${w.source} ${w.archetype} ${w.element} ${w.ammoType}`,
     })),
     ...ARMOR_SETS.map((a) => ({
       id: `a-${a.id}`,
@@ -44,14 +44,14 @@ export function buildSearchEntries(): SearchEntry[] {
     })),
     ...MODS.map((m) => ({
       id: `m-${m.id}`,
-      title: m.name,
-      subtitle: `${m.slot} Mod • ${m.archetype}`,
+      title: `${m.name} (${m.variant})`,
+      subtitle: `${m.slot} Mod • ${m.element} • ${m.modCategory}`,
       kind: 'Mod' as const,
       targetTab: 'encyclopedia' as const,
       targetSubTab: 'mods' as const,
       targetId: m.id,
       imageUrl: m.imageUrl,
-      keywords: `${m.primaryEffect} ${m.dropSource}`,
+      keywords: `${m.primaryEffect} ${m.variant} ${m.element} ${m.archetype} ${m.dropSource}`,
     })),
     ...DEVIATIONS.map((d) => ({
       id: `d-${d.id}`,

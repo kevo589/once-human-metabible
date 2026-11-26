@@ -2,12 +2,22 @@ import { z } from 'zod';
 
 export const RaritySchema = z.enum(['Legendary', 'Epic', 'Rare', 'Uncommon', 'Common']);
 
+export const ElementSchema = z.enum([
+  'Blaze',
+  'Frost',
+  'Shock',
+  'Blast',
+  'Physical',
+  'Universal',
+]);
+
 export const ArchetypeSchema = z.enum([
   'Shrapnel',
   'Frost Vortex',
   'Power Surge',
   'Burn',
   'Unstable Bomber',
+  'Bounce',
   "Bull's Eye",
   'Fast Gunner',
   'Fortress Warfare',
@@ -34,6 +44,7 @@ export const WeaponSchema = z.object({
   name: z.string(),
   category: WeaponCategorySchema,
   rarity: RaritySchema,
+  element: ElementSchema,
   archetype: ArchetypeSchema,
   baseDamage: z.number().positive(),
   fireRateRpm: z.number().positive(),
@@ -79,7 +90,10 @@ export const ModSchema = z.object({
   id: z.string(),
   name: z.string(),
   rarity: RaritySchema,
+  modCategory: z.enum(['Weapon Mod', 'Armor Mod']),
   slot: z.enum(['Weapon', 'Helmet', 'Mask', 'Top', 'Bottom', 'Gloves', 'Shoes']),
+  variant: z.string(),
+  element: ElementSchema,
   archetype: z.union([ArchetypeSchema, z.literal('Universal')]),
   primaryEffect: z.string(),
   suffixes: z.array(z.string()).default([]),

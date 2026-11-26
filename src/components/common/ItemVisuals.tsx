@@ -90,7 +90,14 @@ export function EntityDetailModal({
             <div className="flex flex-wrap items-center gap-2">
               <RarityBadge rarity={item.rarity} />
               {kind === 'armor' && <Pill>{item.slot}</Pill>}
-              {kind === 'mod' && <Pill>{item.slot} Mod</Pill>}
+              {kind === 'mod' && (
+                <>
+                  <Pill>{item.modCategory}</Pill>
+                  <Pill>{item.slot}</Pill>
+                  <Pill>{item.variant}</Pill>
+                  <Pill>{item.element}</Pill>
+                </>
+              )}
               {kind === 'deviation' && <Pill>{item.type} · {item.element}</Pill>}
             </div>
             <h2 className="mt-2 text-lg font-semibold text-white">{item.name}</h2>
@@ -148,11 +155,10 @@ export function EntityDetailModal({
           {kind === 'mod' && (
             <div className="space-y-3 rounded-xl border border-obsidian-800 bg-obsidian-950/60 p-4">
               <p className="leading-relaxed text-slate-200">{item.primaryEffect}</p>
-              {item.suffixes.length > 0 && (
-                <div className="border-t border-obsidian-800 pt-2.5 text-slate-400">
-                  <span className="text-slate-500">Suffix variants:</span> {item.suffixes.join(' · ')}
-                </div>
-              )}
+              <div className="grid grid-cols-2 gap-2 border-t border-obsidian-800 pt-2.5 text-slate-400">
+                <div><span className="text-slate-500">Keyword:</span> {item.archetype}</div>
+                <div><span className="text-slate-500">Element:</span> {item.element}</div>
+              </div>
               <div className="text-slate-400">
                 <span className="text-slate-500">Substats:</span> {item.recommendedSubstats.join(' · ')}
               </div>

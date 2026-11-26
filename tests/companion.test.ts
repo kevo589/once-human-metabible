@@ -39,7 +39,7 @@ describe('Once Human game data schemas', () => {
 
     expect(WEAPONS.length).toBeGreaterThanOrEqual(140);
     expect(ARMOR_SETS.length).toBeGreaterThanOrEqual(160);
-    expect(MODS.length).toBeGreaterThanOrEqual(100);
+    expect(MODS.length).toBeGreaterThanOrEqual(1400);
     expect(DEVIATIONS.length).toBeGreaterThanOrEqual(90);
     expect(MAP_SCENARIOS).toHaveLength(3);
 
