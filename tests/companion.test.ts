@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { META_BUILDS, TIMER_EVENTS } from '../src/data/buildsAndTimers';
 import { DEVIATIONS, RECIPES } from '../src/data/deviationsAndChef';
@@ -35,8 +37,14 @@ describe('Once Human game data schemas', () => {
     for (const b of META_BUILDS) MetaBuildSchema.parse(b);
     for (const t of TIMER_EVENTS) TimerEventSchema.parse(t);
 
-    expect(WEAPONS.length).toBeGreaterThanOrEqual(8);
+    expect(WEAPONS.length).toBeGreaterThanOrEqual(140);
     expect(MAP_SCENARIOS).toHaveLength(3);
+
+    for (const w of WEAPONS) {
+      const rel = w.imageUrl.replace(/^\.\//, '');
+      const absPath = path.resolve(process.cwd(), 'public', rel);
+      expect(fs.existsSync(absPath), `Missing image for ${w.id}: ${absPath}`).toBe(true);
+    }
   });
 });
 

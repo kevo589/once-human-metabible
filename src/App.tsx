@@ -98,6 +98,12 @@ export function App() {
                 setHighlightedEncId(null);
               }}
               highlightedId={highlightedEncId}
+              onSimulateWeapon={(weapon) => {
+                const matchingMeta = META_BUILDS.find((b) => b.weaponId === weapon.id);
+                setPreset(matchingMeta ? matchingMeta.preset : { ...preset, weaponId: weapon.id });
+                setActiveBuildName(matchingMeta ? matchingMeta.name : weapon.name);
+                setActiveTab('calculator');
+              }}
             />
           )}
 

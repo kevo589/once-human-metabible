@@ -1,11 +1,12 @@
 import { useMemo, useState } from 'react';
-import { BookmarkPlus, RotateCcw, Save, Trash2, Zap } from 'lucide-react';
+import { BookmarkPlus, Eye, RotateCcw, Save, Trash2, Zap } from 'lucide-react';
 import { META_BUILDS } from '../../data/buildsAndTimers';
 import { WEAPONS } from '../../data/weapons';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import type { CalculatorPreset } from '../../types/game';
 import { calculateDps } from '../../utils/dpsCalculator';
 import { ArchetypeBadge, RarityBadge } from '../common/Badge';
+import { WeaponDetailModal, WeaponStatBars, WeaponThumbnail } from '../weapons/WeaponVisuals';
 
 interface SavedLoadout {
   id: string;
@@ -56,6 +57,7 @@ export function DpsCalculatorView({ preset, onChangePreset, activeBuildName }: D
   const [savedLoadouts, setSavedLoadouts] = useLocalStorage<SavedLoadout[]>('oh-saved-loadouts', []);
   const [saveName, setSaveName] = useState('');
   const [comparePreset, setComparePreset] = useState<CalculatorPreset | null>(null);
+  const [inspectOpen, setInspectOpen] = useState(false);
 
   const weapon = useMemo(
     () => WEAPONS.find((w) => w.id === preset.weaponId) ?? WEAPONS[0],
@@ -197,18 +199,27 @@ export function DpsCalculatorView({ preset, onChangePreset, activeBuildName }: D
             ))}
           </select>
 
-          <div className="rounded-lg border border-obsidian-700/70 bg-obsidian-950 p-3 text-xs">
-            <div className="flex flex-wrap items-center gap-2">
-              <RarityBadge rarity={weapon.rarity} />
-              <ArchetypeBadge archetype={weapon.archetype} />
-              <span className="text-slate-400">{weapon.category}</span>
+          <div className="rounded-lg border border-obsidian-700/70 bg-obsidian-950 p-3 text-xs space-y-3">
+            <WeaponThumbnail weapon={weapon} size="lg" />
+
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex flex-wrap items-center gap-1.5">
+                <RarityBadge rarity={weapon.rarity} />
+                <ArchetypeBadge archetype={weapon.archetype} />
+              </div>
+              <button
+                type="button"
+                onClick={() => setInspectOpen(true)}
+                className="inline-flex items-center gap-1 rounded border border-obsidian-700 bg-obsidian-800 px-2 py-1 text-[11px] font-medium text-stardust-400 hover:border-stardust-400/50 hover:text-white"
+              >
+                <Eye className="h-3 w-3" />
+                Inspect
+              </button>
             </div>
-            <p className="mt-2 leading-relaxed text-slate-300">{weapon.trait}</p>
-            <div className="mt-3 grid grid-cols-3 gap-2 border-t border-obsidian-800 pt-2 font-mono text-[11px] text-slate-400">
-              <div>ATK: {weapon.baseDamage}</div>
-              <div>RPM: {weapon.fireRateRpm}</div>
-              <div>MAG: {weapon.magSize}</div>
-            </div>
+
+            <p className="leading-relaxed text-slate-300">{weapon.trait}</p>
+
+            <WeaponStatBars weapon={weapon} compact />
           </div>
 
           <div className="space-y-2 border-t border-obsidian-800 pt-3">
@@ -382,6 +393,11 @@ export function DpsCalculatorView({ preset, onChangePreset, activeBuildName }: D
           </div>
         </div>
       </div>
+
+      <WeaponDetailModal
+        weapon={inspectOpen ? weapon : null}
+        onClose={() => setInspectOpen(false)}
+      />
     </div>
   );
 }

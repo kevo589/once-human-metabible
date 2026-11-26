@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const RaritySchema = z.enum(['Legendary', 'Epic', 'Rare']);
+export const RaritySchema = z.enum(['Legendary', 'Epic', 'Rare', 'Uncommon', 'Common']);
 
 export const ArchetypeSchema = z.enum([
   'Shrapnel',
@@ -11,14 +11,28 @@ export const ArchetypeSchema = z.enum([
   "Bull's Eye",
   'Fast Gunner',
   'Fortress Warfare',
+  'Standard',
 ]);
 
 export const ScenarioIdSchema = z.enum(['manibus', 'way_of_winter', 'isles_of_abyss']);
 
+export const WeaponCategorySchema = z.enum([
+  'Assault Rifle',
+  'SMG',
+  'Sniper Rifle',
+  'Shotgun',
+  'LMG',
+  'Pistol',
+  'Crossbow',
+  'Melee',
+  'Flamethrower',
+  'Rocket Launcher',
+]);
+
 export const WeaponSchema = z.object({
   id: z.string(),
   name: z.string(),
-  category: z.enum(['AR', 'SMG', 'Sniper', 'Shotgun', 'LMG', 'Pistol', 'Crossbow']),
+  category: WeaponCategorySchema,
   rarity: RaritySchema,
   archetype: ArchetypeSchema,
   baseDamage: z.number().positive(),
@@ -29,6 +43,13 @@ export const WeaponSchema = z.object({
   critDamage: z.number().min(0),
   weakspotDamage: z.number().min(0),
   elementBonus: z.number().min(0),
+  rangeScore: z.number().min(0),
+  effectiveRangeMeters: z.number().min(0),
+  mobility: z.number().min(0),
+  ammoType: z.string(),
+  fireMode: z.string(),
+  imageUrl: z.string().min(1),
+  referenceUrl: z.string().url(),
   trait: z.string(),
   source: z.string(),
 });

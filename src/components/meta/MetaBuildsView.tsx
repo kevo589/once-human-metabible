@@ -6,6 +6,7 @@ import { WEAPONS } from '../../data/weapons';
 import type { Archetype, MetaBuild, ScenarioId } from '../../types/game';
 import { calculateDps } from '../../utils/dpsCalculator';
 import { ArchetypeBadge, Pill } from '../common/Badge';
+import { WeaponThumbnail } from '../weapons/WeaponVisuals';
 
 interface MetaBuildsViewProps {
   onLoadInCalculator: (build: MetaBuild) => void;
@@ -109,11 +110,24 @@ export function MetaBuildsView({ onLoadInCalculator }: MetaBuildsViewProps) {
 
                 <p className="mt-3 text-xs leading-relaxed text-slate-300">{build.playstyleNotes}</p>
 
-                <div className="mt-4 space-y-2 rounded-lg border border-obsidian-800 bg-obsidian-950/70 p-3 text-xs">
-                  <div>
-                    <span className="text-slate-500">Weapons:</span>{' '}
-                    <span className="font-medium text-white">{primary.name}</span>
-                    {secondary && <span className="text-slate-400"> + {secondary.name}</span>}
+                <div className="mt-4 space-y-2.5 rounded-lg border border-obsidian-800 bg-obsidian-950/70 p-3 text-xs">
+                  <div className="flex flex-wrap items-center gap-2.5">
+                    <div className="flex items-center gap-2">
+                      <WeaponThumbnail weapon={primary} size="sm" />
+                      <div>
+                        <div className="text-[10px] uppercase tracking-wider text-slate-500">Primary</div>
+                        <div className="font-semibold text-white">{primary.name}</div>
+                      </div>
+                    </div>
+                    {secondary && (
+                      <div className="flex items-center gap-2 border-l border-obsidian-800 pl-2.5">
+                        <WeaponThumbnail weapon={secondary} size="sm" />
+                        <div>
+                          <div className="text-[10px] uppercase tracking-wider text-slate-500">Secondary</div>
+                          <div className="font-medium text-slate-300">{secondary.name}</div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                   <div className="flex items-start gap-1.5">
                     <Shield className="mt-0.5 h-3.5 w-3.5 shrink-0 text-stardust-400" />

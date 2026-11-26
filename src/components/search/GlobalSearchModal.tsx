@@ -77,14 +77,23 @@ export function GlobalSearchModal({ isOpen, onClose, onNavigate }: GlobalSearchM
                   }}
                   className="flex w-full items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-left transition hover:bg-obsidian-800"
                 >
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-2">
-                      <span className="rounded border border-obsidian-700 bg-obsidian-950 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-stardust-400">
-                        {entry.kind}
-                      </span>
-                      <span className="truncate text-sm font-medium text-white">{entry.title}</span>
+                  <div className="flex min-w-0 items-center gap-3">
+                    {entry.imageUrl && (
+                      <img
+                        src={entry.imageUrl}
+                        alt=""
+                        className="h-9 w-9 shrink-0 rounded border border-obsidian-700 bg-obsidian-950 object-contain p-0.5"
+                      />
+                    )}
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span className="rounded border border-obsidian-700 bg-obsidian-950 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-stardust-400">
+                          {entry.kind}
+                        </span>
+                        <span className="truncate text-sm font-medium text-white">{entry.title}</span>
+                      </div>
+                      <div className="mt-0.5 truncate text-xs text-slate-400">{entry.subtitle}</div>
                     </div>
-                    <div className="mt-0.5 truncate text-xs text-slate-400">{entry.subtitle}</div>
                   </div>
                   <ArrowRight className="h-4 w-4 shrink-0 text-slate-500" />
                 </button>

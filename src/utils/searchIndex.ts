@@ -14,6 +14,7 @@ export interface SearchEntry {
   targetTab: NavTab;
   targetSubTab?: EncyclopediaSubTab;
   targetId: string;
+  imageUrl?: string;
   keywords: string;
 }
 
@@ -27,7 +28,8 @@ export function buildSearchEntries(): SearchEntry[] {
       targetTab: 'encyclopedia' as const,
       targetSubTab: 'weapons' as const,
       targetId: w.id,
-      keywords: `${w.trait} ${w.source} ${w.archetype}`,
+      imageUrl: w.imageUrl,
+      keywords: `${w.trait} ${w.source} ${w.archetype} ${w.ammoType}`,
     })),
     ...ARMOR_SETS.map((a) => ({
       id: `a-${a.id}`,
