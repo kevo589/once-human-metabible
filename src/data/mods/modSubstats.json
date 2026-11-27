@@ -3,130 +3,487 @@
     {
       "id": "general",
       "name": "General",
-      "stats": ["dmg_boost", "magazine_capacity", "reload_speed", "dmg_against_enemies"]
+      "stats": [
+        "dmg_boost",
+        "magazine_capacity",
+        "reload_speed",
+        "dmg_against_enemies"
+      ]
     },
     {
       "id": "violent",
       "name": "Violent",
-      "stats": ["crit_dmg", "weapon_dmg", "magazine_capacity", "dmg_against_enemies"]
+      "stats": [
+        "crit_dmg",
+        "weapon_dmg",
+        "magazine_capacity",
+        "dmg_against_enemies"
+      ]
     },
     {
       "id": "precision",
       "name": "Precision",
-      "stats": ["weakspot_dmg", "weapon_dmg", "magazine_capacity", "dmg_against_enemies"]
+      "stats": [
+        "weakspot_dmg",
+        "weapon_dmg",
+        "magazine_capacity",
+        "dmg_against_enemies"
+      ]
     },
     {
       "id": "deviant_energy",
       "name": "Deviant Energy",
-      "stats": ["elemental_dmg", "status_dmg", "magazine_capacity", "dmg_against_enemies"]
+      "stats": [
+        "elemental_dmg",
+        "status_dmg",
+        "magazine_capacity",
+        "dmg_against_enemies"
+      ]
     },
     {
-      "id": "resonance",
-      "name": "Resonance",
-      "stats": ["resonance_ws_to_elem", "resonance_elem_to_ws", "dmg_against_enemies", "magazine_capacity"]
+      "id": "lunar",
+      "name": "Lunar",
+      "stats": [
+        "lunar_crit_dmg",
+        "lunar_weapon_dmg",
+        "lunar_deviant_dmg_red",
+        "dmg_against_enemies"
+      ]
     },
     {
-      "id": "downstar",
-      "name": "Downstar",
-      "stats": ["downstar_weapon_dmg", "downstar_crit_dmg", "dmg_against_enemies", "hp"]
+      "id": "crescent",
+      "name": "Crescent",
+      "stats": [
+        "crescent_weapon_dmg",
+        "crescent_crit_dmg",
+        "dmg_against_enemies",
+        "hp"
+      ]
     },
     {
-      "id": "resonant_deviant_energy",
-      "name": "Resonant Deviant Energy",
-      "stats": ["resonance_elem_to_crit", "resonance_crit_to_elem", "dmg_against_enemies", "magazine_capacity"]
+      "id": "lunar_deviant_energy",
+      "name": "Lunar Deviant Energy",
+      "stats": [
+        "lunar_elemental_dmg",
+        "lunar_status_dmg",
+        "lunar_deviant_dmg_red",
+        "dmg_against_enemies"
+      ]
     },
     {
-      "id": "downstar_deviant_energy",
-      "name": "Downstar Deviant Energy",
-      "stats": ["downstar_elemental_dmg", "downstar_status_dmg", "dmg_against_enemies", "hp"]
+      "id": "crescent_deviant_energy",
+      "name": "Crescent Deviant Energy",
+      "stats": [
+        "crescent_elemental_dmg",
+        "crescent_status_dmg",
+        "dmg_against_enemies",
+        "hp"
+      ]
+    },
+    {
+      "id": "rhythm",
+      "name": "Rhythm",
+      "stats": [
+        "rhythm_weapon_dmg",
+        "rhythm_crit_dmg",
+        "hp",
+        "dmg_against_enemies"
+      ]
+    },
+    {
+      "id": "rhythm_deviant_energy",
+      "name": "Rhythm Deviant Energy",
+      "stats": [
+        "rhythm_elemental_dmg",
+        "rhythm_status_dmg",
+        "hp",
+        "dmg_against_enemies"
+      ]
     },
     {
       "id": "survival",
       "name": "Survival",
-      "stats": ["hp", "dmg_reduction_when_hit", "deviant_dmg_reduction", "dmg_against_enemies"]
+      "stats": [
+        "hp",
+        "dmg_reduction_when_hit",
+        "deviant_dmg_reduction",
+        "dmg_against_enemies"
+      ]
+    },
+    {
+      "id": "battle",
+      "name": "Battle",
+      "stats": [
+        "on_hit_reduce_target_dmg",
+        "dmg_reduction_when_hit",
+        "battlefield_recover_hp",
+        "hp"
+      ]
+    },
+    {
+      "id": "mirror",
+      "name": "Mirror",
+      "stats": [
+        "mirror_weapon_dmg",
+        "mirror_crit_dmg",
+        "mirror_front_dmg_red",
+        "dmg_against_enemies"
+      ]
+    },
+    {
+      "id": "wild",
+      "name": "Wild",
+      "stats": [
+        "wild_weapon_dmg",
+        "wild_crit_dmg",
+        "wild_far_dmg_red",
+        "dmg_against_enemies"
+      ]
+    },
+    {
+      "id": "phantasmal",
+      "name": "Phantasmal",
+      "stats": [
+        "phantasmal_weapon_dmg",
+        "phantasmal_crit_dmg",
+        "phantasmal_low_hp_dmg_red",
+        "dmg_against_enemies"
+      ]
+    },
+    {
+      "id": "mirror_deviant_energy",
+      "name": "Mirror Deviant Energy",
+      "stats": [
+        "mirror_status_dmg",
+        "mirror_elemental_dmg",
+        "mirror_front_dmg_red",
+        "dmg_against_enemies"
+      ]
+    },
+    {
+      "id": "wild_deviant_energy",
+      "name": "Wild Deviant Energy",
+      "stats": [
+        "wild_status_dmg",
+        "wild_elemental_dmg",
+        "wild_far_dmg_red",
+        "dmg_against_enemies"
+      ]
+    },
+    {
+      "id": "phantasmal_deviant_energy",
+      "name": "Phantasmal Deviant Energy",
+      "stats": [
+        "phantasmal_status_dmg",
+        "phantasmal_elemental_dmg",
+        "phantasmal_low_hp_dmg_red",
+        "dmg_against_enemies"
+      ]
+    },
+    {
+      "id": "resonance",
+      "name": "Resonance",
+      "stats": [
+        "resonance_ws_to_elem",
+        "resonance_elem_to_ws",
+        "dmg_against_enemies",
+        "magazine_capacity"
+      ]
+    },
+    {
+      "id": "downstar",
+      "name": "Downstar",
+      "stats": [
+        "downstar_weapon_dmg",
+        "downstar_crit_dmg",
+        "dmg_against_enemies",
+        "hp"
+      ]
+    },
+    {
+      "id": "resonant_deviant_energy",
+      "name": "Resonant Deviant Energy",
+      "stats": [
+        "resonance_elem_to_crit",
+        "resonance_crit_to_elem",
+        "dmg_against_enemies",
+        "magazine_capacity"
+      ]
+    },
+    {
+      "id": "downstar_deviant_energy",
+      "name": "Downstar Deviant Energy",
+      "stats": [
+        "downstar_elemental_dmg",
+        "downstar_status_dmg",
+        "dmg_against_enemies",
+        "hp"
+      ]
     },
     {
       "id": "aero",
       "name": "Aero",
-      "stats": ["aero_weapon_dmg", "aero_crit_dmg", "dmg_against_enemies", "hp"]
+      "stats": [
+        "aero_weapon_dmg",
+        "aero_crit_dmg",
+        "dmg_against_enemies",
+        "hp"
+      ]
     },
     {
       "id": "aero_deviant_energy",
       "name": "Aero Deviant Energy",
-      "stats": ["aero_status_dmg", "aero_elemental_dmg", "dmg_against_enemies", "hp"]
+      "stats": [
+        "aero_status_dmg",
+        "aero_elemental_dmg",
+        "dmg_against_enemies",
+        "hp"
+      ]
+    },
+    {
+      "id": "melee_default",
+      "name": "Melee Default",
+      "stats": [
+        "melee_dmg",
+        "crit_dmg",
+        "crit_rate",
+        "dmg_against_enemies"
+      ]
+    },
+    {
+      "id": "burn",
+      "name": "Burn",
+      "stats": [
+        "burn_dmg",
+        "burn_duration",
+        "blaze",
+        "dmg_against_enemies"
+      ]
+    },
+    {
+      "id": "frost_vortex",
+      "name": "Frost Vortex",
+      "stats": [
+        "frost_vortex_dmg",
+        "frost_vortex_duration",
+        "frost",
+        "dmg_against_enemies"
+      ]
+    },
+    {
+      "id": "shrapnel",
+      "name": "Shrapnel",
+      "stats": [
+        "shrapnel_dmg",
+        "shrapnel_crit",
+        "shrapnel_weakspot",
+        "dmg_against_enemies"
+      ]
+    },
+    {
+      "id": "bounce",
+      "name": "Bounce",
+      "stats": [
+        "bounce_dmg",
+        "bounce_crit",
+        "bounce_weakspot",
+        "dmg_against_enemies"
+      ]
+    },
+    {
+      "id": "fast_gunner",
+      "name": "Fast Gunner",
+      "stats": [
+        "fast_gunner_weapon",
+        "fast_gunner_crit",
+        "fast_gunner_weakspot",
+        "dmg_against_enemies"
+      ]
+    },
+    {
+      "id": "unstable_bomber",
+      "name": "Unstable Bomber",
+      "stats": [
+        "unstable_bomber_dmg",
+        "unstable_bomber_range",
+        "explosive",
+        "dmg_against_enemies"
+      ]
+    },
+    {
+      "id": "the_bulls_eye",
+      "name": "The Bull's Eye",
+      "stats": [
+        "bulls_eye_duration",
+        "bulls_eye_crit",
+        "bulls_eye_weakspot",
+        "dmg_against_enemies"
+      ]
+    },
+    {
+      "id": "power_surge",
+      "name": "Power Surge",
+      "stats": [
+        "power_surge_dmg",
+        "power_surge_chance",
+        "shock",
+        "dmg_against_enemies"
+      ]
+    },
+    {
+      "id": "fortress_warfare",
+      "name": "Fortress Warfare",
+      "stats": [
+        "heavy_weapon_dmg",
+        "heavy_weapon_crit",
+        "heavy_weapon_weakspot",
+        "dmg_against_enemies"
+      ]
     }
   ],
   "subStatsPerLevel": {
     "crit_dmg": {
       "label": "Crit DMG",
       "statKey": "critDmgPct",
-      "levels": [3.0, 6.0, 9.0, 12.0, 15.0],
+      "levels": [
+        3,
+        6,
+        9,
+        12,
+        15
+      ],
       "display": "+3% / +6% / +9% / +12% / +15%"
     },
     "weakspot_dmg": {
       "label": "Weakspot DMG",
       "statKey": "weakspotDmgPct",
-      "levels": [1.8, 3.6, 5.4, 7.2, 9.0],
+      "levels": [
+        1.8,
+        3.6,
+        5.4,
+        7.2,
+        9
+      ],
       "display": "+1.8% / +3.6% / +5.4% / +7.2% / +9%"
     },
     "magazine_capacity": {
       "label": "Magazine Capacity",
       "statKey": "magCapacityPct",
-      "levels": [2.4, 4.8, 7.2, 9.6, 12.0],
+      "levels": [
+        2.4,
+        4.8,
+        7.2,
+        9.6,
+        12
+      ],
       "display": "+2.4% / +4.8% / +7.2% / +9.6% / +12%"
     },
     "reload_speed": {
       "label": "Reload Speed",
       "statKey": "reloadSpeedPct",
-      "levels": [1.8, 3.6, 5.4, 7.2, 9.0],
+      "levels": [
+        1.8,
+        3.6,
+        5.4,
+        7.2,
+        9
+      ],
       "display": "+1.8% / +3.6% / +5.4% / +7.2% / +9%"
     },
     "weapon_dmg": {
       "label": "Weapon DMG",
       "statKey": "weaponDmgPct",
-      "levels": [1.2, 2.4, 3.6, 4.8, 6.0],
+      "levels": [
+        1.2,
+        2.4,
+        3.6,
+        4.8,
+        6
+      ],
       "display": "+1.2% / +2.4% / +3.6% / +4.8% / +6%"
     },
     "status_dmg": {
       "label": "Status DMG",
       "statKey": "statusDmgPct",
-      "levels": [1.2, 2.4, 3.6, 4.8, 6.0],
+      "levels": [
+        1.2,
+        2.4,
+        3.6,
+        4.8,
+        6
+      ],
       "display": "+1.2% / +2.4% / +3.6% / +4.8% / +6%"
     },
     "elemental_dmg": {
       "label": "Elemental DMG",
       "statKey": "elementalDmgPct",
-      "levels": [1.6, 3.2, 4.8, 6.4, 8.0],
+      "levels": [
+        1.6,
+        3.2,
+        4.8,
+        6.4,
+        8
+      ],
       "display": "+1.6% / +3.2% / +4.8% / +6.4% / +8%"
     },
     "hp": {
       "label": "HP",
       "statKey": "maxHpPct",
-      "levels": [1.2, 2.4, 3.6, 4.8, 6.0],
+      "levels": [
+        1.2,
+        2.4,
+        3.6,
+        4.8,
+        6
+      ],
       "display": "+1.2% / +2.4% / +3.6% / +4.8% / +6%"
     },
     "dmg_boost": {
       "label": "DMG Boost",
       "statKey": "dmgBoostPct",
-      "levels": [1.2, 2.4, 3.6, 4.8, 6.0],
+      "levels": [
+        1.2,
+        2.4,
+        3.6,
+        4.8,
+        6
+      ],
       "display": "+1.2% / +2.4% / +3.6% / +4.8% / +6%"
     },
     "dmg_against_enemies": {
       "label": "DMG against Enemies",
       "statKey": "enemyTypeDmgPct",
-      "levels": [1.5, 3.0, 4.5, 6.0, 7.5],
+      "levels": [
+        1.5,
+        3,
+        4.5,
+        6,
+        7.5
+      ],
       "display": "+1.5% / +3% / +4.5% / +6% / +7.5%"
     },
     "deviant_dmg_reduction": {
       "label": "Deviant DMG Reduction (New)",
       "statKey": "deviantDmgRedPct",
-      "levels": [1.6, 3.2, 4.8, 6.4, 8.0],
+      "levels": [
+        1.6,
+        3.2,
+        4.8,
+        6.4,
+        8
+      ],
       "display": "+1.6% / +3.2% / +4.8% / +6.4% / +8%"
     },
     "dmg_reduction_when_hit": {
       "label": "DMG Reduction When Hit",
       "statKey": "dmgRedWhenHitPct",
-      "levels": [1.6, 3.2, 4.8, 6.4, 8.0],
+      "levels": [
+        1.6,
+        3.2,
+        4.8,
+        6.4,
+        8
+      ],
       "maxStacks": 3,
       "durationSec": 6,
       "display": "1.6%, 3, 6 / 3.2%, 3, 6 / 4.8%, 3, 6 / 6.4%, 3, 6 / 8%, 3, 6"
@@ -135,7 +492,13 @@
       "label": "Resonance: Deal X instances of Elemental DMG, Crit DMG +X%. The effect stacks up to X time(s) and lasts for Xs.",
       "statKey": "critDmgPct",
       "condition": "resonance",
-      "perStack": [0.8, 1.6, 2.4, 3.2, 4.0],
+      "perStack": [
+        0.8,
+        1.6,
+        2.4,
+        3.2,
+        4
+      ],
       "maxStacks": 5,
       "durationSec": 6,
       "display": "1, +0.8%, 5, 6 / 1, +1.6%, 5, 6 / 1, +2.4%, 5, 6 / 1, +3.2%, 5, 6 / 1, +4%, 5, 6"
@@ -144,7 +507,13 @@
       "label": "Resonance: Deal X instances of Elemental DMG, Weakspot DMG +X%. The effect stacks up to X time(s) and lasts for Xs.",
       "statKey": "weakspotDmgPct",
       "condition": "resonance",
-      "perStack": [0.4, 0.8, 1.2, 1.6, 2.0],
+      "perStack": [
+        0.4,
+        0.8,
+        1.2,
+        1.6,
+        2
+      ],
       "maxStacks": 6,
       "durationSec": 8,
       "display": "1, +0.4%, 6, 8 / 1, +0.8%, 6, 8 / 1, +1.2%, 6, 8 / 1, +1.6%, 6, 8 / 1, +2%, 6, 8"
@@ -153,7 +522,13 @@
       "label": "Resonance: Deal X instances of Crit DMG, Elemental DMG +X%. The effect stacks up to X time(s) and lasts for Xs.",
       "statKey": "elementalDmgPct",
       "condition": "resonance",
-      "perStack": [0.2, 0.4, 0.6, 0.8, 1.0],
+      "perStack": [
+        0.2,
+        0.4,
+        0.6,
+        0.8,
+        1
+      ],
       "maxStacks": 8,
       "durationSec": 6,
       "display": "1, +0.2%, 8, 6 / 1, +0.4%, 8, 6 / 1, +0.6%, 8, 6 / 1, +0.8%, 8, 6 / 1, +1%, 8, 6"
@@ -162,7 +537,13 @@
       "label": "Resonance: Deal X instances of Weakspot DMG, Elemental DMG +X%. The effect stacks up to X time(s) and lasts for Xs.",
       "statKey": "elementalDmgPct",
       "condition": "resonance",
-      "perStack": [0.2, 0.4, 0.6, 0.8, 1.0],
+      "perStack": [
+        0.2,
+        0.4,
+        0.6,
+        0.8,
+        1
+      ],
       "maxStacks": 8,
       "durationSec": 6,
       "display": "1, +0.2%, 8, 6 / 1, +0.4%, 8, 6 / 1, +0.6%, 8, 6 / 1, +0.8%, 8, 6 / 1, +1%, 8, 6"
@@ -171,8 +552,20 @@
       "label": "Downstar: Crit DMG +X%, increased by up to X% against enemies standing at a lower level than yourself (max at X meters).",
       "statKey": "critDmgPct",
       "condition": "downstar",
-      "base": [3.0, 6.0, 9.0, 12.0, 15.0],
-      "bonusMax": [1.5, 3.0, 4.5, 6.0, 7.5],
+      "base": [
+        3,
+        6,
+        9,
+        12,
+        15
+      ],
+      "bonusMax": [
+        1.5,
+        3,
+        4.5,
+        6,
+        7.5
+      ],
       "maxMeters": 5,
       "display": "+3%, 1.5%, 5 / +6%, 3%, 5 / +9%, 4.5%, 5 / +12%, 6%, 5 / +15%, 7.5%, 5"
     },
@@ -180,8 +573,20 @@
       "label": "Downstar: Elemental DMG +X%, increased by up to X% against enemies standing at a lower level than yourself (max at X meters).",
       "statKey": "elementalDmgPct",
       "condition": "downstar",
-      "base": [1.6, 3.2, 4.8, 6.4, 8.0],
-      "bonusMax": [0.8, 1.6, 2.4, 3.2, 4.0],
+      "base": [
+        1.6,
+        3.2,
+        4.8,
+        6.4,
+        8
+      ],
+      "bonusMax": [
+        0.8,
+        1.6,
+        2.4,
+        3.2,
+        4
+      ],
       "maxMeters": 5,
       "display": "+1.6%, 0.8%, 5 / +3.2%, 1.6%, 5 / +4.8%, 2.4%, 5 / +6.4%, 3.2%, 5 / +8%, 4%, 5"
     },
@@ -189,8 +594,20 @@
       "label": "Downstar: Weapon DMG +X%, increased by up to X% against enemies standing at a lower level than yourself (max at X meters).",
       "statKey": "weaponDmgPct",
       "condition": "downstar",
-      "base": [1.2, 2.4, 3.6, 4.8, 6.0],
-      "bonusMax": [0.6, 1.2, 1.8, 2.4, 3.0],
+      "base": [
+        1.2,
+        2.4,
+        3.6,
+        4.8,
+        6
+      ],
+      "bonusMax": [
+        0.6,
+        1.2,
+        1.8,
+        2.4,
+        3
+      ],
       "maxMeters": 5,
       "display": "+1.2%, 0.6%, 5 / +2.4%, 1.2%, 5 / +3.6%, 1.8%, 5 / +4.8%, 2.4%, 5 / +6%, 3%, 5"
     },
@@ -198,8 +615,20 @@
       "label": "Downstar: Status DMG +X%, increased by up to X% against enemies standing at a lower level than yourself (max at X meters).",
       "statKey": "statusDmgPct",
       "condition": "downstar",
-      "base": [1.2, 2.4, 3.6, 4.8, 6.0],
-      "bonusMax": [0.6, 1.2, 1.8, 2.4, 3.0],
+      "base": [
+        1.2,
+        2.4,
+        3.6,
+        4.8,
+        6
+      ],
+      "bonusMax": [
+        0.6,
+        1.2,
+        1.8,
+        2.4,
+        3
+      ],
       "maxMeters": 5,
       "display": "+1.2%, 0.6%, 5 / +2.4%, 1.2%, 5 / +3.6%, 1.8%, 5 / +4.8%, 2.4%, 5 / +6%, 3%, 5"
     },
@@ -207,33 +636,952 @@
       "label": "Aero: Weapon DMG +X%, additional +X% for aerial hits",
       "statKey": "weaponDmgPct",
       "condition": "aero",
-      "base": [1.2, 2.4, 3.6, 4.8, 6.0],
-      "aerialBonus": [0.6, 1.2, 1.8, 2.4, 3.0],
+      "base": [
+        1.2,
+        2.4,
+        3.6,
+        4.8,
+        6
+      ],
+      "aerialBonus": [
+        0.6,
+        1.2,
+        1.8,
+        2.4,
+        3
+      ],
       "display": "+1.2%, +0.6% / +2.4%, +1.2% / +3.6%, +1.8% / +4.8%, +2.4% / +6%, +3%"
     },
     "aero_crit_dmg": {
       "label": "Aero: Crit DMG +X%, additional +X% for aerial hits",
       "statKey": "critDmgPct",
       "condition": "aero",
-      "base": [3.0, 6.0, 9.0, 12.0, 15.0],
-      "aerialBonus": [1.5, 3.0, 4.5, 6.0, 7.5],
+      "base": [
+        3,
+        6,
+        9,
+        12,
+        15
+      ],
+      "aerialBonus": [
+        1.5,
+        3,
+        4.5,
+        6,
+        7.5
+      ],
       "display": "+3%, +1.5% / +6%, +3% / +9%, +4.5% / +12%, +6% / +15%, +7.5%"
     },
     "aero_status_dmg": {
       "label": "Aero: Status DMG +X%, additional +X% for aerial hits",
       "statKey": "statusDmgPct",
       "condition": "aero",
-      "base": [1.2, 2.4, 3.6, 4.8, 6.0],
-      "aerialBonus": [0.6, 1.2, 1.8, 2.4, 3.0],
+      "base": [
+        1.2,
+        2.4,
+        3.6,
+        4.8,
+        6
+      ],
+      "aerialBonus": [
+        0.6,
+        1.2,
+        1.8,
+        2.4,
+        3
+      ],
       "display": "+1.2%, +0.6% / +2.4%, +1.2% / +3.6%, +1.8% / +4.8%, +2.4% / +6%, +3%"
     },
     "aero_elemental_dmg": {
       "label": "Aero: Elemental DMG +X%, additional +X% for aerial hits",
       "statKey": "elementalDmgPct",
       "condition": "aero",
-      "base": [1.6, 3.2, 4.8, 6.4, 8.0],
-      "aerialBonus": [0.8, 1.6, 2.4, 3.2, 4.0],
+      "base": [
+        1.6,
+        3.2,
+        4.8,
+        6.4,
+        8
+      ],
+      "aerialBonus": [
+        0.8,
+        1.6,
+        2.4,
+        3.2,
+        4
+      ],
       "display": "+1.6%, +0.8% / +3.2%, +1.6% / +4.8%, +2.4% / +6.4%, +3.2% / +8%, +4%"
+    },
+    "lunar_crit_dmg": {
+      "label": "Lunar: The lower your HP, the higher your Crit DMG, up to +X%.",
+      "statKey": "critDmgPct",
+      "condition": "lunar",
+      "maxBonus": [
+        6,
+        12,
+        18,
+        24,
+        30
+      ],
+      "display": "+6% / +12% / +18% / +24% / +30%"
+    },
+    "lunar_elemental_dmg": {
+      "label": "Lunar: The lower your HP, the higher your Elemental DMG, up to +X%.",
+      "statKey": "elementalDmgPct",
+      "condition": "lunar",
+      "maxBonus": [
+        3.2,
+        6.4,
+        9.6,
+        12.8,
+        16
+      ],
+      "display": "+3.2% / +6.4% / +9.6% / +12.8% / +16%"
+    },
+    "lunar_weapon_dmg": {
+      "label": "Lunar: The lower your HP, the higher your Weapon DMG, up to +X%.",
+      "statKey": "weaponDmgPct",
+      "condition": "lunar",
+      "maxBonus": [
+        2.4,
+        4.8,
+        7.2,
+        9.6,
+        12
+      ],
+      "display": "+2.4% / +4.8% / +7.2% / +9.6% / +12%"
+    },
+    "lunar_deviant_dmg_red": {
+      "label": "Lunar: The lower your HP, the higher your DMG Reduction against Deviants, up to +X%.",
+      "statKey": "utilityPct",
+      "condition": "lunar",
+      "maxBonus": [
+        2.4,
+        4.8,
+        7.2,
+        9.6,
+        12
+      ],
+      "display": "+2.4% / +4.8% / +7.2% / +9.6% / +12%"
+    },
+    "crescent_crit_dmg": {
+      "label": "Crescent: Crit DMG +X%. Extra DMG based on Shield (triggers at 40% Shield) up to+X%",
+      "statKey": "critDmgPct",
+      "condition": "crescent",
+      "base": [
+        2,
+        4,
+        6,
+        8,
+        10
+      ],
+      "bonusMax": [
+        3,
+        6,
+        9,
+        12,
+        15
+      ],
+      "display": "+2%, +3% / +4%, +6% / +6%, +9% / +8%, +12% / +10%, +15%"
+    },
+    "crescent_weapon_dmg": {
+      "label": "Crescent: Weapon DMG +X%. Extra DMG based on Shield (triggers at 40% Shield) up to+X%",
+      "statKey": "weaponDmgPct",
+      "condition": "crescent",
+      "base": [
+        0.8,
+        1.6,
+        2.4,
+        3.2,
+        4
+      ],
+      "bonusMax": [
+        1.2,
+        2.4,
+        3.6,
+        4.8,
+        6
+      ],
+      "display": "+0.8%, +1.2% / +1.6%, +2.4% / +2.4%, +3.6% / +3.2%, +4.8% / +4%, +6%"
+    },
+    "crescent_elemental_dmg": {
+      "label": "Crescent: Elemental DMG +X%. Extra +X% DMG based on Shield (triggers at 40% Shield)",
+      "statKey": "elementalDmgPct",
+      "condition": "crescent",
+      "base": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "bonusMax": [
+        1.6,
+        3.2,
+        4.8,
+        6.4,
+        8
+      ],
+      "display": "+1%, +1.6% / +2%, +3.2% / +3%, +4.8% / +4%, +6.4% / +5%, +8%"
+    },
+    "crescent_status_dmg": {
+      "label": "Crescent: Status DMG +X%. Extra DMG based on Shield (triggers at 40% Shield) up to+X%",
+      "statKey": "statusDmgPct",
+      "condition": "crescent",
+      "base": [
+        0.8,
+        1.6,
+        2.4,
+        3.2,
+        4
+      ],
+      "bonusMax": [
+        1.2,
+        2.4,
+        3.6,
+        4.8,
+        6
+      ],
+      "display": "+0.8%, +1.2% / +1.6%, +2.4% / +2.4%, +3.6% / +3.2%, +4.8% / +4%, +6%"
+    },
+    "rhythm_weapon_dmg": {
+      "label": "Rhythm: Weapon DMG +X%. When HP is at or above 70%, +X% additionally.",
+      "statKey": "weaponDmgPct",
+      "condition": "rhythm",
+      "base": [
+        1.2,
+        2.4,
+        3.6,
+        4.8,
+        6
+      ],
+      "highHpBonus": [
+        1.2,
+        2.4,
+        3.6,
+        4.8,
+        6
+      ],
+      "display": "+1.2%, +1.2% / +2.4%, +2.4% / +3.6%, +3.6% / +4.8%, +4.8% / +6%, +6%"
+    },
+    "rhythm_crit_dmg": {
+      "label": "Rhythm: Crit DMG +X%. When HP is at or above 70%, +X% additionally.",
+      "statKey": "critDmgPct",
+      "condition": "rhythm",
+      "base": [
+        3,
+        6,
+        9,
+        12,
+        15
+      ],
+      "highHpBonus": [
+        3,
+        6,
+        9,
+        12,
+        15
+      ],
+      "display": "+3%, +3% / +6%, +6% / +9%, +9% / +12%, +12% / +15%, +15%"
+    },
+    "rhythm_elemental_dmg": {
+      "label": "Rhythm: Elemental DMG +X%. When HP is 70% or above, +X% additionally.",
+      "statKey": "elementalDmgPct",
+      "condition": "rhythm",
+      "base": [
+        1.6,
+        3.2,
+        4.8,
+        6.4,
+        8
+      ],
+      "highHpBonus": [
+        1.6,
+        3.2,
+        4.8,
+        6.4,
+        8
+      ],
+      "display": "+1.6%, +1.6% / +3.2%, +3.2% / +4.8%, +4.8% / +6.4%, +6.4% / +8%, +8%"
+    },
+    "rhythm_status_dmg": {
+      "label": "Rhythm: Status DMG +X%. When HP is 70% or above, +X% additionally.",
+      "statKey": "statusDmgPct",
+      "condition": "rhythm",
+      "base": [
+        1.2,
+        2.4,
+        3.6,
+        4.8,
+        6
+      ],
+      "highHpBonus": [
+        1.2,
+        2.4,
+        3.6,
+        4.8,
+        6
+      ],
+      "display": "+1.2%, +1.2% / +2.4%, +2.4% / +3.6%, +3.6% / +4.8%, +4.8% / +6%, +6%"
+    },
+    "lunar_status_dmg": {
+      "label": "Lunar: The lower your HP, the higher your Status DMG, up to +X%.",
+      "statKey": "statusDmgPct",
+      "condition": "lunar",
+      "maxBonus": [
+        2.4,
+        4.8,
+        7.2,
+        9.6,
+        12
+      ],
+      "display": "+2.4% / +4.8% / +7.2% / +9.6% / +12%"
+    },
+    "battlefield_recover_hp": {
+      "label": "Battlefield: Defeating Metas recovers X%HP.",
+      "statKey": "utilityPct",
+      "levels": [
+        2.4,
+        4.8,
+        7.2,
+        9.6,
+        12
+      ],
+      "display": "2.4% / 4.8% / 7.2% / 9.6% / 12%"
+    },
+    "mirror_weapon_dmg": {
+      "label": "Mirror: Firearm Damage+X%. When attacking from behind, Firearm Damage+X%",
+      "statKey": "weaponDmgPct",
+      "condition": "mirror",
+      "base": [
+        0.8,
+        1.6,
+        2.4,
+        3.2,
+        4
+      ],
+      "behindBonus": [
+        1.6,
+        3.2,
+        4.8,
+        6.4,
+        8
+      ],
+      "display": "+0.8%, +1.6% / +1.6%, +3.2% / +2.4%, +4.8% / +3.2%, +6.4% / +4%, +8%"
+    },
+    "mirror_crit_dmg": {
+      "label": "Mirror: Crit DMG +X%. When attacking from behind, Crit DMG +X%",
+      "statKey": "critDmgPct",
+      "condition": "mirror",
+      "base": [
+        2,
+        4,
+        6,
+        8,
+        10
+      ],
+      "behindBonus": [
+        4,
+        8,
+        12,
+        16,
+        20
+      ],
+      "display": "+2%, +4% / +4%, +8% / +6%, +12% / +8%, +16% / +10%, +20%"
+    },
+    "mirror_front_dmg_red": {
+      "label": "Mirror: Non-Player damage taken from the front-X%",
+      "statKey": "utilityPct",
+      "levels": [
+        2,
+        4,
+        6,
+        8,
+        10
+      ],
+      "display": "-2% / -4% / -6% / -8% / -10%"
+    },
+    "mirror_status_dmg": {
+      "label": "Mirror: Status DMG+X%. When attacking from behind, Status DMG+X%",
+      "statKey": "statusDmgPct",
+      "condition": "mirror",
+      "base": [
+        0.8,
+        1.6,
+        2.4,
+        3.2,
+        4
+      ],
+      "behindBonus": [
+        1.6,
+        3.2,
+        4.8,
+        6.4,
+        8
+      ],
+      "display": "+0.8%, +1.6% / +1.6%, +3.2% / +2.4%, +4.8% / +3.2%, +6.4% / +4%, +8%"
+    },
+    "mirror_elemental_dmg": {
+      "label": "Mirror: Elemental DMG+X%. When attacking from behind, Elemental DMG+X%",
+      "statKey": "elementalDmgPct",
+      "condition": "mirror",
+      "base": [
+        1.2,
+        2.4,
+        3.6,
+        4.8,
+        6
+      ],
+      "behindBonus": [
+        2,
+        4,
+        6,
+        8,
+        10
+      ],
+      "display": "+1.2%, +2% / +2.4%, +4% / +3.6%, +6% / +4.8%, +8% / +6%, +10%"
+    },
+    "wild_weapon_dmg": {
+      "label": "Wild: When attacking enemies within 15m, firearm damage +X%, with an additional +X% per meter closer, up to a maximum of +X%.",
+      "statKey": "weaponDmgPct",
+      "condition": "wild",
+      "base": [
+        0.8,
+        1.6,
+        2.4,
+        3.2,
+        4
+      ],
+      "perMeter": [
+        0.16,
+        0.32,
+        0.48,
+        0.64,
+        0.8
+      ],
+      "bonusMax": [
+        1.6,
+        3.2,
+        4.8,
+        6.4,
+        8
+      ],
+      "display": "+0.8%, +0.16%, +1.6% / +1.6%, +0.32%, +3.2% / +2.4%, +0.48%, +4.8% / +3.2%, +0.64%, +6.4% / +4%, +0.8%, +8%"
+    },
+    "wild_crit_dmg": {
+      "label": "Wild: When attacking enemies within 15 meters, Crit DMG +X%. For every 1 meter closer, gain an additional +X%, up to a maximum of +X%.",
+      "statKey": "critDmgPct",
+      "condition": "wild",
+      "base": [
+        2,
+        4,
+        6,
+        8,
+        10
+      ],
+      "perMeter": [
+        0.4,
+        0.8,
+        1.2,
+        1.6,
+        2
+      ],
+      "bonusMax": [
+        4,
+        8,
+        12,
+        16,
+        20
+      ],
+      "display": "+2%, +0.4%, +4% / +4%, +0.8%, +8% / +6%, +1.2%, +12% / +8%, +1.6%, +16% / +10%, +2%, +20%"
+    },
+    "wild_far_dmg_red": {
+      "label": "Wild: Non-Player damage taken from beyond 15m -X%",
+      "statKey": "utilityPct",
+      "levels": [
+        2.4,
+        4.8,
+        7.2,
+        9.6,
+        12
+      ],
+      "display": "-2.4% / -4.8% / -7.2% / -9.6% / -12%"
+    },
+    "wild_status_dmg": {
+      "label": "Wild: When attacking enemies within 15 meters, Status DMG +X%. For every 1 meter closer, gain an additional +X%, up to a maximum of +X%.",
+      "statKey": "statusDmgPct",
+      "condition": "wild",
+      "base": [
+        0.8,
+        1.6,
+        2.4,
+        3.2,
+        4
+      ],
+      "perMeter": [
+        0.16,
+        0.32,
+        0.48,
+        0.64,
+        0.8
+      ],
+      "bonusMax": [
+        1.6,
+        3.2,
+        4.8,
+        6.4,
+        8
+      ],
+      "display": "+0.8%, +0.16%, +1.6% / +1.6%, +0.32%, +3.2% / +2.4%, +0.48%, +4.8% / +3.2%, +0.64%, +6.4% / +4%, +0.8%, +8%"
+    },
+    "wild_elemental_dmg": {
+      "label": "Wild: Elemental DMG+X% when attacking enemies within 15m, gaining an additional +X% per meter closer, up to a maximum of +X%.",
+      "statKey": "elementalDmgPct",
+      "condition": "wild",
+      "base": [
+        1.2,
+        2.4,
+        3.6,
+        4.8,
+        6
+      ],
+      "perMeter": [
+        0.2,
+        0.4,
+        0.6,
+        0.8,
+        1
+      ],
+      "bonusMax": [
+        2,
+        4,
+        6,
+        8,
+        10
+      ],
+      "display": "+1.2%, +0.2%, +2% / +2.4%, +0.4%, +4% / +3.6%, +0.6%, +6% / +4.8%, +0.8%, +8% / +6%, +1%, +10%"
+    },
+    "phantasmal_weapon_dmg": {
+      "label": "Phantasmal: After switching weapons, Weapon DMG +X% for 10 seconds.",
+      "statKey": "weaponDmgPct",
+      "levels": [
+        2,
+        4,
+        6,
+        8,
+        10
+      ],
+      "display": "+2% / +4% / +6% / +8% / +10%"
+    },
+    "phantasmal_crit_dmg": {
+      "label": "Phantasmal: Switching weapons grants Crit DMG +X% for 10 seconds.",
+      "statKey": "critDmgPct",
+      "levels": [
+        5,
+        10,
+        15,
+        20,
+        25
+      ],
+      "display": "+5% / +10% / +15% / +20% / +25%"
+    },
+    "phantasmal_low_hp_dmg_red": {
+      "label": "Phantasmal: Non-player damage taken-X% when HP is below 50%.",
+      "statKey": "utilityPct",
+      "levels": [
+        2,
+        4,
+        6,
+        8,
+        10
+      ],
+      "display": "-2% / -4% / -6% / -8% / -10%"
+    },
+    "phantasmal_status_dmg": {
+      "label": "Phantasmal: After switching weapons, Status DMG+X% for 10 seconds",
+      "statKey": "statusDmgPct",
+      "levels": [
+        2,
+        4,
+        6,
+        8,
+        10
+      ],
+      "display": "+2% / +4% / +6% / +8% / +10%"
+    },
+    "phantasmal_elemental_dmg": {
+      "label": "Phantasmal: After switching weapons, Elemental DMG +X% for 10s",
+      "statKey": "elementalDmgPct",
+      "levels": [
+        2.6,
+        5.2,
+        7.8,
+        10.4,
+        13
+      ],
+      "display": "+2.6% / +5.2% / +7.8% / +10.4% / +13%"
+    },
+    "on_hit_reduce_target_dmg": {
+      "label": "On hit, reduces the target's DMG.",
+      "statKey": "utilityPct",
+      "condition": "on_hit_debuff",
+      "levels": [
+        3,
+        6,
+        9,
+        12,
+        15
+      ],
+      "durationSec": 2,
+      "display": "3%, 2 / 6%, 2 / 9%, 2 / 12%, 2 / 15%, 2"
+    },
+    "crit_rate": {
+      "label": "Crit Rate",
+      "statKey": "critRatePct",
+      "levels": [
+        1.2,
+        2.4,
+        3.6,
+        4.8,
+        6
+      ],
+      "display": "+1.2% / +2.4% / +3.6% / +4.8% / +6%"
+    },
+    "melee_dmg": {
+      "label": "Melee DMG",
+      "statKey": "weaponDmgPct",
+      "levels": [
+        1.6,
+        3.2,
+        4.8,
+        6.4,
+        8
+      ],
+      "display": "+1.6% / +3.2% / +4.8% / +6.4% / +8%"
+    },
+    "blaze": {
+      "label": "Blaze",
+      "statKey": "elementalDmgPct",
+      "levels": [
+        1.2,
+        2.4,
+        3.6,
+        4.8,
+        6
+      ],
+      "display": "+1.2% / +2.4% / +3.6% / +4.8% / +6%"
+    },
+    "burn_dmg": {
+      "label": "Burn DMG",
+      "statKey": "statusDmgPct",
+      "levels": [
+        1.2,
+        2.4,
+        3.6,
+        4.8,
+        6
+      ],
+      "display": "+1.2% / +2.4% / +3.6% / +4.8% / +6%"
+    },
+    "burn_duration": {
+      "label": "Burn Duration",
+      "statKey": "keywordUtilityPct",
+      "levels": [
+        3,
+        6,
+        9,
+        12,
+        15
+      ],
+      "display": "+3% / +6% / +9% / +12% / +15%"
+    },
+    "frost": {
+      "label": "Frost",
+      "statKey": "elementalDmgPct",
+      "levels": [
+        1.2,
+        2.4,
+        3.6,
+        4.8,
+        6
+      ],
+      "display": "+1.2% / +2.4% / +3.6% / +4.8% / +6%"
+    },
+    "frost_vortex_dmg": {
+      "label": "Frost Vortex DMG",
+      "statKey": "statusDmgPct",
+      "levels": [
+        1.2,
+        2.4,
+        3.6,
+        4.8,
+        6
+      ],
+      "display": "+1.2% / +2.4% / +3.6% / +4.8% / +6%"
+    },
+    "frost_vortex_duration": {
+      "label": "Frost Vortex Duration",
+      "statKey": "keywordUtilityPct",
+      "levels": [
+        3,
+        6,
+        9,
+        12,
+        15
+      ],
+      "display": "+3% / +6% / +9% / +12% / +15%"
+    },
+    "shrapnel_dmg": {
+      "label": "Shrapnel DMG",
+      "statKey": "shrapnelDmgPct",
+      "levels": [
+        1.2,
+        2.4,
+        3.6,
+        4.8,
+        6
+      ],
+      "display": "+1.2% / +2.4% / +3.6% / +4.8% / +6%"
+    },
+    "shrapnel_crit": {
+      "label": "Shrapnel Crit",
+      "statKey": "critDmgPct",
+      "levels": [
+        5,
+        10,
+        15,
+        20,
+        25
+      ],
+      "display": "+5% / +10% / +15% / +20% / +25%"
+    },
+    "shrapnel_weakspot": {
+      "label": "Shrapnel Weakspot",
+      "statKey": "weakspotDmgPct",
+      "levels": [
+        3,
+        6,
+        9,
+        12,
+        15
+      ],
+      "display": "+3% / +6% / +9% / +12% / +15%"
+    },
+    "bounce_dmg": {
+      "label": "Bounce DMG",
+      "statKey": "bounceDmgPct",
+      "levels": [
+        1.2,
+        2.4,
+        3.6,
+        4.8,
+        6
+      ],
+      "display": "+1.2% / +2.4% / +3.6% / +4.8% / +6%"
+    },
+    "bounce_crit": {
+      "label": "Bounce Crit",
+      "statKey": "bounceCritDmgPct",
+      "levels": [
+        5,
+        10,
+        15,
+        20,
+        25
+      ],
+      "display": "+5% / +10% / +15% / +20% / +25%"
+    },
+    "bounce_weakspot": {
+      "label": "Bounce Weakspot",
+      "statKey": "weakspotDmgPct",
+      "levels": [
+        3,
+        6,
+        9,
+        12,
+        15
+      ],
+      "display": "+3% / +6% / +9% / +12% / +15%"
+    },
+    "fast_gunner_weapon": {
+      "label": "Fast Gunner Weapon",
+      "statKey": "weaponDmgPct",
+      "levels": [
+        1.6,
+        3.2,
+        4.8,
+        6.4,
+        8
+      ],
+      "display": "+1.6% / +3.2% / +4.8% / +6.4% / +8%"
+    },
+    "fast_gunner_weakspot": {
+      "label": "Fast Gunner Weakspot",
+      "statKey": "weakspotDmgPct",
+      "levels": [
+        2.4,
+        4.8,
+        7.2,
+        9.6,
+        12
+      ],
+      "display": "+2.4% / +4.8% / +7.2% / +9.6% / +12%"
+    },
+    "fast_gunner_crit": {
+      "label": "Fast Gunner Crit",
+      "statKey": "critDmgPct",
+      "levels": [
+        4,
+        8,
+        12,
+        16,
+        20
+      ],
+      "display": "+4% / +8% / +12% / +16% / +20%"
+    },
+    "explosive": {
+      "label": "Explosive",
+      "statKey": "elementalDmgPct",
+      "levels": [
+        1.2,
+        2.4,
+        3.6,
+        4.8,
+        6
+      ],
+      "display": "+1.2% / +2.4% / +3.6% / +4.8% / +6%"
+    },
+    "unstable_bomber_dmg": {
+      "label": "Unstable Bomber DMG",
+      "statKey": "statusDmgPct",
+      "levels": [
+        1.2,
+        2.4,
+        3.6,
+        4.8,
+        6
+      ],
+      "display": "+1.2% / +2.4% / +3.6% / +4.8% / +6%"
+    },
+    "unstable_bomber_range": {
+      "label": "Unstable Bomber Range",
+      "statKey": "keywordUtilityPct",
+      "levels": [
+        4,
+        8,
+        12,
+        16,
+        20
+      ],
+      "display": "+4% / +8% / +12% / +16% / +20%"
+    },
+    "bulls_eye_duration": {
+      "label": "The Bull's Eye Duration",
+      "statKey": "keywordUtilityPct",
+      "levels": [
+        3,
+        6,
+        9,
+        12,
+        15
+      ],
+      "display": "+3% / +6% / +9% / +12% / +15%"
+    },
+    "bulls_eye_weakspot": {
+      "label": "The Bull's Eye Weakspot",
+      "statKey": "weakspotDmgPct",
+      "levels": [
+        2.4,
+        4.8,
+        7.2,
+        9.6,
+        12
+      ],
+      "display": "+2.4% / +4.8% / +7.2% / +9.6% / +12%"
+    },
+    "bulls_eye_crit": {
+      "label": "The Bull's Eye Crit",
+      "statKey": "critDmgPct",
+      "levels": [
+        3.6,
+        7.2,
+        10.8,
+        14.4,
+        18
+      ],
+      "display": "+3.6% / +7.2% / +10.8% / +14.4% / +18%"
+    },
+    "shock": {
+      "label": "Shock",
+      "statKey": "elementalDmgPct",
+      "levels": [
+        1.2,
+        2.4,
+        3.6,
+        4.8,
+        6
+      ],
+      "display": "+1.2% / +2.4% / +3.6% / +4.8% / +6%"
+    },
+    "power_surge_dmg": {
+      "label": "Power Surge DMG",
+      "statKey": "statusDmgPct",
+      "levels": [
+        1.2,
+        2.4,
+        3.6,
+        4.8,
+        6
+      ],
+      "display": "+1.2% / +2.4% / +3.6% / +4.8% / +6%"
+    },
+    "power_surge_chance": {
+      "label": "Power Surge Chance",
+      "statKey": "keywordUtilityPct",
+      "levels": [
+        1.2,
+        2.4,
+        3.6,
+        4.8,
+        6
+      ],
+      "display": "+1.2% / +2.4% / +3.6% / +4.8% / +6%"
+    },
+    "heavy_weapon_dmg": {
+      "label": "Heavy Weapon DMG",
+      "statKey": "weaponDmgPct",
+      "levels": [
+        1.6,
+        3.2,
+        4.8,
+        6.4,
+        8
+      ],
+      "display": "+1.6% / +3.2% / +4.8% / +6.4% / +8%"
+    },
+    "heavy_weapon_weakspot": {
+      "label": "Heavy Weapon Weakspot",
+      "statKey": "weakspotDmgPct",
+      "levels": [
+        2.4,
+        4.8,
+        7.2,
+        9.6,
+        12
+      ],
+      "display": "+2.4% / +4.8% / +7.2% / +9.6% / +12%"
+    },
+    "heavy_weapon_crit": {
+      "label": "Heavy Weapon Crit",
+      "statKey": "critDmgPct",
+      "levels": [
+        4,
+        8,
+        12,
+        16,
+        20
+      ],
+      "display": "+4% / +8% / +12% / +16% / +20%"
     }
   }
 }

@@ -13,7 +13,12 @@
       "violent",
       "precision",
       "deviant_energy",
-      "survival"
+      "lunar",
+      "crescent",
+      "lunar_deviant_energy",
+      "crescent_deviant_energy",
+      "rhythm",
+      "rhythm_deviant_energy"
     ],
     "coreEffectByLevel": {
       "1": "Hitting a weakspot grants Weakspot DMG +4% for 3s. Effect can stack 3 times.",
@@ -24,19 +29,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "weakspotDmgPct": 4.0
+        "weakspotDmgPct": 4
       },
       "2": {
-        "weakspotDmgPct": 6.0
+        "weakspotDmgPct": 6
       },
       "3": {
-        "weakspotDmgPct": 8.0
+        "weakspotDmgPct": 8
       },
       "4": {
-        "weakspotDmgPct": 10.0
+        "weakspotDmgPct": 10
       },
       "5": {
-        "weakspotDmgPct": 12.0
+        "weakspotDmgPct": 12
       }
     }
   },
@@ -54,7 +59,12 @@
       "violent",
       "precision",
       "deviant_energy",
-      "survival"
+      "lunar",
+      "crescent",
+      "lunar_deviant_energy",
+      "crescent_deviant_energy",
+      "rhythm",
+      "rhythm_deviant_energy"
     ],
     "coreEffectByLevel": {
       "1": "Range -25%, Fire Rate +10%, Status DMG +4%",
@@ -65,24 +75,24 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "statusDmgPct": 4.0,
-        "fireRatePct": 10.0
+        "statusDmgPct": 4,
+        "fireRatePct": 10
       },
       "2": {
-        "statusDmgPct": 8.0,
-        "fireRatePct": 10.0
+        "statusDmgPct": 8,
+        "fireRatePct": 10
       },
       "3": {
-        "statusDmgPct": 12.0,
-        "fireRatePct": 10.0
+        "statusDmgPct": 12,
+        "fireRatePct": 10
       },
       "4": {
-        "statusDmgPct": 16.0,
-        "fireRatePct": 10.0
+        "statusDmgPct": 16,
+        "fireRatePct": 10
       },
       "5": {
-        "statusDmgPct": 20.0,
-        "fireRatePct": 10.0
+        "statusDmgPct": 20,
+        "fireRatePct": 10
       }
     }
   },
@@ -100,7 +110,12 @@
       "violent",
       "precision",
       "deviant_energy",
-      "survival"
+      "lunar",
+      "crescent",
+      "lunar_deviant_energy",
+      "crescent_deviant_energy",
+      "rhythm",
+      "rhythm_deviant_energy"
     ],
     "coreEffectByLevel": {
       "1": "After reloading, Crit Rate +8%, Crit DMG +4% for 2s.",
@@ -111,24 +126,24 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "critDmgPct": 4.0,
-        "critRatePct": 8.0
+        "critDmgPct": 4,
+        "critRatePct": 8
       },
       "2": {
-        "critDmgPct": 8.0,
-        "critRatePct": 8.0
+        "critDmgPct": 8,
+        "critRatePct": 8
       },
       "3": {
-        "critDmgPct": 12.0,
-        "critRatePct": 8.0
+        "critDmgPct": 12,
+        "critRatePct": 8
       },
       "4": {
-        "critDmgPct": 16.0,
-        "critRatePct": 8.0
+        "critDmgPct": 16,
+        "critRatePct": 8
       },
       "5": {
-        "critDmgPct": 20.0,
-        "critRatePct": 10.0
+        "critDmgPct": 20,
+        "critRatePct": 10
       }
     }
   },
@@ -146,7 +161,12 @@
       "violent",
       "precision",
       "deviant_energy",
-      "survival"
+      "lunar",
+      "crescent",
+      "lunar_deviant_energy",
+      "crescent_deviant_energy",
+      "rhythm",
+      "rhythm_deviant_energy"
     ],
     "coreEffectByLevel": {
       "1": "When reloading an empty magazine, Magazine Capacity +10%.",
@@ -157,19 +177,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "magCapPct": 10.0
+        "magCapPct": 10
       },
       "2": {
-        "magCapPct": 15.0
+        "magCapPct": 15
       },
       "3": {
-        "magCapPct": 20.0
+        "magCapPct": 20
       },
       "4": {
-        "magCapPct": 25.0
+        "magCapPct": 25
       },
       "5": {
-        "magCapPct": 30.0
+        "magCapPct": 30
       }
     }
   },
@@ -187,7 +207,12 @@
       "violent",
       "precision",
       "deviant_energy",
-      "survival"
+      "lunar",
+      "crescent",
+      "lunar_deviant_energy",
+      "crescent_deviant_energy",
+      "rhythm",
+      "rhythm_deviant_energy"
     ],
     "coreEffectByLevel": {
       "1": "When reloading with an empty magazine, Reload Efficiency +5%, Elemental DMG +4%. Resets with the next reload.",
@@ -198,24 +223,24 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "elementalDmgPct": 4.0,
-        "reloadSpeedPct": 5.0
+        "elementalDmgPct": 4,
+        "reloadSpeedPct": 5
       },
       "2": {
-        "elementalDmgPct": 8.0,
-        "reloadSpeedPct": 5.0
+        "elementalDmgPct": 8,
+        "reloadSpeedPct": 5
       },
       "3": {
-        "elementalDmgPct": 12.0,
-        "reloadSpeedPct": 5.0
+        "elementalDmgPct": 12,
+        "reloadSpeedPct": 5
       },
       "4": {
-        "elementalDmgPct": 16.0,
-        "reloadSpeedPct": 5.0
+        "elementalDmgPct": 16,
+        "reloadSpeedPct": 5
       },
       "5": {
-        "elementalDmgPct": 20.0,
-        "reloadSpeedPct": 5.0
+        "elementalDmgPct": 20,
+        "reloadSpeedPct": 5
       }
     }
   },
@@ -232,7 +257,12 @@
       "general",
       "violent",
       "deviant_energy",
-      "survival"
+      "lunar",
+      "crescent",
+      "lunar_deviant_energy",
+      "crescent_deviant_energy",
+      "survival",
+      "rhythm_deviant_energy"
     ],
     "coreEffectByLevel": {
       "1": "Cannot deal Weakspot DMG. Crit Rate +8% and Crit DMG +10%.",
@@ -243,24 +273,24 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "critDmgPct": 10.0,
-        "critRatePct": 8.0
+        "critDmgPct": 10,
+        "critRatePct": 8
       },
       "2": {
-        "critDmgPct": 15.0,
-        "critRatePct": 8.0
+        "critDmgPct": 15,
+        "critRatePct": 8
       },
       "3": {
-        "critDmgPct": 20.0,
-        "critRatePct": 8.0
+        "critDmgPct": 20,
+        "critRatePct": 8
       },
       "4": {
-        "critDmgPct": 25.0,
-        "critRatePct": 8.0
+        "critDmgPct": 25,
+        "critRatePct": 8
       },
       "5": {
-        "critDmgPct": 30.0,
-        "critRatePct": 10.0
+        "critDmgPct": 30,
+        "critRatePct": 10
       }
     }
   },
@@ -278,7 +308,12 @@
       "violent",
       "precision",
       "deviant_energy",
-      "survival"
+      "lunar",
+      "crescent",
+      "lunar_deviant_energy",
+      "crescent_deviant_energy",
+      "rhythm",
+      "rhythm_deviant_energy"
     ],
     "coreEffectByLevel": {
       "1": "Fire Rate +8% for the first 50% of the magazine and Weapon DMG +10% for the next 50% of the magazine.",
@@ -289,24 +324,24 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "weaponDmgPct": 10.0,
-        "fireRatePct": 8.0
+        "weaponDmgPct": 10,
+        "fireRatePct": 8
       },
       "2": {
-        "weaponDmgPct": 15.0,
-        "fireRatePct": 8.0
+        "weaponDmgPct": 15,
+        "fireRatePct": 8
       },
       "3": {
-        "weaponDmgPct": 20.0,
-        "fireRatePct": 8.0
+        "weaponDmgPct": 20,
+        "fireRatePct": 8
       },
       "4": {
-        "weaponDmgPct": 25.0,
-        "fireRatePct": 8.0
+        "weaponDmgPct": 25,
+        "fireRatePct": 8
       },
       "5": {
-        "weaponDmgPct": 30.0,
-        "fireRatePct": 10.0
+        "weaponDmgPct": 30,
+        "fireRatePct": 10
       }
     }
   },
@@ -324,7 +359,12 @@
       "violent",
       "precision",
       "deviant_energy",
-      "survival"
+      "lunar",
+      "crescent",
+      "lunar_deviant_energy",
+      "crescent_deviant_energy",
+      "rhythm",
+      "rhythm_deviant_energy"
     ],
     "coreEffectByLevel": {
       "1": "Elemental DMG +10%. When HP is above 90%, +5% additionally.",
@@ -335,19 +375,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "elementalDmgPct": 10.0
+        "elementalDmgPct": 10
       },
       "2": {
-        "elementalDmgPct": 10.0
+        "elementalDmgPct": 10
       },
       "3": {
-        "elementalDmgPct": 10.0
+        "elementalDmgPct": 10
       },
       "4": {
-        "elementalDmgPct": 10.0
+        "elementalDmgPct": 10
       },
       "5": {
-        "elementalDmgPct": 10.0
+        "elementalDmgPct": 10
       }
     }
   },
@@ -365,7 +405,12 @@
       "violent",
       "precision",
       "deviant_energy",
-      "survival"
+      "lunar",
+      "crescent",
+      "lunar_deviant_energy",
+      "crescent_deviant_energy",
+      "rhythm",
+      "rhythm_deviant_energy"
     ],
     "coreEffectByLevel": {
       "1": "After switching weapons, Fire Rate +2% and Weapon DMG +5%. This effect decreases by 10% per second, up to a maximum decrease of 60%.",
@@ -376,24 +421,24 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "conditionalWeaponDmgPct": 5.0,
-        "fireRatePct": 2.0
+        "conditionalWeaponDmgPct": 5,
+        "fireRatePct": 2
       },
       "2": {
-        "conditionalWeaponDmgPct": 10.0,
-        "fireRatePct": 4.0
+        "conditionalWeaponDmgPct": 10,
+        "fireRatePct": 4
       },
       "3": {
-        "conditionalWeaponDmgPct": 15.0,
-        "fireRatePct": 6.0
+        "conditionalWeaponDmgPct": 15,
+        "fireRatePct": 6
       },
       "4": {
-        "conditionalWeaponDmgPct": 20.0,
-        "fireRatePct": 8.0
+        "conditionalWeaponDmgPct": 20,
+        "fireRatePct": 8
       },
       "5": {
-        "conditionalWeaponDmgPct": 25.0,
-        "fireRatePct": 10.0
+        "conditionalWeaponDmgPct": 25,
+        "fireRatePct": 10
       }
     }
   },
@@ -411,7 +456,12 @@
       "violent",
       "precision",
       "deviant_energy",
-      "survival"
+      "lunar",
+      "crescent",
+      "lunar_deviant_energy",
+      "crescent_deviant_energy",
+      "rhythm",
+      "rhythm_deviant_energy"
     ],
     "coreEffectByLevel": {
       "1": "After using a throwable, Fire Rate +3% for 8s; reload 50% of the magazine for the previously equipped weapon (triggered every 12s).",
@@ -422,19 +472,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "fireRatePct": 3.0
+        "fireRatePct": 3
       },
       "2": {
-        "fireRatePct": 6.0
+        "fireRatePct": 6
       },
       "3": {
-        "fireRatePct": 9.0
+        "fireRatePct": 9
       },
       "4": {
-        "fireRatePct": 12.0
+        "fireRatePct": 12
       },
       "5": {
-        "fireRatePct": 15.0
+        "fireRatePct": 15
       }
     }
   },
@@ -452,7 +502,18 @@
       "violent",
       "precision",
       "deviant_energy",
-      "survival"
+      "battle",
+      "lunar",
+      "lunar_deviant_energy",
+      "survival",
+      "mirror",
+      "wild",
+      "phantasmal",
+      "mirror_deviant_energy",
+      "wild_deviant_energy",
+      "phantasmal_deviant_energy",
+      "rhythm",
+      "rhythm_deviant_energy"
     ],
     "coreEffectByLevel": {
       "1": "When using a healing shot, DMG Reduction +30% for 2s.",
@@ -483,7 +544,18 @@
       "violent",
       "precision",
       "deviant_energy",
-      "survival"
+      "battle",
+      "lunar",
+      "lunar_deviant_energy",
+      "survival",
+      "mirror",
+      "wild",
+      "phantasmal",
+      "mirror_deviant_energy",
+      "wild_deviant_energy",
+      "phantasmal_deviant_energy",
+      "rhythm",
+      "rhythm_deviant_energy"
     ],
     "coreEffectByLevel": {
       "1": "When using a healing shot, Movement Speed +20% for 2s and refills the magazine from the inventory to 70%.",
@@ -514,7 +586,18 @@
       "violent",
       "precision",
       "deviant_energy",
-      "survival"
+      "battle",
+      "lunar",
+      "lunar_deviant_energy",
+      "survival",
+      "mirror",
+      "wild",
+      "phantasmal",
+      "mirror_deviant_energy",
+      "wild_deviant_energy",
+      "phantasmal_deviant_energy",
+      "rhythm",
+      "rhythm_deviant_energy"
     ],
     "coreEffectByLevel": {
       "1": "When Shield is above 30% of Max HP, defeating an enemy recovers 12% of Max HP. Excess recovery is converted into Shield lasting 20s (Cooldown: 10s).",
@@ -545,7 +628,18 @@
       "violent",
       "precision",
       "deviant_energy",
-      "survival"
+      "battle",
+      "lunar",
+      "lunar_deviant_energy",
+      "survival",
+      "mirror",
+      "wild",
+      "phantasmal",
+      "mirror_deviant_energy",
+      "wild_deviant_energy",
+      "phantasmal_deviant_energy",
+      "rhythm",
+      "rhythm_deviant_energy"
     ],
     "coreEffectByLevel": {
       "1": "DMG Reduction +16% and Healing Received +16% when HP is below 30%.",
@@ -576,7 +670,18 @@
       "violent",
       "precision",
       "deviant_energy",
-      "survival"
+      "battle",
+      "lunar",
+      "lunar_deviant_energy",
+      "survival",
+      "mirror",
+      "wild",
+      "phantasmal",
+      "mirror_deviant_energy",
+      "wild_deviant_energy",
+      "phantasmal_deviant_energy",
+      "rhythm",
+      "rhythm_deviant_energy"
     ],
     "coreEffectByLevel": {
       "1": "Having enemies within 7 meters around you grants 8% DMG Reduction. Taking melee DMG from enemies grants an extra 8% DMG Reduction for 5 seconds.",
@@ -607,7 +712,18 @@
       "violent",
       "precision",
       "deviant_energy",
-      "survival"
+      "battle",
+      "lunar",
+      "lunar_deviant_energy",
+      "survival",
+      "mirror",
+      "wild",
+      "phantasmal",
+      "mirror_deviant_energy",
+      "wild_deviant_energy",
+      "phantasmal_deviant_energy",
+      "rhythm",
+      "rhythm_deviant_energy"
     ],
     "coreEffectByLevel": {
       "1": "Weakspot DMG Reduction +12%; Weakspot DMG Reduction +12% further when HP is above 60%.",
@@ -638,7 +754,18 @@
       "violent",
       "precision",
       "deviant_energy",
-      "survival"
+      "battle",
+      "lunar",
+      "lunar_deviant_energy",
+      "survival",
+      "mirror",
+      "wild",
+      "phantasmal",
+      "mirror_deviant_energy",
+      "wild_deviant_energy",
+      "phantasmal_deviant_energy",
+      "rhythm",
+      "rhythm_deviant_energy"
     ],
     "coreEffectByLevel": {
       "1": "When out of combat, gain 1 stack of 8% DMG Reduction every 5s. Effect can stack up to 5 times. 1 stack is removed when hit.",
@@ -669,7 +796,18 @@
       "violent",
       "precision",
       "deviant_energy",
-      "survival"
+      "battle",
+      "lunar",
+      "lunar_deviant_energy",
+      "survival",
+      "mirror",
+      "wild",
+      "phantasmal",
+      "mirror_deviant_energy",
+      "wild_deviant_energy",
+      "phantasmal_deviant_energy",
+      "rhythm",
+      "rhythm_deviant_energy"
     ],
     "coreEffectByLevel": {
       "1": "When out of combat, gain 1 stack of Safe Haven every 5s, stacking up to 5 times. For every 5 damage received, remove 1 stack of Safe Haven to gain 6% Shield for 3s.",
@@ -700,7 +838,18 @@
       "violent",
       "precision",
       "deviant_energy",
-      "survival"
+      "battle",
+      "lunar",
+      "lunar_deviant_energy",
+      "survival",
+      "mirror",
+      "wild",
+      "phantasmal",
+      "mirror_deviant_energy",
+      "wild_deviant_energy",
+      "phantasmal_deviant_energy",
+      "rhythm",
+      "rhythm_deviant_energy"
     ],
     "coreEffectByLevel": {
       "1": "When HP is lower than 60%, purge all Deviated States (cooldown: 30s)",
@@ -731,7 +880,18 @@
       "violent",
       "precision",
       "deviant_energy",
-      "survival"
+      "battle",
+      "lunar",
+      "lunar_deviant_energy",
+      "survival",
+      "mirror",
+      "wild",
+      "phantasmal",
+      "mirror_deviant_energy",
+      "wild_deviant_energy",
+      "phantasmal_deviant_energy",
+      "rhythm",
+      "rhythm_deviant_energy"
     ],
     "coreEffectByLevel": {
       "1": "While the shield is active, you gain 3% DMG Reduction. When the shield exceeds 1,000, single instances of DMG will not penetrate the shield.",
@@ -779,19 +939,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "statusDmgPct": 5.0
+        "statusDmgPct": 5
       },
       "2": {
-        "statusDmgPct": 5.0
+        "statusDmgPct": 5
       },
       "3": {
-        "statusDmgPct": 5.0
+        "statusDmgPct": 5
       },
       "4": {
-        "statusDmgPct": 5.0
+        "statusDmgPct": 5
       },
       "5": {
-        "statusDmgPct": 10.0
+        "statusDmgPct": 10
       }
     }
   },
@@ -826,19 +986,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "weakspotDmgPct": 10.0
+        "weakspotDmgPct": 10
       },
       "2": {
-        "weakspotDmgPct": 20.0
+        "weakspotDmgPct": 20
       },
       "3": {
-        "weakspotDmgPct": 30.0
+        "weakspotDmgPct": 30
       },
       "4": {
-        "weakspotDmgPct": 40.0
+        "weakspotDmgPct": 40
       },
       "5": {
-        "weakspotDmgPct": 50.0
+        "weakspotDmgPct": 50
       }
     }
   },
@@ -873,20 +1033,20 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "conditionalWeaponDmgPct": 20.0
+        "conditionalWeaponDmgPct": 20
       },
       "2": {
-        "conditionalWeaponDmgPct": 20.0
+        "conditionalWeaponDmgPct": 20
       },
       "3": {
-        "conditionalWeaponDmgPct": 20.0
+        "conditionalWeaponDmgPct": 20
       },
       "4": {
-        "conditionalWeaponDmgPct": 20.0
+        "conditionalWeaponDmgPct": 20
       },
       "5": {
-        "weaponDmgPct": 5.0,
-        "conditionalWeaponDmgPct": 20.0
+        "weaponDmgPct": 5,
+        "conditionalWeaponDmgPct": 20
       }
     }
   },
@@ -921,19 +1081,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "critDmgPct": 36.0
+        "critDmgPct": 36
       },
       "2": {
-        "critDmgPct": 36.0
+        "critDmgPct": 36
       },
       "3": {
-        "critDmgPct": 36.0
+        "critDmgPct": 36
       },
       "4": {
-        "critDmgPct": 36.0
+        "critDmgPct": 36
       },
       "5": {
-        "critDmgPct": 45.0
+        "critDmgPct": 45
       }
     }
   },
@@ -968,19 +1128,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "statusDmgPct": 8.0
+        "statusDmgPct": 8
       },
       "2": {
-        "statusDmgPct": 8.0
+        "statusDmgPct": 8
       },
       "3": {
-        "statusDmgPct": 8.0
+        "statusDmgPct": 8
       },
       "4": {
-        "statusDmgPct": 8.0
+        "statusDmgPct": 8
       },
       "5": {
-        "statusDmgPct": 10.0
+        "statusDmgPct": 10
       }
     }
   },
@@ -994,13 +1154,13 @@
     "obtain": "Chance to obtain from Securement Silo - PSI.",
     "mapLocationId": "securement-silo-2bce8998",
     "subStatSetIds": [
+      "melee_default",
       "resonance",
       "downstar",
       "resonant_deviant_energy",
       "downstar_deviant_energy",
       "survival",
-      "aero",
-      "aero_deviant_energy"
+      "aero"
     ],
     "coreEffectByLevel": {
       "1": "Melee DMG +15%. After a melee kill, recover 25% of max Stamina.",
@@ -1048,19 +1208,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "weakspotDmgPct": 30.0
+        "weakspotDmgPct": 30
       },
       "2": {
-        "weakspotDmgPct": 30.0
+        "weakspotDmgPct": 30
       },
       "3": {
-        "weakspotDmgPct": 30.0
+        "weakspotDmgPct": 30
       },
       "4": {
-        "weakspotDmgPct": 30.0
+        "weakspotDmgPct": 30
       },
       "5": {
-        "weakspotDmgPct": 40.0
+        "weakspotDmgPct": 40
       }
     }
   },
@@ -1095,19 +1255,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "elementalDmgPct": 18.0
+        "elementalDmgPct": 18
       },
       "2": {
-        "elementalDmgPct": 18.0
+        "elementalDmgPct": 18
       },
       "3": {
-        "elementalDmgPct": 18.0
+        "elementalDmgPct": 18
       },
       "4": {
-        "elementalDmgPct": 18.0
+        "elementalDmgPct": 18
       },
       "5": {
-        "elementalDmgPct": 24.0
+        "elementalDmgPct": 24
       }
     }
   },
@@ -1154,7 +1314,7 @@
         "elementalDmgPct": 19.2
       },
       "5": {
-        "elementalDmgPct": 24.0
+        "elementalDmgPct": 24
       }
     }
   },
@@ -1189,19 +1349,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "critDmgPct": 3.0
+        "critDmgPct": 3
       },
       "2": {
-        "critDmgPct": 6.0
+        "critDmgPct": 6
       },
       "3": {
-        "critDmgPct": 9.0
+        "critDmgPct": 9
       },
       "4": {
-        "critDmgPct": 12.0
+        "critDmgPct": 12
       },
       "5": {
-        "critDmgPct": 15.0
+        "critDmgPct": 15
       }
     }
   },
@@ -1256,9 +1416,16 @@
       "violent",
       "precision",
       "deviant_energy",
+      "battle",
       "downstar",
       "downstar_deviant_energy",
-      "survival"
+      "survival",
+      "mirror",
+      "wild",
+      "phantasmal",
+      "mirror_deviant_energy",
+      "wild_deviant_energy",
+      "phantasmal_deviant_energy"
     ],
     "coreEffectByLevel": {
       "1": "Taking no DMG within 6s grants +16% Melee, Weapon, and Status DMG for 30s. The effect resets when the duration ends.",
@@ -1289,9 +1456,16 @@
       "violent",
       "precision",
       "deviant_energy",
+      "battle",
       "downstar",
       "downstar_deviant_energy",
-      "survival"
+      "survival",
+      "mirror",
+      "wild",
+      "phantasmal",
+      "mirror_deviant_energy",
+      "wild_deviant_energy",
+      "phantasmal_deviant_energy"
     ],
     "coreEffectByLevel": {
       "1": "After getting 2 kill(s), refill 80% of your magazine from your reserves.",
@@ -1322,9 +1496,16 @@
       "violent",
       "precision",
       "deviant_energy",
+      "battle",
       "downstar",
       "downstar_deviant_energy",
-      "survival"
+      "survival",
+      "mirror",
+      "wild",
+      "phantasmal",
+      "mirror_deviant_energy",
+      "wild_deviant_energy",
+      "phantasmal_deviant_energy"
     ],
     "coreEffectByLevel": {
       "1": "Every 10% HP loss grants +0.8% Melee, Weapon, and Status DMG.",
@@ -1355,9 +1536,16 @@
       "violent",
       "precision",
       "deviant_energy",
+      "battle",
       "downstar",
       "downstar_deviant_energy",
-      "survival"
+      "survival",
+      "mirror",
+      "wild",
+      "phantasmal",
+      "mirror_deviant_energy",
+      "wild_deviant_energy",
+      "phantasmal_deviant_energy"
     ],
     "coreEffectByLevel": {
       "1": "Killing enemies within 10 meters grants Melee, Weapon, Status DMG +4% for 8s.",
@@ -1368,19 +1556,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "statusDmgPct": 4.0
+        "statusDmgPct": 4
       },
       "2": {
-        "statusDmgPct": 8.0
+        "statusDmgPct": 8
       },
       "3": {
-        "statusDmgPct": 12.0
+        "statusDmgPct": 12
       },
       "4": {
-        "statusDmgPct": 16.0
+        "statusDmgPct": 16
       },
       "5": {
-        "statusDmgPct": 20.0
+        "statusDmgPct": 20
       }
     }
   },
@@ -1398,9 +1586,16 @@
       "violent",
       "precision",
       "deviant_energy",
+      "battle",
       "downstar",
       "downstar_deviant_energy",
-      "survival"
+      "survival",
+      "mirror",
+      "wild",
+      "phantasmal",
+      "mirror_deviant_energy",
+      "wild_deviant_energy",
+      "phantasmal_deviant_energy"
     ],
     "coreEffectByLevel": {
       "1": "Having no enemies within 7 meters around you grants +3% Weapon and Status DMG.",
@@ -1431,9 +1626,16 @@
       "violent",
       "precision",
       "deviant_energy",
+      "battle",
       "downstar",
       "downstar_deviant_energy",
-      "survival"
+      "survival",
+      "mirror",
+      "wild",
+      "phantasmal",
+      "mirror_deviant_energy",
+      "wild_deviant_energy",
+      "phantasmal_deviant_energy"
     ],
     "coreEffectByLevel": {
       "1": "Melee, Weapon, Status DMG +2%. When HP is above 90%, grants +2% additional DMG.",
@@ -1444,19 +1646,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "statusDmgPct": 2.0
+        "statusDmgPct": 2
       },
       "2": {
-        "statusDmgPct": 4.0
+        "statusDmgPct": 4
       },
       "3": {
-        "statusDmgPct": 6.0
+        "statusDmgPct": 6
       },
       "4": {
-        "statusDmgPct": 8.0
+        "statusDmgPct": 8
       },
       "5": {
-        "statusDmgPct": 10.0
+        "statusDmgPct": 10
       }
     }
   },
@@ -1474,9 +1676,16 @@
       "violent",
       "precision",
       "deviant_energy",
+      "battle",
       "downstar",
       "downstar_deviant_energy",
-      "survival"
+      "survival",
+      "mirror",
+      "wild",
+      "phantasmal",
+      "mirror_deviant_energy",
+      "wild_deviant_energy",
+      "phantasmal_deviant_energy"
     ],
     "coreEffectByLevel": {
       "1": "Weapon and Status DMG +2%. For every +5% Max HP consumed, gains an additional +1%, lasting 5s, stacking up to 3 stack(s).",
@@ -1487,19 +1696,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "statusDmgPct": 2.0
+        "statusDmgPct": 2
       },
       "2": {
-        "statusDmgPct": 4.0
+        "statusDmgPct": 4
       },
       "3": {
-        "statusDmgPct": 6.0
+        "statusDmgPct": 6
       },
       "4": {
-        "statusDmgPct": 8.0
+        "statusDmgPct": 8
       },
       "5": {
-        "statusDmgPct": 10.0
+        "statusDmgPct": 10
       }
     }
   },
@@ -1517,9 +1726,16 @@
       "violent",
       "precision",
       "deviant_energy",
+      "battle",
       "downstar",
       "downstar_deviant_energy",
-      "survival"
+      "survival",
+      "mirror",
+      "wild",
+      "phantasmal",
+      "mirror_deviant_energy",
+      "wild_deviant_energy",
+      "phantasmal_deviant_energy"
     ],
     "coreEffectByLevel": {
       "1": "Weapon and Status DMG +2%. Stamina loss grants an additional DMG boost, up to +4%.",
@@ -1530,19 +1746,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "statusDmgPct": 2.0
+        "statusDmgPct": 2
       },
       "2": {
-        "statusDmgPct": 4.0
+        "statusDmgPct": 4
       },
       "3": {
-        "statusDmgPct": 6.0
+        "statusDmgPct": 6
       },
       "4": {
-        "statusDmgPct": 8.0
+        "statusDmgPct": 8
       },
       "5": {
-        "statusDmgPct": 10.0
+        "statusDmgPct": 10
       }
     }
   },
@@ -1561,7 +1777,9 @@
       "precision",
       "deviant_energy",
       "resonance",
+      "crescent",
       "resonant_deviant_energy",
+      "crescent_deviant_energy",
       "survival",
       "aero",
       "aero_deviant_energy"
@@ -1575,19 +1793,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "critRatePct": 3.0
+        "critRatePct": 3
       },
       "2": {
-        "critRatePct": 6.0
+        "critRatePct": 6
       },
       "3": {
-        "critRatePct": 9.0
+        "critRatePct": 9
       },
       "4": {
-        "critRatePct": 12.0
+        "critRatePct": 12
       },
       "5": {
-        "critRatePct": 15.0
+        "critRatePct": 15
       }
     }
   },
@@ -1606,7 +1824,9 @@
       "precision",
       "deviant_energy",
       "resonance",
+      "crescent",
       "resonant_deviant_energy",
+      "crescent_deviant_energy",
       "survival",
       "aero",
       "aero_deviant_energy"
@@ -1620,24 +1840,24 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "critDmgPct": 4.0,
-        "critRatePct": 2.0
+        "critDmgPct": 4,
+        "critRatePct": 2
       },
       "2": {
-        "critDmgPct": 8.0,
-        "critRatePct": 2.0
+        "critDmgPct": 8,
+        "critRatePct": 2
       },
       "3": {
-        "critDmgPct": 12.0,
-        "critRatePct": 2.0
+        "critDmgPct": 12,
+        "critRatePct": 2
       },
       "4": {
-        "critDmgPct": 15.0,
-        "critRatePct": 5.0
+        "critDmgPct": 15,
+        "critRatePct": 5
       },
       "5": {
-        "critDmgPct": 15.0,
-        "critRatePct": 10.0
+        "critDmgPct": 15,
+        "critRatePct": 10
       }
     }
   },
@@ -1656,7 +1876,9 @@
       "precision",
       "deviant_energy",
       "resonance",
+      "crescent",
       "resonant_deviant_energy",
+      "crescent_deviant_energy",
       "survival",
       "aero",
       "aero_deviant_energy"
@@ -1670,19 +1892,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "weakspotDmgPct": 5.0
+        "weakspotDmgPct": 5
       },
       "2": {
-        "weakspotDmgPct": 10.0
+        "weakspotDmgPct": 10
       },
       "3": {
-        "weakspotDmgPct": 15.0
+        "weakspotDmgPct": 15
       },
       "4": {
-        "weakspotDmgPct": 20.0
+        "weakspotDmgPct": 20
       },
       "5": {
-        "weakspotDmgPct": 25.0
+        "weakspotDmgPct": 25
       }
     }
   },
@@ -1701,7 +1923,9 @@
       "precision",
       "deviant_energy",
       "resonance",
+      "crescent",
       "resonant_deviant_energy",
+      "crescent_deviant_energy",
       "survival",
       "aero",
       "aero_deviant_energy"
@@ -1736,7 +1960,9 @@
       "precision",
       "deviant_energy",
       "resonance",
+      "crescent",
       "resonant_deviant_energy",
+      "crescent_deviant_energy",
       "survival",
       "aero",
       "aero_deviant_energy"
@@ -1750,19 +1976,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "statusDmgPct": 4.0
+        "statusDmgPct": 4
       },
       "2": {
-        "statusDmgPct": 8.0
+        "statusDmgPct": 8
       },
       "3": {
-        "statusDmgPct": 12.0
+        "statusDmgPct": 12
       },
       "4": {
-        "statusDmgPct": 16.0
+        "statusDmgPct": 16
       },
       "5": {
-        "statusDmgPct": 20.0
+        "statusDmgPct": 20
       }
     }
   },
@@ -1781,7 +2007,9 @@
       "precision",
       "deviant_energy",
       "resonance",
+      "crescent",
       "resonant_deviant_energy",
+      "crescent_deviant_energy",
       "survival",
       "aero",
       "aero_deviant_energy"
@@ -1795,19 +2023,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "weaponDmgPct": 3.0
+        "weaponDmgPct": 3
       },
       "2": {
-        "weaponDmgPct": 6.0
+        "weaponDmgPct": 6
       },
       "3": {
-        "weaponDmgPct": 9.0
+        "weaponDmgPct": 9
       },
       "4": {
-        "weaponDmgPct": 12.0
+        "weaponDmgPct": 12
       },
       "5": {
-        "weaponDmgPct": 15.0
+        "weaponDmgPct": 15
       }
     }
   },
@@ -1821,8 +2049,11 @@
     "obtain": "Chance to obtain from Securement Silo - SIGMA and Securement Silo - Delta.",
     "mapLocationId": "securement-silo-bfb2d05f",
     "subStatSetIds": [
+      "melee_default",
       "resonance",
+      "crescent",
       "resonant_deviant_energy",
+      "crescent_deviant_energy",
       "survival",
       "aero",
       "aero_deviant_energy"
@@ -1857,7 +2088,9 @@
       "precision",
       "deviant_energy",
       "resonance",
+      "crescent",
       "resonant_deviant_energy",
+      "crescent_deviant_energy",
       "survival",
       "aero",
       "aero_deviant_energy"
@@ -1892,7 +2125,9 @@
       "precision",
       "deviant_energy",
       "resonance",
+      "crescent",
       "resonant_deviant_energy",
+      "crescent_deviant_energy",
       "survival",
       "aero",
       "aero_deviant_energy"
@@ -1925,7 +2160,8 @@
       "general",
       "violent",
       "deviant_energy",
-      "survival"
+      "survival",
+      "burn"
     ],
     "coreEffectByLevel": {
       "1": "Every stack of Burn grants +1% Psi Intensity DMG.",
@@ -1955,7 +2191,8 @@
       "general",
       "violent",
       "deviant_energy",
-      "survival"
+      "survival",
+      "frost_vortex"
     ],
     "coreEffectByLevel": {
       "1": "Ice Constructs (Ice Spike, Ice Missile, Ice Crystal, Ice Shard, Ice Spear) deal +2% damage; if the target is in Frost Vortex status, damage dealt is increased by +2%.",
@@ -1985,7 +2222,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "shrapnel"
     ],
     "coreEffectByLevel": {
       "1": "The 20th Shrapnel is explosive and deals \b+60%\b DMG as a critical hit.",
@@ -2015,7 +2253,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "bounce"
     ],
     "coreEffectByLevel": {
       "1": "After triggering Bounce 6 times, the next bullet's Bounce DMG +25%.",
@@ -2026,19 +2265,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "keywordDmgPct": 25.0
+        "keywordDmgPct": 25
       },
       "2": {
-        "keywordDmgPct": 50.0
+        "keywordDmgPct": 50
       },
       "3": {
-        "keywordDmgPct": 75.0
+        "keywordDmgPct": 75
       },
       "4": {
-        "keywordDmgPct": 100.0
+        "keywordDmgPct": 100
       },
       "5": {
-        "keywordDmgPct": 125.0
+        "keywordDmgPct": 125
       }
     }
   },
@@ -2055,7 +2294,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "fast_gunner"
     ],
     "coreEffectByLevel": {
       "1": "When in Fast Gunner state, Crit Rate +2%, and Weapon DMG +2%.",
@@ -2066,24 +2306,24 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "conditionalWeaponDmgPct": 2.0,
-        "critRatePct": 2.0
+        "conditionalWeaponDmgPct": 2,
+        "critRatePct": 2
       },
       "2": {
-        "conditionalWeaponDmgPct": 4.0,
-        "critRatePct": 4.0
+        "conditionalWeaponDmgPct": 4,
+        "critRatePct": 4
       },
       "3": {
-        "conditionalWeaponDmgPct": 6.0,
-        "critRatePct": 6.0
+        "conditionalWeaponDmgPct": 6,
+        "critRatePct": 6
       },
       "4": {
-        "conditionalWeaponDmgPct": 8.0,
-        "critRatePct": 8.0
+        "conditionalWeaponDmgPct": 8,
+        "critRatePct": 8
       },
       "5": {
-        "conditionalWeaponDmgPct": 10.0,
-        "critRatePct": 10.0
+        "conditionalWeaponDmgPct": 10,
+        "critRatePct": 10
       }
     }
   },
@@ -2101,7 +2341,8 @@
       "violent",
       "precision",
       "deviant_energy",
-      "survival"
+      "survival",
+      "unstable_bomber"
     ],
     "coreEffectByLevel": {
       "1": "When Unstable Bomber hits only one enemy, Unstable Bomber final DMG +7%.",
@@ -2131,7 +2372,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "the_bulls_eye"
     ],
     "coreEffectByLevel": {
       "1": "When hitting marked enemies, Crit Rate +2%, and Crit DMG +5%.",
@@ -2142,24 +2384,24 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "critDmgPct": 5.0,
-        "critRatePct": 2.0
+        "critDmgPct": 5,
+        "critRatePct": 2
       },
       "2": {
-        "critDmgPct": 10.0,
-        "critRatePct": 4.0
+        "critDmgPct": 10,
+        "critRatePct": 4
       },
       "3": {
-        "critDmgPct": 15.0,
-        "critRatePct": 6.0
+        "critDmgPct": 15,
+        "critRatePct": 6
       },
       "4": {
-        "critDmgPct": 20.0,
-        "critRatePct": 8.0
+        "critDmgPct": 20,
+        "critRatePct": 8
       },
       "5": {
-        "critDmgPct": 25.0,
-        "critRatePct": 10.0
+        "critDmgPct": 25,
+        "critRatePct": 10
       }
     }
   },
@@ -2176,7 +2418,8 @@
       "general",
       "violent",
       "deviant_energy",
-      "survival"
+      "survival",
+      "power_surge"
     ],
     "coreEffectByLevel": {
       "1": "After triggering Power Surge 20 times, the next weapon hit summons Celestial Thunder (Shock DMG of 40% Psi Intensity).",
@@ -2206,7 +2449,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "fortress_warfare"
     ],
     "coreEffectByLevel": {
       "1": "No Super Armor inside Fortress Warfare. While in Fortress Warfare state, Attack +3%.",
@@ -2236,7 +2480,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "fortress_warfare"
     ],
     "coreEffectByLevel": {
       "1": "Fortress Warfare Range -30%. While in Fortress Warfare state, Attack +3%.",
@@ -2266,7 +2511,8 @@
       "general",
       "violent",
       "deviant_energy",
-      "survival"
+      "survival",
+      "burn"
     ],
     "coreEffectByLevel": {
       "1": "When hitting Burning enemies, Crit Rate +1.6%, and Crit DMG +4%.",
@@ -2277,24 +2523,24 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "critDmgPct": 4.0,
+        "critDmgPct": 4,
         "critRatePct": 1.6
       },
       "2": {
-        "critDmgPct": 8.0,
+        "critDmgPct": 8,
         "critRatePct": 3.2
       },
       "3": {
-        "critDmgPct": 12.0,
+        "critDmgPct": 12,
         "critRatePct": 4.8
       },
       "4": {
-        "critDmgPct": 16.0,
+        "critDmgPct": 16,
         "critRatePct": 6.4
       },
       "5": {
-        "critDmgPct": 20.0,
-        "critRatePct": 8.0
+        "critDmgPct": 20,
+        "critRatePct": 8
       }
     }
   },
@@ -2311,7 +2557,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "shrapnel"
     ],
     "coreEffectByLevel": {
       "1": "Shrapnel Weakspot Hit Weight +20%, Shrapnel Weakspot DMG +5%.",
@@ -2322,19 +2569,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "weakspotDmgPct": 5.0
+        "weakspotDmgPct": 5
       },
       "2": {
-        "weakspotDmgPct": 10.0
+        "weakspotDmgPct": 10
       },
       "3": {
-        "weakspotDmgPct": 15.0
+        "weakspotDmgPct": 15
       },
       "4": {
-        "weakspotDmgPct": 20.0
+        "weakspotDmgPct": 20
       },
       "5": {
-        "weakspotDmgPct": 25.0
+        "weakspotDmgPct": 25
       }
     }
   },
@@ -2351,7 +2598,8 @@
       "general",
       "violent",
       "deviant_energy",
-      "survival"
+      "survival",
+      "power_surge"
     ],
     "coreEffectByLevel": {
       "1": "For enemies without Power Surge status, Power Surge's Ultimate DMG +3%.",
@@ -2381,7 +2629,8 @@
       "general",
       "violent",
       "deviant_energy",
-      "survival"
+      "survival",
+      "frost_vortex"
     ],
     "coreEffectByLevel": {
       "1": "Frost Vortex's final DMG +6%, decreasing by 1% per second over time.",
@@ -2411,7 +2660,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "the_bulls_eye"
     ],
     "coreEffectByLevel": {
       "1": "Every time an enemy is marked, Attack +1% for 8s. Effect can stack up to 3 times.",
@@ -2441,7 +2691,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "bounce"
     ],
     "coreEffectByLevel": {
       "1": "When a bullet hits an enemy above 50% HP, the bullet's final DMG +5%.",
@@ -2471,7 +2722,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "fast_gunner"
     ],
     "coreEffectByLevel": {
       "1": "Fast Gunner stacks +1 and additional Fire Rate +0.2% for each stack.",
@@ -2494,7 +2746,7 @@
         "fireRatePct": 0.8
       },
       "5": {
-        "fireRatePct": 1.0
+        "fireRatePct": 1
       }
     }
   },
@@ -2512,7 +2764,8 @@
       "violent",
       "precision",
       "deviant_energy",
-      "survival"
+      "survival",
+      "unstable_bomber"
     ],
     "coreEffectByLevel": {
       "1": "Before the bomb explodes, for every 4 hits taken, the bomb's final DMG +5%.",
@@ -2542,7 +2795,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "shrapnel"
     ],
     "coreEffectByLevel": {
       "1": "The more parts Shrapnel hits, the higher the Shrapnel DMG. Each part +3%, up to 9%.",
@@ -2572,7 +2826,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "shrapnel"
     ],
     "coreEffectByLevel": {
       "1": "When Shrapnel hits a Weakspot, automatically refills 1 bullet(s) from inventory.",
@@ -2602,7 +2857,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "shrapnel"
     ],
     "coreEffectByLevel": {
       "1": "Triggering Shrapnel grants Shrapnel Crit Rate +2% for 2s. Effect can stack up to 15 time(s).",
@@ -2613,19 +2869,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "critRatePct": 2.0
+        "critRatePct": 2
       },
       "2": {
-        "critRatePct": 2.0
+        "critRatePct": 2
       },
       "3": {
-        "critRatePct": 2.0
+        "critRatePct": 2
       },
       "4": {
-        "critRatePct": 2.0
+        "critRatePct": 2
       },
       "5": {
-        "critRatePct": 2.0
+        "critRatePct": 2
       }
     }
   },
@@ -2642,7 +2898,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "shrapnel"
     ],
     "coreEffectByLevel": {
       "1": "When hitting a shielded enemy, Shrapnel DMG +20% for 1s.",
@@ -2653,19 +2910,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "keywordDmgPct": 20.0
+        "keywordDmgPct": 20
       },
       "2": {
-        "keywordDmgPct": 20.0
+        "keywordDmgPct": 20
       },
       "3": {
-        "keywordDmgPct": 20.0
+        "keywordDmgPct": 20
       },
       "4": {
-        "keywordDmgPct": 20.0
+        "keywordDmgPct": 20
       },
       "5": {
-        "keywordDmgPct": 20.0
+        "keywordDmgPct": 20
       }
     }
   },
@@ -2682,7 +2939,8 @@
       "general",
       "violent",
       "deviant_energy",
-      "survival"
+      "survival",
+      "burn"
     ],
     "coreEffectByLevel": {
       "1": "Max Burn stack +2, Burn duration -20%",
@@ -2712,7 +2970,8 @@
       "general",
       "violent",
       "deviant_energy",
-      "survival"
+      "survival",
+      "burn"
     ],
     "coreEffectByLevel": {
       "1": "When Burn is removed, stacks only -50%.",
@@ -2742,7 +3001,8 @@
       "general",
       "violent",
       "deviant_energy",
-      "survival"
+      "survival",
+      "burn"
     ],
     "coreEffectByLevel": {
       "1": "When defeating an enemy affected by Burn, recover 1% HP.",
@@ -2772,7 +3032,8 @@
       "general",
       "violent",
       "deviant_energy",
-      "survival"
+      "survival",
+      "burn"
     ],
     "coreEffectByLevel": {
       "1": "Triggering Burn has a 25% chance to grant +1 Burn stack(s).",
@@ -2802,7 +3063,8 @@
       "general",
       "violent",
       "deviant_energy",
-      "survival"
+      "survival",
+      "power_surge"
     ],
     "coreEffectByLevel": {
       "1": "Inflicting Power Surge grants +1% Power Surge Trigger Chance (based on weapon's Trigger Chance) for 5s, up to 4 stack(s).",
@@ -2832,7 +3094,8 @@
       "general",
       "violent",
       "deviant_energy",
-      "survival"
+      "survival",
+      "power_surge"
     ],
     "coreEffectByLevel": {
       "1": "When triggering Power Surge, apply the Power Surge Status to 1 enemy(s) within 10m of the target (prioritizes enemies that are not affected by Power Surge Status).",
@@ -2862,7 +3125,8 @@
       "general",
       "violent",
       "deviant_energy",
-      "survival"
+      "survival",
+      "power_surge"
     ],
     "coreEffectByLevel": {
       "1": "Power Surge Status duration -50%, and Power Surge DMG +20%.",
@@ -2873,19 +3137,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "keywordDmgPct": 20.0
+        "keywordDmgPct": 20
       },
       "2": {
-        "keywordDmgPct": 20.0
+        "keywordDmgPct": 20
       },
       "3": {
-        "keywordDmgPct": 20.0
+        "keywordDmgPct": 20
       },
       "4": {
-        "keywordDmgPct": 20.0
+        "keywordDmgPct": 20
       },
       "5": {
-        "keywordDmgPct": 20.0
+        "keywordDmgPct": 20
       }
     }
   },
@@ -2902,7 +3166,8 @@
       "general",
       "violent",
       "deviant_energy",
-      "survival"
+      "survival",
+      "power_surge"
     ],
     "coreEffectByLevel": {
       "1": "Inflicting Power Surge grants Power Surge DMG +5% for 3s, up to 4 stack(s).",
@@ -2913,19 +3178,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "keywordDmgPct": 5.0
+        "keywordDmgPct": 5
       },
       "2": {
-        "keywordDmgPct": 5.0
+        "keywordDmgPct": 5
       },
       "3": {
-        "keywordDmgPct": 5.0
+        "keywordDmgPct": 5
       },
       "4": {
-        "keywordDmgPct": 5.0
+        "keywordDmgPct": 5
       },
       "5": {
-        "keywordDmgPct": 5.0
+        "keywordDmgPct": 5
       }
     }
   },
@@ -2942,7 +3207,8 @@
       "general",
       "violent",
       "deviant_energy",
-      "survival"
+      "survival",
+      "frost_vortex"
     ],
     "coreEffectByLevel": {
       "1": "When an enemy at the center of the Frost Vortex is defeated, deal 10% Psi Intensity Ice DMG to enemies within 1m once.",
@@ -2972,7 +3238,8 @@
       "general",
       "violent",
       "deviant_energy",
-      "survival"
+      "survival",
+      "frost_vortex"
     ],
     "coreEffectByLevel": {
       "1": "After triggering Frost Vortex, increases Frost Vortex DMG by +4%, up to 5 stacks, lasting 4s.",
@@ -3002,7 +3269,8 @@
       "general",
       "violent",
       "deviant_energy",
-      "survival"
+      "survival",
+      "frost_vortex"
     ],
     "coreEffectByLevel": {
       "1": "Frost Vortex DMG +10%. After triggering an ice construct (Ice Spike, Ice Missile, Ice Crystal, Ice Shard, Ice Spear), Frost Vortex DMG +5% for 6s.",
@@ -3013,19 +3281,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "keywordDmgPct": 15.0
+        "keywordDmgPct": 15
       },
       "2": {
-        "keywordDmgPct": 15.0
+        "keywordDmgPct": 15
       },
       "3": {
-        "keywordDmgPct": 15.0
+        "keywordDmgPct": 15
       },
       "4": {
-        "keywordDmgPct": 15.0
+        "keywordDmgPct": 15
       },
       "5": {
-        "keywordDmgPct": 15.0
+        "keywordDmgPct": 15
       }
     }
   },
@@ -3042,7 +3310,8 @@
       "general",
       "violent",
       "deviant_energy",
-      "survival"
+      "survival",
+      "frost_vortex"
     ],
     "coreEffectByLevel": {
       "1": "When Frost Vortex disappears, restore 10% HP.",
@@ -3072,7 +3341,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "the_bulls_eye"
     ],
     "coreEffectByLevel": {
       "1": "When defeating marked enemies, recover 3% HP and 5% Stamina.",
@@ -3102,7 +3372,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "the_bulls_eye"
     ],
     "coreEffectByLevel": {
       "1": "Marked enemies DMG vs. Metas -20%.",
@@ -3132,7 +3403,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "the_bulls_eye"
     ],
     "coreEffectByLevel": {
       "1": "When a marked enemy is defeated, The Bull's Eye will spread to 1 enemy(s) within 15m.",
@@ -3162,7 +3434,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "the_bulls_eye"
     ],
     "coreEffectByLevel": {
       "1": "The Bull's Eye adds Vulnerability +8%.",
@@ -3192,7 +3465,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "fortress_warfare"
     ],
     "coreEffectByLevel": {
       "1": "The more players inside Fortress Warfare, the greater the Weapon DMG bonus, up to 40%.",
@@ -3203,19 +3477,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "conditionalWeaponDmgPct": 40.0
+        "conditionalWeaponDmgPct": 40
       },
       "2": {
-        "conditionalWeaponDmgPct": 40.0
+        "conditionalWeaponDmgPct": 40
       },
       "3": {
-        "conditionalWeaponDmgPct": 40.0
+        "conditionalWeaponDmgPct": 40
       },
       "4": {
-        "conditionalWeaponDmgPct": 40.0
+        "conditionalWeaponDmgPct": 40
       },
       "5": {
-        "conditionalWeaponDmgPct": 40.0
+        "conditionalWeaponDmgPct": 40
       }
     }
   },
@@ -3232,7 +3506,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "fortress_warfare"
     ],
     "coreEffectByLevel": {
       "1": "Every hit landed while in Fortress Warfare state will extend the Fortress Warfare effect by 1s, up to 5s.",
@@ -3262,7 +3537,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "fortress_warfare"
     ],
     "coreEffectByLevel": {
       "1": "After leaving Fortress Warfare, the Fortress Warfare state will remain for 2s.",
@@ -3292,7 +3568,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "fortress_warfare"
     ],
     "coreEffectByLevel": {
       "1": "When Fortress Warfare ends, Weapon DMG +2%, Movement Speed +2% for 10s.",
@@ -3303,19 +3580,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "conditionalWeaponDmgPct": 2.0
+        "conditionalWeaponDmgPct": 2
       },
       "2": {
-        "conditionalWeaponDmgPct": 4.0
+        "conditionalWeaponDmgPct": 4
       },
       "3": {
-        "conditionalWeaponDmgPct": 6.0
+        "conditionalWeaponDmgPct": 6
       },
       "4": {
-        "conditionalWeaponDmgPct": 8.0
+        "conditionalWeaponDmgPct": 8
       },
       "5": {
-        "conditionalWeaponDmgPct": 10.0
+        "conditionalWeaponDmgPct": 10
       }
     }
   },
@@ -3332,7 +3609,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "bounce"
     ],
     "coreEffectByLevel": {
       "1": "Bounce Crit Rate +2%, Bounce Crit DMG +5%.",
@@ -3343,24 +3621,24 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "critDmgPct": 5.0,
-        "critRatePct": 2.0
+        "critDmgPct": 5,
+        "critRatePct": 2
       },
       "2": {
-        "critDmgPct": 10.0,
-        "critRatePct": 4.0
+        "critDmgPct": 10,
+        "critRatePct": 4
       },
       "3": {
-        "critDmgPct": 15.0,
-        "critRatePct": 6.0
+        "critDmgPct": 15,
+        "critRatePct": 6
       },
       "4": {
-        "critDmgPct": 20.0,
-        "critRatePct": 8.0
+        "critDmgPct": 20,
+        "critRatePct": 8
       },
       "5": {
-        "critDmgPct": 25.0,
-        "critRatePct": 10.0
+        "critDmgPct": 25,
+        "critRatePct": 10
       }
     }
   },
@@ -3377,7 +3655,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "bounce"
     ],
     "coreEffectByLevel": {
       "1": "The more Bounces, the higher the damage, up to +45% (7.5% per Bounce).",
@@ -3407,7 +3686,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "bounce"
     ],
     "coreEffectByLevel": {
       "1": "Each time Bounce is triggered, its trigger chance +2% (based on the weapon's trigger chance), lasting for 5s and stacking up to 10 time(s).",
@@ -3437,7 +3717,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "bounce"
     ],
     "coreEffectByLevel": {
       "1": "The more selectable targets Bounce has, the higher the Bounce DMG, up to +45% (15% per target).",
@@ -3468,7 +3749,8 @@
       "violent",
       "precision",
       "deviant_energy",
-      "survival"
+      "survival",
+      "unstable_bomber"
     ],
     "coreEffectByLevel": {
       "1": "Triggering Unstable Bomber grants Unstable Bomber DMG +1% for 3s. Effect can stack up to 6 times.",
@@ -3479,19 +3761,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "keywordDmgPct": 1.0
+        "keywordDmgPct": 1
       },
       "2": {
-        "keywordDmgPct": 2.0
+        "keywordDmgPct": 2
       },
       "3": {
-        "keywordDmgPct": 3.0
+        "keywordDmgPct": 3
       },
       "4": {
-        "keywordDmgPct": 4.0
+        "keywordDmgPct": 4
       },
       "5": {
-        "keywordDmgPct": 5.0
+        "keywordDmgPct": 5
       }
     }
   },
@@ -3509,7 +3791,8 @@
       "violent",
       "precision",
       "deviant_energy",
-      "survival"
+      "survival",
+      "unstable_bomber"
     ],
     "coreEffectByLevel": {
       "1": "For every 1% Crit Rate, Unstable Bomber DMG +0.5%.",
@@ -3550,7 +3833,8 @@
       "violent",
       "precision",
       "deviant_energy",
-      "survival"
+      "survival",
+      "unstable_bomber"
     ],
     "coreEffectByLevel": {
       "1": "When triggering Unstable Bomber, automatically refill 10% of your magazine.",
@@ -3581,7 +3865,8 @@
       "violent",
       "precision",
       "deviant_energy",
-      "survival"
+      "survival",
+      "unstable_bomber"
     ],
     "coreEffectByLevel": {
       "1": "Unstable Bomber inflicts stagger on enemies and deals 40% less damage to you.",
@@ -3611,7 +3896,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "fast_gunner"
     ],
     "coreEffectByLevel": {
       "1": "When triggering Fast Gunner, Weapon DMG +0.3% for 10s, up to 20 stack(s).",
@@ -3651,7 +3937,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "fast_gunner"
     ],
     "coreEffectByLevel": {
       "1": "When Fast Gunner is active, increase Weakspot DMG for 3s, up to +45%.",
@@ -3662,19 +3949,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "weakspotDmgPct": 45.0
+        "weakspotDmgPct": 45
       },
       "2": {
-        "weakspotDmgPct": 45.0
+        "weakspotDmgPct": 45
       },
       "3": {
-        "weakspotDmgPct": 45.0
+        "weakspotDmgPct": 45
       },
       "4": {
-        "weakspotDmgPct": 45.0
+        "weakspotDmgPct": 45
       },
       "5": {
-        "weakspotDmgPct": 45.0
+        "weakspotDmgPct": 45
       }
     }
   },
@@ -3691,7 +3978,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "fast_gunner"
     ],
     "coreEffectByLevel": {
       "1": "Fast Gunner duration +4s. When Fast Gunner is active, Weapon DMG +15%.",
@@ -3702,19 +3990,19 @@
     },
     "dpsModifiersByLevel": {
       "1": {
-        "conditionalWeaponDmgPct": 15.0
+        "conditionalWeaponDmgPct": 15
       },
       "2": {
-        "conditionalWeaponDmgPct": 15.0
+        "conditionalWeaponDmgPct": 15
       },
       "3": {
-        "conditionalWeaponDmgPct": 15.0
+        "conditionalWeaponDmgPct": 15
       },
       "4": {
-        "conditionalWeaponDmgPct": 15.0
+        "conditionalWeaponDmgPct": 15
       },
       "5": {
-        "conditionalWeaponDmgPct": 15.0
+        "conditionalWeaponDmgPct": 15
       }
     }
   },
@@ -3731,7 +4019,8 @@
       "general",
       "violent",
       "precision",
-      "survival"
+      "survival",
+      "fast_gunner"
     ],
     "coreEffectByLevel": {
       "1": "After reloading an empty magazine, Fast Gunner trigger chance +100% (based on the weapon's Trigger Chance) for 5s. When Fast Gunner reaches max stacks, the duration is increased by 5s.",

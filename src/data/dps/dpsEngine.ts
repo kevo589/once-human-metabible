@@ -701,6 +701,8 @@ export function aggregateLoadoutStats(loadout: LoadoutConfig): AggregatedStats {
           aeroAerialHit: loadout.assumptions.aeroAerialHit,
           downstarMeters: loadout.assumptions.downstarMeters ?? 0,
           resonanceMaxStacks: loadout.assumptions.resonanceMaxStacks ?? true,
+          hpPct: loadout.hpPct,
+          shielded: loadout.assumptions.shielded,
         };
         setDef.stats.forEach((statId, idx) => {
           const lv = clampModLevel(levels[idx] ?? 4);

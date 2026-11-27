@@ -961,6 +961,8 @@ export function DpsCalculatorView({
               ? loadout.activeWeaponSlot === 'secondary'
               : false
         }
+        hpPct={loadout.hpPct}
+        shielded={loadout.assumptions.shielded}
         onSetActiveDpsWeapon={handleSetActiveWeapon}
         onUpdateWeapon={(nextW) => {
           if (drawerSlot === 'primary') patchLoadout({ primary: nextW });

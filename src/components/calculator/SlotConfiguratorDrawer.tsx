@@ -14,9 +14,9 @@ import { ARMOR_SETS, MODS } from '../../data/gearAndMods';
 import {
   clampModLevel,
   evaluateSubStatValue,
+  formatReadableSubstat,
   MOD_CODEX,
   MOD_SUBSTAT_SET_BY_ID,
-  MOD_SUBSTATS_PER_LEVEL,
   resolveCodexMod,
   type ModSlotName,
 } from '../../data/mods/modCatalog';
@@ -35,6 +35,8 @@ interface SlotConfiguratorDrawerProps {
   weaponCfg?: WeaponSlotConfig;
   armorCfg?: ArmorSlotConfig;
   isActiveDpsWeapon?: boolean;
+  hpPct?: number;
+  shielded?: boolean;
   onSetActiveDpsWeapon?: (slot: ActiveWeaponSlotKey) => void;
   onUpdateWeapon?: (next: WeaponSlotConfig) => void;
   onUpdateArmor?: (next: ArmorSlotConfig) => void;
@@ -81,6 +83,8 @@ export function SlotConfiguratorDrawer({
   weaponCfg,
   armorCfg,
   isActiveDpsWeapon,
+  hpPct = 100,
+  shielded = false,
   onSetActiveDpsWeapon,
   onUpdateWeapon,
   onUpdateArmor,
@@ -813,20 +817,30 @@ export function SlotConfiguratorDrawer({
                   {activeSubStatSet && (
                     <div className="space-y-1.5 pt-1">
                       {activeSubStatSet.stats.map((statId, idx) => {
-                        const def = MOD_SUBSTATS_PER_LEVEL[statId];
                         const lv = modSubStatLevels[idx] ?? 1;
-                        const evaluated = evaluateSubStatValue(statId, lv);
+                        const evaluated = evaluateSubStatValue(statId, lv, {
+                          hpPct,
+                          shielded,
+                        });
+                        const readable = formatReadableSubstat(statId, lv);
                         return (
                           <div
                             key={`${statId}-${idx}`}
                             className="flex items-center justify-between gap-2 rounded border border-white/[0.05] bg-[#131a1e] px-2 py-1.5"
                           >
                             <div className="min-w-0 flex-1">
-                              <div className="truncate text-[11px] font-medium text-slate-200">
-                                {def?.label ?? statId}
+                              <div
+                                className="truncate text-[11px] font-medium text-slate-200"
+                                title={readable}
+                              >
+                                {readable}
                               </div>
                               <div className="font-mono text-[10px] text-[#3ee6c5]">
-                                {evaluated ? `+${evaluated.value.toFixed(1)}%` : 'Conditional'}
+                                {evaluated
+                                  ? evaluated.statKey === 'utilityPct'
+                                    ? `Utility (${evaluated.value.toFixed(1)}%)`
+                                    : `+${evaluated.value.toFixed(1)}% active`
+                                  : 'Conditional'}
                               </div>
                             </div>
                             <div className="flex shrink-0 items-center gap-0.5">

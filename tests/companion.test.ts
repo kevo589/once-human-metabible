@@ -264,9 +264,9 @@ describe('Loadout Builder & Multiplicative DPS Engine', () => {
   });
 });
 
-describe('Mod Codex, 11 Sub-Stat Sets & DPS Mod Engine Integration', () => {
-  it('validates all 102 Codex mods, 11 Sub-Stat Sets, local icons, and map POI links', () => {
-    expect(MOD_SUBSTAT_SETS).toHaveLength(11);
+describe('Mod Codex, 34 Sub-Stat Sets & DPS Mod Engine Integration', () => {
+  it('validates all 102 Codex mods, all 34 Sub-Stat Sets, Rejuvenating 16 sets, local icons, and map POI links', () => {
+    expect(MOD_SUBSTAT_SETS).toHaveLength(34);
     for (const setDef of MOD_SUBSTAT_SETS) {
       expect(setDef.stats).toHaveLength(4);
       for (const sid of setDef.stats) {
@@ -278,6 +278,7 @@ describe('Mod Codex, 11 Sub-Stat Sets & DPS Mod Engine Integration', () => {
     const markerIds = new Set(ALL_MAP_MARKERS.map((m) => m.id));
     for (const mod of MOD_CODEX) {
       expect(Object.keys(mod.coreEffectByLevel)).toEqual(['1', '2', '3', '4', '5']);
+      expect(mod.subStatSetIds.length).toBeGreaterThanOrEqual(4);
       const absIcon = path.resolve(process.cwd(), 'public', mod.iconUrl.replace(/^\.\//, ''));
       expect(fs.existsSync(absIcon), `Missing mod icon: ${absIcon}`).toBe(true);
       if (mod.mapLocationId) {
@@ -292,9 +293,25 @@ describe('Mod Codex, 11 Sub-Stat Sets & DPS Mod Engine Integration', () => {
     expect(bulletSiphon.dpsModifiersByLevel['5'].weaponDmgPct).toBe(5);
     expect(bulletSiphon.dpsModifiersByLevel['5'].conditionalWeaponDmgPct).toBe(20);
     expect(bulletSiphon.mapLocationId).toBeTruthy();
+
+    const rejuvenating = MOD_CODEX_BY_ID.get('mod_9214')!;
+    expect(rejuvenating.name).toBe('Rejuvenating');
+    expect(rejuvenating.subStatSetIds).toHaveLength(16);
+    expect(rejuvenating.subStatSetIds).toEqual(
+      expect.arrayContaining([
+        'lunar',
+        'lunar_deviant_energy',
+        'rhythm',
+        'rhythm_deviant_energy',
+        'battle',
+        'mirror',
+        'wild',
+        'phantasmal',
+      ]),
+    );
   });
 
-  it('computes exact Level 1-5 scaling for Violent, Downstar, Aero, and Resonance sub-stats and applies to DPS Loadout', () => {
+  it('computes exact Level 1-5 scaling for Violent, Downstar, Aero, Resonance, Lunar, and Rhythm sub-stats and applies to DPS Loadout', () => {
     expect(evaluateSubStatValue('crit_dmg', 5)?.value).toBe(15);
     expect(evaluateSubStatValue('downstar_weapon_dmg', 5, { downstarMeters: 0 })?.value).toBe(6);
     expect(evaluateSubStatValue('downstar_weapon_dmg', 5, { downstarMeters: 5 })?.value).toBe(9);
@@ -302,6 +319,10 @@ describe('Mod Codex, 11 Sub-Stat Sets & DPS Mod Engine Integration', () => {
     expect(evaluateSubStatValue('aero_crit_dmg', 5, { aeroAerialHit: true })?.value).toBe(22.5);
     expect(evaluateSubStatValue('resonance_elem_to_crit', 5, { resonanceMaxStacks: false })?.value).toBe(4);
     expect(evaluateSubStatValue('resonance_elem_to_crit', 5, { resonanceMaxStacks: true })?.value).toBe(20);
+    expect(evaluateSubStatValue('lunar_crit_dmg', 5, { hpPct: 100 })?.value).toBe(0);
+    expect(evaluateSubStatValue('lunar_crit_dmg', 5, { hpPct: 30 })?.value).toBe(30);
+    expect(evaluateSubStatValue('rhythm_weapon_dmg', 5, { hpPct: 100 })?.value).toBe(12);
+    expect(evaluateSubStatValue('rhythm_weapon_dmg', 5, { hpPct: 50 })?.value).toBe(6);
     expect(formatReadableSubstat('crit_dmg', 5)).toBe('Crit DMG +15%');
 
     const [starter] = getStarterLoadouts();

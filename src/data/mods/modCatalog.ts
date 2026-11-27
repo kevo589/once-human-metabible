@@ -20,13 +20,26 @@ export interface SubStatLevelDef {
   label: string;
   statKey: string;
   display: string;
-  condition?: 'resonance' | 'downstar' | 'aero';
+  condition?:
+    | 'resonance'
+    | 'downstar'
+    | 'aero'
+    | 'lunar'
+    | 'crescent'
+    | 'rhythm'
+    | 'mirror'
+    | 'wild'
+    | 'on_hit_debuff';
   levels?: number[];
   perStack?: number[];
   maxStacks?: number;
   durationSec?: number;
   base?: number[];
   bonusMax?: number[];
+  maxBonus?: number[];
+  highHpBonus?: number[];
+  behindBonus?: number[];
+  perMeter?: number[];
   maxMeters?: number;
   aerialBonus?: number[];
 }
@@ -49,6 +62,8 @@ export interface ModSubstatConditionState {
   aeroAerialHit?: boolean;
   downstarMeters?: number; // 0..5
   resonanceMaxStacks?: boolean;
+  hpPct?: number; // 1..100
+  shielded?: boolean;
 }
 
 const subData = rawModSubstats as {
@@ -86,12 +101,49 @@ export function formatReadableSubstat(substatId: string, level: number): string 
   if (!def) return substatId;
   const idx = clampModLevel(level) - 1;
 
+  if (def.condition === 'on_hit_debuff' && def.levels) {
+    return `On hit, reduces the target's DMG by ${def.levels[idx]}% for ${def.durationSec ?? 2}s.`;
+  }
+
   if (def.levels && !def.maxStacks) {
+    if (def.label.includes('X%')) {
+      return def.label.replace(/[-+]?X%/, (tok) =>
+        tok.startsWith('-') ? `-${def.levels![idx]}%` : `${def.levels![idx]}%`,
+      );
+    }
     return `${def.label} +${def.levels[idx]}%`;
   }
 
   if (def.maxStacks && def.durationSec && def.levels) {
     return `${def.label}: +${def.levels[idx]}% DMG Reduction when hit (up to ${def.maxStacks} stacks, ${def.durationSec}s)`;
+  }
+
+  if (def.condition === 'lunar' && def.maxBonus) {
+    return def.label.replace(/\+?X%/, `+${def.maxBonus[idx]}%`);
+  }
+
+  if (def.condition === 'crescent' && def.base && def.bonusMax) {
+    const tokens = [`+${def.base[idx]}%`, `+${def.bonusMax[idx]}%`];
+    let i = 0;
+    return def.label.replace(/\+?X%/g, () => tokens[i++] ?? 'X%');
+  }
+
+  if (def.condition === 'rhythm' && def.base && def.highHpBonus) {
+    const tokens = [`+${def.base[idx]}%`, `+${def.highHpBonus[idx]}%`];
+    let i = 0;
+    return def.label.replace(/\+?X%/g, () => tokens[i++] ?? 'X%');
+  }
+
+  if (def.condition === 'mirror' && def.base && def.behindBonus) {
+    const tokens = [`+${def.base[idx]}%`, `+${def.behindBonus[idx]}%`];
+    let i = 0;
+    return def.label.replace(/\+?X%/g, () => tokens[i++] ?? 'X%');
+  }
+
+  if (def.condition === 'wild' && def.base && def.perMeter && def.bonusMax) {
+    const tokens = [`+${def.base[idx]}%`, `+${def.perMeter[idx]}%`, `+${def.bonusMax[idx]}%`];
+    let i = 0;
+    return def.label.replace(/\+?X%/g, () => tokens[i++] ?? 'X%');
   }
 
   if (def.condition === 'resonance' && def.perStack) {
@@ -127,6 +179,30 @@ export function evaluateSubStatValue(
 
   if (def.levels) {
     return { statKey: def.statKey, value: def.levels[idx] };
+  }
+
+  if (def.condition === 'lunar' && def.maxBonus) {
+    const hpPct = Math.min(100, Math.max(1, conditions.hpPct ?? 100));
+    const ratio = hpPct <= 30 ? 1 : Math.max(0, (100 - hpPct) / 70);
+    return { statKey: def.statKey, value: Number((def.maxBonus[idx] * ratio).toFixed(2)) };
+  }
+
+  if (def.condition === 'crescent' && def.base && def.bonusMax) {
+    const bonus = conditions.shielded ? def.bonusMax[idx] : 0;
+    return { statKey: def.statKey, value: Number((def.base[idx] + bonus).toFixed(2)) };
+  }
+
+  if (def.condition === 'rhythm' && def.base && def.highHpBonus) {
+    const bonus = (conditions.hpPct ?? 100) >= 70 ? def.highHpBonus[idx] : 0;
+    return { statKey: def.statKey, value: Number((def.base[idx] + bonus).toFixed(2)) };
+  }
+
+  if (def.condition === 'mirror' && def.base) {
+    return { statKey: def.statKey, value: def.base[idx] };
+  }
+
+  if (def.condition === 'wild' && def.base) {
+    return { statKey: def.statKey, value: def.base[idx] };
   }
 
   if (def.condition === 'resonance' && def.perStack) {
