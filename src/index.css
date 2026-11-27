@@ -42,4 +42,12 @@
 .leaflet-control-attribution {
   background: rgba(13, 17, 24, 0.85) !important;
   color: #64748b !important;
+  font-size: 10px !important;
+}
+
+.nalcott-region-badge {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  pointer-events: none;
 }

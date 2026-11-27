@@ -13,6 +13,10 @@ import {
   MapScenarioSchema,
   MetaBuildSchema,
   ModSchema,
+  NalcottMapDataSchema,
+  NalcottMapPointTupleSchema,
+  NalcottMapRegionSchema,
+  NalcottMapTypeSchema,
   RaritySchema,
   RecipeSchema,
   ScenarioIdSchema,
@@ -35,6 +39,10 @@ export type MapCategory = z.infer<typeof MapCategorySchema>;
 export type MapMarker = z.infer<typeof MapMarkerSchema>;
 export type MapRegion = z.infer<typeof MapRegionSchema>;
 export type MapScenario = z.infer<typeof MapScenarioSchema>;
+export type NalcottMapType = z.infer<typeof NalcottMapTypeSchema>;
+export type NalcottMapRegion = z.infer<typeof NalcottMapRegionSchema>;
+export type NalcottMapPointTuple = z.infer<typeof NalcottMapPointTupleSchema>;
+export type NalcottMapData = z.infer<typeof NalcottMapDataSchema>;
 export type CalculatorPreset = z.infer<typeof CalculatorPresetSchema>;
 export type MetaBuild = z.infer<typeof MetaBuildSchema>;
 export type TimerEvent = z.infer<typeof TimerEventSchema>;

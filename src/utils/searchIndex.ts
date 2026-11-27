@@ -2,7 +2,8 @@ import Fuse from 'fuse.js';
 import { META_BUILDS } from '../data/buildsAndTimers';
 import { DEVIATIONS, RECIPES } from '../data/deviationsAndChef';
 import { ARMOR_SETS, MODS } from '../data/gearAndMods';
-import { CLASS_SPECS, ENCOUNTERS, MAP_MARKERS } from '../data/mapsAndEncounters';
+import { CLASS_SPECS, ENCOUNTERS } from '../data/mapsAndEncounters';
+import { NALCOTT_POIS } from '../data/nalcottMap';
 import { WEAPONS } from '../data/weapons';
 import type { EncyclopediaSubTab, NavTab } from '../types/game';
 
@@ -83,15 +84,15 @@ export function buildSearchEntries(): SearchEntry[] {
       targetId: b.id,
       keywords: `${b.armorSetup} ${b.keyMods.join(' ')} ${b.playstyleNotes}`,
     })),
-    ...MAP_MARKERS.map((p) => ({
+    ...NALCOTT_POIS.map((p) => ({
       id: `p-${p.id}`,
       scenario: p.scenario,
       title: p.name,
-      subtitle: `${p.category} • ${p.region} (${p.scenario})`,
+      subtitle: `${p.typeLabel} • ${p.region}${p.level ? ` • Lv ${p.level}` : ''}`,
       kind: 'Map POI' as const,
       targetTab: 'map' as const,
       targetId: p.id,
-      keywords: `${p.description} ${p.loot.join(' ')}`,
+      keywords: `${p.typeLabel} ${p.region} ${p.near ?? ''} ${p.scenario}`,
     })),
     ...ENCOUNTERS.map((e) => ({
       id: `e-${e.id}`,

@@ -190,6 +190,40 @@ export const MapScenarioSchema = z.object({
   regions: z.array(MapRegionSchema),
 });
 
+export const NalcottMapTypeSchema = z.object({
+  key: z.string(),
+  label: z.string(),
+  plural: z.string(),
+  color: z.string(),
+  defaultOn: z.boolean(),
+  count: z.number().int().nonnegative(),
+});
+
+export const NalcottMapRegionSchema = z.object({
+  name: z.string(),
+  lat: z.number(),
+  lng: z.number(),
+});
+
+export const NalcottMapPointTupleSchema = z.tuple([
+  z.string(),
+  z.number().int().nonnegative(),
+  z.string(),
+  z.number().nullable(),
+  z.number(),
+  z.number(),
+  z.string().nullable(),
+]);
+
+export const NalcottMapDataSchema = z.object({
+  tileUrl: z.string().url(),
+  tileSize: z.number().int().positive(),
+  maxNativeZoom: z.number().int().nonnegative(),
+  types: z.array(NalcottMapTypeSchema),
+  regions: z.array(NalcottMapRegionSchema),
+  points: z.array(NalcottMapPointTupleSchema),
+});
+
 export const CalculatorPresetSchema = z.object({
   weaponId: z.string(),
   weaponAttackBonusPct: z.number(),

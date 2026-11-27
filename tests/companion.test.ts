@@ -5,6 +5,7 @@ import { META_BUILDS, TIMER_EVENTS } from '../src/data/buildsAndTimers';
 import { DEVIATIONS, RECIPES } from '../src/data/deviationsAndChef';
 import { ARMOR_SETS, MODS } from '../src/data/gearAndMods';
 import { CLASS_SPECS, ENCOUNTERS, MAP_MARKERS, MAP_SCENARIOS } from '../src/data/mapsAndEncounters';
+import { NALCOTT_MAP, NALCOTT_POIS } from '../src/data/nalcottMap';
 import { WEAPONS } from '../src/data/weapons';
 import {
   ArmorSetSchema,
@@ -15,6 +16,7 @@ import {
   MapScenarioSchema,
   MetaBuildSchema,
   ModSchema,
+  NalcottMapDataSchema,
   RecipeSchema,
   TimerEventSchema,
   WeaponSchema,
@@ -32,6 +34,7 @@ describe('Once Human game data schemas', () => {
     for (const r of RECIPES) RecipeSchema.parse(r);
     for (const s of MAP_SCENARIOS) MapScenarioSchema.parse(s);
     for (const p of MAP_MARKERS) MapMarkerSchema.parse(p);
+    NalcottMapDataSchema.parse(NALCOTT_MAP);
     for (const e of ENCOUNTERS) EncounterSchema.parse(e);
     for (const c of CLASS_SPECS) ClassSpecSchema.parse(c);
     for (const b of META_BUILDS) MetaBuildSchema.parse(b);
@@ -42,6 +45,10 @@ describe('Once Human game data schemas', () => {
     expect(MODS.length).toBeGreaterThanOrEqual(1400);
     expect(DEVIATIONS.length).toBeGreaterThanOrEqual(90);
     expect(MAP_SCENARIOS).toHaveLength(3);
+    expect(NALCOTT_POIS.length).toBeGreaterThanOrEqual(900);
+    expect(
+      fs.existsSync(path.resolve(process.cwd(), 'public', 'maps', 'nalcott', 'overview-1024.webp')),
+    ).toBe(true);
 
     for (const item of [...WEAPONS, ...ARMOR_SETS, ...MODS, ...DEVIATIONS]) {
       const rel = item.imageUrl.replace(/^\.\//, '');
