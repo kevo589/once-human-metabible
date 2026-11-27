@@ -1,11 +1,19 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { calculatePolylineMeters } from '../src/components/map/mapState';
+import {
+  BUILT_IN_FILTER_PRESETS,
+  MAP_CATEGORIES,
+  MAP_DROP_TABLES,
+  MAP_REGIONS,
+  MAP_RESOURCE_AREAS,
+} from '../src/data/mapCatalog';
 import { META_BUILDS, TIMER_EVENTS } from '../src/data/buildsAndTimers';
 import { DEVIATIONS, RECIPES } from '../src/data/deviationsAndChef';
 import { ARMOR_SETS, MODS } from '../src/data/gearAndMods';
 import { CLASS_SPECS, ENCOUNTERS, MAP_MARKERS, MAP_SCENARIOS } from '../src/data/mapsAndEncounters';
-import { NALCOTT_MAP, NALCOTT_POIS } from '../src/data/nalcottMap';
+import { ALL_MAP_MARKERS, NALCOTT_MAP, NALCOTT_POIS } from '../src/data/nalcottMap';
 import { WEAPONS } from '../src/data/weapons';
 import {
   ArmorSetSchema,
@@ -45,10 +53,22 @@ describe('Once Human game data schemas', () => {
     expect(MODS.length).toBeGreaterThanOrEqual(1400);
     expect(DEVIATIONS.length).toBeGreaterThanOrEqual(90);
     expect(MAP_SCENARIOS).toHaveLength(3);
-    expect(NALCOTT_POIS.length).toBeGreaterThanOrEqual(900);
+    expect(NALCOTT_POIS.length).toBeGreaterThanOrEqual(5000);
+    expect(ALL_MAP_MARKERS.length).toBeGreaterThanOrEqual(5000);
+    expect(MAP_CATEGORIES.length).toBeGreaterThanOrEqual(30);
+    expect(MAP_DROP_TABLES['car-trunk']?.some((d) => d.item === 'Portable Mixed Fuel')).toBe(true);
+    expect(MAP_RESOURCE_AREAS.length).toBeGreaterThanOrEqual(5);
+    expect(MAP_REGIONS.length).toBeGreaterThanOrEqual(9);
+    expect(BUILT_IN_FILTER_PRESETS.length).toBeGreaterThanOrEqual(5);
     expect(
       fs.existsSync(path.resolve(process.cwd(), 'public', 'maps', 'nalcott', 'overview-1024.webp')),
     ).toBe(true);
+
+    const meters = calculatePolylineMeters([
+      [-300, 300],
+      [-300, 310],
+    ]);
+    expect(meters).toBe(250);
 
     for (const item of [...WEAPONS, ...ARMOR_SETS, ...MODS, ...DEVIATIONS]) {
       const rel = item.imageUrl.replace(/^\.\//, '');

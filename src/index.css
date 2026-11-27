@@ -33,10 +33,18 @@
 
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip {
-  background: #121822 !important;
-  color: #e2e8f0 !important;
-  border: 1px solid #232e3f;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.65);
+  background: #121214 !important;
+  color: #f4f4f5 !important;
+  border: 1px solid #27272a;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.78);
+}
+
+.leaflet-popup-close-button {
+  color: #a1a1aa !important;
+}
+
+.leaflet-popup-close-button:hover {
+  color: #22d3ee !important;
 }
 
 .leaflet-control-attribution {

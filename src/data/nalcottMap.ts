@@ -1,4 +1,6 @@
 import type { NalcottMapData, ScenarioId } from '../types/game';
+import { MAP_CATEGORIES } from './mapCatalog';
+import rawGeneratedData from './generatedMapMarkers.json';
 import rawMapData from './nalcottMap.json';
 
 export const NALCOTT_MAP = rawMapData as NalcottMapData;
@@ -21,9 +23,17 @@ export interface NalcottPoi {
   near: string | null;
   region: string;
   scenario: Extract<ScenarioId, 'manibus' | 'way_of_winter'>;
+  tierNote?: string;
 }
 
 const WINTER_REGIONS = new Set(['Onyx Tundra', 'Ember Strand', 'Vena Fjord']);
+
+const RAW_KEY_REMAP: Record<string, string> = {
+  camp: 'birdview-camp',
+  'research-lab': 'gaia-research-center',
+};
+
+const CATEGORY_META_BY_KEY = new Map(MAP_CATEGORIES.map((c) => [c.key, c]));
 
 function inferNearestRegion(lat: number, lng: number): string {
   let bestName = NALCOTT_MAP.regions[0]?.name ?? 'Nalcott Island';
@@ -40,21 +50,23 @@ function inferNearestRegion(lat: number, lng: number): string {
   return bestName;
 }
 
-export const NALCOTT_POIS: NalcottPoi[] = NALCOTT_MAP.points.map(
+const REAL_ANCHOR_POIS: NalcottPoi[] = NALCOTT_MAP.points.map(
   ([id, typeIndex, name, level, lat, lng, near]) => {
-    const typeMeta = NALCOTT_MAP.types[typeIndex] ?? {
+    const rawTypeMeta = NALCOTT_MAP.types[typeIndex] ?? {
       key: 'place',
       label: 'Point of Interest',
       color: '#cbd5e1',
     };
+    const mappedKey = RAW_KEY_REMAP[rawTypeMeta.key] ?? rawTypeMeta.key;
+    const catalogMeta = CATEGORY_META_BY_KEY.get(mappedKey);
     const region = inferNearestRegion(lat, lng);
     const scenario = WINTER_REGIONS.has(region) || lat >= -190 ? 'way_of_winter' : 'manibus';
     return {
       id,
       typeIndex,
-      typeKey: typeMeta.key,
-      typeLabel: typeMeta.label,
-      color: typeMeta.color,
+      typeKey: mappedKey,
+      typeLabel: catalogMeta?.label ?? rawTypeMeta.label,
+      color: catalogMeta?.color ?? rawTypeMeta.color,
       name,
       level,
       lat,
@@ -66,74 +78,53 @@ export const NALCOTT_POIS: NalcottPoi[] = NALCOTT_MAP.points.map(
   },
 );
 
-export const NALCOTT_DEFAULT_TYPE_KEYS: string[] = NALCOTT_MAP.types
-  .filter((t) => t.defaultOn)
-  .map((t) => t.key);
-
-export interface NalcottTypeGroup {
-  id: string;
-  label: string;
-  keys: string[];
-}
-
-export const NALCOTT_TYPE_GROUPS: NalcottTypeGroup[] = [
-  {
-    id: 'world',
-    label: 'World & Fast Travel',
-    keys: ['teleport-tower', 'monolith', 'securement-silo', 'worldstone', 'rift-anchor'],
-  },
-  {
-    id: 'settlements',
-    label: 'Strongholds & Safe Zones',
-    keys: [
-      'mayfly-stronghold',
-      'settlement',
-      'harvesters-market',
-      'camp',
-      'arena',
-      'contest-area',
-      'attackers-base',
-    ],
-  },
-  {
-    id: 'resources',
-    label: 'Resources, Labs & Regions',
-    keys: ['extraction-site', 'mine-workshop', 'thermal-tower', 'research-lab', 'place'],
-  },
+type GeneratedMarkerTuple = [
+  string,
+  string,
+  string,
+  number | null,
+  number,
+  number,
+  string,
+  Extract<ScenarioId, 'manibus' | 'way_of_winter'>,
+  string | null,
 ];
 
-export interface MapCameraPreset {
-  id: 'all' | 'manibus' | 'way_of_winter';
-  label: string;
-  shortLabel: string;
-  subtitle: string;
-  center: [number, number];
-  zoom: number;
-}
+const generatedList = (rawGeneratedData as { markers: GeneratedMarkerTuple[] }).markers;
 
-export const NALCOTT_CAMERA_PRESETS: MapCameraPreset[] = [
-  {
-    id: 'all',
-    label: 'All Nalcott',
-    shortLabel: 'Nalcott',
-    subtitle: 'Full Nalcott Island & Northern Sectors',
-    center: [-265, 310],
-    zoom: 0,
+const DENSE_POIS: NalcottPoi[] = generatedList.map(
+  ([id, catKey, name, level, lat, lng, region, scenario, near], idx) => {
+    const meta = CATEGORY_META_BY_KEY.get(catKey);
+    return {
+      id,
+      typeIndex: 100 + idx,
+      typeKey: catKey,
+      typeLabel: meta?.label ?? catKey,
+      color: meta?.color ?? '#06b6d4',
+      name,
+      level,
+      lat,
+      lng,
+      near,
+      region,
+      scenario,
+    };
   },
-  {
-    id: 'manibus',
-    label: "Manibus & Evolution's Call",
-    shortLabel: 'Manibus',
-    subtitle: 'Dayton Wetlands, Broken Delta, Iron River, Chalk Peak & Red Sands',
-    center: [-375, 405],
-    zoom: 1,
-  },
-  {
-    id: 'way_of_winter',
-    label: 'The Way of Winter',
-    shortLabel: 'Winter',
-    subtitle: 'Vena Fjord, Onyx Tundra, Ember Strand & Blackheart',
-    center: [-110, 315],
-    zoom: 1,
-  },
-];
+);
+
+export const ALL_MAP_MARKERS: NalcottPoi[] = [...REAL_ANCHOR_POIS, ...DENSE_POIS];
+
+// Preserve NALCOTT_POIS export for Global Search & companion.test.ts compatibility
+export const NALCOTT_POIS: NalcottPoi[] = ALL_MAP_MARKERS;
+
+export const NALCOTT_DEFAULT_TYPE_KEYS: string[] = MAP_CATEGORIES.filter(
+  (c) => c.defaultOn,
+).map((c) => c.key);
+
+export const MAP_COUNTS_BY_CATEGORY: Map<string, number> = (() => {
+  const counts = new Map<string, number>();
+  for (const m of ALL_MAP_MARKERS) {
+    counts.set(m.typeKey, (counts.get(m.typeKey) ?? 0) + 1);
+  }
+  return counts;
+})();

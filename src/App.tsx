@@ -9,10 +9,14 @@ import { TimersView } from './components/timers/TimersView';
 import { META_BUILDS, TIMER_EVENTS } from './data/buildsAndTimers';
 import type { CalculatorPreset, EncyclopediaSubTab, MetaBuild, NavTab } from './types/game';
 import type { SearchEntry } from './utils/searchIndex';
+import { readMapUrlParams } from './utils/mapUrlState';
 import { getTimerStatus } from './utils/timers';
 
 export function App() {
-  const [activeTab, setActiveTab] = useState<NavTab>('calculator');
+  const [activeTab, setActiveTab] = useState<NavTab>(() => {
+    const p = readMapUrlParams();
+    return p.pin || (typeof p.x === 'number' && typeof p.y === 'number') ? 'map' : 'calculator';
+  });
   const [encSubTab, setEncSubTab] = useState<EncyclopediaSubTab>('weapons');
   const [highlightedEncId, setHighlightedEncId] = useState<string | null>(null);
   const [focusedMapId, setFocusedMapId] = useState<string | null>(null);
