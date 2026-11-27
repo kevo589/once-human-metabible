@@ -4,16 +4,19 @@ import {
   Calculator,
   ChevronDown,
   ChevronRight,
+  Crosshair,
   Download,
-  Info,
+  Flame,
+  Heart,
+  Layers,
+  Radiation,
   RotateCcw,
   Save,
-  Shield,
   Sparkles,
   Trash2,
   Upload,
-  Utensils,
   X,
+  Zap,
 } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
@@ -21,6 +24,7 @@ import {
   calculateFullLoadoutDps,
   cloneLoadout,
   createLoadoutFromWeaponId,
+  findDeviationImage,
   getStarterLoadouts,
   type ActiveWeaponSlotKey,
   type EquipSlotId,
@@ -73,6 +77,16 @@ const BATTLE_STAT_KEYS: StatKey[] = [
   'reloadSpeedPct',
 ];
 
+const CORE_ALWAYS_SHOW = new Set<StatKey>([
+  'critRatePct',
+  'critDmgPct',
+  'weakspotDmgPct',
+  'weakspotCritDmgPct',
+  'weaponDmgPct',
+  'statusDmgPct',
+  'elementalDmgPct',
+]);
+
 export function DpsCalculatorView({
   preset,
   onChangePreset,
@@ -94,6 +108,7 @@ export function DpsCalculatorView({
   const [statsColumnOpen, setStatsColumnOpen] = useState(true);
   const [basicOpen, setBasicOpen] = useState(true);
   const [battleOpen, setBattleOpen] = useState(true);
+  const [showZeroStats, setShowZeroStats] = useState(false);
   const [inspectedStatKey, setInspectedStatKey] = useState<StatKey | null>(null);
   const [jsonModalOpen, setJsonModalOpen] = useState(false);
   const [jsonText, setJsonText] = useState('');
@@ -106,7 +121,6 @@ export function DpsCalculatorView({
 
   const lastExternalWeaponRef = useRef<string | null>(null);
 
-  // Sync external weapon/build selection (Meta Builds -> Load in Calculator, Workbench -> DPS)
   useEffect(() => {
     const sig = `${preset.weaponId}|${activeBuildName ?? ''}`;
     if (lastExternalWeaponRef.current === null) {
@@ -196,21 +210,27 @@ export function DpsCalculatorView({
     }
   };
 
-  const activeRail =
-    topTab === 'buffs' ? 'cradle_food' : railMode;
-
+  const activeRail = topTab === 'buffs' ? 'cradle_food' : railMode;
   const isCustomSaved = savedLoadouts.some((s) => s.id === loadout.id);
+  const avatarImg = findDeviationImage(loadout.deviationId);
+
+  const visibleBattleKeys = useMemo(() => {
+    if (showZeroStats) return BATTLE_STAT_KEYS;
+    return BATTLE_STAT_KEYS.filter(
+      (k) => CORE_ALWAYS_SHOW.has(k) || Math.abs(stats.statDetails[k].value) > 0,
+    );
+  }, [showZeroStats, stats.statDetails]);
 
   return (
-    <div className="space-y-3 rounded-2xl border border-white/[0.08] bg-[#0c1114] p-2.5 text-slate-100 shadow-2xl sm:p-4">
-      {/* Top Navigation Bar */}
-      <header className="flex flex-col justify-between gap-2.5 border-b border-white/[0.08] pb-2.5 lg:flex-row lg:items-center">
-        <div className="flex items-center gap-1 overflow-x-auto">
+    <div className="space-y-4 rounded-xl border border-white/[0.07] bg-gradient-to-br from-[#172326] via-[#0e1518] to-[#0a0e11] p-3 text-slate-100 shadow-2xl sm:p-5">
+      {/* Sleek In-Game Style Top Header */}
+      <header className="flex flex-col justify-between gap-2 border-b border-white/[0.06] pb-2.5 lg:flex-row lg:items-center">
+        <nav className="flex items-center gap-6 overflow-x-auto px-1">
           {(
             [
               { id: 'simulator', label: 'DPS Simulator' },
-              { id: 'gear_config', label: 'Gear Config' },
-              { id: 'buffs', label: 'Food & Cradle Buffs' },
+              { id: 'gear_config', label: 'Gear Backpack' },
+              { id: 'buffs', label: 'Food & Cradle' },
             ] as const
           ).map((tab) => {
             const active = topTab === tab.id;
@@ -219,42 +239,43 @@ export function DpsCalculatorView({
                 key={tab.id}
                 type="button"
                 onClick={() => setTopTab(tab.id)}
-                className={`relative shrink-0 px-3.5 py-2 text-xs font-semibold tracking-wide transition ${
-                  active ? 'text-[#3ee6c5]' : 'text-slate-400 hover:text-slate-100'
+                className={`relative shrink-0 pb-2 text-sm font-medium tracking-wide transition ${
+                  active ? 'text-white' : 'text-slate-400 hover:text-slate-200'
                 }`}
               >
                 {tab.label}
                 {active && (
-                  <span className="absolute inset-x-2 -bottom-[1px] h-0.5 rounded-full bg-[#3ee6c5] shadow-[0_0_10px_#3ee6c5]" />
+                  <span className="absolute inset-x-0 bottom-0 h-[2px] rounded-full bg-[#3ee6c5] shadow-[0_0_10px_#3ee6c5]" />
                 )}
               </button>
             );
           })}
-        </div>
+        </nav>
 
-        {/* Preset Switcher & Export/Import */}
         <div className="flex flex-wrap items-center gap-2">
           <select
             value={allPresets.some((p) => p.id === loadout.id) ? loadout.id : ''}
             onChange={(e) => e.target.value && handleSelectPresetId(e.target.value)}
             aria-label="Loadout preset switcher"
-            className="min-w-[190px] max-w-[260px] rounded-lg border border-white/[0.1] bg-[#131a1e] px-2.5 py-1.5 text-xs font-medium text-slate-100 outline-none focus:border-[#3ee6c5]"
+            className="min-w-[180px] max-w-[250px] rounded border border-white/[0.08] bg-black/30 px-2.5 py-1 text-xs text-slate-200 outline-none focus:border-[#3ee6c5]/60"
           >
             {!allPresets.some((p) => p.id === loadout.id) && (
-              <option value="">Custom Unsaved Build</option>
+              <option value="" className="bg-[#0e1518]">
+                Custom Build
+              </option>
             )}
             {savedLoadouts.length > 0 && (
               <optgroup label="Saved Loadouts">
                 {savedLoadouts.map((s) => (
-                  <option key={s.id} value={s.id}>
+                  <option key={s.id} value={s.id} className="bg-[#0e1518]">
                     ★ {s.name}
                   </option>
                 ))}
               </optgroup>
             )}
-            <optgroup label="Starter Meta Templates">
+            <optgroup label="Starter Templates">
               {STARTER_LOADOUTS.map((s) => (
-                <option key={s.id} value={s.id}>
+                <option key={s.id} value={s.id} className="bg-[#0e1518]">
                   {s.name}
                 </option>
               ))}
@@ -265,7 +286,7 @@ export function DpsCalculatorView({
             <button
               type="button"
               onClick={() => handleDeleteSavedPreset(loadout.id)}
-              className="rounded-lg border border-rose-500/35 bg-rose-950/30 p-1.5 text-rose-300 transition hover:bg-rose-950/60"
+              className="rounded border border-white/[0.08] bg-black/30 p-1.5 text-slate-400 hover:text-rose-400"
               title="Delete saved loadout"
               aria-label="Delete current saved loadout"
             >
@@ -276,39 +297,36 @@ export function DpsCalculatorView({
           <button
             type="button"
             onClick={handleOpenJsonModal}
-            className="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.1] bg-[#131a1e] px-2.5 py-1.5 text-xs font-medium text-slate-200 transition hover:border-[#3ee6c5]/60 hover:text-[#3ee6c5]"
+            className="inline-flex items-center gap-1 rounded border border-white/[0.08] bg-black/30 px-2.5 py-1 text-xs text-slate-300 transition hover:border-white/25 hover:text-white"
           >
-            <Download className="h-3.5 w-3.5" />
+            <Download className="h-3 w-3" />
             <span>JSON</span>
           </button>
 
           <button
             type="button"
             onClick={() => {
-              const reset = cloneLoadout(STARTER_LOADOUTS[0]);
-              setLoadout(reset);
+              setLoadout(cloneLoadout(STARTER_LOADOUTS[0]));
               showToast('Reset to Lv.50 Starter');
             }}
-            className="inline-flex items-center gap-1 rounded-lg border border-white/[0.1] bg-[#131a1e] px-2.5 py-1.5 text-xs text-slate-400 transition hover:text-white"
+            className="rounded border border-white/[0.08] bg-black/30 p-1.5 text-slate-400 transition hover:text-white"
             title="Reset loadout"
           >
-            <RotateCcw className="h-3.5 w-3.5" />
+            <RotateCcw className="h-3 w-3" />
           </button>
         </div>
       </header>
 
-      {/* EXPANDED DPS SIMULATOR TOP STRIP WHEN ON SIMULATOR TAB */}
+      {/* EXPANDED DPS SIMULATOR PANEL (Clean, shown on DPS Simulator tab) */}
       {topTab === 'simulator' && (
-        <div className="grid gap-3 rounded-xl border border-[#3ee6c5]/30 bg-[#101c20]/85 p-3.5 sm:grid-cols-2 xl:grid-cols-4">
-          <div className="rounded-lg border border-white/[0.08] bg-[#0c1114]/90 p-3">
-            <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">
-              Sustained DPS (With Reload + Pet)
-            </div>
-            <div className="mt-1 font-mono text-2xl font-extrabold text-[#3ee6c5]">
+        <div className="grid gap-3 rounded-lg border border-white/[0.07] bg-black/30 p-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <div className="text-[11px] text-slate-400">Sustained DPS (With Reload + Pet)</div>
+            <div className="mt-1 font-mono text-2xl font-bold text-[#3ee6c5]">
               {dps.sustainedDps.toLocaleString()}
             </div>
             {baselineSnapshot ? (
-              <div className="mt-1 font-mono text-[11px] text-slate-300">
+              <div className="mt-0.5 font-mono text-[11px] text-slate-300">
                 vs {baselineSnapshot.name}:{' '}
                 <span
                   className={
@@ -322,50 +340,107 @@ export function DpsCalculatorView({
                 </span>
               </div>
             ) : (
-              <div className="mt-1 text-[10px] text-slate-400">
+              <div className="mt-0.5 font-mono text-[11px] text-slate-400">
                 Weapon {dps.weaponOnlySustainedDps.toLocaleString()} + Pet{' '}
                 {dps.deviationDps.toLocaleString()}
               </div>
             )}
           </div>
 
-          <div className="rounded-lg border border-white/[0.08] bg-[#0c1114]/90 p-3">
-            <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">
-              Burst DPS & Mag Damage
-            </div>
-            <div className="mt-1 font-mono text-2xl font-extrabold text-white">
+          <div>
+            <div className="text-[11px] text-slate-400">Burst DPS & Per-Shot Hits</div>
+            <div className="mt-1 font-mono text-2xl font-bold text-white">
               {dps.burstDps.toLocaleString()}
             </div>
-            <div className="mt-1 font-mono text-[10px] text-slate-400">
-              {dps.magazineTotalDamage.toLocaleString()} / mag ({dps.formula.magDumpSeconds}s +{' '}
-              {dps.formula.effectiveReloadSeconds}s reload)
+            <div className="mt-0.5 font-mono text-[11px] text-slate-400">
+              Norm {dps.normalHit} · Crit {dps.critHit} · WS Crit {dps.weakspotCritHit}
             </div>
           </div>
 
-          <div className="rounded-lg border border-white/[0.08] bg-[#0c1114]/90 p-3">
-            <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">
-              Keyword & Elemental Output
+          <div>
+            <div className="text-[11px] text-slate-400">Combat Assumptions</div>
+            <div className="mt-1.5 flex flex-wrap gap-1">
+              {(
+                [
+                  { id: 'normal', label: 'Normal' },
+                  { id: 'elite', label: 'Elite' },
+                  { id: 'great_one', label: 'Great One' },
+                ] as const
+              ).map((tt) => (
+                <button
+                  key={tt.id}
+                  type="button"
+                  onClick={() =>
+                    patchLoadout({
+                      assumptions: { ...loadout.assumptions, targetType: tt.id as TargetType },
+                    })
+                  }
+                  className={`rounded px-2 py-0.5 text-[11px] font-medium transition ${
+                    loadout.assumptions.targetType === tt.id
+                      ? 'bg-[#3ee6c5] text-[#091214]'
+                      : 'bg-white/[0.06] text-slate-300'
+                  }`}
+                >
+                  {tt.label}
+                </button>
+              ))}
             </div>
-            <div className="mt-1 font-mono text-xl font-bold text-amber-300">
-              +{dps.keywordProcDps.toLocaleString()} DPS
-            </div>
-            <div className="mt-1 text-[10px] text-slate-300">
-              {dps.formula.keywordName} ({dps.formula.keywordProcChancePct}% proc ·{' '}
-              {dps.elementalSharePct}% Elem)
+            <div className="mt-1.5 flex items-center gap-2 text-[10px]">
+              <span className="text-slate-400">WS {loadout.assumptions.weakspotHitRatePct}%</span>
+              <input
+                type="range"
+                min={0}
+                max={100}
+                value={loadout.assumptions.weakspotHitRatePct}
+                onChange={(e) =>
+                  patchLoadout({
+                    assumptions: {
+                      ...loadout.assumptions,
+                      weakspotHitRatePct: Number(e.target.value),
+                    },
+                  })
+                }
+                className="h-1 flex-1 cursor-pointer accent-[#3ee6c5]"
+              />
             </div>
           </div>
 
-          <div className="flex flex-col justify-between gap-2 rounded-lg border border-white/[0.08] bg-[#0c1114]/90 p-3">
-            <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">
-              A/B Compare & Audit
+          <div className="flex flex-col justify-between gap-2">
+            <div className="flex flex-wrap gap-1">
+              {(
+                [
+                  { key: 'bullsEye', label: "Bull's Eye" },
+                  { key: 'marked', label: 'Marked' },
+                  { key: 'fortressWarfare', label: 'Fortress' },
+                  { key: 'shielded', label: 'Shielded' },
+                ] as const
+              ).map((flag) => (
+                <button
+                  key={flag.key}
+                  type="button"
+                  onClick={() =>
+                    patchLoadout({
+                      assumptions: {
+                        ...loadout.assumptions,
+                        [flag.key]: !loadout.assumptions[flag.key],
+                      },
+                    })
+                  }
+                  className={`rounded px-1.5 py-0.5 text-[10px] font-medium transition ${
+                    loadout.assumptions[flag.key]
+                      ? 'bg-[#3ee6c5]/20 text-[#3ee6c5]'
+                      : 'bg-white/[0.05] text-slate-400'
+                  }`}
+                >
+                  {flag.label}
+                </button>
+              ))}
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex gap-2">
               <button
                 type="button"
-                onClick={() =>
-                  setBaselineSnapshot({ name: loadout.name.slice(0, 18), dps })
-                }
-                className="inline-flex flex-1 items-center justify-center gap-1 rounded-lg border border-white/[0.12] bg-[#131a1e] px-2.5 py-1.5 text-[11px] font-semibold text-slate-200 hover:border-[#3ee6c5]"
+                onClick={() => setBaselineSnapshot({ name: loadout.name.slice(0, 18), dps })}
+                className="inline-flex flex-1 items-center justify-center gap-1 rounded border border-white/[0.1] bg-black/30 py-1 text-[11px] font-medium text-slate-200 hover:border-white/30"
               >
                 <BookmarkPlus className="h-3.5 w-3.5 text-[#3ee6c5]" />
                 Pin Baseline
@@ -373,31 +448,30 @@ export function DpsCalculatorView({
               <button
                 type="button"
                 onClick={() => setMathOpen(true)}
-                className="inline-flex items-center justify-center gap-1 rounded-lg bg-[#3ee6c5] px-3 py-1.5 text-[11px] font-bold text-[#091214] hover:bg-[#5df0d2]"
+                className="inline-flex items-center gap-1 rounded bg-[#3ee6c5] px-3 py-1 text-[11px] font-bold text-[#091214]"
               >
                 <Calculator className="h-3.5 w-3.5" />
-                View Math
+                Math
               </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* 4-ZONE GEAR CONFIG WORKSPACE */}
-      <div className="grid grid-cols-1 gap-3 lg:grid-cols-12">
-        {/* ZONE 1: Far-Left Vertical Mode Rail (col-span-1 on lg+) */}
+      {/* MAIN 4-COLUMN IN-GAME GEAR BACKPACK WORKSPACE */}
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
+        {/* 1. Far-Left Vertical Mode Rail */}
         <nav
           aria-label="Config Mode Rail"
-          className="flex flex-row gap-1.5 overflow-x-auto rounded-xl border border-white/[0.08] bg-[#0f161a]/90 p-1.5 lg:col-span-1 lg:flex-col lg:overflow-visible"
+          className="flex flex-row gap-2 border-b border-white/[0.06] pb-2 lg:col-span-1 lg:flex-col lg:border-b-0 lg:border-r lg:pb-0 lg:pr-2"
         >
           {(
             [
-              { id: 'gear', label: 'Gear Config', icon: Shield },
-              { id: 'deviation', label: 'Combat Deviation', icon: Sparkles },
-              { id: 'cradle_food', label: 'Cradle & Food', icon: Utensils },
+              { id: 'gear', label: 'Gear Config' },
+              { id: 'deviation', label: 'Combat Deviation' },
+              { id: 'cradle_food', label: 'Cradle & Food' },
             ] as const
           ).map((item) => {
-            const Icon = item.icon;
             const active = activeRail === item.id;
             return (
               <button
@@ -409,46 +483,178 @@ export function DpsCalculatorView({
                     setTopTab('gear_config');
                   }
                 }}
-                className={`relative flex shrink-0 flex-row items-center justify-center gap-2 rounded-lg px-3 py-2.5 text-center text-[11px] font-semibold transition lg:flex-col lg:gap-1.5 lg:px-1.5 lg:py-4 ${
+                className={`relative px-2 py-2 text-left text-xs transition lg:py-3 ${
                   active
-                    ? 'bg-[#3ee6c5]/14 text-[#3ee6c5]'
-                    : 'text-slate-400 hover:bg-white/[0.04] hover:text-slate-100'
+                    ? 'font-semibold text-white'
+                    : 'font-normal text-slate-500 hover:text-slate-200'
                 }`}
               >
                 {active && (
-                  <span className="absolute bottom-0 left-2 right-2 h-0.5 rounded-full bg-[#3ee6c5] lg:bottom-2 lg:left-0 lg:right-auto lg:top-2 lg:h-auto lg:w-1" />
+                  <span className="hidden lg:block absolute -right-[9px] top-1/2 h-3 w-[3px] -translate-y-1/2 rounded-full bg-[#e5b84b] shadow-[0_0_8px_#e5b84b]" />
                 )}
-                <Icon className="h-4 w-4 shrink-0" />
-                <span className="leading-tight">{item.label}</span>
+                <span className="leading-snug">{item.label}</span>
               </button>
             );
           })}
         </nav>
 
-        {/* ZONE 2: Left-Center Summary & Live DPS Card (col-span-4 on lg+) */}
-        <section className="flex flex-col justify-between gap-3 rounded-xl border border-white/[0.08] bg-[#0f161a]/85 p-3.5 backdrop-blur-md lg:col-span-4">
-          <div className="space-y-3">
-            {/* Profile & Build Header */}
-            <div className="space-y-2 border-b border-white/[0.08] pb-3">
-              <div className="flex items-center gap-2">
-                <span className="rounded-md border border-[#e5b84b]/45 bg-[#e5b84b]/15 px-2 py-0.5 font-mono text-[11px] font-bold text-[#e5b84b]">
-                  Lv. 50
-                </span>
+        {/* 2. Left-Center Profile & Clean Core Summary Strip */}
+        <section className="flex flex-col justify-between gap-4 rounded-lg bg-black/20 p-3.5 lg:col-span-3">
+          <div className="space-y-4">
+            {/* Profile Avatar + Loadout Name + Lv. 50 */}
+            <div className="flex items-center gap-2.5 border-b border-white/[0.06] pb-3">
+              <div className="h-10 w-10 shrink-0 overflow-hidden rounded border border-white/15 bg-[#0b1014]">
+                {avatarImg ? (
+                  <img
+                    src={avatarImg}
+                    alt="Active Deviation"
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <Sparkles className="m-2.5 h-5 w-5 text-[#3ee6c5]" />
+                )}
+              </div>
+              <div className="min-w-0 flex-1">
                 <input
                   type="text"
                   value={loadout.name}
                   onChange={(e) => patchLoadout({ name: e.target.value })}
                   aria-label="Loadout name"
-                  className="min-w-0 flex-1 rounded-md border border-white/[0.08] bg-[#0c1114] px-2.5 py-1 text-xs font-semibold text-white outline-none focus:border-[#3ee6c5]"
+                  className="w-full truncate bg-transparent text-xs font-semibold text-white outline-none focus:text-[#3ee6c5]"
                 />
+                <div className="mt-0.5 flex items-center justify-between font-mono text-[11px] text-slate-400">
+                  <span>Lv. 50</span>
+                  <span>Rating {stats.gearScoreTotal}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Active Weapon Inline Toggle + Open Stat Rows */}
+            <div className="space-y-2.5">
+              <div className="flex items-center justify-between border-b border-white/[0.06] pb-1.5">
+                <span className="text-xs font-semibold text-slate-200">
+                  {loadout.activeWeaponSlot === 'primary' ? 'Primary Weapon' : 'Secondary Weapon'}
+                </span>
+                <div className="flex items-center gap-1 text-[11px]">
+                  <button
+                    type="button"
+                    onClick={() => handleSetActiveWeapon('primary')}
+                    className={`rounded px-1.5 py-0.5 font-mono font-bold transition ${
+                      loadout.activeWeaponSlot === 'primary'
+                        ? 'bg-[#e5b84b] text-[#141004]'
+                        : 'text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    1
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleSetActiveWeapon('secondary')}
+                    className={`rounded px-1.5 py-0.5 font-mono font-bold transition ${
+                      loadout.activeWeaponSlot === 'secondary'
+                        ? 'bg-[#e5b84b] text-[#141004]'
+                        : 'text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    2
+                  </button>
+                </div>
               </div>
 
-              {/* Current HP% & Sanity% Sliders */}
-              <div className="grid grid-cols-2 gap-2.5 pt-1">
-                <div>
-                  <div className="mb-0.5 flex items-center justify-between text-[10px]">
-                    <span className="text-slate-400">Current HP%</span>
-                    <span className="font-mono font-bold text-emerald-300">{loadout.hpPct}%</span>
+              <div className="space-y-2.5 text-xs">
+                <div className="flex items-center justify-between">
+                  <span className="flex items-center gap-2 text-slate-400">
+                    <Crosshair className="h-3.5 w-3.5 text-slate-500" />
+                    Attack
+                  </span>
+                  <span className="font-mono text-base font-semibold text-white">
+                    {stats.weaponAttack}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="flex items-center gap-2 text-slate-400">
+                    <Flame className="h-3.5 w-3.5 text-slate-500" />
+                    Fire Rate
+                  </span>
+                  <span className="font-mono text-base font-semibold text-white">
+                    {stats.fireRateRpm}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="flex items-center gap-2 text-slate-400">
+                    <Layers className="h-3.5 w-3.5 text-slate-500" />
+                    Magazine Capacity
+                  </span>
+                  <span className="font-mono text-base font-semibold text-white">
+                    {stats.magCapacity}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Core Character Stats (Open Hairline List) */}
+            <div className="space-y-2.5 border-t border-white/[0.06] pt-3 text-xs">
+              <div className="flex items-center justify-between">
+                <span className="flex items-center gap-2 text-slate-400">
+                  <Zap className="h-3.5 w-3.5 text-slate-500" />
+                  Psi Intensity
+                </span>
+                <span className="font-mono text-base font-semibold text-white">
+                  {stats.psiIntensity}
+                </span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="flex items-center gap-2 text-slate-400">
+                  <Heart className="h-3.5 w-3.5 text-slate-500" />
+                  Max HP
+                </span>
+                <span className="font-mono text-base font-semibold text-white">
+                  {stats.maxHp}
+                </span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="flex items-center gap-2 text-slate-400">
+                  <Radiation className="h-3.5 w-3.5 text-slate-500" />
+                  Pollution Resist
+                </span>
+                <span className="font-mono text-base font-semibold text-white">
+                  {stats.pollutionResist}
+                </span>
+              </div>
+            </div>
+
+            {/* Compact Live DPS & HP%/Sanity% */}
+            <div className="space-y-2 border-t border-white/[0.06] pt-3">
+              <div className="flex items-center justify-between text-xs">
+                <span className="flex items-center gap-1.5 text-slate-400">
+                  <Activity className="h-3.5 w-3.5 text-[#3ee6c5]" />
+                  Sustained DPS
+                </span>
+                <span className="font-mono text-base font-bold text-[#3ee6c5]">
+                  {dps.sustainedDps.toLocaleString()}
+                </span>
+              </div>
+              <div className="flex items-center justify-between text-[11px]">
+                <span className="text-slate-500">Burst DPS</span>
+                <div className="flex items-center gap-2">
+                  <span className="font-mono font-semibold text-slate-200">
+                    {dps.burstDps.toLocaleString()}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setMathOpen(true)}
+                    className="text-[10px] text-[#3ee6c5] hover:underline"
+                  >
+                    Math
+                  </button>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2 pt-1 text-[10px] text-slate-400">
+                <label className="block">
+                  <div className="flex justify-between">
+                    <span>HP</span>
+                    <span className="font-mono text-slate-200">{loadout.hpPct}%</span>
                   </div>
                   <input
                     type="range"
@@ -456,16 +662,13 @@ export function DpsCalculatorView({
                     max={100}
                     value={loadout.hpPct}
                     onChange={(e) => patchLoadout({ hpPct: Number(e.target.value) })}
-                    aria-label="Current HP percent"
-                    className="h-1 w-full cursor-pointer accent-emerald-400"
+                    className="h-1 w-full cursor-pointer accent-[#3ee6c5]"
                   />
-                </div>
-                <div>
-                  <div className="mb-0.5 flex items-center justify-between text-[10px]">
-                    <span className="text-slate-400">Sanity%</span>
-                    <span className="font-mono font-bold text-purple-300">
-                      {loadout.sanityPct}%
-                    </span>
+                </label>
+                <label className="block">
+                  <div className="flex justify-between">
+                    <span>Sanity</span>
+                    <span className="font-mono text-slate-200">{loadout.sanityPct}%</span>
                   </div>
                   <input
                     type="range"
@@ -473,276 +676,48 @@ export function DpsCalculatorView({
                     max={100}
                     value={loadout.sanityPct}
                     onChange={(e) => patchLoadout({ sanityPct: Number(e.target.value) })}
-                    aria-label="Current Sanity percent"
                     className="h-1 w-full cursor-pointer accent-purple-400"
                   />
-                </div>
-              </div>
-            </div>
-
-            {/* Active Weapon Quick Toggle & Readout */}
-            <div className="space-y-2">
-              <div className="grid grid-cols-2 gap-1.5 rounded-lg border border-white/[0.08] bg-[#0c1114] p-1">
-                <button
-                  type="button"
-                  onClick={() => handleSetActiveWeapon('primary')}
-                  className={`flex items-center justify-center gap-1.5 rounded-md py-1.5 text-[11px] font-semibold transition ${
-                    loadout.activeWeaponSlot === 'primary'
-                      ? 'bg-[#3ee6c5]/20 text-[#3ee6c5]'
-                      : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  <span className="rounded bg-[#e5b84b] px-1 text-[9px] font-extrabold text-[#1a1304]">
-                    1
-                  </span>
-                  <span className="truncate">Primary</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleSetActiveWeapon('secondary')}
-                  className={`flex items-center justify-center gap-1.5 rounded-md py-1.5 text-[11px] font-semibold transition ${
-                    loadout.activeWeaponSlot === 'secondary'
-                      ? 'bg-[#3ee6c5]/20 text-[#3ee6c5]'
-                      : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  <span className="rounded bg-[#e5b84b] px-1 text-[9px] font-extrabold text-[#1a1304]">
-                    2
-                  </span>
-                  <span className="truncate">Secondary</span>
-                </button>
-              </div>
-
-              <div className="grid grid-cols-3 gap-1.5 text-center">
-                <div className="rounded-lg border border-white/[0.07] bg-[#131a1e] p-2">
-                  <div className="text-[10px] text-slate-400">Attack</div>
-                  <div className="font-mono text-sm font-bold text-white">
-                    {stats.weaponAttack}
-                  </div>
-                </div>
-                <div className="rounded-lg border border-white/[0.07] bg-[#131a1e] p-2">
-                  <div className="text-[10px] text-slate-400">Fire Rate</div>
-                  <div className="font-mono text-sm font-bold text-white">
-                    {stats.fireRateRpm}
-                  </div>
-                </div>
-                <div className="rounded-lg border border-white/[0.07] bg-[#131a1e] p-2">
-                  <div className="text-[10px] text-slate-400">Mag Cap</div>
-                  <div className="font-mono text-sm font-bold text-white">
-                    {stats.magCapacity}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Core Character Readout */}
-            <div className="grid grid-cols-3 gap-1.5 text-center">
-              <div className="rounded-lg border border-white/[0.07] bg-[#131a1e] p-2">
-                <div className="text-[10px] text-slate-400">Psi Intensity</div>
-                <div className="font-mono text-sm font-bold text-[#3ee6c5]">
-                  {stats.psiIntensity}
-                </div>
-              </div>
-              <div className="rounded-lg border border-white/[0.07] bg-[#131a1e] p-2">
-                <div className="text-[10px] text-slate-400">Max HP</div>
-                <div className="font-mono text-sm font-bold text-emerald-300">
-                  {stats.maxHp.toLocaleString()}
-                </div>
-              </div>
-              <div className="rounded-lg border border-white/[0.07] bg-[#131a1e] p-2">
-                <div className="text-[10px] text-slate-400">Poll Res</div>
-                <div className="font-mono text-sm font-bold text-sky-300">
-                  {stats.pollutionResist}
-                </div>
-              </div>
-            </div>
-
-            {/* Live DPS Telemetry Block */}
-            <div className="space-y-2.5 rounded-xl border border-[#3ee6c5]/30 bg-[#0c1114]/90 p-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#3ee6c5]">
-                  <Activity className="h-3.5 w-3.5" />
-                  <span>Live DPS Telemetry</span>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setMathOpen(true)}
-                  className="rounded border border-[#3ee6c5]/40 bg-[#3ee6c5]/10 px-2 py-0.5 text-[10px] font-semibold text-[#3ee6c5] transition hover:bg-[#3ee6c5]/20"
-                >
-                  View Math
-                </button>
-              </div>
-
-              <div className="grid grid-cols-2 gap-2">
-                <div className="rounded-lg border border-white/[0.07] bg-[#131a1e] p-2">
-                  <div className="text-[10px] text-slate-400">Burst DPS</div>
-                  <div className="font-mono text-lg font-extrabold text-white">
-                    {dps.burstDps.toLocaleString()}
-                  </div>
-                </div>
-                <div className="rounded-lg border border-[#3ee6c5]/25 bg-[#112322] p-2">
-                  <div className="text-[10px] text-[#3ee6c5]">Sustained DPS</div>
-                  <div className="font-mono text-lg font-extrabold text-[#3ee6c5]">
-                    {dps.sustainedDps.toLocaleString()}
-                  </div>
-                </div>
-              </div>
-
-              {/* Per-Shot Breakdown */}
-              <div className="grid grid-cols-5 gap-1 text-center font-mono text-[10px]">
-                <div className="rounded bg-[#131a1e] p-1">
-                  <div className="text-[9px] text-slate-500">Norm</div>
-                  <div className="font-bold text-slate-200">{dps.normalHit}</div>
-                </div>
-                <div className="rounded bg-[#131a1e] p-1">
-                  <div className="text-[9px] text-amber-300">Crit</div>
-                  <div className="font-bold text-amber-300">{dps.critHit}</div>
-                </div>
-                <div className="rounded bg-[#131a1e] p-1">
-                  <div className="text-[9px] text-sky-300">WS</div>
-                  <div className="font-bold text-sky-300">{dps.weakspotHit}</div>
-                </div>
-                <div className="rounded bg-[#131a1e] p-1">
-                  <div className="text-[9px] text-[#3ee6c5]">WS Crit</div>
-                  <div className="font-bold text-[#3ee6c5]">{dps.weakspotCritHit}</div>
-                </div>
-                <div className="rounded bg-[#131a1e] p-1">
-                  <div className="text-[9px] text-purple-300">Proc</div>
-                  <div className="font-bold text-purple-300">+{dps.avgKeywordProcPerShot}</div>
-                </div>
-              </div>
-
-              {/* Combat Assumptions Strip */}
-              <div className="space-y-2 border-t border-white/[0.06] pt-2">
-                <div className="grid grid-cols-3 gap-1">
-                  {(
-                    [
-                      { id: 'normal', label: 'Normal' },
-                      { id: 'elite', label: 'Elite' },
-                      { id: 'great_one', label: 'Great One' },
-                    ] as const
-                  ).map((tt) => (
-                    <button
-                      key={tt.id}
-                      type="button"
-                      onClick={() =>
-                        patchLoadout({
-                          assumptions: { ...loadout.assumptions, targetType: tt.id as TargetType },
-                        })
-                      }
-                      className={`rounded py-1 text-[10px] font-semibold transition ${
-                        loadout.assumptions.targetType === tt.id
-                          ? 'bg-[#3ee6c5] text-[#091214]'
-                          : 'bg-[#131a1e] text-slate-400 hover:text-white'
-                      }`}
-                    >
-                      {tt.label}
-                    </button>
-                  ))}
-                </div>
-
-                <div>
-                  <div className="mb-0.5 flex items-center justify-between text-[10px]">
-                    <span className="text-slate-400">Weakspot Hit Rate</span>
-                    <span className="font-mono font-bold text-sky-300">
-                      {loadout.assumptions.weakspotHitRatePct}%
-                    </span>
-                  </div>
-                  <input
-                    type="range"
-                    min={0}
-                    max={100}
-                    value={loadout.assumptions.weakspotHitRatePct}
-                    onChange={(e) =>
-                      patchLoadout({
-                        assumptions: {
-                          ...loadout.assumptions,
-                          weakspotHitRatePct: Number(e.target.value),
-                        },
-                      })
-                    }
-                    aria-label="Weakspot hit rate"
-                    className="h-1 w-full cursor-pointer accent-sky-400"
-                  />
-                </div>
-
-                <div className="flex flex-wrap gap-1">
-                  {(
-                    [
-                      { key: 'bullsEye', label: "Bull's Eye +8%" },
-                      { key: 'marked', label: 'Marked' },
-                      { key: 'fortressWarfare', label: 'Fortress Warfare' },
-                      { key: 'shielded', label: 'Shielded' },
-                    ] as const
-                  ).map((flag) => {
-                    const active = loadout.assumptions[flag.key];
-                    return (
-                      <button
-                        key={flag.key}
-                        type="button"
-                        onClick={() =>
-                          patchLoadout({
-                            assumptions: { ...loadout.assumptions, [flag.key]: !active },
-                          })
-                        }
-                        className={`rounded border px-1.5 py-0.5 text-[10px] font-medium transition ${
-                          active
-                            ? 'border-[#3ee6c5]/60 bg-[#3ee6c5]/15 text-[#3ee6c5]'
-                            : 'border-white/[0.08] bg-[#131a1e] text-slate-400 hover:text-white'
-                        }`}
-                      >
-                        {flag.label}
-                      </button>
-                    );
-                  })}
-                </div>
+                </label>
               </div>
             </div>
           </div>
 
-          {/* Bottom Save + Expand Stats Row */}
-          <div className="flex items-center gap-2 pt-1">
+          {/* Bottom Clean Save + Stats Chevron Toggle */}
+          <div className="flex items-center justify-between border-t border-white/[0.06] pt-2.5">
             <button
               type="button"
               onClick={handleSaveSnapshot}
-              className="flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-[#3ee6c5] py-2 text-xs font-bold uppercase tracking-wider text-[#091214] shadow-[0_0_16px_rgba(62,230,197,0.25)] transition hover:bg-[#5df0d2]"
+              className="inline-flex items-center gap-1.5 rounded px-2.5 py-1 text-xs font-medium text-slate-200 transition hover:bg-white/[0.06] hover:text-[#3ee6c5]"
             >
-              <Save className="h-3.5 w-3.5" />
-              Save
+              <Save className="h-3.5 w-3.5 text-[#3ee6c5]" />
+              <span>Save</span>
             </button>
+
             <button
               type="button"
               onClick={() => setStatsColumnOpen((v) => !v)}
-              className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-white/[0.12] bg-[#131a1e] text-slate-200 transition hover:border-[#3ee6c5] hover:text-[#3ee6c5]"
+              className="inline-flex h-7 w-7 items-center justify-center rounded text-slate-300 transition hover:bg-white/[0.06] hover:text-white"
               title={statsColumnOpen ? 'Collapse Detailed Stats' : 'Expand Detailed Stats'}
               aria-label="Toggle Basic and Battle Stats sheet"
             >
               <ChevronRight
-                className={`h-4 w-4 transition-transform ${statsColumnOpen ? 'rotate-90 lg:rotate-180' : ''}`}
+                className={`h-4 w-4 transition-transform ${statsColumnOpen ? 'rotate-180' : ''}`}
               />
             </button>
           </div>
         </section>
 
-        {/* ZONE 3: Middle-Center Detailed Stats Sheet (col-span-3 on lg+) */}
+        {/* 3. Middle-Center Clean Stat Sheet (Basic Stats ^ & Battle Stats ^) */}
         {statsColumnOpen && (
-          <section className="flex max-h-[760px] flex-col overflow-hidden rounded-xl border border-white/[0.08] bg-[#0f161a]/85 backdrop-blur-md lg:col-span-3">
-            <div className="flex items-center justify-between border-b border-white/[0.08] bg-[#0c1114] px-3.5 py-2.5">
-              <span className="text-xs font-bold uppercase tracking-wider text-white">
-                Stat Breakdown
-              </span>
-              <span className="font-mono text-[10px] text-[#3ee6c5]">
-                Rating {stats.gearScoreTotal}
-              </span>
-            </div>
-
-            <div className="flex-1 space-y-2.5 overflow-y-auto p-3 text-xs">
+          <section className="flex max-h-[615px] flex-col overflow-hidden rounded-lg bg-black/30 lg:col-span-3">
+            <div className="flex-1 overflow-y-auto px-3.5 py-2 text-xs">
               {/* Basic Stats Accordion */}
-              <div className="rounded-lg border border-white/[0.07] bg-[#131a1e]/75">
+              <div>
                 <button
                   type="button"
                   onClick={() => setBasicOpen((v) => !v)}
-                  className="flex w-full items-center justify-between px-3 py-2 text-left text-[11px] font-bold uppercase tracking-wider text-slate-200"
+                  className="flex w-full items-center justify-between border-b border-white/[0.06] py-2 text-left text-xs font-semibold text-white"
                 >
                   <span>Basic Stats</span>
                   <ChevronDown
@@ -753,41 +728,35 @@ export function DpsCalculatorView({
                 </button>
 
                 {basicOpen && (
-                  <div className="divide-y divide-white/[0.05] border-t border-white/[0.06] px-3 py-1 text-[11px]">
-                    <div className="flex items-center justify-between py-1.5">
-                      <span className="text-slate-400">Attack (Char / Weapon)</span>
-                      <span className="font-mono font-semibold text-white">
-                        {stats.baseCharAttack} / {stats.weaponAttack}
-                      </span>
+                  <div className="divide-y divide-white/[0.05] text-xs">
+                    <div className="flex items-center justify-between py-2">
+                      <span className="text-slate-400">Attack</span>
+                      <span className="font-mono text-white">{stats.baseCharAttack}</span>
                     </div>
-                    <div className="flex items-center justify-between py-1.5">
+                    <div className="flex items-center justify-between py-2">
                       <span className="text-slate-400">Psi Intensity</span>
-                      <span className="font-mono font-semibold text-[#3ee6c5]">
-                        {stats.psiIntensity}
+                      <span className="font-mono text-white">{stats.psiIntensity}</span>
+                    </div>
+                    <div className="flex items-center justify-between py-2">
+                      <span className="text-slate-400">HP</span>
+                      <span className="font-mono text-white">
+                        {stats.currentHp}/{stats.maxHp}
                       </span>
                     </div>
-                    <div className="flex items-center justify-between py-1.5">
-                      <span className="text-slate-400">HP (Current / Max)</span>
-                      <span className="font-mono font-semibold text-emerald-300">
-                        {stats.currentHp.toLocaleString()} / {stats.maxHp.toLocaleString()}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between py-1.5">
+                    <div className="flex items-center justify-between py-2">
                       <span className="text-slate-400">Pollution Resist</span>
-                      <span className="font-mono font-semibold text-sky-300">
-                        {stats.pollutionResist}
-                      </span>
+                      <span className="font-mono text-white">{stats.pollutionResist}</span>
                     </div>
                   </div>
                 )}
               </div>
 
               {/* Battle Stats Accordion */}
-              <div className="rounded-lg border border-white/[0.07] bg-[#131a1e]/75">
+              <div className="mt-1">
                 <button
                   type="button"
                   onClick={() => setBattleOpen((v) => !v)}
-                  className="flex w-full items-center justify-between px-3 py-2 text-left text-[11px] font-bold uppercase tracking-wider text-slate-200"
+                  className="flex w-full items-center justify-between border-b border-white/[0.06] py-2 text-left text-xs font-semibold text-white"
                 >
                   <span>Battle Stats</span>
                   <ChevronDown
@@ -798,11 +767,8 @@ export function DpsCalculatorView({
                 </button>
 
                 {battleOpen && (
-                  <div className="space-y-1 border-t border-white/[0.06] p-2">
-                    <div className="px-1 text-[10px] text-slate-500">
-                      Tap any stat to view exact sources
-                    </div>
-                    {BATTLE_STAT_KEYS.map((key) => {
+                  <div className="divide-y divide-white/[0.04]">
+                    {visibleBattleKeys.map((key) => {
                       const entry = stats.statDetails[key];
                       const open = inspectedStatKey === key;
                       const formattedVal =
@@ -811,35 +777,20 @@ export function DpsCalculatorView({
                           : `${entry.value}`;
 
                       return (
-                        <div key={key} className="rounded hover:bg-white/[0.03]">
+                        <div key={key}>
                           <button
                             type="button"
                             onClick={() => setInspectedStatKey(open ? null : key)}
-                            className="flex w-full items-center justify-between gap-2 px-1.5 py-1 text-left text-[11px]"
+                            className="flex w-full items-center justify-between gap-2 py-2 text-left text-xs transition hover:text-white"
                           >
-                            <span className="flex items-center gap-1 text-slate-300">
-                              <span>{entry.label}</span>
-                              {entry.sources.length > 0 && (
-                                <Info className="h-2.5 w-2.5 text-slate-500" />
-                              )}
-                            </span>
-                            <span
-                              className={`font-mono font-semibold ${
-                                entry.value > 0
-                                  ? 'text-[#3ee6c5]'
-                                  : entry.value < 0
-                                    ? 'text-rose-400'
-                                    : 'text-slate-500'
-                              }`}
-                            >
-                              {formattedVal}
-                            </span>
+                            <span className="truncate text-slate-300">{entry.label}</span>
+                            <span className="shrink-0 font-mono text-white">{formattedVal}</span>
                           </button>
 
                           {open && (
-                            <div className="mx-1.5 mb-1.5 space-y-0.5 rounded border border-[#3ee6c5]/30 bg-[#0c1114] p-2 text-[10px]">
+                            <div className="mb-2 space-y-0.5 rounded bg-black/40 p-2 text-[10px]">
                               {entry.sources.length === 0 ? (
-                                <div className="text-slate-500">No active sources for this stat.</div>
+                                <div className="text-slate-500">No active sources.</div>
                               ) : (
                                 entry.sources.map((src, idx) => (
                                   <div
@@ -847,7 +798,7 @@ export function DpsCalculatorView({
                                     className="flex items-center justify-between gap-2 text-slate-300"
                                   >
                                     <span className="truncate">{src.source}</span>
-                                    <span className="font-mono font-semibold text-[#3ee6c5]">
+                                    <span className="font-mono text-[#3ee6c5]">
                                       {src.value >= 0 ? '+' : ''}
                                       {src.value}
                                       {entry.unit === '%' ? '%' : ''}
@@ -860,57 +811,60 @@ export function DpsCalculatorView({
                         </div>
                       );
                     })}
+
+                    <div className="flex items-center justify-between py-2">
+                      <button
+                        type="button"
+                        onClick={() => setShowZeroStats((v) => !v)}
+                        className="text-[10px] font-medium text-[#3ee6c5] hover:underline"
+                      >
+                        {showZeroStats ? 'Hide 0.0% stats' : 'Show all stats (incl. 0.0%)'}
+                      </button>
+                      <span className="text-[10px] text-slate-500">Tap row for math</span>
+                    </div>
                   </div>
                 )}
               </div>
 
-              {/* Active Armor Sets & Key Armors */}
-              <div className="space-y-1.5 rounded-lg border border-white/[0.07] bg-[#131a1e]/75 p-2.5">
-                <div className="text-[10px] font-bold uppercase tracking-wider text-slate-300">
-                  Active Set Bonuses & Key Armor
-                </div>
-                {stats.activeSets.map((s) => (
-                  <div
-                    key={s.setName}
-                    className="rounded border border-white/[0.06] bg-[#0c1114] p-2 text-[10px]"
-                  >
-                    <div className="flex items-center justify-between font-semibold text-white">
-                      <span>{s.setName}</span>
-                      <span className="rounded bg-[#3ee6c5]/15 px-1.5 py-0.5 font-mono text-[#3ee6c5]">
-                        {s.count}/4
+              {/* Compact Active Sets Summary */}
+              {(stats.activeSets.length > 0 || stats.activeKeyArmors.length > 0) && (
+                <div className="mt-2 space-y-1.5 border-t border-white/[0.06] py-2.5">
+                  <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">
+                    Active Set Effects
+                  </div>
+                  <div className="flex flex-wrap gap-1">
+                    {stats.activeSets.map((s) => (
+                      <span
+                        key={s.setName}
+                        title={s.activeTiers
+                          .filter((t) => t.active)
+                          .map((t) => `${t.count}pc: ${t.desc}`)
+                          .join('\n')}
+                        className="rounded border border-white/[0.08] bg-white/[0.04] px-1.5 py-0.5 text-[10px] text-slate-200"
+                      >
+                        {s.setName.replace(' Set', '')}{' '}
+                        <span className="font-mono text-[#3ee6c5]">{s.count}/4</span>
                       </span>
-                    </div>
-                    <div className="mt-1 space-y-0.5">
-                      {s.activeTiers.map((t) => (
-                        <div
-                          key={t.count}
-                          className={t.active ? 'text-slate-200' : 'text-slate-600 line-through'}
-                        >
-                          <strong className="font-mono">{t.count}pc:</strong> {t.desc}
-                        </div>
-                      ))}
-                    </div>
+                    ))}
+                    {stats.activeKeyArmors.map((k) => (
+                      <span
+                        key={k.name}
+                        title={k.desc}
+                        className="rounded border border-amber-400/30 bg-amber-500/10 px-1.5 py-0.5 text-[10px] text-amber-200"
+                      >
+                        {k.name}
+                      </span>
+                    ))}
                   </div>
-                ))}
-                {stats.activeKeyArmors.map((k) => (
-                  <div
-                    key={k.name}
-                    className="rounded border border-amber-400/30 bg-amber-500/10 p-2 text-[10px]"
-                  >
-                    <div className="font-semibold text-amber-300">Key Armor: {k.name}</div>
-                    <div className="mt-0.5 text-slate-200">{k.desc}</div>
-                  </div>
-                ))}
-              </div>
+                </div>
+              )}
             </div>
           </section>
         )}
 
-        {/* ZONE 4: Right Equipment / Deviation / Cradle & Food Panel */}
+        {/* 4. Right Clean Equipment / Deviation / Cradle & Food Zone */}
         <section
-          className={`rounded-xl border border-white/[0.08] bg-[#0f161a]/85 p-3.5 backdrop-blur-md ${
-            statsColumnOpen ? 'lg:col-span-4' : 'lg:col-span-7'
-          }`}
+          className={`p-1 ${statsColumnOpen ? 'lg:col-span-5' : 'lg:col-span-8'}`}
         >
           {activeRail === 'gear' && (
             <EquipmentGridPanel

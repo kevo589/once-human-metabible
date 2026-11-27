@@ -14,11 +14,46 @@ import {
 import { ARMOR_SETS } from '../../data/gearAndMods';
 import { WEAPONS } from '../../data/weapons';
 import { HIDES_AND_WOOLS, type ArmorSlotKey } from '../../utils/craftingEngine';
-import { BENCH_BP_GRADIENT, MaterialIconGlyph } from '../workbench/MaterialVisuals';
 
 const WEAPON_BY_ID = new Map(WEAPONS.map((w) => [w.id, w]));
 const ARMOR_BY_ID = new Map(ARMOR_SETS.map((a) => [a.id, a]));
 const HIDE_BY_ID = new Map(HIDES_AND_WOOLS.map((h) => [h.id, h]));
+
+const CARD_SURFACE_GRADIENT: Record<string, string> = {
+  Legendary:
+    'bg-gradient-to-br from-[#5c4215]/75 via-[#2a2010]/70 to-[#11171b]/90 border-amber-400/25',
+  Epic:
+    'bg-gradient-to-br from-[#4d286a]/75 via-[#231632]/70 to-[#11171b]/90 border-purple-400/25',
+  Rare:
+    'bg-gradient-to-br from-[#19406c]/75 via-[#112236]/70 to-[#11171b]/90 border-sky-400/25',
+  Fine:
+    'bg-gradient-to-br from-[#19406c]/75 via-[#112236]/70 to-[#11171b]/90 border-sky-400/25',
+  Common:
+    'bg-gradient-to-br from-[#1c262c]/75 via-[#131a1e]/75 to-[#0f1519]/90 border-white/[0.08]',
+};
+
+function PipMarkers({
+  tier,
+  hasMod,
+  hasHide,
+}: {
+  tier: number;
+  hasMod?: boolean;
+  hasHide?: boolean;
+}) {
+  return (
+    <div className="flex items-center gap-1">
+      <span className="h-2 w-2 rotate-45 rounded-[1px] bg-[#e5b84b] shadow-[0_0_6px_rgba(229,184,75,0.55)]" />
+      <div className="flex items-center gap-0.5">
+        {Array.from({ length: Math.min(5, tier) }).map((_, i) => (
+          <span key={i} className="h-1 w-2 rounded-[1px] bg-slate-300/75" />
+        ))}
+      </div>
+      {hasMod && <span className="ml-0.5 h-1.5 w-1.5 rounded-full bg-purple-400" />}
+      {hasHide && <span className="h-1.5 w-1.5 rounded-full bg-[#3ee6c5]" />}
+    </div>
+  );
+}
 
 function WeaponEquipCard({
   slotId,
@@ -40,73 +75,63 @@ function WeaponEquipCard({
   const weapon = WEAPON_BY_ID.get(cfg.weaponId) ?? WEAPONS[0];
   const rating = computeWeaponRating(cfg, weapon);
   const icons = lookupEquipIcons(cfg, true);
-  const grad = BENCH_BP_GRADIENT[weapon.rarity] ?? BENCH_BP_GRADIENT.Common;
+  const grad = CARD_SURFACE_GRADIENT[weapon.rarity] ?? CARD_SURFACE_GRADIENT.Common;
 
   return (
     <div
       onClick={() => onSelectSlot(slotId)}
       role="button"
       tabIndex={0}
+      title={`${weapon.name} · Tier ${cfg.tier} · ${cfg.stars}★ · +${cfg.calibration} (Click to configure)`}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           onSelectSlot(slotId);
         }
       }}
-      className={`group relative flex cursor-pointer flex-col justify-between overflow-hidden rounded-xl border p-2.5 text-left transition hover:brightness-110 ${grad} ${
-        tall ? 'h-full min-h-[196px]' : 'h-[94px]'
+      className={`group relative flex cursor-pointer flex-col justify-between overflow-hidden rounded border p-2.5 text-left transition hover:brightness-115 ${grad} ${
+        tall ? 'h-full min-h-[242px]' : 'h-[117px]'
       } ${
         isActiveDps
-          ? 'ring-2 ring-[#3ee6c5] shadow-[0_0_20px_rgba(62,230,197,0.22)]'
+          ? 'ring-1 ring-[#3ee6c5]/80 shadow-[0_0_20px_rgba(62,230,197,0.14)]'
           : 'hover:border-white/30'
       }`}
     >
-      {/* Top Row: Rating + Gold [1]/[2] Badge */}
-      <div className="z-10 flex items-start justify-between gap-1">
-        <div className="min-w-0 flex-1">
-          <div className="font-mono text-sm font-bold leading-none text-white">{rating}</div>
-          <div className="mt-0.5 truncate text-[10px] font-medium text-slate-300">
-            {weapon.name}
-          </div>
-        </div>
-        <div className="flex items-center gap-1">
-          {badgeNumber && (
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                onSetActiveDps?.(badgeNumber === '1' ? 'primary' : 'secondary');
-              }}
-              title="Click to test this weapon for DPS"
-              className={`flex h-5 w-5 items-center justify-center rounded font-mono text-[11px] font-extrabold transition ${
-                isActiveDps
-                  ? 'bg-[#3ee6c5] text-[#091214]'
-                  : 'bg-[#e5b84b] text-[#1a1304] hover:brightness-110'
-              }`}
-            >
-              {badgeNumber}
-            </button>
-          )}
-          {!badgeNumber && (
-            <span className="rounded bg-white/[0.08] px-1.5 py-0.5 text-[9px] font-bold uppercase text-slate-300">
-              Melee
-            </span>
-          )}
-        </div>
+      {/* Top Row: Clean Rating + Gold [1]/[2] Badge */}
+      <div className="z-10 flex items-start justify-between">
+        <span className="font-mono text-[15px] font-semibold tracking-tight text-white drop-shadow">
+          {rating}
+        </span>
+
+        {badgeNumber && (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onSetActiveDps?.(badgeNumber === '1' ? 'primary' : 'secondary');
+            }}
+            title={
+              isActiveDps ? 'Active DPS weapon' : 'Click badge to test this weapon for DPS'
+            }
+            className={`flex h-5 w-5 items-center justify-center rounded-[3px] font-mono text-[11px] font-extrabold transition ${
+              isActiveDps
+                ? 'bg-[#e5b84b] text-[#141004] ring-1 ring-[#3ee6c5]'
+                : 'bg-[#e5b84b]/85 text-[#141004] hover:bg-[#f2ca63]'
+            }`}
+          >
+            {badgeNumber}
+          </button>
+        )}
       </div>
 
-      {/* Centered Weapon Thumbnail */}
-      <div
-        className={`pointer-events-none flex items-center justify-center ${
-          tall ? 'my-auto py-3' : 'absolute inset-0'
-        }`}
-      >
+      {/* Centered Clean Artwork */}
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-3 py-4">
         {icons.itemImg ? (
           <img
             src={icons.itemImg}
             alt={weapon.name}
-            className={`object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.85)] transition-transform duration-200 group-hover:scale-105 ${
-              tall ? 'h-24 w-24' : 'h-16 w-36 translate-x-5 translate-y-1 opacity-95'
+            className={`object-contain drop-shadow-[0_6px_14px_rgba(0,0,0,0.85)] transition-transform duration-200 group-hover:scale-105 ${
+              tall ? 'h-44 w-20' : 'h-20 w-[85%]'
             }`}
           />
         ) : (
@@ -114,24 +139,12 @@ function WeaponEquipCard({
         )}
       </div>
 
-      {/* Bottom Row: Stars, Calibration, Mod Icon */}
-      <div className="z-10 flex items-center justify-between gap-2">
-        <div className="flex items-center gap-1.5">
-          <span className="text-[9px] tracking-tight text-amber-300">
-            {'✦'.repeat(cfg.stars)}
-          </span>
-          <span className="rounded bg-black/55 px-1 py-0.5 font-mono text-[9px] font-bold text-slate-200">
-            T{cfg.tier} · +{cfg.calibration}
-          </span>
-        </div>
-        {icons.modImg && (
-          <img
-            src={icons.modImg}
-            alt="Equipped Mod"
-            title="Equipped Mod"
-            className="h-5 w-5 rounded border border-white/20 bg-black/70 object-contain p-0.5"
-          />
-        )}
+      {/* Subtle Bottom-Left Pips & Hover Name */}
+      <div className="z-10 flex items-end justify-between gap-2">
+        <PipMarkers tier={cfg.tier} hasMod={Boolean(cfg.modId)} />
+        <span className="truncate text-[10px] font-medium text-slate-300/0 transition group-hover:text-slate-200/90">
+          {weapon.name}
+        </span>
       </div>
     </div>
   );
@@ -154,52 +167,34 @@ function ArmorEquipCard({
   const rating = computeArmorRating(cfg, armor);
   const icons = lookupEquipIcons(cfg, false);
   const hide = HIDE_BY_ID.get(cfg.hideId);
-  const grad = BENCH_BP_GRADIENT[armor.rarity] ?? BENCH_BP_GRADIENT.Common;
+  const grad = CARD_SURFACE_GRADIENT[armor.rarity] ?? CARD_SURFACE_GRADIENT.Common;
 
   return (
     <button
       type="button"
       onClick={() => onSelectSlot(slotKey)}
-      className={`group relative flex flex-col justify-between overflow-hidden rounded-xl border p-2.5 text-left transition hover:border-white/35 hover:brightness-110 ${grad} ${
-        wide ? 'col-span-2 h-[106px]' : 'col-span-1 h-[102px]'
+      title={`${armor.name} (${label}) · Tier ${cfg.tier} · ${cfg.stars}★ · +${cfg.calibration}${
+        hide ? ` · ${hide.name}` : ''
+      }`}
+      className={`group relative flex flex-col justify-between overflow-hidden rounded border p-2 text-left transition hover:border-white/30 hover:brightness-115 ${grad} ${
+        wide ? 'col-span-2 h-[118px]' : 'col-span-1 h-[108px]'
       }`}
     >
-      {/* Top Row: Gear Rating + Slot Tag */}
-      <div className="z-10 flex items-start justify-between gap-1">
-        <div>
-          <div className="font-mono text-sm font-bold leading-none text-white">{rating}</div>
-          <div className="mt-0.5 truncate text-[9px] font-semibold uppercase tracking-wider text-slate-400">
-            {label}
-          </div>
-        </div>
-        <div className="flex items-center gap-1">
-          {hide && (
-            <div
-              className="flex h-5 w-5 items-center justify-center rounded border border-white/15 bg-black/60 p-0.5"
-              title={`Wool/Hide: ${hide.name}`}
-            >
-              <MaterialIconGlyph name={hide.name} accent="#3ee6c5" className="h-4 w-4" />
-            </div>
-          )}
-          {icons.modImg && (
-            <img
-              src={icons.modImg}
-              alt="Armor Mod"
-              title="Equipped Mod"
-              className="h-5 w-5 rounded border border-white/20 bg-black/70 object-contain p-0.5"
-            />
-          )}
-        </div>
+      {/* Top-Left Rating Only */}
+      <div className="z-10 flex items-start justify-between">
+        <span className="font-mono text-[15px] font-semibold tracking-tight text-white drop-shadow">
+          {rating}
+        </span>
       </div>
 
-      {/* Centered / Right-Anchored Armor Thumbnail */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+      {/* Centered Clean Armor Thumbnail */}
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-2">
         {icons.itemImg ? (
           <img
             src={icons.itemImg}
             alt={armor.name}
-            className={`object-contain drop-shadow-[0_4px_10px_rgba(0,0,0,0.85)] transition-transform duration-200 group-hover:scale-105 ${
-              wide ? 'h-20 w-24 translate-x-6' : 'h-14 w-14 translate-x-2 translate-y-1'
+            className={`object-contain drop-shadow-[0_6px_12px_rgba(0,0,0,0.85)] transition-transform duration-200 group-hover:scale-105 ${
+              wide ? 'h-24 w-28' : 'h-[72px] w-[72px]'
             }`}
           />
         ) : (
@@ -207,16 +202,12 @@ function ArmorEquipCard({
         )}
       </div>
 
-      {/* Bottom Row: Tier/Stars/Calib + Name */}
-      <div className="z-10 space-y-0.5">
-        <div className="max-w-full truncate text-[10px] font-medium text-slate-200">
+      {/* Subtle Bottom-Left Pips & Hover Name */}
+      <div className="z-10 flex items-end justify-between gap-1">
+        <PipMarkers tier={cfg.tier} hasMod={Boolean(cfg.modId)} hasHide={Boolean(hide)} />
+        <span className="truncate text-[10px] font-medium text-slate-300/0 transition group-hover:text-slate-200/90">
           {armor.name}
-        </div>
-        <div className="flex items-center gap-1">
-          <span className="whitespace-nowrap rounded bg-black/65 px-1.5 py-0.5 font-mono text-[8.5px] font-bold text-[#3ee6c5]">
-            T{cfg.tier} {cfg.stars}★ +{cfg.calibration}
-          </span>
-        </div>
+        </span>
       </div>
     </button>
   );
@@ -235,13 +226,14 @@ export function EquipmentGridPanel({
     <div className="space-y-4">
       {/* Top Section: | Weapon */}
       <div className="space-y-2">
-        <div className="flex items-center justify-between border-b border-dashed border-white/[0.1] pb-1.5">
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-white">
-            <span className="h-3.5 w-0.5 bg-[#3ee6c5]" />
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2 text-xs font-semibold tracking-wide text-slate-200">
+            <span className="h-3.5 w-[2px] bg-[#3ee6c5]" />
             <span>Weapon</span>
+            <span className="font-mono text-xs text-slate-300">3/3</span>
           </div>
-          <span className="font-mono text-[10px] text-slate-400">
-            3/3 Equipped · Click slot to configure
+          <span className="font-mono text-[11px] text-slate-400">
+            Click any slot to customize
           </span>
         </div>
 
@@ -277,17 +269,12 @@ export function EquipmentGridPanel({
 
       {/* Bottom Section: | Gear */}
       <div className="space-y-2">
-        <div className="flex items-center justify-between border-b border-dashed border-white/[0.1] pb-1.5">
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-white">
-            <span className="h-3.5 w-0.5 bg-[#3ee6c5]" />
-            <span>Gear</span>
-          </div>
-          <span className="font-mono text-[10px] text-slate-400">
-            6/6 Equipped · Includes Hide & Mod
-          </span>
+        <div className="flex items-center gap-2 text-xs font-semibold tracking-wide text-slate-200">
+          <span className="h-3.5 w-[2px] bg-[#3ee6c5]" />
+          <span>Gear</span>
+          <span className="font-mono text-xs text-slate-300">6/6</span>
         </div>
 
-        {/* Row 1: 4 Square Cards + Row 2: 2 Double-Width Cards */}
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
           <ArmorEquipCard
             slotKey="helmet"
@@ -315,7 +302,7 @@ export function EquipmentGridPanel({
           />
           <ArmorEquipCard
             slotKey="top"
-            label="Top (Chest)"
+            label="Top"
             cfg={loadout.armor.top}
             wide
             onSelectSlot={onSelectSlot}
@@ -343,19 +330,18 @@ export function CombatDeviationPanel({
   onChange: (patch: Partial<LoadoutConfig>) => void;
 }) {
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between border-b border-dashed border-white/[0.1] pb-1.5">
-        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-white">
-          <span className="h-3.5 w-0.5 bg-[#3ee6c5]" />
+    <div className="space-y-3.5">
+      <div className="flex items-center justify-between border-b border-white/[0.08] pb-2">
+        <div className="flex items-center gap-2 text-xs font-semibold tracking-wide text-white">
+          <span className="h-3.5 w-[2px] bg-[#3ee6c5]" />
           <span>Combat Deviation</span>
         </div>
         <span className="font-mono text-xs font-semibold text-[#3ee6c5]">
-          +{deviationDps.toLocaleString()} Companion DPS
+          +{deviationDps.toLocaleString()} DPS
         </span>
       </div>
 
-      {/* Skill & Activity Sliders */}
-      <div className="grid gap-3 rounded-xl border border-white/[0.08] bg-[#131a1e] p-3 sm:grid-cols-2">
+      <div className="grid gap-3 rounded-lg border border-white/[0.06] bg-black/25 p-3 sm:grid-cols-2">
         <div>
           <div className="mb-1 flex items-center justify-between text-[11px]">
             <span className="text-slate-300">Skill Rating</span>
@@ -369,13 +355,13 @@ export function CombatDeviationPanel({
             max={5}
             value={loadout.deviationSkillRating}
             onChange={(e) => onChange({ deviationSkillRating: Number(e.target.value) })}
-            className="h-1.5 w-full cursor-pointer accent-[#3ee6c5]"
+            className="h-1 w-full cursor-pointer accent-[#3ee6c5]"
           />
         </div>
         <div>
           <div className="mb-1 flex items-center justify-between text-[11px]">
             <span className="text-slate-300">Activity Rating</span>
-            <span className="font-mono font-bold text-amber-300">
+            <span className="font-mono font-bold text-[#e5b84b]">
               Lv. {loadout.deviationActivityRating} / 5
             </span>
           </div>
@@ -385,12 +371,11 @@ export function CombatDeviationPanel({
             max={5}
             value={loadout.deviationActivityRating}
             onChange={(e) => onChange({ deviationActivityRating: Number(e.target.value) })}
-            className="h-1.5 w-full cursor-pointer accent-amber-300"
+            className="h-1 w-full cursor-pointer accent-[#e5b84b]"
           />
         </div>
       </div>
 
-      {/* Deviation Cards */}
       <div className="grid gap-2 sm:grid-cols-2">
         {DPS_DATA.combatDeviations.map((dev) => {
           const active = loadout.deviationId === dev.id;
@@ -400,27 +385,27 @@ export function CombatDeviationPanel({
               key={dev.id}
               type="button"
               onClick={() => onChange({ deviationId: dev.id })}
-              className={`flex items-start gap-3 rounded-xl border p-2.5 text-left transition ${
+              className={`flex items-start gap-2.5 rounded-lg border p-2.5 text-left transition ${
                 active
-                  ? 'border-[#3ee6c5] bg-[#3ee6c5]/12 shadow-[0_0_16px_rgba(62,230,197,0.16)]'
-                  : 'border-white/[0.07] bg-[#131a1e] hover:border-white/25'
+                  ? 'border-[#3ee6c5]/70 bg-[#3ee6c5]/10'
+                  : 'border-white/[0.06] bg-black/25 hover:border-white/20'
               }`}
             >
               {imgUrl ? (
                 <img
                   src={imgUrl}
                   alt={dev.name}
-                  className="h-12 w-12 shrink-0 rounded-lg border border-white/10 bg-[#0c1114] object-cover"
+                  className="h-11 w-11 shrink-0 rounded border border-white/10 bg-[#0b1014] object-cover"
                 />
               ) : (
-                <Sparkles className="h-8 w-8 text-[#3ee6c5]" />
+                <Sparkles className="h-7 w-7 text-[#3ee6c5]" />
               )}
               <div className="min-w-0 flex-1">
                 <div className="flex items-center justify-between gap-1">
-                  <span className="truncate text-xs font-bold text-white">{dev.name}</span>
+                  <span className="truncate text-xs font-semibold text-white">{dev.name}</span>
                   {active && <Check className="h-3.5 w-3.5 shrink-0 text-[#3ee6c5]" />}
                 </div>
-                <div className="text-[10px] font-medium text-amber-300">
+                <div className="text-[10px] text-amber-300">
                   {dev.element} · {dev.role}
                 </div>
                 <p className="mt-0.5 line-clamp-2 text-[10px] text-slate-400">{dev.summary}</p>
@@ -453,19 +438,18 @@ export function CradleAndFoodPanel({
 
   return (
     <div className="space-y-4">
-      {/* Cradle Overrides (4 slots) */}
       <div className="space-y-2">
-        <div className="flex items-center justify-between border-b border-dashed border-white/[0.1] pb-1.5">
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-white">
-            <span className="h-3.5 w-0.5 bg-[#3ee6c5]" />
+        <div className="flex items-center justify-between border-b border-white/[0.08] pb-1.5">
+          <div className="flex items-center gap-2 text-xs font-semibold tracking-wide text-white">
+            <span className="h-3.5 w-[2px] bg-[#3ee6c5]" />
             <span>Cradle Overrides</span>
           </div>
-          <span className="font-mono text-[10px] text-[#3ee6c5]">
-            {loadout.cradleIds.length} / 4 Active
+          <span className="font-mono text-[11px] text-[#3ee6c5]">
+            {loadout.cradleIds.length} / 4
           </span>
         </div>
 
-        <div className="grid gap-2 sm:grid-cols-2">
+        <div className="grid gap-1.5 sm:grid-cols-2">
           {DPS_DATA.cradleOverrides.map((c) => {
             const active = loadout.cradleIds.includes(c.id);
             return (
@@ -473,85 +457,72 @@ export function CradleAndFoodPanel({
                 key={c.id}
                 type="button"
                 onClick={() => toggleCradle(c.id)}
-                className={`rounded-xl border p-2.5 text-left transition ${
+                className={`rounded-lg border p-2 text-left transition ${
                   active
-                    ? 'border-[#3ee6c5] bg-[#3ee6c5]/12'
-                    : 'border-white/[0.07] bg-[#131a1e] hover:border-white/25'
+                    ? 'border-[#3ee6c5]/70 bg-[#3ee6c5]/10'
+                    : 'border-white/[0.06] bg-black/25 hover:border-white/20'
                 }`}
               >
                 <div className="flex items-center justify-between gap-2">
-                  <span className="flex items-center gap-1.5 text-xs font-semibold text-white">
-                    <Flame className={`h-3.5 w-3.5 ${active ? 'text-[#3ee6c5]' : 'text-slate-500'}`} />
+                  <span className="flex items-center gap-1.5 text-[11px] font-semibold text-white">
+                    <Flame className={`h-3 w-3 ${active ? 'text-[#3ee6c5]' : 'text-slate-500'}`} />
                     {c.name}
                   </span>
-                  {active && <Check className="h-3.5 w-3.5 text-[#3ee6c5]" />}
+                  {active && <Check className="h-3 w-3 text-[#3ee6c5]" />}
                 </div>
-                <div className="mt-1 text-[10px] text-slate-300">{c.desc}</div>
+                <div className="mt-0.5 text-[10px] text-slate-400">{c.desc}</div>
               </button>
             );
           })}
         </div>
       </div>
 
-      {/* Food, Drink & Whim Buffs */}
-      <div className="space-y-2.5">
-        <div className="flex items-center gap-2 border-b border-dashed border-white/[0.1] pb-1.5 text-xs font-bold uppercase tracking-wider text-white">
-          <span className="h-3.5 w-0.5 bg-[#3ee6c5]" />
+      <div className="space-y-2">
+        <div className="flex items-center gap-2 border-b border-white/[0.08] pb-1.5 text-xs font-semibold tracking-wide text-white">
+          <span className="h-3.5 w-[2px] bg-[#3ee6c5]" />
           <Utensils className="h-3.5 w-3.5 text-[#3ee6c5]" />
-          <span>Food, Drink & Whim Potions</span>
+          <span>Food, Drink & Whim</span>
         </div>
 
-        <div className="grid gap-3">
-          <div className="rounded-xl border border-white/[0.08] bg-[#131a1e] p-3">
-            <label className="mb-1.5 block text-[10px] font-semibold uppercase tracking-wider text-amber-300">
-              Main Food Buff
-            </label>
-            <select
-              value={loadout.foodId}
-              onChange={(e) => onChange({ foodId: e.target.value })}
-              className="w-full rounded-lg border border-white/[0.1] bg-[#0c1114] px-2.5 py-2 text-xs text-white outline-none"
-            >
-              {DPS_DATA.consumables.foods.map((f) => (
-                <option key={f.id} value={f.id}>
-                  {f.name} — {f.desc}
-                </option>
-              ))}
-            </select>
-          </div>
+        <div className="grid gap-2">
+          <select
+            value={loadout.foodId}
+            onChange={(e) => onChange({ foodId: e.target.value })}
+            aria-label="Food buff selector"
+            className="w-full rounded-lg border border-white/[0.08] bg-black/35 px-2.5 py-2 text-xs text-white outline-none"
+          >
+            {DPS_DATA.consumables.foods.map((f) => (
+              <option key={f.id} value={f.id} className="bg-[#0f161a]">
+                Food: {f.name} — {f.desc}
+              </option>
+            ))}
+          </select>
 
-          <div className="rounded-xl border border-white/[0.08] bg-[#131a1e] p-3">
-            <label className="mb-1.5 block text-[10px] font-semibold uppercase tracking-wider text-sky-300">
-              Drink Buff
-            </label>
-            <select
-              value={loadout.drinkId}
-              onChange={(e) => onChange({ drinkId: e.target.value })}
-              className="w-full rounded-lg border border-white/[0.1] bg-[#0c1114] px-2.5 py-2 text-xs text-white outline-none"
-            >
-              {DPS_DATA.consumables.drinks.map((d) => (
-                <option key={d.id} value={d.id}>
-                  {d.name} — {d.desc}
-                </option>
-              ))}
-            </select>
-          </div>
+          <select
+            value={loadout.drinkId}
+            onChange={(e) => onChange({ drinkId: e.target.value })}
+            aria-label="Drink buff selector"
+            className="w-full rounded-lg border border-white/[0.08] bg-black/35 px-2.5 py-2 text-xs text-white outline-none"
+          >
+            {DPS_DATA.consumables.drinks.map((d) => (
+              <option key={d.id} value={d.id} className="bg-[#0f161a]">
+                Drink: {d.name} — {d.desc}
+              </option>
+            ))}
+          </select>
 
-          <div className="rounded-xl border border-white/[0.08] bg-[#131a1e] p-3">
-            <label className="mb-1.5 block text-[10px] font-semibold uppercase tracking-wider text-purple-300">
-              Tactical / Whim Potion
-            </label>
-            <select
-              value={loadout.whimId}
-              onChange={(e) => onChange({ whimId: e.target.value })}
-              className="w-full rounded-lg border border-white/[0.1] bg-[#0c1114] px-2.5 py-2 text-xs text-white outline-none"
-            >
-              {DPS_DATA.consumables.whims.map((w) => (
-                <option key={w.id} value={w.id}>
-                  {w.name} — {w.desc}
-                </option>
-              ))}
-            </select>
-          </div>
+          <select
+            value={loadout.whimId}
+            onChange={(e) => onChange({ whimId: e.target.value })}
+            aria-label="Whim potion selector"
+            className="w-full rounded-lg border border-white/[0.08] bg-black/35 px-2.5 py-2 text-xs text-white outline-none"
+          >
+            {DPS_DATA.consumables.whims.map((w) => (
+              <option key={w.id} value={w.id} className="bg-[#0f161a]">
+                Whim: {w.name} — {w.desc}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
     </div>
