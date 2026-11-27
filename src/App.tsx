@@ -108,6 +108,10 @@ export function App() {
                 setHighlightedEncId(null);
               }}
               highlightedId={highlightedEncId}
+              onLocateOnMap={(poiId) => {
+                setFocusedMapId(poiId);
+                setActiveTab('map');
+              }}
               onSimulateWeapon={(weapon) => {
                 const matchingMeta = META_BUILDS.find((b) => b.weaponId === weapon.id);
                 setPreset(matchingMeta ? matchingMeta.preset : { ...preset, weaponId: weapon.id });

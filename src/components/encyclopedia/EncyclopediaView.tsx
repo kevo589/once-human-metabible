@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
-import { Award, ChefHat, Cpu, Crosshair, Shield, Skull, Sparkles } from 'lucide-react';
+import { Award, ChefHat, Cpu, Crosshair, MapPin, Shield, Skull, Sparkles } from 'lucide-react';
+import { DEVIATION_MAP_SPAWNS } from '../../data/deviationMapLinks';
 import { DEVIATIONS, RECIPES } from '../../data/deviationsAndChef';
 import { ARMOR_SETS, MODS } from '../../data/gearAndMods';
 import { CLASS_SPECS, ENCOUNTERS } from '../../data/mapsAndEncounters';
@@ -24,6 +25,7 @@ interface EncyclopediaViewProps {
   onChangeSubTab: (tab: EncyclopediaSubTab) => void;
   highlightedId?: string | null;
   onSimulateWeapon?: (weapon: Weapon) => void;
+  onLocateOnMap?: (poiId: string) => void;
 }
 
 const SUB_TABS: Array<{ id: EncyclopediaSubTab; label: string; icon: typeof Crosshair }> = [
@@ -106,6 +108,7 @@ export function EncyclopediaView({
   onChangeSubTab,
   highlightedId,
   onSimulateWeapon,
+  onLocateOnMap,
 }: EncyclopediaViewProps) {
   const [filterText, setFilterText] = useState('');
   const [weaponCategory, setWeaponCategory] = useState<'All' | Weapon['category']>('All');
@@ -542,35 +545,65 @@ export function EncyclopediaView({
               </div>
 
               <div className="grid gap-2.5 md:grid-cols-2 xl:grid-cols-3">
-                {list.map((d) => (
-                  <button
-                    key={d.id}
-                    type="button"
-                    onClick={() => setInspectedEntity({ kind: 'deviation', item: d })}
-                    className={cn(
-                      'group flex items-center gap-3 rounded-xl border border-l-2 bg-obsidian-900/70 px-3.5 py-3 text-left transition hover:bg-obsidian-850',
-                      RARITY_LEFT_BORDER[d.rarity],
-                      highlightedId === d.id ? 'border-stardust-400/60 ring-1 ring-stardust-400/30' : 'border-obsidian-800',
-                    )}
-                  >
-                    <EntityThumbnail src={d.imageUrl} alt={d.name} rarity={d.rarity} size="md" fallbackKind="deviation" />
+                {list.map((d) => {
+                  const spawns = DEVIATION_MAP_SPAWNS[d.id];
+                  return (
+                    <div
+                      key={d.id}
+                      className={cn(
+                        'group flex items-center gap-3 rounded-xl border border-l-2 bg-obsidian-900/70 px-3.5 py-3 text-left transition hover:bg-obsidian-850',
+                        RARITY_LEFT_BORDER[d.rarity],
+                        highlightedId === d.id
+                          ? 'border-stardust-400/60 ring-1 ring-stardust-400/30'
+                          : 'border-obsidian-800',
+                      )}
+                    >
+                      <button
+                        type="button"
+                        onClick={() => setInspectedEntity({ kind: 'deviation', item: d })}
+                        className="flex min-w-0 flex-1 items-center gap-3 text-left"
+                      >
+                        <EntityThumbnail
+                          src={d.imageUrl}
+                          alt={d.name}
+                          rarity={d.rarity}
+                          size="md"
+                          fallbackKind="deviation"
+                        />
 
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center justify-between gap-2">
-                        <h3 className="truncate text-sm font-medium text-slate-100 group-hover:text-white">
-                          {d.name}
-                        </h3>
-                        <span className="shrink-0 text-[10px] font-medium uppercase tracking-wider text-slate-400">
-                          {d.type}
-                        </span>
-                      </div>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center justify-between gap-2">
+                            <h3 className="truncate text-sm font-medium text-slate-100 group-hover:text-white">
+                              {d.name}
+                            </h3>
+                            <span className="shrink-0 text-[10px] font-medium uppercase tracking-wider text-slate-400">
+                              {d.type}
+                            </span>
+                          </div>
 
-                      <div className="mt-1 truncate text-[11px] text-slate-400">
-                        {d.skillSummary}
-                      </div>
+                          <div className="mt-1 truncate text-[11px] text-cyan-300/90">
+                            {d.dropSource}
+                          </div>
+                          <div className="mt-0.5 truncate text-[11px] text-slate-400">
+                            {d.skillSummary}
+                          </div>
+                        </div>
+                      </button>
+
+                      {spawns && spawns.length > 0 && onLocateOnMap && (
+                        <button
+                          type="button"
+                          onClick={() => onLocateOnMap(spawns[0].poiId)}
+                          className="inline-flex shrink-0 flex-col items-center justify-center rounded-lg border border-cyan-500/35 bg-cyan-950/30 px-2 py-1.5 text-[10px] font-medium text-cyan-300 transition hover:bg-cyan-500/20"
+                          title={`Show ${d.name} spawn on map (${spawns[0].label})`}
+                        >
+                          <MapPin className="h-3.5 w-3.5" />
+                          <span className="mt-0.5">Map</span>
+                        </button>
+                      )}
                     </div>
-                  </button>
-                ))}
+                  );
+                })}
               </div>
             </section>
           ))}
@@ -661,6 +694,7 @@ export function EncyclopediaView({
       <EntityDetailModal
         entity={inspectedEntity}
         onClose={() => setInspectedEntity(null)}
+        onLocateOnMap={onLocateOnMap}
         onSelectModVariant={(mod) =>
           setInspectedEntity((prev) =>
             prev && prev.kind === 'mod' ? { kind: 'mod', item: mod, variants: prev.variants } : prev,

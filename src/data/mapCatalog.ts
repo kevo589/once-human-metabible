@@ -435,7 +435,7 @@ export const MAP_CATEGORIES: MapCategoryDef[] = [
     label: 'Deviation Spawns',
     group: 'bosses_anomalies',
     color: '#fb923c',
-    defaultOn: false,
+    defaultOn: true,
     isBossAnomaly: true,
     description: 'Known world spawns for Combat, Territory & Crafting Deviations.',
   },

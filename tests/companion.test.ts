@@ -13,6 +13,7 @@ import { META_BUILDS, TIMER_EVENTS } from '../src/data/buildsAndTimers';
 import { DEVIATIONS, RECIPES } from '../src/data/deviationsAndChef';
 import { ARMOR_SETS, MODS } from '../src/data/gearAndMods';
 import { CLASS_SPECS, ENCOUNTERS, MAP_MARKERS, MAP_SCENARIOS } from '../src/data/mapsAndEncounters';
+import { DEVIATION_MAP_SPAWNS } from '../src/data/deviationMapLinks';
 import { ALL_MAP_MARKERS, NALCOTT_MAP, NALCOTT_POIS } from '../src/data/nalcottMap';
 import { WEAPONS } from '../src/data/weapons';
 import {
@@ -60,6 +61,10 @@ describe('Once Human game data schemas', () => {
     expect(MAP_RESOURCE_AREAS.length).toBeGreaterThanOrEqual(5);
     expect(MAP_REGIONS.length).toBeGreaterThanOrEqual(9);
     expect(BUILT_IN_FILTER_PRESETS.length).toBeGreaterThanOrEqual(5);
+    expect(Object.keys(DEVIATION_MAP_SPAWNS).length).toBeGreaterThanOrEqual(50);
+    expect(
+      DEVIATIONS.every((d) => d.dropSource && !d.dropSource.includes('(oncehumandb.com)')),
+    ).toBe(true);
     expect(
       fs.existsSync(path.resolve(process.cwd(), 'public', 'maps', 'nalcott', 'overview-1024.webp')),
     ).toBe(true);

@@ -9,10 +9,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "Works in the Territory to help produce food.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Red Light, Warm, Toy",
     "imageUrl": "./assets/images/deviations/93000020.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/azure-melody-chefosaurus-rex",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Scenario Variation / Securement Silo - PHI & Chefosaurus Fusion"
   },
   {
     "id": "berserkosaurus-rex",
@@ -22,10 +22,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "Works within the territory to help produce food. A rare Prism Deviation filled with immense Prism Energy.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Red Light, Music, Toy",
     "imageUrl": "./assets/images/deviations/92000020.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/berserkosaurus-rex",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Obtainable only from the Prismverse's Clash scenario."
   },
   {
     "id": "cattiva",
@@ -35,10 +35,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "Works in the Territory to gather Ores or works at the Mining Platform.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Music, Warm",
     "imageUrl": "./assets/images/deviations/99000074.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/cattiva",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Pal Check-in: Day 2 · Pal Check-in: Palworld Deviation Selection Gift Box Ⅰ · Pal Check-in: Palworld Deviation Selection Gift Box Ⅱ"
   },
   {
     "id": "chaos-mini-wonder",
@@ -48,10 +48,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Physical",
     "skillName": "Combat Anomaly",
     "skillSummary": "Can participate in combat to absorb bullets flying toward its owner.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Blue Light, Red Light",
     "imageUrl": "./assets/images/deviations/99200050.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/chaos-mini-wonder",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Deviation Fusion: Chaos Mutagen - Mini Wonder · Chaos Mutagen - Mini Wonder: 100 × Prophecy Clash Coin (Betting Shop)"
   },
   {
     "id": "chaos-rebecca-d8b3c04aa007",
@@ -61,10 +61,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "Can summon the avatar of \"her\" to comfort and soothe other Deviations.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Green Light, Toy, Flowers",
     "imageUrl": "./assets/images/deviations/99200031.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/chaos-rebecca-d8b3c04aa007",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Calamity Tower — Can drop from the Chaos Tower (Isles of Abyss)."
   },
   {
     "id": "chaos-mr-wish",
@@ -74,10 +74,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Physical",
     "skillName": "Combat Anomaly",
     "skillSummary": "Can participate in combat to use guns to attack and apply The Bull's Eye on enemies.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Red Light, Music, Toy, Flowers",
     "imageUrl": "./assets/images/deviations/99200034.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/chaos-mr-wish",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Deviation Fusion: Chaos Mutagen - Mr. Wish · Chaos Mutagen - Mr. Wish: 300 × Wish Chaos Badge · Chaos Mutagen - Mr. Wish: 100 × Prophecy Clash Coin (Betting Shop) · This Chaos badge featuring Mr. Wish represents a champion's glory. Redeem it in the Wish Arena shop for Chaos Mutagen."
   },
   {
     "id": "chaos-snowsprite",
@@ -87,10 +87,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Frost",
     "skillName": "Combat Anomaly",
     "skillSummary": "Can participate in combat to summon fragile frost crystals that explode upon being shattered, damaging enemies with a frost explosion and increasing the Frost DMG they receive.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Green Light, Blue Light, Low Temperature",
     "imageUrl": "./assets/images/deviations/99200058.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/chaos-snowsprite",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Deviation Fusion: Chaos Mutagen - Snowsprite · Chaos Mutagen - Snowsprite: 300 × Snowsprite Chaos Badge · Chaos Mutagen - Snowsprite: 100 × Prophecy Clash Coin (Betting Shop) · This Chaos badge featuring Snowsprite represents a champion's glory. Redeem it in the Snowsprite Arena shop for Chaos Mutagen."
   },
   {
     "id": "chaos-zeno-purifier",
@@ -100,10 +100,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Physical",
     "skillName": "Combat Anomaly",
     "skillSummary": "Can participate in combat, granting its owner the teleport attack ability, and attacking the enemies with its dark blade.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Blue Light, Toy",
     "imageUrl": "./assets/images/deviations/99200038.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/chaos-zeno-purifier",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Deviation Fusion: Chaos Mutagen - Zeno-Purifier · Securement Silo Alpha"
   },
   {
     "id": "chaosaurus",
@@ -113,10 +113,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Blaze",
     "skillName": "Combat Anomaly",
     "skillSummary": "Can participate in combat to breathe fire.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Green Light, Toy, Warm",
     "imageUrl": "./assets/images/deviations/99200030.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/chaosaurus",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Deviation Fusion: Chaos Mutagen - Pyro Dino · Chaos Mutagen - Pyro Dino: 300 × Hot Springs Chaos Badge · Chaos Mutagen - Pyro Dino: 100 × Prophecy Clash Coin (Betting Shop) · This Chaos badge featuring Pyro Dino represents a champion's glory. Redeem it in the Hot Springs Arena shop for Chaos Mutagen."
   },
   {
     "id": "chaotic-extradimensional-cat",
@@ -126,10 +126,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "Enjoys itself inside the Territory. Accompanies its owner to sleep to make sure that they're fully energetic the next day.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Toy",
     "imageUrl": "./assets/images/deviations/99200051.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/chaotic-extradimensional-cat",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Deviation Fusion: Chaos Mutagen - Extradimensional Cat · Chaos Mutagen - Extradimensional Cat: 300 × Verdant Chaos Badge · Chaos Mutagen - Extradimensional Cat: 100 × Prophecy Clash Coin (Betting Shop) · This Chaos badge featuring the Extradimensional Cat represents a champion's glory. Redeem it in the Verdant Arena shop for Chaos Mutagen."
   },
   {
     "id": "chefosaurus-rex",
@@ -139,10 +139,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Blaze",
     "skillName": "Gourmet Boost",
     "skillSummary": "Works in the Territory to help produce food.",
-    "moodRequirement": "Red Light + Stove + Crops",
+    "moodRequirement": "Unit Power · Likes: Red Light, Toy, Warm",
     "imageUrl": "./assets/images/deviations/99000020.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/chefosaurus-rex",
-    "dropSource": "Securement Silo \u2014 Phi (Kitchen Room)"
+    "dropSource": "Quest: There's a Dragon Here, Securement Box, Securement Silo - PHI — Not found in regular drops. Obtainable only through Deviation fusion."
   },
   {
     "id": "enchanting-void",
@@ -152,10 +152,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Physical",
     "skillName": "Combat Anomaly",
     "skillSummary": "Can participate in combat to increase its master's Melee DMG.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Red Light, Flowers, Low Temperature",
     "imageUrl": "./assets/images/deviations/99000025.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/enchanting-void",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Securement Box, Securement Silo - THETA — Not found in regular drops. Obtainable only through Deviation fusion. · Obtainable only from the Manibus scenario."
   },
   {
     "id": "extradimensional-cat",
@@ -165,10 +165,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "Enjoys itself inside the Territory. Accompanies its owner to sleep to make sure that they're fully energetic the next day.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Toy",
     "imageUrl": "./assets/images/deviations/99000051.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/extradimensional-cat",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Securement Box, Securement Silo - Delta, Securement Silo - Taurus, Securement Silo - THETA — Not found in regular drops. Obtainable only through Deviation fusion."
   },
   {
     "id": "gazocchio",
@@ -178,10 +178,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "Works within the territory to guard it, capable of producing a special tactical item to dispel shadows.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Blue Light, Toy, Flowers",
     "imageUrl": "./assets/images/deviations/99000043.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/gazocchio",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Quest: Deviation - Gazocchio, Acting Physician, Charred Maniac, Customer — Not found in regular drops. Obtainable only through Deviation fusion. · Obtainable only from The Way of Winter scenario."
   },
   {
     "id": "mini-feaster",
@@ -191,10 +191,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Shock",
     "skillName": "Abyssal Tentacle",
     "skillSummary": "Can participate in combat, marking enemies or summoning tentacles to attack them.",
-    "moodRequirement": "Red Light + Toy + High Mood",
+    "moodRequirement": "Unit Power · Likes: Red Light, Music, Toy",
     "imageUrl": "./assets/images/deviations/99000053.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/mini-feaster",
-    "dropSource": "Securement Silo \u2014 Theta (Hard/Pro)"
+    "dropSource": "Quest: Lord Of The Fog, Mist Zones, Securement Box — Not found in regular drops. Obtainable only through Deviation fusion."
   },
   {
     "id": "mini-wonder",
@@ -204,10 +204,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Physical",
     "skillName": "Combat Anomaly",
     "skillSummary": "Can participate in combat to absorb bullets flying toward its owner.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Blue Light, Red Light",
     "imageUrl": "./assets/images/deviations/99000050.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/mini-wonder",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Quest: Otherworld Traveler, Securement Box — Not found in regular drops. Obtainable only through Deviation fusion."
   },
   {
     "id": "mr-wish",
@@ -217,10 +217,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Physical",
     "skillName": "Combat Anomaly",
     "skillSummary": "Can participate in combat. Will replicate the player's weapons to attack enemies.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Red Light, Music, Toy, Flowers",
     "imageUrl": "./assets/images/deviations/99000034.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/mr-wish",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Quest: Deviation: Mr. Wish, Securement Box, Securement Silo - SIGMA — Not found in regular drops. Obtainable only through Deviation fusion. · Obtainable only from the Evolution's Call scenario."
   },
   {
     "id": "night-watch-lamp",
@@ -230,10 +230,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "Unavailable in certain Arena battles. Used for display icons only.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Red Light, Electricity",
     "imageUrl": "./assets/images/deviations/99900043.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/night-watch-lamp",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Chalk Peak & Stronghold Light Anomalies · Deviation Capture"
   },
   {
     "id": "pyro-dino",
@@ -243,10 +243,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Blaze",
     "skillName": "Blaze Breath",
     "skillSummary": "Can participate in combat to breathe fire.",
-    "moodRequirement": "Red Light + Furnace Heat + Music",
+    "moodRequirement": "Unit Power · Likes: Green Light, Toy, Warm",
     "imageUrl": "./assets/images/deviations/99000030.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/pyro-dino",
-    "dropSource": "Securement Silo \u2014 Phi (Kitchen Room / Boss)"
+    "dropSource": "Securement Box, Securement Silo - PHI — Not found in regular drops. Obtainable only through Deviation fusion."
   },
   {
     "id": "radiant-one",
@@ -256,10 +256,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Physical",
     "skillName": "Combat Anomaly",
     "skillSummary": "Can participate in combat to continuously increase the character's actions or create an anti-gravity tower. A rare Prism Deviation filled with immense Prism Energy.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Blue Light, Flowers",
     "imageUrl": "./assets/images/deviations/92000032.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/radiant-one",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Obtainable only from the Prismverse's Clash scenario."
   },
   {
     "id": "rebecca",
@@ -269,10 +269,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "Can summon the avatar of \"her\" to comfort and soothe other Deviations.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Green Light, Toy, Flowers",
     "imageUrl": "./assets/images/deviations/99000031.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/rebecca",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "LEA Research Lab, Securement Box — Not found in regular drops. Obtainable only through Deviation fusion."
   },
   {
     "id": "snowsprite",
@@ -282,10 +282,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Frost",
     "skillName": "Combat Anomaly",
     "skillSummary": "Can participate in combat to summon fragile frost crystals that explode upon being shattered, damaging enemies with a frost explosion and increasing the Frost DMG they receive.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Green Light, Blue Light, Low Temperature",
     "imageUrl": "./assets/images/deviations/99000058.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/snowsprite",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Quest: Deviation: Snowsprite, Chaosweaver, Securement Silo - Taurus, Zone of Haze — Not found in regular drops. Obtainable only through Deviation fusion. · Obtainable only from The Way of Winter scenario."
   },
   {
     "id": "upper-world-spawn",
@@ -295,10 +295,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Crafting Anomaly",
     "skillSummary": "Produces special materials that can be used to craft Tactical Items. Using the item will grant the user a short period of immunity to all damage while losing the ability to move.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Red Light, Toy, Low Temperature",
     "imageUrl": "./assets/images/deviations/99000046.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/upper-world-spawn",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Securement Box, Securement Silo - PSI — Not found in regular drops. Obtainable only through Deviation fusion. · Obtainable only from the Evolution's Call scenario."
   },
   {
     "id": "zapamander",
@@ -308,10 +308,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Shock",
     "skillName": "Combat Anomaly",
     "skillSummary": "Can participate in combat to summon thunderclouds to strike enemies and enhance electrical damage.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Red Light, Music, Toy",
     "imageUrl": "./assets/images/deviations/99000059.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/zapamander",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Calamity Zone, Securement Box, Securement Silo - ALPHA, Securement Silo - Delta — Not found in regular drops. Obtainable only through Deviation fusion."
   },
   {
     "id": "zeno-purifier",
@@ -321,10 +321,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Physical",
     "skillName": "Combat Anomaly",
     "skillSummary": "Can participate in combat, granting its owner a blink strike ability and attacking enemies with a dark blade.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Red Light, Music",
     "imageUrl": "./assets/images/deviations/99000038.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/zeno-purifier",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Securement Box — Not found in regular drops. Obtainable only through Deviation fusion."
   },
   {
     "id": "artisans-touch",
@@ -334,10 +334,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Crafting Anomaly",
     "skillSummary": "Produces special materials that can be used to craft Tactical Items. Use it to repair an equipment that is currently equipped.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Warm",
     "imageUrl": "./assets/images/deviations/99000056.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/artisans-touch",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Dream Node, Securement Box, The Scorcher, The Scorcher - Abyssal Sea Kins — Not found in regular drops. Obtainable only through Deviation fusion."
   },
   {
     "id": "atomic-lighter",
@@ -347,10 +347,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Crafting Anomaly",
     "skillSummary": "Produces special materials that can be used to craft Tactical Items. Throw it to cause a powerful explosion.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Red Light, Music",
     "imageUrl": "./assets/images/deviations/99000024.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/atomic-lighter",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Securement Box, Securement Silo - EX1, Wishing Statue (Alternate Reality Research Institute), Wishing Statue (73 Source Extraction Point) — Found in strongholds."
   },
   {
     "id": "atomic-snail",
@@ -360,10 +360,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Crafting Anomaly",
     "skillSummary": "Produces special materials that can be used to craft Whim Potions. Using the potion will grant the air dash ability.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Crops, Flowers",
     "imageUrl": "./assets/images/deviations/99000042.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/atomic-snail",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Calamity Nest, Calamity Owl, Securement Box — Found anywhere in the wilderness. · Obtainable only from the Manibus scenario."
   },
   {
     "id": "behemoth",
@@ -373,10 +373,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Physical",
     "skillName": "Combat Anomaly",
     "skillSummary": "A loyal companion for George.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Red Light, Toy",
     "imageUrl": "./assets/images/deviations/99000069.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/behemoth",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Shadow Hound — Often seen in Red Sands and Blackheart Region."
   },
   {
     "id": "by-the-wind",
@@ -386,10 +386,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Physical",
     "skillName": "Combat Anomaly",
     "skillSummary": "Can participate in combat to continuously increase the character's actions or create an anti-gravity tower.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Blue Light, Red Light, Flowers",
     "imageUrl": "./assets/images/deviations/99000032.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/by-the-wind",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Securement Box — Commonly found in Pollution Zones. Easier to spot when Sanity is low. · Obtainable only from the Manibus scenario."
   },
   {
     "id": "chillet",
@@ -399,10 +399,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "Enjoys itself inside the Territory. Accompanies its owner to sleep to make sure that they're fully energetic the next day.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Red Light, Crops",
     "imageUrl": "./assets/images/deviations/99000073.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/chillet",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Pal Check-in: Day 4 · Pal Check-in: Palworld Deviation Selection Gift Box Ⅰ · Pal Check-in: Palworld Deviation Selection Gift Box Ⅱ"
   },
   {
     "id": "chuckles",
@@ -412,10 +412,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Physical",
     "skillName": "Combat Anomaly",
     "skillSummary": "A loyal companion for Metas.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Music, Toy",
     "imageUrl": "./assets/images/deviations/99000068.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/chuckles",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Stronghold Ruins & Carnival Anomalies · Securement Box"
   },
   {
     "id": "crimson-insight-zapcam-f3d8c3ce07d7",
@@ -425,10 +425,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Physical",
     "skillName": "Combat Anomaly",
     "skillSummary": "Can participate in combat to constantly photograph nearby enemies, increasing the Weapon DMG they receive.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Blue Light, Electricity",
     "imageUrl": "./assets/images/deviations/93000040.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/crimson-insight-zapcam-f3d8c3ce07d7",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Rosetta Security Facilities & Blackfell Oil Fields · Event Drop"
   },
   {
     "id": "director-fox",
@@ -438,10 +438,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "Working in your territory helps animals grow and breed, and reduces Energy consumption.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Blue Light, Toy, Flowers",
     "imageUrl": "./assets/images/deviations/99000070.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/director-fox",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Anglerfish, Bubble Fish, Drift Greenhouse, Giant Squid — Found anywhere in the wilderness."
   },
   {
     "id": "doctor-raven",
@@ -451,10 +451,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "Work in the Territory to improve Supplies Workbench efficiency. Crafted Healing Syringes will have Bonus effects.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Music, Low Temperature",
     "imageUrl": "./assets/images/deviations/99000065.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/doctor-raven",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Anniversary Self-Select Gifts: Returning Deviation Selection Crate · Console Launch Limited-time Bonus!: Returning Deviation Selection Crate"
   },
   {
     "id": "dr-teddy",
@@ -464,10 +464,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Physical",
     "skillName": "Combat Anomaly",
     "skillSummary": "Can participate in combat. Will heal or rescue fallen Metas.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Green Light, Toy",
     "imageUrl": "./assets/images/deviations/99000018.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/dr-teddy",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Securement Box, Securement Silo - THETA, Wishing Statue (Alkirk), Wishing Statue (Highland) — Found in strongholds."
   },
   {
     "id": "duet-f5d1de4d18dd",
@@ -477,10 +477,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "Modify the weather effects within the territory. Special weather effects cannot be overridden.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Blue Light, Music, Music Volume",
     "imageUrl": "./assets/images/deviations/99000077.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/duet-f5d1de4d18dd",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "The Sunken"
   },
   {
     "id": "gingerbread-house",
@@ -490,10 +490,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Crafting Anomaly",
     "skillSummary": "Produces special materials that can be used to craft special Dishes. Consume it to transform into an object.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Red Light, Crops, Warm",
     "imageUrl": "./assets/images/deviations/99000022.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/gingerbread-house",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Quest: Morphic Decoy, Calamity Tower, Morphic - Crate, Nightmare TV — Found in strongholds."
   },
   {
     "id": "growshroom",
@@ -503,10 +503,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "Works inside the Territory. Can proactively plant and harvest.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Green Light, Warm",
     "imageUrl": "./assets/images/deviations/99000037.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/growshroom",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Harvesting Mushrooms (wild or planted), Mushroom Seeds (Deviated), Securement Box — Found anywhere in the wilderness. Often buried underground."
   },
   {
     "id": "grumpy-bulb",
@@ -516,10 +516,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Physical",
     "skillName": "Combat Anomaly",
     "skillSummary": "Can participate in combat to disrupt enemy threat, making them attack each other.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Crops, Flowers, Warm",
     "imageUrl": "./assets/images/deviations/99000035.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/grumpy-bulb",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Morphic Tree, Onion Seeds (Grumpy Bulb), Securement Box — Often seen in Iron River. Usually buries itself in the ground."
   },
   {
     "id": "h37",
@@ -529,10 +529,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "Enters Strongholds occupied by the enemy and collects resources from their Storage Crates.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Music, Toy",
     "imageUrl": "./assets/images/deviations/99000021.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/h37",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Quest: Memory Chip, Purify Calamity IV, Securement Box, Securement Silo - ALPHA — Found in strongholds."
   },
   {
     "id": "harveseed",
@@ -542,10 +542,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Crafting Anomaly",
     "skillSummary": "Produces special materials that can be used to craft Whim Potions. Gives you a second wind when your HP is close to zero.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Crops, Flowers, Warm",
     "imageUrl": "./assets/images/deviations/99000009.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/harveseed",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Securement Box, Treant, Wishing Statue (Blackfell Fallen Zone), Wishing Statue (Evergreen) — Found in strongholds."
   },
   {
     "id": "hydronaut-fish",
@@ -555,10 +555,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "Can work in the territory to gather sea water, or operate a water purification facility to occasionally get special catches.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Blue Light, Toy, Flowers",
     "imageUrl": "./assets/images/deviations/99000044.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/hydronaut-fish",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Quest: Deviation: Hydronaut Fish, Securement Silo - EX1 [Deviation -1.4], Zone of Haze — Often seen near northern rivers. · Obtainable only from The Way of Winter scenario."
   },
   {
     "id": "invincible-sun",
@@ -568,10 +568,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Blaze",
     "skillName": "Combat Anomaly",
     "skillSummary": "Can participate in combat to periodically release blazing energy rays, which attack all nearby enemies, inflicting continuous Burn DMG.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Red Light, Toy, Warm",
     "imageUrl": "./assets/images/deviations/99000026.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/invincible-sun",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Quest: Deviation: Invincible Sun, Chaosweaver, Securement Silo - Delta, Zone of Haze — Found in strongholds. · Obtainable only from The Way of Winter scenario."
   },
   {
     "id": "lethal-rabbit",
@@ -581,10 +581,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "Works inside the Territory. Can hunt animals and bring back Leather and Meat.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Green Light, Toy",
     "imageUrl": "./assets/images/deviations/99000055.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/lethal-rabbit",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Skinning Wild Rabbits & Deer across Dayton Wetlands & Broken Delta"
   },
   {
     "id": "logging-beaver",
@@ -594,10 +594,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Timber Harvest",
     "skillSummary": "Works in the Territory to gather Wood or works at the Logging Platform.",
-    "moodRequirement": "Green Light + Radio",
+    "moodRequirement": "Unit Power · Likes: Music, Crops",
     "imageUrl": "./assets/images/deviations/99000028.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/logging-beaver",
-    "dropSource": "Lakeside & River Piers"
+    "dropSource": "Securement Box — Found anywhere in the wilderness."
   },
   {
     "id": "lonewolf-whisper",
@@ -607,10 +607,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Physical",
     "skillName": "Phantom Pack",
     "skillSummary": "Can participate in combat. Will transform into a black wolf and attack enemies.",
-    "moodRequirement": "Blue Light + Radio Music + Electricity",
+    "moodRequirement": "Unit Power · Likes: Red Light, Low Temperature",
     "imageUrl": "./assets/images/deviations/99000011.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/lonewolfs-whisper",
-    "dropSource": "Ravenous Hunter / Shadow Hound (Monolith of Thirst)"
+    "dropSource": "Calamity Owl, Purify Calamity I, Securement Box, Shadow Hound — Usually found in Red Sands or Blackheart Region. Kill strange wolf packs in the wilderness to summon."
   },
   {
     "id": "nutcracker",
@@ -620,10 +620,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "Works in the Territory to defend it from invading enemies.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Green Light, Toy",
     "imageUrl": "./assets/images/deviations/99000027.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/nutcracker",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Securement Box, The Forsaken Giant, Wishing Statue (Fort Obsidian), Wishing Statue (Hiverail Restricted Area) — Found in strongholds."
   },
   {
     "id": "peach-weasel",
@@ -633,10 +633,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "Enjoys itself inside the Territory. Accompanies its owner to sleep to make sure that they're fully energetic the next day.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Red Light, Crops",
     "imageUrl": "./assets/images/deviations/99000075.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/peach-weasel",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Pal Check-in: Day 6 · Pal Check-in: Palworld Deviation Selection Gift Box Ⅰ · Pal Check-in: Palworld Deviation Selection Gift Box Ⅱ"
   },
   {
     "id": "polar-jelly",
@@ -646,10 +646,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Frost",
     "skillName": "Cryo Burst",
     "skillSummary": "Can participate in combat to deal Ice DMG to a large area.",
-    "moodRequirement": "Blue Light + Fridge / Cold Environment",
+    "moodRequirement": "Unit Power · Likes: Blue Light, Low Temperature",
     "imageUrl": "./assets/images/deviations/99000003.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/polar-jelly",
-    "dropSource": "Securement Silo \u2014 Sigma / Cold Anomaly Crates"
+    "dropSource": "Securement Box — Often seen at northern seasides."
   },
   {
     "id": "pup-buddy",
@@ -659,10 +659,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Crafting Anomaly",
     "skillSummary": "Produces special materials that can be used to craft Whim Potions. Use it to increase Load capabilities.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Green Light, Music, Toy",
     "imageUrl": "./assets/images/deviations/99000007.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/pup-buddy",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Charred Maniac, Ede, Ede - Endless Dream Minor Event, Securement Box — Found in strongholds. · Obtainable only from the Evolution's Call scenario."
   },
   {
     "id": "rain-man",
@@ -672,10 +672,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "Works inside the Territory. Can cause rainfall around him to help crops grow.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Blue Light, Low Temperature",
     "imageUrl": "./assets/images/deviations/99000039.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/rain-man",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Rainfall Reaper, Rainfall Reaper - Abyssal Sea Kins, Securement Box — Found anywhere in the wilderness. Easier to find on rainy days."
   },
   {
     "id": "silent-statue-713911991b89",
@@ -685,10 +685,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Physical",
     "skillName": "Combat Anomaly",
     "skillSummary": "A loyal companion for George.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Red Light, Toy",
     "imageUrl": "./assets/images/deviations/99000079.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/silent-statue-713911991b89",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Obtain through the Vision Game Mode"
   },
   {
     "id": "soul-summoner",
@@ -698,10 +698,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Physical",
     "skillName": "Combat Anomaly",
     "skillSummary": "Can participate in combat to weaken enemies with cursed arrows, increasing the Weapon DMG they receive.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Crops, Low Temperature, Music Volume",
     "imageUrl": "./assets/images/deviations/99000066.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/soul-summoner",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Securement Box, Securement Silo - EX1, Securement Silo - EX1 [Deviation -1.4] — Often seen in the northern forests."
   },
   {
     "id": "space-turner",
@@ -711,10 +711,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Crafting Anomaly",
     "skillSummary": "Produces special materials that can be used to craft Tactical Items. Use it to teleport a teammate to your location.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Blue Light, Toy",
     "imageUrl": "./assets/images/deviations/99000013.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/space-turner",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Calamity Zone, Medic! Medic!, Securement Box, Securement Silo - Delta — Found in strongholds."
   },
   {
     "id": "strange-door",
@@ -724,10 +724,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Crafting Anomaly",
     "skillSummary": "Produces special materials and can repair its own replicas. Its owner can teleport between different Strange Doors.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Blue Light, Red Light, Flowers",
     "imageUrl": "./assets/images/deviations/99000041.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/strange-door",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Klein's Rift Space, Securement Box, Securement Silo - Delta, Securement Silo - Taurus — Found in strongholds."
   },
   {
     "id": "tar-pudding",
@@ -737,10 +737,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "Works within the territory, able to extract crude oil or work in refining facilities.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Blue Light, Low Temperature",
     "imageUrl": "./assets/images/deviations/99000057.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/tar-pudding",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Quest: Deviation: Tar Pudding, Azure Melody - Chefosaurus Rex, Berserkosaurus Rex, Buzzy Bee — Often seen in Red Sands and Blackheart Region. · Obtainable only from The Way of Winter scenario."
   },
   {
     "id": "voodoo-doll",
@@ -750,10 +750,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Physical",
     "skillName": "Combat Anomaly",
     "skillSummary": "Can participate in combat, sharing the damage received by its master or possessing enemies so they share the damage its master receives instead.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Blue Light, Red Light, Music, Toy",
     "imageUrl": "./assets/images/deviations/99000047.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/voodoo-doll",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Carnival of Doom, Securement Box, Securement Silo - Delta, Securement Silo - Taurus — Found in strongholds."
   },
   {
     "id": "watcher",
@@ -763,10 +763,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Physical",
     "skillName": "Combat Anomaly",
     "skillSummary": "A loyal companion for Metas.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Blue Light, Music",
     "imageUrl": "./assets/images/deviations/99000071.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/watcher",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Securement Silo - THETA & Rosetta Security Perimeters"
   },
   {
     "id": "whalepup",
@@ -776,10 +776,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Physical",
     "skillName": "Combat Anomaly",
     "skillSummary": "Can participate in combat, transforming the battlefield into an underwater world that drowns enemies and increases the Weapon DMG they receive.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Blue Light, Toy, Music Volume",
     "imageUrl": "./assets/images/deviations/99000064.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/whalepup",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Securement Box, Securement Silo - Delta, Securement Silo - Taurus, Securement Silo - THETA — Often seen near rivers."
   },
   {
     "id": "wish-box",
@@ -789,10 +789,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "Use it in your territory to transform items in the Wish Box into something else after digestion.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Green Light, Flowers",
     "imageUrl": "./assets/images/deviations/99000060.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/wish-box",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Morphic - Crate, Nightmare TV, Wishing Statue (Wish Land - East) — Found in strongholds."
   },
   {
     "id": "zapcam",
@@ -802,10 +802,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Physical",
     "skillName": "Combat Anomaly",
     "skillSummary": "Can participate in combat to constantly photograph nearby enemies, increasing the Weapon DMG they receive.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Red Light, Low Temperature",
     "imageUrl": "./assets/images/deviations/99000040.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/zapcam",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Secret Servitor, Zone of Haze, Wishing Statue (TAIGA Containment Center), Wishing Statue (Fiskur Harbor) — Found in strongholds. · Obtainable only from The Way of Winter scenario."
   },
   {
     "id": "ancient-one-b92b668d2814",
@@ -815,10 +815,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "A terrifying monstrosity. Even when Secured, it still requires the Player to continuously provide offerings to bring forth dark power.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Blue Light, Warm",
     "imageUrl": "./assets/images/deviations/99300012.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/ancient-one-b92b668d2814",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Coastal Broken Delta & Isles of Abyss Symbiosis Boss Drops"
   },
   {
     "id": "arachsiam-c852c8d8236e",
@@ -828,10 +828,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "A terrifying monstrosity. Even when Secured, it still requires the Player to continuously provide offerings to bring forth dark power.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Green Light, Low Temperature",
     "imageUrl": "./assets/images/deviations/99300001.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/arachsiam-c852c8d8236e",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Mirage Monolith Boss (Chalk Peak) · Capturable Symbiosis Boss"
   },
   {
     "id": "blackback",
@@ -841,10 +841,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "A loyal companion for Metas.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Blue Light, Toy, Flowers",
     "imageUrl": "./assets/images/deviations/99000062.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/blackback",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Golden Autumn Harvest Event: Golden Autumn Deviation Selection Gift Box (5-5)"
   },
   {
     "id": "brave-george",
@@ -854,10 +854,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Physical",
     "skillName": "Combat Anomaly",
     "skillSummary": "A loyal companion for Metas.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Red Light, Toy",
     "imageUrl": "./assets/images/deviations/99000067.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/brave-george",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Securement Box, The Forsaken Giant — Found in strongholds."
   },
   {
     "id": "butterfly-emissary",
@@ -867,10 +867,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Physical",
     "skillName": "Weakspot Resonance",
     "skillSummary": "Can participate in combat to mark enemy Weakspots, increasing the damage they receive.",
-    "moodRequirement": "Green Light + Flowers",
+    "moodRequirement": "Unit Power · Likes: Green Light, Flowers",
     "imageUrl": "./assets/images/deviations/99000001.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/butterflys-emissary",
-    "dropSource": "Starter Anomaly / Lea Research Lab"
+    "dropSource": "Quest: The Eve of Evolution"
   },
   {
     "id": "buzzy-bee",
@@ -880,10 +880,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "Works in the territory to increase the chance of crop mutation.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Music, Crops, Flowers",
     "imageUrl": "./assets/images/deviations/99000019.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/buzzy-bee",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Securement Box, Securement Silo - Delta, Securement Silo - Taurus — Found anywhere in the wilderness. · Obtainable only from the Manibus scenario."
   },
   {
     "id": "chaosweaver-429208076262",
@@ -893,10 +893,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "A terrifying monstrosity. Even when Secured, it still requires the Player to continuously provide offerings to bring forth dark power.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Blue Light, Low Temperature",
     "imageUrl": "./assets/images/deviations/99300009.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/chaosweaver-429208076262",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Way of Winter Chaosweaver World Boss (Onyx Tundra & Ember Strand)"
   },
   {
     "id": "devourer-c44172587485",
@@ -906,10 +906,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "A terrifying monstrosity. Even when Secured, it still requires the Player to continuously provide offerings to bring forth dark power.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Red Light, Power",
     "imageUrl": "./assets/images/deviations/99300005.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/devourer-c44172587485",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Public Crisis: Dig to Hell & World Anomaly Instances"
   },
   {
     "id": "disco-ball",
@@ -919,10 +919,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Crafting Anomaly",
     "skillSummary": "Produces special materials that can be used to craft Whim Potions. Use it to extend other Whim duration.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Green Light, Blue Light, Red Light",
     "imageUrl": "./assets/images/deviations/99000002.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/disco-ball",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Securement Box, Wishing Statue (Alternate Reality Research Institute), Wishing Statue (Fort Eyrie), Wishing Statue (Sunshine Farm) — Found in strongholds."
   },
   {
     "id": "doberman",
@@ -932,10 +932,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "A loyal companion for Metas.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Blue Light, Music, Toy",
     "imageUrl": "./assets/images/deviations/99000063.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/doberman",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Golden Autumn Harvest Event: Golden Autumn Deviation Selection Gift Box (5-5)"
   },
   {
     "id": "dreamcatcher",
@@ -945,10 +945,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Crafting Anomaly",
     "skillSummary": "Produces special materials that can be used to craft Whim Potions. Unleashes a spiderweb trap to bind enemies when you are in danger.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Blue Light, Music, Flowers",
     "imageUrl": "./assets/images/deviations/99000010.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/dreamcatcher",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Arachsiam, Calamity Tower, Securement Box, Wishing Statue (Alternate Reality Research Institute) — Found in strongholds."
   },
   {
     "id": "drift-greenhouse-b9e70c9f86c8",
@@ -958,10 +958,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "A terrifying monstrosity. Even when Secured, it still requires the Player to continuously provide offerings to bring forth dark power.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Green Light, Crops, Flowers",
     "imageUrl": "./assets/images/deviations/99300010.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/drift-greenhouse-b9e70c9f86c8",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "High Pollution Zone Ruins & Botanical Lab Anomalies"
   },
   {
     "id": "electric-eel",
@@ -971,10 +971,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Shock",
     "skillName": "Generator Overclock",
     "skillSummary": "Works in the Territory to provide power to Generators.",
-    "moodRequirement": "Blue Light + Fridge",
+    "moodRequirement": "Unit Power · Likes: Blue Light, Music, Warm",
     "imageUrl": "./assets/images/deviations/99000005.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/electric-eel",
-    "dropSource": "Fishing at River / Coastal Docks"
+    "dropSource": "Securement Box, Wishing Statue (73 Source Extraction Point), Wishing Statue (Rippleby), Wishing Statue (Greywater Industrial Zone) — Found in strongholds."
   },
   {
     "id": "festering-gel",
@@ -984,10 +984,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Protective Cover",
     "skillSummary": "Can participate in combat to transform into Shelter and block enemy attacks.",
-    "moodRequirement": "Green Light + Crops Nearby",
+    "moodRequirement": "Unit Power · Likes: Red Light",
     "imageUrl": "./assets/images/deviations/99000008.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/festering-gel",
-    "dropSource": "Ravenous Hunter (Monolith of Greed)"
+    "dropSource": "Ravenous Hunter, Securement Box, Sky Rover, The Echo — Found in strongholds."
   },
   {
     "id": "fetch-a-lot-bunny",
@@ -997,10 +997,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "Works in the Territory to gather all sorts of Plants.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Crops, Toy, Flowers",
     "imageUrl": "./assets/images/deviations/99000014.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/fetch-a-lot-bunny",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Securement Box, Securement Silo - Delta, Securement Silo - Taurus, Wishing Statue (Blackfell Fallen Zone) — Found in strongholds."
   },
   {
     "id": "flame-essence",
@@ -1010,10 +1010,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Shock",
     "skillName": "Territory Anomaly",
     "skillSummary": "Works inside the Territory. Increases the production efficiency of the Furnace and Electric Furnace.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Red Light, Toy",
     "imageUrl": "./assets/images/deviations/99000048.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/flame-essence",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Securement Box, Securement Silo - Delta, Securement Silo - Taurus — Often seen in Red Sands and Blackheart Region."
   },
   {
     "id": "frog-the-leaper",
@@ -1023,10 +1023,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Crafting Anomaly",
     "skillSummary": "Produces special materials that can be used to craft Whim Potions. Use it to increase Jump capabilities.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Toy",
     "imageUrl": "./assets/images/deviations/99000004.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/frog-the-leaper",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Flow Regulator, Melting Pot, Securement Box, Securement Silo - Delta — Found anywhere in the wilderness."
   },
   {
     "id": "hug-in-a-bowl",
@@ -1036,10 +1036,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Crafting Anomaly",
     "skillSummary": "Produces special materials that can be used to craft special Dishes. Consume to fully recover Sanity.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Crops, Flowers",
     "imageUrl": "./assets/images/deviations/99000023.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/hug-in-a-bowl",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Securement Box, Wishing Statue (Evergreen), Wishing Statue (Highland), Wishing Statue (Mousseville) — Found in strongholds. · Obtainable only from the Evolution's Call scenario."
   },
   {
     "id": "ice-pot",
@@ -1049,10 +1049,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Frost",
     "skillName": "Crafting Anomaly",
     "skillSummary": "Produces special materials that can be used to craft Tactical Items. Use to make large ice cubes.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Blue Light, Low Temperature",
     "imageUrl": "./assets/images/deviations/99000016.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/ice-pot",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Quest: Deviation: Ice Pot, Securement Silo - Omega, Securement Silo - PSI [Deviation +0.5], Zone of Haze — Found in strongholds. · Obtainable only from The Way of Winter scenario."
   },
   {
     "id": "labrador",
@@ -1062,10 +1062,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "A loyal companion for Metas.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Red Light, Crops, Toy",
     "imageUrl": "./assets/images/deviations/99000061.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/labrador",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Golden Autumn Harvest Event: Golden Autumn Deviation Selection Gift Box (5-5)"
   },
   {
     "id": "lighthouse-e9477de77b6e",
@@ -1075,10 +1075,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "A terrifying monstrosity. Even when Secured, it still requires the Player to continuously provide offerings to bring forth dark power.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Warm Light, Music",
     "imageUrl": "./assets/images/deviations/99300011.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/lighthouse-e9477de77b6e",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Southern Dayton Wetlands Lighthouse & Coastal Anomalies"
   },
   {
     "id": "masonic-pyramid",
@@ -1088,10 +1088,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Crafting Anomaly",
     "skillSummary": "Produces special materials that can be used to craft Whim Potions. Use it to become invisible or spot hiding enemies.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Blue Light, Music, Warm, Music Volume",
     "imageUrl": "./assets/images/deviations/99000033.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/masonic-pyramid",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Securement Box, Wishing Statue (Forsaken Monolith), Wishing Statue (Mirage Monolith Exclusion Zone), Wishing Statue (Tundra Monolith) — Found in strongholds. · Obtainable only from the Evolution's Call scenario."
   },
   {
     "id": "orb-lightning",
@@ -1104,7 +1104,7 @@ export const DEVIATIONS: Deviation[] = [
     "moodRequirement": "Securement Unit Power + Ambient Light",
     "imageUrl": "./assets/images/deviations/99000052.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/orb-lightning",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Frostella, Prober, Securement Box, Securement Silo - Delta — Found anywhere in the wilderness. Easier to find on stormy days."
   },
   {
     "id": "paper-doll",
@@ -1114,10 +1114,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "Works inside the Territory. Will discover lost materials while cleaning the place.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Red Light, Toy, Flowers",
     "imageUrl": "./assets/images/deviations/99000054.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/paper-doll",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Quest: Martial God's Home, Purify Calamity III, Securement Box, Securement Silo - Delta — Found in strongholds."
   },
   {
     "id": "park-core-5aa63b773a84",
@@ -1127,10 +1127,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "A terrifying monstrosity. Even when Secured, it still requires the Player to continuously provide offerings to bring forth dark power.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Music, Toy",
     "imageUrl": "./assets/images/deviations/99300007.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/park-core-5aa63b773a84",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Evergreen Amusement Park / Iron River Event Center Anomalies"
   },
   {
     "id": "party-monkey",
@@ -1140,10 +1140,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Crafting Anomaly",
     "skillSummary": "Produces special materials and can repair its own replicas. It will attract the threat of nearby monsters.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Music, Warm",
     "imageUrl": "./assets/images/deviations/99000045.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/party-monkey",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Devourer, Securement Box, Wishing Statue (Blackfell Fallen Zone), Wishing Statue (Fort Eyrie) — Found in strongholds. · Obtainable only from the Manibus scenario."
   },
   {
     "id": "ravenous-hunter-c876e5061f04",
@@ -1153,10 +1153,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "A terrifying monstrosity. Even when Secured, it still requires the Player to continuously provide offerings to bring forth dark power.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Red Light, Music",
     "imageUrl": "./assets/images/deviations/99300002.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/ravenous-hunter-c876e5061f04",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Monolith of Greed Boss (Dayton Wetlands) · Capturable Symbiosis Boss"
   },
   {
     "id": "secret-servitor-92acbcc2573c",
@@ -1166,10 +1166,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "A terrifying monstrosity. Even when Secured, it still requires the Player to continuously provide offerings to bring forth dark power.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Warm, Red Light",
     "imageUrl": "./assets/images/deviations/99300008.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/secret-servitor-92acbcc2573c",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Thermal Anomaly Monolith (Vena Fjord / Way of Winter)"
   },
   {
     "id": "shadow-hound-d4a1172c2dd3",
@@ -1179,10 +1179,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "A terrifying monstrosity. Even when Secured, it still requires the Player to continuously provide offerings to bring forth dark power.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Red Light, Toy",
     "imageUrl": "./assets/images/deviations/99300004.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/shadow-hound-d4a1172c2dd3",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Monolith of Thirst Boss (Iron River) · Capturable Symbiosis Boss"
   },
   {
     "id": "shattered-maiden",
@@ -1192,10 +1192,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Physical",
     "skillName": "Combat Anomaly",
     "skillSummary": "Can participate in combat, fearing and freezing enemies.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Blue Light, Red Light, Flowers",
     "imageUrl": "./assets/images/deviations/99000049.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/shattered-maiden",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Quest: Farmside Fright, Calamity Tower, Devourer, Securement Box — Found in strongholds."
   },
   {
     "id": "snow-globe",
@@ -1205,10 +1205,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Frost",
     "skillName": "Crafting Anomaly",
     "skillSummary": "Produces special materials that can be used to craft Tactical Items. When thrown, targets hit will become Frozen.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Blue Light, Low Temperature",
     "imageUrl": "./assets/images/deviations/99000036.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/snow-globe",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Calamity Nest, Calamity Owl, Purify Calamity V, Securement Box — Found in strongholds. · Obtainable only from the Manibus scenario."
   },
   {
     "id": "strange-goose-mr-wish-f987eb84e978",
@@ -1218,10 +1218,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Physical",
     "skillName": "Combat Anomaly",
     "skillSummary": "Can participate in combat to use guns to attack and apply The Bull's Eye on enemies.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Red Light, Toy",
     "imageUrl": "./assets/images/deviations/99000076.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/strange-goose-mr-wish-f987eb84e978",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Wish Arena / Securement Silo - SIGMA Event Variation"
   },
   {
     "id": "the-digby-boy",
@@ -1231,10 +1231,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "Works in the Territory to gather Ores or works at the Mining Platform.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Red Light, Music",
     "imageUrl": "./assets/images/deviations/99000029.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/the-digby-boy",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Quest: Deviation Expert in the North, Quest: Deviation Expert, Devourer, Purify Calamity II — Found anywhere in the wilderness. Often disguises itself as an ore outcrop."
   },
   {
     "id": "the-forsaken-giant-622240bef58d",
@@ -1244,10 +1244,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "A terrifying monstrosity. Even when Secured, it still requires the Player to continuously provide offerings to bring forth dark power.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Red Light, Warm",
     "imageUrl": "./assets/images/deviations/99300006.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/the-forsaken-giant-622240bef58d",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Forsaken Monolith Boss (Red Sands) · Capturable Symbiosis Boss"
   },
   {
     "id": "treant-670a9bb613b2",
@@ -1257,10 +1257,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "A terrifying monstrosity. Even when Secured, it still requires the Player to continuously provide offerings to bring forth dark power.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Green Light, Flowers",
     "imageUrl": "./assets/images/deviations/99300003.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/treant-670a9bb613b2",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Gaia Cliff Monolith Boss (Broken Delta) · Capturable Symbiosis Boss"
   },
   {
     "id": "vocal-angel-d4350ce9b918",
@@ -1270,10 +1270,10 @@ export const DEVIATIONS: Deviation[] = [
     "element": "Utility",
     "skillName": "Territory Anomaly",
     "skillSummary": "A terrifying monstrosity. Even when Secured, it still requires the Player to continuously provide offerings to bring forth dark power.",
-    "moodRequirement": "Securement Unit Power + Ambient Light",
+    "moodRequirement": "Unit Power · Likes: Music, Green Light",
     "imageUrl": "./assets/images/deviations/99300013.png",
     "referenceUrl": "https://www.oncehumandb.com/deviations/vocal-angel-d4350ce9b918",
-    "dropSource": "Securement Silos / World Drops (oncehumandb.com)"
+    "dropSource": "Echoes of Stardust World Event & Chalk Peak Ruins"
   }
 ];
 

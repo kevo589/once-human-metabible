@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { ExternalLink, Shield, Sparkles, X } from 'lucide-react';
+import { ExternalLink, MapPin, Shield, Sparkles, X } from 'lucide-react';
+import { DEVIATION_MAP_SPAWNS } from '../../data/deviationMapLinks';
 import type { ArmorSet, Deviation, ModItem, Rarity } from '../../types/game';
 import { cn } from '../../utils/cn';
 import { Pill, RARITY_GLOW, RarityBadge } from './Badge';
@@ -65,10 +66,12 @@ export function EntityDetailModal({
   entity,
   onClose,
   onSelectModVariant,
+  onLocateOnMap,
 }: {
   entity: InspectedEntity | null;
   onClose: () => void;
   onSelectModVariant?: (mod: ModItem) => void;
+  onLocateOnMap?: (poiId: string) => void;
 }) {
   if (!entity) return null;
 
@@ -198,13 +201,43 @@ export function EntityDetailModal({
           )}
 
           {kind === 'deviation' && (
-            <div className="space-y-2.5 rounded-xl border border-obsidian-800 bg-obsidian-950/60 p-4">
+            <div className="space-y-3 rounded-xl border border-obsidian-800 bg-obsidian-950/60 p-4">
               <div className="font-medium text-slate-100">{item.skillName}</div>
               <p className="leading-relaxed text-slate-300">{item.skillSummary}</p>
-              <div className="border-t border-obsidian-800 pt-2.5 text-slate-400">
-                <div><span className="text-slate-500">Mood:</span> {item.moodRequirement}</div>
-                <div className="mt-1"><span className="text-slate-500">Source:</span> {item.dropSource}</div>
+              <div className="space-y-1.5 border-t border-obsidian-800 pt-2.5 text-slate-300">
+                <div>
+                  <span className="text-slate-500">Mood:</span> {item.moodRequirement}
+                </div>
+                <div>
+                  <span className="text-slate-500">Where to Find:</span>{' '}
+                  <span className="text-cyan-300">{item.dropSource}</span>
+                </div>
               </div>
+
+              {DEVIATION_MAP_SPAWNS[item.id]?.length ? (
+                <div className="border-t border-obsidian-800 pt-2.5">
+                  <div className="mb-1.5 text-[11px] font-medium uppercase tracking-wider text-slate-400">
+                    Map Spawn Locations ({DEVIATION_MAP_SPAWNS[item.id].length})
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {DEVIATION_MAP_SPAWNS[item.id].map((spawn) => (
+                      <button
+                        key={spawn.poiId}
+                        type="button"
+                        onClick={() => {
+                          onLocateOnMap?.(spawn.poiId);
+                          onClose();
+                        }}
+                        className="inline-flex items-center gap-1.5 rounded-lg border border-cyan-500/40 bg-cyan-950/30 px-2.5 py-1 text-[11px] font-medium text-cyan-200 transition hover:bg-cyan-500/20"
+                      >
+                        <MapPin className="h-3 w-3 text-cyan-400" />
+                        <span>{spawn.label}</span>
+                        <span className="text-slate-400">· {spawn.region}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
             </div>
           )}
 
