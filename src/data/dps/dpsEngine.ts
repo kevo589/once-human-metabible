@@ -11,6 +11,14 @@ import {
 } from '../../utils/craftingEngine';
 import { DEVIATIONS } from '../deviationsAndChef';
 import { ARMOR_SETS, MODS } from '../gearAndMods';
+import {
+  clampModLevel,
+  evaluateSubStatValue,
+  MOD_SUBSTAT_SET_BY_ID,
+  resolveCodexMod,
+  type CodexModItem,
+  type ModSlotName,
+} from '../mods/modCatalog';
 import { WEAPONS } from '../weapons';
 import rawDpsData from './dpsData.json';
 
@@ -76,6 +84,9 @@ export interface WeaponSlotConfig {
   tacticalId: string;
   magId: string;
   modId: string;
+  modCoreLevel?: 1 | 2 | 3 | 4 | 5;
+  modSubStatSetId?: string;
+  modSubStatLevels?: [number, number, number, number];
   substats: SubstatEntry[];
 }
 
@@ -87,6 +98,9 @@ export interface ArmorSlotConfig {
   hideId: string;
   geneFabricId: string;
   modId: string;
+  modCoreLevel?: 1 | 2 | 3 | 4 | 5;
+  modSubStatSetId?: string;
+  modSubStatLevels?: [number, number, number, number];
   substats: SubstatEntry[];
 }
 
@@ -97,6 +111,9 @@ export interface CombatAssumptions {
   marked: boolean;
   fortressWarfare: boolean;
   shielded: boolean;
+  aeroAerialHit?: boolean;
+  downstarMeters?: number;
+  resonanceMaxStacks?: boolean;
 }
 
 export interface LoadoutConfig {
@@ -653,20 +670,72 @@ export function aggregateLoadoutStats(loadout: LoadoutConfig): AggregatedStats {
     addStat('reloadSpeedPct', mag.reloadSpeedPct, mag.name);
   }
 
+  const applySlotMod = (
+    slotCfg: WeaponSlotConfig | ArmorSlotConfig,
+    slotLabel: string,
+  ) => {
+    const codexMod = resolveCodexMod(slotCfg.modId);
+    const legacyMod = MOD_BY_ID.get(slotCfg.modId);
+
+    if (codexMod) {
+      const coreLvl = clampModLevel(slotCfg.modCoreLevel ?? 5);
+      const rawMods = codexMod.dpsModifiersByLevel[String(coreLvl)] ?? {};
+      const mapped: Partial<Record<StatKey, number>> = {};
+      for (const [k, v] of Object.entries(rawMods)) {
+        if (k === 'conditionalWeaponDmgPct') {
+          mapped.weaponDmgPct = (mapped.weaponDmgPct ?? 0) + v;
+        } else if (k in totals) {
+          mapped[k as StatKey] = (mapped[k as StatKey] ?? 0) + v;
+        }
+      }
+      applyMap(mapped, `${slotLabel} (${codexMod.name} · Lv.${coreLvl})`);
+    } else if (legacyMod) {
+      applyMap(parseModEffects(legacyMod), `${slotLabel} (${legacyMod.name})`);
+    }
+
+    if (slotCfg.modSubStatSetId) {
+      const setDef = MOD_SUBSTAT_SET_BY_ID.get(slotCfg.modSubStatSetId);
+      if (setDef) {
+        const levels = slotCfg.modSubStatLevels ?? [5, 5, 4, 4];
+        const conds = {
+          aeroAerialHit: loadout.assumptions.aeroAerialHit,
+          downstarMeters: loadout.assumptions.downstarMeters ?? 0,
+          resonanceMaxStacks: loadout.assumptions.resonanceMaxStacks ?? true,
+        };
+        setDef.stats.forEach((statId, idx) => {
+          const lv = clampModLevel(levels[idx] ?? 4);
+          const evaluated = evaluateSubStatValue(statId, lv, conds);
+          if (!evaluated) return;
+          const srcName = `${setDef.name} Substat Lv.${lv}`;
+          if (evaluated.statKey === 'magCapacityPct') {
+            addStat('magCapPct', evaluated.value, srcName);
+          } else if (evaluated.statKey === 'dmgBoostPct') {
+            addStat('weaponDmgPct', evaluated.value, `${srcName} (DMG Boost)`);
+            addStat('statusDmgPct', evaluated.value, `${srcName} (DMG Boost)`);
+          } else if (evaluated.statKey === 'enemyTypeDmgPct') {
+            addStat('dmgVsNormalPct', evaluated.value, `${srcName} (vs Enemies)`);
+            addStat('dmgVsElitesPct', evaluated.value, `${srcName} (vs Enemies)`);
+            addStat('dmgVsGreatOnesPct', evaluated.value, `${srcName} (vs Enemies)`);
+          } else if (evaluated.statKey in totals) {
+            addStat(evaluated.statKey as StatKey, evaluated.value, srcName);
+          }
+        });
+        return;
+      }
+    }
+
+    for (const sub of slotCfg.substats) {
+      const val = getSubstatValue(sub);
+      addStat(sub.stat, val, `${slotLabel} Substat (${sub.rarity})`);
+    }
+  };
+
   // Active Weapon Mod + Substats
-  const activeWeaponMod = MOD_BY_ID.get(activeWeaponSlotCfg.modId);
-  if (activeWeaponMod) {
-    applyMap(parseModEffects(activeWeaponMod), `Weapon Mod (${activeWeaponMod.name})`);
-  }
-  for (const sub of activeWeaponSlotCfg.substats) {
-    const val = getSubstatValue(sub);
-    addStat(sub.stat, val, `Weapon Mod Substat (${sub.rarity})`);
-  }
+  applySlotMod(activeWeaponSlotCfg, 'Weapon Mod');
 
   // Melee passive / substats
   if (loadout.melee.modId) {
-    const meleeMod = MOD_BY_ID.get(loadout.melee.modId);
-    if (meleeMod) applyMap(parseModEffects(meleeMod), `Melee Mod (${meleeMod.name})`);
+    applySlotMod(loadout.melee, 'Melee Mod');
   }
 
   // 3. All 6 Armor Pieces + Hides/Wools + Gene Fabrics + Armor Mods + Set Bonuses
@@ -706,14 +775,7 @@ export function aggregateLoadoutStats(loadout: LoadoutConfig): AggregatedStats {
     }
 
     // Armor Mod + Substats
-    const mod = MOD_BY_ID.get(cfg.modId);
-    if (mod) {
-      applyMap(parseModEffects(mod), `${armor.slot} Mod (${mod.name})`);
-    }
-    for (const sub of cfg.substats) {
-      const val = getSubstatValue(sub);
-      addStat(sub.stat, val, `${armor.slot} Mod Substat (${sub.rarity})`);
-    }
+    applySlotMod(cfg, `${armor.slot} Mod`);
 
     // Set tracking
     if (armor.setName) {
@@ -1077,13 +1139,14 @@ export function lookupEquipIcons(slot: WeaponSlotConfig | ArmorSlotConfig, isWea
   rarity: string;
   name: string;
 } {
+  const codexMod = resolveCodexMod(slot.modId);
   if (isWeapon) {
     const wCfg = slot as WeaponSlotConfig;
     const w = WEAPON_BY_ID.get(wCfg.weaponId);
     const mod = MOD_BY_ID.get(wCfg.modId);
     return {
       itemImg: w?.imageUrl,
-      modImg: mod?.imageUrl,
+      modImg: codexMod?.iconUrl ?? mod?.imageUrl,
       rarity: w?.rarity ?? 'Common',
       name: w?.name ?? 'Empty',
     };
@@ -1093,10 +1156,62 @@ export function lookupEquipIcons(slot: WeaponSlotConfig | ArmorSlotConfig, isWea
   const mod = MOD_BY_ID.get(aCfg.modId);
   return {
     itemImg: a?.imageUrl,
-    modImg: mod?.imageUrl,
+    modImg: codexMod?.iconUrl ?? mod?.imageUrl,
     rarity: a?.rarity ?? 'Common',
     name: a?.name ?? 'Empty',
   };
+}
+
+export function mapCodexSlotToArmorKey(slot: ModSlotName): ArmorSlotKey {
+  switch (slot) {
+    case 'Helmet':
+      return 'helmet';
+    case 'Mask':
+      return 'mask';
+    case 'Top':
+      return 'top';
+    case 'Bottoms':
+      return 'bottoms';
+    case 'Shoes':
+      return 'shoes';
+    default:
+      return 'gloves';
+  }
+}
+
+export function applyModToLoadout(
+  loadout: LoadoutConfig,
+  mod: CodexModItem,
+  weaponSlot: 'primary' | 'secondary' | 'melee' = 'primary',
+): LoadoutConfig {
+  const next = cloneLoadout(loadout);
+  const defaultSetId = mod.subStatSetIds.includes('violent')
+    ? 'violent'
+    : mod.subStatSetIds[0] ?? 'general';
+  const defaultLevels: [number, number, number, number] = [5, 5, 4, 4];
+
+  if (mod.slot === 'Weapon') {
+    next[weaponSlot] = {
+      ...next[weaponSlot],
+      modId: mod.id,
+      modCoreLevel: 5,
+      modSubStatSetId: defaultSetId,
+      modSubStatLevels: defaultLevels,
+    };
+    if (weaponSlot === 'primary' || weaponSlot === 'secondary') {
+      next.activeWeaponSlot = weaponSlot;
+    }
+  } else {
+    const aKey = mapCodexSlotToArmorKey(mod.slot);
+    next.armor[aKey] = {
+      ...next.armor[aKey],
+      modId: mod.id,
+      modCoreLevel: 5,
+      modSubStatSetId: defaultSetId,
+      modSubStatLevels: defaultLevels,
+    };
+  }
+  return next;
 }
 
 export function findDeviationImage(deviationId: string): string | undefined {

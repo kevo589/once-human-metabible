@@ -21,6 +21,7 @@ import {
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   aggregateLoadoutStats,
+  applyModToLoadout,
   calculateFullLoadoutDps,
   cloneLoadout,
   createLoadoutFromWeaponId,
@@ -33,6 +34,7 @@ import {
   type StatKey,
   type TargetType,
 } from '../../data/dps/dpsEngine';
+import type { CodexModItem } from '../../data/mods/modCatalog';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import type { CalculatorPreset } from '../../types/game';
 import { FormulaBreakdownModal } from './FormulaBreakdownModal';
@@ -43,10 +45,17 @@ import {
 } from './GearConfigPanels';
 import { SlotConfiguratorDrawer } from './SlotConfiguratorDrawer';
 
+export interface EquippedModRequest {
+  mod: CodexModItem;
+  weaponSlot?: 'primary' | 'secondary' | 'melee';
+  seq: number;
+}
+
 interface DpsCalculatorViewProps {
   preset: CalculatorPreset;
   onChangePreset: (next: CalculatorPreset) => void;
   activeBuildName?: string | null;
+  equippedModRequest?: EquippedModRequest | null;
 }
 
 type TopSubTab = 'simulator' | 'gear_config' | 'buffs';
@@ -91,6 +100,7 @@ export function DpsCalculatorView({
   preset,
   onChangePreset,
   activeBuildName,
+  equippedModRequest,
 }: DpsCalculatorViewProps) {
   const [savedLoadouts, setSavedLoadouts] = useLocalStorage<LoadoutConfig[]>(
     'oh-dps-gear-loadouts-v1',
@@ -120,6 +130,7 @@ export function DpsCalculatorView({
   } | null>(null);
 
   const lastExternalWeaponRef = useRef<string | null>(null);
+  const lastModReqSeqRef = useRef<number | null>(null);
 
   useEffect(() => {
     const sig = `${preset.weaponId}|${activeBuildName ?? ''}`;
@@ -133,6 +144,19 @@ export function DpsCalculatorView({
       setLoadout(next);
     }
   }, [preset.weaponId, activeBuildName, setLoadout]);
+
+  useEffect(() => {
+    if (!equippedModRequest || equippedModRequest.seq === lastModReqSeqRef.current) return;
+    lastModReqSeqRef.current = equippedModRequest.seq;
+    setLoadout((prev) =>
+      applyModToLoadout(prev, equippedModRequest.mod, equippedModRequest.weaponSlot),
+    );
+    setTopTab('gear_config');
+    setRailMode('gear');
+    const msg = `Equipped ${equippedModRequest.mod.name} (${equippedModRequest.mod.slot})`;
+    setToast(msg);
+    window.setTimeout(() => setToast((cur) => (cur === msg ? null : cur)), 2200);
+  }, [equippedModRequest, setLoadout]);
 
   const showToast = (msg: string) => {
     setToast(msg);
@@ -413,6 +437,8 @@ export function DpsCalculatorView({
                   { key: 'marked', label: 'Marked' },
                   { key: 'fortressWarfare', label: 'Fortress' },
                   { key: 'shielded', label: 'Shielded' },
+                  { key: 'aeroAerialHit', label: 'Aero Aerial' },
+                  { key: 'resonanceMaxStacks', label: 'Resonance Max' },
                 ] as const
               ).map((flag) => (
                 <button
@@ -435,6 +461,26 @@ export function DpsCalculatorView({
                   {flag.label}
                 </button>
               ))}
+            </div>
+            <div className="flex items-center gap-2 text-[10px] text-slate-400">
+              <span>Downstar Elev {loadout.assumptions.downstarMeters ?? 0}m</span>
+              <input
+                type="range"
+                min={0}
+                max={5}
+                step={0.5}
+                value={loadout.assumptions.downstarMeters ?? 0}
+                onChange={(e) =>
+                  patchLoadout({
+                    assumptions: {
+                      ...loadout.assumptions,
+                      downstarMeters: Number(e.target.value),
+                    },
+                  })
+                }
+                aria-label="Downstar elevation meters"
+                className="h-1 flex-1 cursor-pointer accent-[#3ee6c5]"
+              />
             </div>
             <div className="flex gap-2">
               <button

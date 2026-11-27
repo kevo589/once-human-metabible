@@ -11,9 +11,18 @@ import {
 } from '../src/utils/craftingEngine';
 import {
   aggregateLoadoutStats,
+  applyModToLoadout,
   calculateFullLoadoutDps,
   getStarterLoadouts,
 } from '../src/data/dps/dpsEngine';
+import {
+  evaluateSubStatValue,
+  formatReadableSubstat,
+  MOD_CODEX,
+  MOD_CODEX_BY_ID,
+  MOD_SUBSTAT_SETS,
+  MOD_SUBSTATS_PER_LEVEL,
+} from '../src/data/mods/modCatalog';
 import materialImages from '../src/data/crafting/materialImages.json';
 import {
   BUILT_IN_FILTER_PRESETS,
@@ -252,5 +261,56 @@ describe('Loadout Builder & Multiplicative DPS Engine', () => {
     const lowStats = aggregateLoadoutStats(lowHpBounce);
     const fullStats = aggregateLoadoutStats(fullHpBounce);
     expect(lowStats.totals.weaponDmgPct).toBeGreaterThan(fullStats.totals.weaponDmgPct);
+  });
+});
+
+describe('Mod Codex, 11 Sub-Stat Sets & DPS Mod Engine Integration', () => {
+  it('validates all 102 Codex mods, 11 Sub-Stat Sets, local icons, and map POI links', () => {
+    expect(MOD_SUBSTAT_SETS).toHaveLength(11);
+    for (const setDef of MOD_SUBSTAT_SETS) {
+      expect(setDef.stats).toHaveLength(4);
+      for (const sid of setDef.stats) {
+        expect(MOD_SUBSTATS_PER_LEVEL[sid], `Missing sub-stat ${sid}`).toBeTruthy();
+      }
+    }
+
+    expect(MOD_CODEX).toHaveLength(102);
+    const markerIds = new Set(ALL_MAP_MARKERS.map((m) => m.id));
+    for (const mod of MOD_CODEX) {
+      expect(Object.keys(mod.coreEffectByLevel)).toEqual(['1', '2', '3', '4', '5']);
+      const absIcon = path.resolve(process.cwd(), 'public', mod.iconUrl.replace(/^\.\//, ''));
+      expect(fs.existsSync(absIcon), `Missing mod icon: ${absIcon}`).toBe(true);
+      if (mod.mapLocationId) {
+        expect(markerIds.has(mod.mapLocationId), `Invalid map POI id on ${mod.id}`).toBe(true);
+      }
+    }
+
+    const bulletSiphon = MOD_CODEX_BY_ID.get('mod_9313')!;
+    expect(bulletSiphon.name).toBe('Bullet Siphon');
+    expect(bulletSiphon.slot).toBe('Bottoms');
+    expect(bulletSiphon.subStatSetIds).toHaveLength(11);
+    expect(bulletSiphon.dpsModifiersByLevel['5'].weaponDmgPct).toBe(5);
+    expect(bulletSiphon.dpsModifiersByLevel['5'].conditionalWeaponDmgPct).toBe(20);
+    expect(bulletSiphon.mapLocationId).toBeTruthy();
+  });
+
+  it('computes exact Level 1-5 scaling for Violent, Downstar, Aero, and Resonance sub-stats and applies to DPS Loadout', () => {
+    expect(evaluateSubStatValue('crit_dmg', 5)?.value).toBe(15);
+    expect(evaluateSubStatValue('downstar_weapon_dmg', 5, { downstarMeters: 0 })?.value).toBe(6);
+    expect(evaluateSubStatValue('downstar_weapon_dmg', 5, { downstarMeters: 5 })?.value).toBe(9);
+    expect(evaluateSubStatValue('aero_crit_dmg', 5, { aeroAerialHit: false })?.value).toBe(15);
+    expect(evaluateSubStatValue('aero_crit_dmg', 5, { aeroAerialHit: true })?.value).toBe(22.5);
+    expect(evaluateSubStatValue('resonance_elem_to_crit', 5, { resonanceMaxStacks: false })?.value).toBe(4);
+    expect(evaluateSubStatValue('resonance_elem_to_crit', 5, { resonanceMaxStacks: true })?.value).toBe(20);
+    expect(formatReadableSubstat('crit_dmg', 5)).toBe('Crit DMG +15%');
+
+    const [starter] = getStarterLoadouts();
+    const bulletSiphon = MOD_CODEX_BY_ID.get('mod_9313')!;
+    const upgraded = applyModToLoadout(starter, bulletSiphon);
+    expect(upgraded.armor.bottoms.modId).toBe('mod_9313');
+    expect(upgraded.armor.bottoms.modCoreLevel).toBe(5);
+
+    const upgradedStats = aggregateLoadoutStats(upgraded);
+    expect(upgradedStats.totals.weaponDmgPct).toBeGreaterThan(20);
   });
 });

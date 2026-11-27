@@ -1,0 +1,3751 @@
+[
+  {
+    "id": "mod_9111",
+    "name": "Precise Strike",
+    "slot": "Helmet",
+    "archetypeTag": "Helmet",
+    "iconUrl": "./assets/images/mods/19500510.png",
+    "summary": "Hitting a weakspot grants Weakspot DMG +12% for 3s. Effect can stack 3 times.",
+    "obtain": "Chance to obtain from Securement Silo - ALPHA and Securement Silo-Taurus.",
+    "mapLocationId": "securement-silo-8ce9ba72",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Hitting a weakspot grants Weakspot DMG +4% for 3s. Effect can stack 3 times.",
+      "2": "Hitting a weakspot grants Weakspot DMG +6% for 3s. Effect can stack 3 times.",
+      "3": "Hitting a weakspot grants Weakspot DMG +8% for 3s. Effect can stack 3 times.",
+      "4": "Hitting a weakspot grants Weakspot DMG +10% for 3s. Effect can stack 3 times.",
+      "5": "Hitting a weakspot grants Weakspot DMG +12% for 3s. Effect can stack 3 times."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "weakspotDmgPct": 4.0
+      },
+      "2": {
+        "weakspotDmgPct": 6.0
+      },
+      "3": {
+        "weakspotDmgPct": 8.0
+      },
+      "4": {
+        "weakspotDmgPct": 10.0
+      },
+      "5": {
+        "weakspotDmgPct": 12.0
+      }
+    }
+  },
+  {
+    "id": "mod_9112",
+    "name": "Deviation Expert",
+    "slot": "Helmet",
+    "archetypeTag": "Helmet",
+    "iconUrl": "./assets/images/mods/19500511.png",
+    "summary": "Range -25%, Fire Rate +10%, Status DMG +20%",
+    "obtain": "Chance to obtain from Securement Silo - ALPHA and Securement Silo-Taurus.",
+    "mapLocationId": "securement-silo-8ce9ba72",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Range -25%, Fire Rate +10%, Status DMG +4%",
+      "2": "Range -25%, Fire Rate +10%, Status DMG +8%",
+      "3": "Range -25%, Fire Rate +10%, Status DMG +12%",
+      "4": "Range -25%, Fire Rate +10%, Status DMG +16%",
+      "5": "Range -25%, Fire Rate +10%, Status DMG +20%"
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "statusDmgPct": 4.0,
+        "fireRatePct": 10.0
+      },
+      "2": {
+        "statusDmgPct": 8.0,
+        "fireRatePct": 10.0
+      },
+      "3": {
+        "statusDmgPct": 12.0,
+        "fireRatePct": 10.0
+      },
+      "4": {
+        "statusDmgPct": 16.0,
+        "fireRatePct": 10.0
+      },
+      "5": {
+        "statusDmgPct": 20.0,
+        "fireRatePct": 10.0
+      }
+    }
+  },
+  {
+    "id": "mod_9113",
+    "name": "First-Move Advantage",
+    "slot": "Helmet",
+    "archetypeTag": "Helmet",
+    "iconUrl": "./assets/images/mods/19500512.png",
+    "summary": "After reloading, Crit Rate +10%, Crit DMG +20% for 2s.",
+    "obtain": "Chance to obtain from Securement Silo - ALPHA and Securement Silo-Taurus.",
+    "mapLocationId": "securement-silo-8ce9ba72",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "After reloading, Crit Rate +8%, Crit DMG +4% for 2s.",
+      "2": "After reloading, Crit Rate +8%, Crit DMG +8% for 2s.",
+      "3": "After reloading, Crit Rate +8%, Crit DMG +12% for 2s.",
+      "4": "After reloading, Crit Rate +8%, Crit DMG +16% for 2s.",
+      "5": "After reloading, Crit Rate +10%, Crit DMG +20% for 2s."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "critDmgPct": 4.0,
+        "critRatePct": 8.0
+      },
+      "2": {
+        "critDmgPct": 8.0,
+        "critRatePct": 8.0
+      },
+      "3": {
+        "critDmgPct": 12.0,
+        "critRatePct": 8.0
+      },
+      "4": {
+        "critDmgPct": 16.0,
+        "critRatePct": 8.0
+      },
+      "5": {
+        "critDmgPct": 20.0,
+        "critRatePct": 10.0
+      }
+    }
+  },
+  {
+    "id": "mod_9114",
+    "name": "Mag Expansion",
+    "slot": "Helmet",
+    "archetypeTag": "Helmet",
+    "iconUrl": "./assets/images/mods/19500806.png",
+    "summary": "When reloading an empty magazine, Magazine Capacity +30%.",
+    "obtain": "Chance to obtain from Securement Silo - ALPHA and Securement Silo-Taurus.",
+    "mapLocationId": "securement-silo-8ce9ba72",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "When reloading an empty magazine, Magazine Capacity +10%.",
+      "2": "When reloading an empty magazine, Magazine Capacity +15%.",
+      "3": "When reloading an empty magazine, Magazine Capacity +20%.",
+      "4": "When reloading an empty magazine, Magazine Capacity +25%.",
+      "5": "When reloading an empty magazine, Magazine Capacity +30%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "magCapPct": 10.0
+      },
+      "2": {
+        "magCapPct": 15.0
+      },
+      "3": {
+        "magCapPct": 20.0
+      },
+      "4": {
+        "magCapPct": 25.0
+      },
+      "5": {
+        "magCapPct": 30.0
+      }
+    }
+  },
+  {
+    "id": "mod_9115",
+    "name": "Work of Proficiency",
+    "slot": "Helmet",
+    "archetypeTag": "Helmet",
+    "iconUrl": "./assets/images/mods/19500514.png",
+    "summary": "When reloading with an empty magazine, Reload Efficiency +5%, Elemental DMG +20%. Resets with the next reload.",
+    "obtain": "Chance to obtain from Securement Silo - ALPHA and Securement Silo-Taurus.",
+    "mapLocationId": "securement-silo-8ce9ba72",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "When reloading with an empty magazine, Reload Efficiency +5%, Elemental DMG +4%. Resets with the next reload.",
+      "2": "When reloading with an empty magazine, Reload Efficiency +5%, Elemental DMG +8%. Resets with the next reload.",
+      "3": "When reloading with an empty magazine, Reload Efficiency +5%, Elemental DMG +12%. Resets with the next reload.",
+      "4": "When reloading with an empty magazine, Reload Efficiency +5%, Elemental DMG +16%. Resets with the next reload.",
+      "5": "When reloading with an empty magazine, Reload Efficiency +5%, Elemental DMG +20%. Resets with the next reload."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "elementalDmgPct": 4.0,
+        "reloadSpeedPct": 5.0
+      },
+      "2": {
+        "elementalDmgPct": 8.0,
+        "reloadSpeedPct": 5.0
+      },
+      "3": {
+        "elementalDmgPct": 12.0,
+        "reloadSpeedPct": 5.0
+      },
+      "4": {
+        "elementalDmgPct": 16.0,
+        "reloadSpeedPct": 5.0
+      },
+      "5": {
+        "elementalDmgPct": 20.0,
+        "reloadSpeedPct": 5.0
+      }
+    }
+  },
+  {
+    "id": "mod_9116",
+    "name": "Fortune's Favor",
+    "slot": "Helmet",
+    "archetypeTag": "Helmet",
+    "iconUrl": "./assets/images/mods/19500446.png",
+    "summary": "Cannot deal Weakspot DMG. Crit Rate +10% and Crit DMG +30%.",
+    "obtain": "Chance to obtain from Securement Silo - ALPHA and Securement Silo-Taurus.",
+    "mapLocationId": "securement-silo-8ce9ba72",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Cannot deal Weakspot DMG. Crit Rate +8% and Crit DMG +10%.",
+      "2": "Cannot deal Weakspot DMG. Crit Rate +8% and Crit DMG +15%.",
+      "3": "Cannot deal Weakspot DMG. Crit Rate +8% and Crit DMG +20%.",
+      "4": "Cannot deal Weakspot DMG. Crit Rate +8% and Crit DMG +25%.",
+      "5": "Cannot deal Weakspot DMG. Crit Rate +10% and Crit DMG +30%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "critDmgPct": 10.0,
+        "critRatePct": 8.0
+      },
+      "2": {
+        "critDmgPct": 15.0,
+        "critRatePct": 8.0
+      },
+      "3": {
+        "critDmgPct": 20.0,
+        "critRatePct": 8.0
+      },
+      "4": {
+        "critDmgPct": 25.0,
+        "critRatePct": 8.0
+      },
+      "5": {
+        "critDmgPct": 30.0,
+        "critRatePct": 10.0
+      }
+    }
+  },
+  {
+    "id": "mod_9118",
+    "name": "Momentum Up",
+    "slot": "Helmet",
+    "archetypeTag": "Helmet",
+    "iconUrl": "./assets/images/mods/19500516.png",
+    "summary": "Fire Rate +10% for the first 50% of the magazine and Weapon DMG +30% for the next 50% of the magazine.",
+    "obtain": "Chance to obtain from Securement Silo - ALPHA and Securement Silo-Taurus.",
+    "mapLocationId": "securement-silo-8ce9ba72",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Fire Rate +8% for the first 50% of the magazine and Weapon DMG +10% for the next 50% of the magazine.",
+      "2": "Fire Rate +8% for the first 50% of the magazine and Weapon DMG +15% for the next 50% of the magazine.",
+      "3": "Fire Rate +8% for the first 50% of the magazine and Weapon DMG +20% for the next 50% of the magazine.",
+      "4": "Fire Rate +8% for the first 50% of the magazine and Weapon DMG +25% for the next 50% of the magazine.",
+      "5": "Fire Rate +10% for the first 50% of the magazine and Weapon DMG +30% for the next 50% of the magazine."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "weaponDmgPct": 10.0,
+        "fireRatePct": 8.0
+      },
+      "2": {
+        "weaponDmgPct": 15.0,
+        "fireRatePct": 8.0
+      },
+      "3": {
+        "weaponDmgPct": 20.0,
+        "fireRatePct": 8.0
+      },
+      "4": {
+        "weaponDmgPct": 25.0,
+        "fireRatePct": 8.0
+      },
+      "5": {
+        "weaponDmgPct": 30.0,
+        "fireRatePct": 10.0
+      }
+    }
+  },
+  {
+    "id": "mod_9119",
+    "name": "Elemental Havoc",
+    "slot": "Helmet",
+    "archetypeTag": "Helmet",
+    "iconUrl": "./assets/images/mods/19500517.png",
+    "summary": "Elemental DMG +10%. When HP is above 90%, +10% additionally.",
+    "obtain": "Chance to obtain from Securement Silo - ALPHA and Securement Silo-Taurus.",
+    "mapLocationId": "securement-silo-8ce9ba72",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Elemental DMG +10%. When HP is above 90%, +5% additionally.",
+      "2": "Elemental DMG +10%. When HP is above 90%, +5% additionally.",
+      "3": "Elemental DMG +10%. When HP is above 90%, +5% additionally.",
+      "4": "Elemental DMG +10%. When HP is above 90%, +5% additionally.",
+      "5": "Elemental DMG +10%. When HP is above 90%, +10% additionally."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "elementalDmgPct": 10.0
+      },
+      "2": {
+        "elementalDmgPct": 10.0
+      },
+      "3": {
+        "elementalDmgPct": 10.0
+      },
+      "4": {
+        "elementalDmgPct": 10.0
+      },
+      "5": {
+        "elementalDmgPct": 10.0
+      }
+    }
+  },
+  {
+    "id": "mod_9120",
+    "name": "Weapon Symphony",
+    "slot": "Helmet",
+    "archetypeTag": "Helmet",
+    "iconUrl": "./assets/images/mods/19500518.png",
+    "summary": "After switching weapons, Fire Rate +10% and Weapon DMG +25%. This effect decreases by 10% per second, up to a maximum decrease of 60%.",
+    "obtain": "Chance to obtain from Securement Silo - ALPHA and Securement Silo-Taurus.",
+    "mapLocationId": "securement-silo-8ce9ba72",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "After switching weapons, Fire Rate +2% and Weapon DMG +5%. This effect decreases by 10% per second, up to a maximum decrease of 60%.",
+      "2": "After switching weapons, Fire Rate +4% and Weapon DMG +10%. This effect decreases by 10% per second, up to a maximum decrease of 60%.",
+      "3": "After switching weapons, Fire Rate +6% and Weapon DMG +15%. This effect decreases by 10% per second, up to a maximum decrease of 60%.",
+      "4": "After switching weapons, Fire Rate +8% and Weapon DMG +20%. This effect decreases by 10% per second, up to a maximum decrease of 60%.",
+      "5": "After switching weapons, Fire Rate +10% and Weapon DMG +25%. This effect decreases by 10% per second, up to a maximum decrease of 60%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "conditionalWeaponDmgPct": 5.0,
+        "fireRatePct": 2.0
+      },
+      "2": {
+        "conditionalWeaponDmgPct": 10.0,
+        "fireRatePct": 4.0
+      },
+      "3": {
+        "conditionalWeaponDmgPct": 15.0,
+        "fireRatePct": 6.0
+      },
+      "4": {
+        "conditionalWeaponDmgPct": 20.0,
+        "fireRatePct": 8.0
+      },
+      "5": {
+        "conditionalWeaponDmgPct": 25.0,
+        "fireRatePct": 10.0
+      }
+    }
+  },
+  {
+    "id": "mod_9121",
+    "name": "Quick Toss",
+    "slot": "Helmet",
+    "archetypeTag": "Helmet",
+    "iconUrl": "./assets/images/mods/19500519.png",
+    "summary": "After using a throwable, Fire Rate +15% for 8s; reload 50% of the magazine for the previously equipped weapon (triggered every 12s).",
+    "obtain": "Chance to obtain from Securement Silo - ALPHA and Securement Silo-Taurus.",
+    "mapLocationId": "securement-silo-8ce9ba72",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "After using a throwable, Fire Rate +3% for 8s; reload 50% of the magazine for the previously equipped weapon (triggered every 12s).",
+      "2": "After using a throwable, Fire Rate +6% for 8s; reload 50% of the magazine for the previously equipped weapon (triggered every 12s).",
+      "3": "After using a throwable, Fire Rate +9% for 8s; reload 50% of the magazine for the previously equipped weapon (triggered every 12s).",
+      "4": "After using a throwable, Fire Rate +12% for 8s; reload 50% of the magazine for the previously equipped weapon (triggered every 12s).",
+      "5": "After using a throwable, Fire Rate +15% for 8s; reload 50% of the magazine for the previously equipped weapon (triggered every 12s)."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "fireRatePct": 3.0
+      },
+      "2": {
+        "fireRatePct": 6.0
+      },
+      "3": {
+        "fireRatePct": 9.0
+      },
+      "4": {
+        "fireRatePct": 12.0
+      },
+      "5": {
+        "fireRatePct": 15.0
+      }
+    }
+  },
+  {
+    "id": "mod_9211",
+    "name": "Healing Fortification",
+    "slot": "Top",
+    "archetypeTag": "Top",
+    "iconUrl": "./assets/images/mods/19500451.png",
+    "summary": "When using a healing shot, DMG Reduction +40% for 2s.",
+    "obtain": "Chance to obtain from Securement Silo - THETA and the northern Securement Silo - PSI.",
+    "mapLocationId": "securement-silo-2bce8998",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "When using a healing shot, DMG Reduction +30% for 2s.",
+      "2": "When using a healing shot, DMG Reduction +30% for 2s.",
+      "3": "When using a healing shot, DMG Reduction +30% for 2s.",
+      "4": "When using a healing shot, DMG Reduction +30% for 2s.",
+      "5": "When using a healing shot, DMG Reduction +40% for 2s."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9212",
+    "name": "Quick Comeback",
+    "slot": "Top",
+    "archetypeTag": "Top",
+    "iconUrl": "./assets/images/mods/19500452.png",
+    "summary": "When using a healing shot, Movement Speed +20% for 2s and refills the magazine from the inventory to 100%.",
+    "obtain": "Chance to obtain from Securement Silo - THETA and the northern Securement Silo - PSI.",
+    "mapLocationId": "securement-silo-2bce8998",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "When using a healing shot, Movement Speed +20% for 2s and refills the magazine from the inventory to 70%.",
+      "2": "When using a healing shot, Movement Speed +20% for 2s and refills the magazine from the inventory to 70%.",
+      "3": "When using a healing shot, Movement Speed +20% for 2s and refills the magazine from the inventory to 70%.",
+      "4": "When using a healing shot, Movement Speed +20% for 2s and refills the magazine from the inventory to 70%.",
+      "5": "When using a healing shot, Movement Speed +20% for 2s and refills the magazine from the inventory to 100%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9214",
+    "name": "Rejuvenating",
+    "slot": "Top",
+    "archetypeTag": "Top",
+    "iconUrl": "./assets/images/mods/19500454.png",
+    "summary": "When Shield is above 30% of Max HP, defeating an enemy recovers 20% of Max HP. Excess recovery is converted into Shield lasting 20s (Cooldown: 10s).",
+    "obtain": "Chance to obtain from Securement Silo - THETA and the northern Securement Silo - PSI.",
+    "mapLocationId": "securement-silo-2bce8998",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "When Shield is above 30% of Max HP, defeating an enemy recovers 12% of Max HP. Excess recovery is converted into Shield lasting 20s (Cooldown: 10s).",
+      "2": "When Shield is above 30% of Max HP, defeating an enemy recovers 14% of Max HP. Excess recovery is converted into Shield lasting 20s (Cooldown: 10s).",
+      "3": "When Shield is above 30% of Max HP, defeating an enemy recovers 16% of Max HP. Excess recovery is converted into Shield lasting 20s (Cooldown: 10s).",
+      "4": "When Shield is above 30% of Max HP, defeating an enemy recovers 18% of Max HP. Excess recovery is converted into Shield lasting 20s (Cooldown: 10s).",
+      "5": "When Shield is above 30% of Max HP, defeating an enemy recovers 20% of Max HP. Excess recovery is converted into Shield lasting 20s (Cooldown: 10s)."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9215",
+    "name": "Critical Rescue",
+    "slot": "Top",
+    "archetypeTag": "Top",
+    "iconUrl": "./assets/images/mods/19500455.png",
+    "summary": "DMG Reduction +20% and Healing Received +20% when HP is below 30%.",
+    "obtain": "Chance to obtain from Securement Silo - THETA and the northern Securement Silo - PSI.",
+    "mapLocationId": "securement-silo-2bce8998",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "DMG Reduction +16% and Healing Received +16% when HP is below 30%.",
+      "2": "DMG Reduction +16% and Healing Received +16% when HP is below 30%.",
+      "3": "DMG Reduction +16% and Healing Received +16% when HP is below 30%.",
+      "4": "DMG Reduction +16% and Healing Received +16% when HP is below 30%.",
+      "5": "DMG Reduction +20% and Healing Received +20% when HP is below 30%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9216",
+    "name": "Head-on Conflict",
+    "slot": "Top",
+    "archetypeTag": "Top",
+    "iconUrl": "./assets/images/mods/19500456.png",
+    "summary": "Having enemies within 7 meters around you grants 10% DMG Reduction. Taking melee DMG from enemies grants an extra 10% DMG Reduction for 5 seconds.",
+    "obtain": "Chance to obtain from Securement Silo - THETA and the northern Securement Silo - PSI.",
+    "mapLocationId": "securement-silo-2bce8998",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Having enemies within 7 meters around you grants 8% DMG Reduction. Taking melee DMG from enemies grants an extra 8% DMG Reduction for 5 seconds.",
+      "2": "Having enemies within 7 meters around you grants 8% DMG Reduction. Taking melee DMG from enemies grants an extra 8% DMG Reduction for 5 seconds.",
+      "3": "Having enemies within 7 meters around you grants 8% DMG Reduction. Taking melee DMG from enemies grants an extra 8% DMG Reduction for 5 seconds.",
+      "4": "Having enemies within 7 meters around you grants 8% DMG Reduction. Taking melee DMG from enemies grants an extra 8% DMG Reduction for 5 seconds.",
+      "5": "Having enemies within 7 meters around you grants 10% DMG Reduction. Taking melee DMG from enemies grants an extra 10% DMG Reduction for 5 seconds."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9217",
+    "name": "Head Guard",
+    "slot": "Top",
+    "archetypeTag": "Top",
+    "iconUrl": "./assets/images/mods/19500457.png",
+    "summary": "Weakspot DMG Reduction +15%; Weakspot DMG Reduction +15% further when HP is above 60%.",
+    "obtain": "Chance to obtain from Securement Silo - THETA and the northern Securement Silo - PSI.",
+    "mapLocationId": "securement-silo-2bce8998",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Weakspot DMG Reduction +12%; Weakspot DMG Reduction +12% further when HP is above 60%.",
+      "2": "Weakspot DMG Reduction +12%; Weakspot DMG Reduction +12% further when HP is above 60%.",
+      "3": "Weakspot DMG Reduction +12%; Weakspot DMG Reduction +12% further when HP is above 60%.",
+      "4": "Weakspot DMG Reduction +12%; Weakspot DMG Reduction +12% further when HP is above 60%.",
+      "5": "Weakspot DMG Reduction +15%; Weakspot DMG Reduction +15% further when HP is above 60%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9218",
+    "name": "Resist Advantage",
+    "slot": "Top",
+    "archetypeTag": "Top",
+    "iconUrl": "./assets/images/mods/19500458.png",
+    "summary": "When out of combat, gain 1 stack of 10% DMG Reduction every 5s. Effect can stack up to 5 times. 1 stack is removed when hit.",
+    "obtain": "Chance to obtain from Securement Silo - THETA and the northern Securement Silo - PSI.",
+    "mapLocationId": "securement-silo-2bce8998",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "When out of combat, gain 1 stack of 8% DMG Reduction every 5s. Effect can stack up to 5 times. 1 stack is removed when hit.",
+      "2": "When out of combat, gain 1 stack of 8% DMG Reduction every 5s. Effect can stack up to 5 times. 1 stack is removed when hit.",
+      "3": "When out of combat, gain 1 stack of 8% DMG Reduction every 5s. Effect can stack up to 5 times. 1 stack is removed when hit.",
+      "4": "When out of combat, gain 1 stack of 8% DMG Reduction every 5s. Effect can stack up to 5 times. 1 stack is removed when hit.",
+      "5": "When out of combat, gain 1 stack of 10% DMG Reduction every 5s. Effect can stack up to 5 times. 1 stack is removed when hit."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9219",
+    "name": "Enduring Shield",
+    "slot": "Top",
+    "archetypeTag": "Top",
+    "iconUrl": "./assets/images/mods/19500453.png",
+    "summary": "When out of combat, gain 1 stack of Safe Haven every 5s, stacking up to 5 times. For every 5 damage received, remove 1 stack of Safe Haven to gain 8% Shield for 3s.",
+    "obtain": "Chance to obtain from Securement Silo - THETA and the northern Securement Silo - PSI.",
+    "mapLocationId": "securement-silo-2bce8998",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "When out of combat, gain 1 stack of Safe Haven every 5s, stacking up to 5 times. For every 5 damage received, remove 1 stack of Safe Haven to gain 6% Shield for 3s.",
+      "2": "When out of combat, gain 1 stack of Safe Haven every 5s, stacking up to 5 times. For every 5 damage received, remove 1 stack of Safe Haven to gain 6% Shield for 3s.",
+      "3": "When out of combat, gain 1 stack of Safe Haven every 5s, stacking up to 5 times. For every 5 damage received, remove 1 stack of Safe Haven to gain 6% Shield for 3s.",
+      "4": "When out of combat, gain 1 stack of Safe Haven every 5s, stacking up to 5 times. For every 5 damage received, remove 1 stack of Safe Haven to gain 6% Shield for 3s.",
+      "5": "When out of combat, gain 1 stack of Safe Haven every 5s, stacking up to 5 times. For every 5 damage received, remove 1 stack of Safe Haven to gain 8% Shield for 3s."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9220",
+    "name": "Status Immune",
+    "slot": "Top",
+    "archetypeTag": "Top",
+    "iconUrl": "./assets/images/mods/19500459.png",
+    "summary": "When HP is lower than 60%, purge all Deviated States (cooldown: 15s)",
+    "obtain": "Chance to obtain from Securement Silo - THETA and the northern Securement Silo - PSI.",
+    "mapLocationId": "securement-silo-2bce8998",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "When HP is lower than 60%, purge all Deviated States (cooldown: 30s)",
+      "2": "When HP is lower than 60%, purge all Deviated States (cooldown: 30s)",
+      "3": "When HP is lower than 60%, purge all Deviated States (cooldown: 30s)",
+      "4": "When HP is lower than 60%, purge all Deviated States (cooldown: 30s)",
+      "5": "When HP is lower than 60%, purge all Deviated States (cooldown: 15s)"
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9221",
+    "name": "Ardent Shield",
+    "slot": "Top",
+    "archetypeTag": "Top",
+    "iconUrl": "./assets/images/mods/19500460.png",
+    "summary": "While the shield is active, you gain 15% DMG Reduction. When the shield exceeds 1,000, single instances of DMG will not penetrate the shield.",
+    "obtain": "Chance to obtain from Securement Silo - THETA and the northern Securement Silo - PSI.",
+    "mapLocationId": "securement-silo-2bce8998",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "While the shield is active, you gain 3% DMG Reduction. When the shield exceeds 1,000, single instances of DMG will not penetrate the shield.",
+      "2": "While the shield is active, you gain 6% DMG Reduction. When the shield exceeds 1,000, single instances of DMG will not penetrate the shield.",
+      "3": "While the shield is active, you gain 9% DMG Reduction. When the shield exceeds 1,000, single instances of DMG will not penetrate the shield.",
+      "4": "While the shield is active, you gain 12% DMG Reduction. When the shield exceeds 1,000, single instances of DMG will not penetrate the shield.",
+      "5": "While the shield is active, you gain 15% DMG Reduction. When the shield exceeds 1,000, single instances of DMG will not penetrate the shield."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9311",
+    "name": "Reload Rampage",
+    "slot": "Bottoms",
+    "archetypeTag": "Bottoms",
+    "iconUrl": "./assets/images/mods/19500804.png",
+    "summary": "After killing an enemy, refill 2 bullets from reserves (no more than 50% of the Magazine Capacity). Weapon DMG and Status DMG +10% until next reload.",
+    "obtain": "Chance to obtain from Securement Silo - PSI.",
+    "mapLocationId": "securement-silo-2bce8998",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "resonance",
+      "downstar",
+      "resonant_deviant_energy",
+      "downstar_deviant_energy",
+      "survival",
+      "aero",
+      "aero_deviant_energy"
+    ],
+    "coreEffectByLevel": {
+      "1": "After killing an enemy, refill 2 bullets from reserves (no more than 50% of the Magazine Capacity). Weapon DMG and Status DMG +5% until next reload.",
+      "2": "After killing an enemy, refill 2 bullets from reserves (no more than 50% of the Magazine Capacity). Weapon DMG and Status DMG +5% until next reload.",
+      "3": "After killing an enemy, refill 2 bullets from reserves (no more than 50% of the Magazine Capacity). Weapon DMG and Status DMG +5% until next reload.",
+      "4": "After killing an enemy, refill 2 bullets from reserves (no more than 50% of the Magazine Capacity). Weapon DMG and Status DMG +5% until next reload.",
+      "5": "After killing an enemy, refill 2 bullets from reserves (no more than 50% of the Magazine Capacity). Weapon DMG and Status DMG +10% until next reload."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "statusDmgPct": 5.0
+      },
+      "2": {
+        "statusDmgPct": 5.0
+      },
+      "3": {
+        "statusDmgPct": 5.0
+      },
+      "4": {
+        "statusDmgPct": 5.0
+      },
+      "5": {
+        "statusDmgPct": 10.0
+      }
+    }
+  },
+  {
+    "id": "mod_9312",
+    "name": "Three Strikes",
+    "slot": "Bottoms",
+    "archetypeTag": "Bottoms",
+    "iconUrl": "./assets/images/mods/19500805.png",
+    "summary": "For the first three hits after reloading (not exceeding 50% of magazine capacity), Weakspot DMG +50%.",
+    "obtain": "Chance to obtain from Securement Silo - PSI.",
+    "mapLocationId": "securement-silo-2bce8998",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "resonance",
+      "downstar",
+      "resonant_deviant_energy",
+      "downstar_deviant_energy",
+      "survival",
+      "aero",
+      "aero_deviant_energy"
+    ],
+    "coreEffectByLevel": {
+      "1": "For the first three hits after reloading (not exceeding 50% of magazine capacity), Weakspot DMG +10%.",
+      "2": "For the first three hits after reloading (not exceeding 50% of magazine capacity), Weakspot DMG +20%.",
+      "3": "For the first three hits after reloading (not exceeding 50% of magazine capacity), Weakspot DMG +30%.",
+      "4": "For the first three hits after reloading (not exceeding 50% of magazine capacity), Weakspot DMG +40%.",
+      "5": "For the first three hits after reloading (not exceeding 50% of magazine capacity), Weakspot DMG +50%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "weakspotDmgPct": 10.0
+      },
+      "2": {
+        "weakspotDmgPct": 20.0
+      },
+      "3": {
+        "weakspotDmgPct": 30.0
+      },
+      "4": {
+        "weakspotDmgPct": 40.0
+      },
+      "5": {
+        "weakspotDmgPct": 50.0
+      }
+    }
+  },
+  {
+    "id": "mod_9313",
+    "name": "Bullet Siphon",
+    "slot": "Bottoms",
+    "archetypeTag": "Bottoms",
+    "iconUrl": "./assets/images/mods/19500806.png",
+    "summary": "Weapon DMG +5%. Every 5 bullets consumed in the magazine grants +4% Weapon DMG, capped at 20%.",
+    "obtain": "Chance to obtain from Securement Silo - PSI.",
+    "mapLocationId": "securement-silo-2bce8998",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "resonance",
+      "downstar",
+      "resonant_deviant_energy",
+      "downstar_deviant_energy",
+      "survival",
+      "aero",
+      "aero_deviant_energy"
+    ],
+    "coreEffectByLevel": {
+      "1": "Every 5 bullets consumed in the magazine grants +4% Weapon DMG, capped at 20%.",
+      "2": "Every 5 bullets consumed in the magazine grants +4% Weapon DMG, capped at 20%.",
+      "3": "Every 5 bullets consumed in the magazine grants +4% Weapon DMG, capped at 20%.",
+      "4": "Every 5 bullets consumed in the magazine grants +4% Weapon DMG, capped at 20%.",
+      "5": "Weapon DMG +5%. Every 5 bullets consumed in the magazine grants +4% Weapon DMG, capped at 20%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "conditionalWeaponDmgPct": 20.0
+      },
+      "2": {
+        "conditionalWeaponDmgPct": 20.0
+      },
+      "3": {
+        "conditionalWeaponDmgPct": 20.0
+      },
+      "4": {
+        "conditionalWeaponDmgPct": 20.0
+      },
+      "5": {
+        "weaponDmgPct": 5.0,
+        "conditionalWeaponDmgPct": 20.0
+      }
+    }
+  },
+  {
+    "id": "mod_9314",
+    "name": "Deadshot",
+    "slot": "Bottoms",
+    "archetypeTag": "Bottoms",
+    "iconUrl": "./assets/images/mods/19500807.png",
+    "summary": "Each Crit Hit by non-melee weapons grants +5% Crit DMG, up to 45%. The effect is removed upon the next reload.",
+    "obtain": "Chance to obtain from Securement Silo - PSI.",
+    "mapLocationId": "securement-silo-2bce8998",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "resonance",
+      "downstar",
+      "resonant_deviant_energy",
+      "downstar_deviant_energy",
+      "survival",
+      "aero",
+      "aero_deviant_energy"
+    ],
+    "coreEffectByLevel": {
+      "1": "Each Crit Hit by non-melee weapons grants +4% Crit DMG, up to 36%. The effect is removed upon the next reload.",
+      "2": "Each Crit Hit by non-melee weapons grants +4% Crit DMG, up to 36%. The effect is removed upon the next reload.",
+      "3": "Each Crit Hit by non-melee weapons grants +4% Crit DMG, up to 36%. The effect is removed upon the next reload.",
+      "4": "Each Crit Hit by non-melee weapons grants +4% Crit DMG, up to 36%. The effect is removed upon the next reload.",
+      "5": "Each Crit Hit by non-melee weapons grants +5% Crit DMG, up to 45%. The effect is removed upon the next reload."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "critDmgPct": 36.0
+      },
+      "2": {
+        "critDmgPct": 36.0
+      },
+      "3": {
+        "critDmgPct": 36.0
+      },
+      "4": {
+        "critDmgPct": 36.0
+      },
+      "5": {
+        "critDmgPct": 45.0
+      }
+    }
+  },
+  {
+    "id": "mod_9315",
+    "name": "Abnormal Increase",
+    "slot": "Bottoms",
+    "archetypeTag": "Bottoms",
+    "iconUrl": "./assets/images/mods/19500808.png",
+    "summary": "When the magazine is empty, Status DMG +10% for 12s. Effect can stack up to 3 times.",
+    "obtain": "Chance to obtain from Securement Silo - PSI.",
+    "mapLocationId": "securement-silo-2bce8998",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "resonance",
+      "downstar",
+      "resonant_deviant_energy",
+      "downstar_deviant_energy",
+      "survival",
+      "aero",
+      "aero_deviant_energy"
+    ],
+    "coreEffectByLevel": {
+      "1": "When the magazine is empty, Status DMG +8% for 12s. Effect can stack up to 3 times.",
+      "2": "When the magazine is empty, Status DMG +8% for 12s. Effect can stack up to 3 times.",
+      "3": "When the magazine is empty, Status DMG +8% for 12s. Effect can stack up to 3 times.",
+      "4": "When the magazine is empty, Status DMG +8% for 12s. Effect can stack up to 3 times.",
+      "5": "When the magazine is empty, Status DMG +10% for 12s. Effect can stack up to 3 times."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "statusDmgPct": 8.0
+      },
+      "2": {
+        "statusDmgPct": 8.0
+      },
+      "3": {
+        "statusDmgPct": 8.0
+      },
+      "4": {
+        "statusDmgPct": 8.0
+      },
+      "5": {
+        "statusDmgPct": 10.0
+      }
+    }
+  },
+  {
+    "id": "mod_9316",
+    "name": "Melee Momentum",
+    "slot": "Bottoms",
+    "archetypeTag": "Bottoms",
+    "iconUrl": "./assets/images/mods/19500809.png",
+    "summary": "Melee DMG +20%. After a melee kill, recover 30% of max Stamina.",
+    "obtain": "Chance to obtain from Securement Silo - PSI.",
+    "mapLocationId": "securement-silo-2bce8998",
+    "subStatSetIds": [
+      "resonance",
+      "downstar",
+      "resonant_deviant_energy",
+      "downstar_deviant_energy",
+      "survival",
+      "aero",
+      "aero_deviant_energy"
+    ],
+    "coreEffectByLevel": {
+      "1": "Melee DMG +15%. After a melee kill, recover 25% of max Stamina.",
+      "2": "Melee DMG +15%. After a melee kill, recover 25% of max Stamina.",
+      "3": "Melee DMG +15%. After a melee kill, recover 25% of max Stamina.",
+      "4": "Melee DMG +15%. After a melee kill, recover 25% of max Stamina.",
+      "5": "Melee DMG +20%. After a melee kill, recover 30% of max Stamina."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9317",
+    "name": "Distant Strike",
+    "slot": "Bottoms",
+    "archetypeTag": "Bottoms",
+    "iconUrl": "./assets/images/mods/19500810.png",
+    "summary": "Weakspot DMG +20% when a bullet hits a target more than 20 meters away. For every additional 1 meter(s) away from the target, Weakspot DMG +1%, up to +20%.",
+    "obtain": "Chance to obtain from Securement Silo - PSI.",
+    "mapLocationId": "securement-silo-2bce8998",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "resonance",
+      "downstar",
+      "resonant_deviant_energy",
+      "downstar_deviant_energy",
+      "survival",
+      "aero",
+      "aero_deviant_energy"
+    ],
+    "coreEffectByLevel": {
+      "1": "Weakspot DMG +10% when a bullet hits a target more than 20 meters away. For every additional 1 meter(s) away from the target, Weakspot DMG +1%, up to +20%.",
+      "2": "Weakspot DMG +10% when a bullet hits a target more than 20 meters away. For every additional 1 meter(s) away from the target, Weakspot DMG +1%, up to +20%.",
+      "3": "Weakspot DMG +10% when a bullet hits a target more than 20 meters away. For every additional 1 meter(s) away from the target, Weakspot DMG +1%, up to +20%.",
+      "4": "Weakspot DMG +10% when a bullet hits a target more than 20 meters away. For every additional 1 meter(s) away from the target, Weakspot DMG +1%, up to +20%.",
+      "5": "Weakspot DMG +20% when a bullet hits a target more than 20 meters away. For every additional 1 meter(s) away from the target, Weakspot DMG +1%, up to +20%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "weakspotDmgPct": 30.0
+      },
+      "2": {
+        "weakspotDmgPct": 30.0
+      },
+      "3": {
+        "weakspotDmgPct": 30.0
+      },
+      "4": {
+        "weakspotDmgPct": 30.0
+      },
+      "5": {
+        "weakspotDmgPct": 40.0
+      }
+    }
+  },
+  {
+    "id": "mod_9318",
+    "name": "Precision Charge",
+    "slot": "Bottoms",
+    "archetypeTag": "Bottoms",
+    "iconUrl": "./assets/images/mods/19500811.png",
+    "summary": "For every 10% Weakspot hit rate of the previous magazine, Elemental DMG +4%, up to 24%, lasting for 10s. Reloading resets the calculation.",
+    "obtain": "Chance to obtain from Securement Silo - PSI.",
+    "mapLocationId": "securement-silo-2bce8998",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "resonance",
+      "downstar",
+      "resonant_deviant_energy",
+      "downstar_deviant_energy",
+      "survival",
+      "aero",
+      "aero_deviant_energy"
+    ],
+    "coreEffectByLevel": {
+      "1": "For every 10% Weakspot hit rate of the previous magazine, Elemental DMG +3%, up to 18%, lasting for 10s. Reloading resets the calculation.",
+      "2": "For every 10% Weakspot hit rate of the previous magazine, Elemental DMG +3%, up to 18%, lasting for 10s. Reloading resets the calculation.",
+      "3": "For every 10% Weakspot hit rate of the previous magazine, Elemental DMG +3%, up to 18%, lasting for 10s. Reloading resets the calculation.",
+      "4": "For every 10% Weakspot hit rate of the previous magazine, Elemental DMG +3%, up to 18%, lasting for 10s. Reloading resets the calculation.",
+      "5": "For every 10% Weakspot hit rate of the previous magazine, Elemental DMG +4%, up to 24%, lasting for 10s. Reloading resets the calculation."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "elementalDmgPct": 18.0
+      },
+      "2": {
+        "elementalDmgPct": 18.0
+      },
+      "3": {
+        "elementalDmgPct": 18.0
+      },
+      "4": {
+        "elementalDmgPct": 18.0
+      },
+      "5": {
+        "elementalDmgPct": 24.0
+      }
+    }
+  },
+  {
+    "id": "mod_9319",
+    "name": "Elemental Resonance",
+    "slot": "Bottoms",
+    "archetypeTag": "Bottoms",
+    "iconUrl": "./assets/images/mods/19500812.png",
+    "summary": "For each instance of Elemental DMG dealt from the previous magazine, the next magazine gains Elemental DMG +1% for 15s upon reloading, up to +24%.",
+    "obtain": "Chance to obtain from Securement Silo - PSI.",
+    "mapLocationId": "securement-silo-2bce8998",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "resonance",
+      "downstar",
+      "resonant_deviant_energy",
+      "downstar_deviant_energy",
+      "survival",
+      "aero",
+      "aero_deviant_energy"
+    ],
+    "coreEffectByLevel": {
+      "1": "For each instance of Elemental DMG dealt from the previous magazine, the next magazine gains Elemental DMG +0.2% for 15s upon reloading, up to +4.8%.",
+      "2": "For each instance of Elemental DMG dealt from the previous magazine, the next magazine gains Elemental DMG +0.4% for 15s upon reloading, up to +9.6%.",
+      "3": "For each instance of Elemental DMG dealt from the previous magazine, the next magazine gains Elemental DMG +0.6% for 15s upon reloading, up to +14.4%.",
+      "4": "For each instance of Elemental DMG dealt from the previous magazine, the next magazine gains Elemental DMG +0.8% for 15s upon reloading, up to +19.2%.",
+      "5": "For each instance of Elemental DMG dealt from the previous magazine, the next magazine gains Elemental DMG +1% for 15s upon reloading, up to +24%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "elementalDmgPct": 4.8
+      },
+      "2": {
+        "elementalDmgPct": 9.6
+      },
+      "3": {
+        "elementalDmgPct": 14.4
+      },
+      "4": {
+        "elementalDmgPct": 19.2
+      },
+      "5": {
+        "elementalDmgPct": 24.0
+      }
+    }
+  },
+  {
+    "id": "mod_9320",
+    "name": "Critical Surge",
+    "slot": "Bottoms",
+    "archetypeTag": "Bottoms",
+    "iconUrl": "./assets/images/mods/19500813.png",
+    "summary": "When the magazine is empty, Crit DMG +15% for 12s. Stacks independently, up to 3 stack(s).",
+    "obtain": "Chance to obtain from Securement Silo - PSI.",
+    "mapLocationId": "securement-silo-2bce8998",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "resonance",
+      "downstar",
+      "resonant_deviant_energy",
+      "downstar_deviant_energy",
+      "survival",
+      "aero",
+      "aero_deviant_energy"
+    ],
+    "coreEffectByLevel": {
+      "1": "When the magazine is empty, Crit DMG +3% for 12s. Stacks independently, up to 3 stack(s).",
+      "2": "When the magazine is empty, Crit DMG +6% for 12s. Stacks independently, up to 3 stack(s).",
+      "3": "When the magazine is empty, Crit DMG +9% for 12s. Stacks independently, up to 3 stack(s).",
+      "4": "When the magazine is empty, Crit DMG +12% for 12s. Stacks independently, up to 3 stack(s).",
+      "5": "When the magazine is empty, Crit DMG +15% for 12s. Stacks independently, up to 3 stack(s)."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "critDmgPct": 3.0
+      },
+      "2": {
+        "critDmgPct": 6.0
+      },
+      "3": {
+        "critDmgPct": 9.0
+      },
+      "4": {
+        "critDmgPct": 12.0
+      },
+      "5": {
+        "critDmgPct": 15.0
+      }
+    }
+  },
+  {
+    "id": "mod_9321",
+    "name": "Precision Load",
+    "slot": "Bottoms",
+    "archetypeTag": "Bottoms",
+    "iconUrl": "./assets/images/mods/19500833.png",
+    "summary": "After hitting a Weakspot from 50 meters away, load 40% bullets into the Magazine, up to 5 bullets. Can only trigger once within 1 seconds.",
+    "obtain": "Unknown",
+    "mapLocationId": "securement-silo-b5ff5345",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "resonance",
+      "downstar",
+      "resonant_deviant_energy",
+      "downstar_deviant_energy",
+      "survival",
+      "aero",
+      "aero_deviant_energy"
+    ],
+    "coreEffectByLevel": {
+      "1": "After hitting a Weakspot from 50 meters away, load 40% bullets into the Magazine, up to 5 bullets. Can only trigger once within 1 seconds.",
+      "2": "After hitting a Weakspot from 50 meters away, load 40% bullets into the Magazine, up to 5 bullets. Can only trigger once within 1 seconds.",
+      "3": "After hitting a Weakspot from 50 meters away, load 40% bullets into the Magazine, up to 5 bullets. Can only trigger once within 1 seconds.",
+      "4": "After hitting a Weakspot from 50 meters away, load 40% bullets into the Magazine, up to 5 bullets. Can only trigger once within 1 seconds.",
+      "5": "After hitting a Weakspot from 50 meters away, load 40% bullets into the Magazine, up to 5 bullets. Can only trigger once within 1 seconds."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9411",
+    "name": "Covered Advance",
+    "slot": "Shoes",
+    "archetypeTag": "Shoes",
+    "iconUrl": "./assets/images/mods/19500471.png",
+    "summary": "Taking no DMG within 4s grants +20% Melee, Weapon, and Status DMG for 30s. The effect resets when the duration ends.",
+    "obtain": "Chance to obtain from Securement Silo - PHI and Securement Silo - Delta.",
+    "mapLocationId": "securement-silo-b5ff5345",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "downstar",
+      "downstar_deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Taking no DMG within 6s grants +16% Melee, Weapon, and Status DMG for 30s. The effect resets when the duration ends.",
+      "2": "Taking no DMG within 6s grants +16% Melee, Weapon, and Status DMG for 30s. The effect resets when the duration ends.",
+      "3": "Taking no DMG within 6s grants +16% Melee, Weapon, and Status DMG for 30s. The effect resets when the duration ends.",
+      "4": "Taking no DMG within 6s grants +16% Melee, Weapon, and Status DMG for 30s. The effect resets when the duration ends.",
+      "5": "Taking no DMG within 4s grants +20% Melee, Weapon, and Status DMG for 30s. The effect resets when the duration ends."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9412",
+    "name": "Ruthless Reaper",
+    "slot": "Shoes",
+    "archetypeTag": "Shoes",
+    "iconUrl": "./assets/images/mods/19500472.png",
+    "summary": "After getting 2 kill(s), refill 100% of your magazine from your reserves.",
+    "obtain": "Chance to obtain from Securement Silo - PHI and Securement Silo - Delta.",
+    "mapLocationId": "securement-silo-b5ff5345",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "downstar",
+      "downstar_deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "After getting 2 kill(s), refill 80% of your magazine from your reserves.",
+      "2": "After getting 2 kill(s), refill 80% of your magazine from your reserves.",
+      "3": "After getting 2 kill(s), refill 80% of your magazine from your reserves.",
+      "4": "After getting 2 kill(s), refill 80% of your magazine from your reserves.",
+      "5": "After getting 2 kill(s), refill 100% of your magazine from your reserves."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9413",
+    "name": "Rush Hour",
+    "slot": "Shoes",
+    "archetypeTag": "Shoes",
+    "iconUrl": "./assets/images/mods/19500473.png",
+    "summary": "Every 10% HP loss grants +4% Melee, Weapon, and Status DMG.",
+    "obtain": "Chance to obtain from Securement Silo - PHI and Securement Silo - Delta.",
+    "mapLocationId": "securement-silo-b5ff5345",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "downstar",
+      "downstar_deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Every 10% HP loss grants +0.8% Melee, Weapon, and Status DMG.",
+      "2": "Every 10% HP loss grants +1.6% Melee, Weapon, and Status DMG.",
+      "3": "Every 10% HP loss grants +2.4% Melee, Weapon, and Status DMG.",
+      "4": "Every 10% HP loss grants +3.2% Melee, Weapon, and Status DMG.",
+      "5": "Every 10% HP loss grants +4% Melee, Weapon, and Status DMG."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9414",
+    "name": "Ferocious Charge",
+    "slot": "Shoes",
+    "archetypeTag": "Shoes",
+    "iconUrl": "./assets/images/mods/19500474.png",
+    "summary": "Killing enemies within 10 meters grants Melee, Weapon, Status DMG +20% for 8s.",
+    "obtain": "Chance to obtain from Securement Silo - PHI and Securement Silo - Delta.",
+    "mapLocationId": "securement-silo-b5ff5345",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "downstar",
+      "downstar_deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Killing enemies within 10 meters grants Melee, Weapon, Status DMG +4% for 8s.",
+      "2": "Killing enemies within 10 meters grants Melee, Weapon, Status DMG +8% for 8s.",
+      "3": "Killing enemies within 10 meters grants Melee, Weapon, Status DMG +12% for 8s.",
+      "4": "Killing enemies within 10 meters grants Melee, Weapon, Status DMG +16% for 8s.",
+      "5": "Killing enemies within 10 meters grants Melee, Weapon, Status DMG +20% for 8s."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "statusDmgPct": 4.0
+      },
+      "2": {
+        "statusDmgPct": 8.0
+      },
+      "3": {
+        "statusDmgPct": 12.0
+      },
+      "4": {
+        "statusDmgPct": 16.0
+      },
+      "5": {
+        "statusDmgPct": 20.0
+      }
+    }
+  },
+  {
+    "id": "mod_9415",
+    "name": "Secluded Strike",
+    "slot": "Shoes",
+    "archetypeTag": "Shoes",
+    "iconUrl": "./assets/images/mods/19500475.png",
+    "summary": "Having no enemies within 7 meters around you grants +15% Weapon and Status DMG.",
+    "obtain": "Chance to obtain from Securement Silo - PHI and Securement Silo - Delta.",
+    "mapLocationId": "securement-silo-b5ff5345",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "downstar",
+      "downstar_deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Having no enemies within 7 meters around you grants +3% Weapon and Status DMG.",
+      "2": "Having no enemies within 7 meters around you grants +6% Weapon and Status DMG.",
+      "3": "Having no enemies within 7 meters around you grants +9% Weapon and Status DMG.",
+      "4": "Having no enemies within 7 meters around you grants +12% Weapon and Status DMG.",
+      "5": "Having no enemies within 7 meters around you grants +15% Weapon and Status DMG."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9416",
+    "name": "Slow and Steady",
+    "slot": "Shoes",
+    "archetypeTag": "Shoes",
+    "iconUrl": "./assets/images/mods/19505485.png",
+    "summary": "Melee, Weapon, Status DMG +10%. When HP is above 90%, grants +10% additional DMG.",
+    "obtain": "Chance to obtain from Securement Silo - PHI and Securement Silo - Delta.",
+    "mapLocationId": "securement-silo-b5ff5345",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "downstar",
+      "downstar_deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Melee, Weapon, Status DMG +2%. When HP is above 90%, grants +2% additional DMG.",
+      "2": "Melee, Weapon, Status DMG +4%. When HP is above 90%, grants +4% additional DMG.",
+      "3": "Melee, Weapon, Status DMG +6%. When HP is above 90%, grants +6% additional DMG.",
+      "4": "Melee, Weapon, Status DMG +8%. When HP is above 90%, grants +8% additional DMG.",
+      "5": "Melee, Weapon, Status DMG +10%. When HP is above 90%, grants +10% additional DMG."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "statusDmgPct": 2.0
+      },
+      "2": {
+        "statusDmgPct": 4.0
+      },
+      "3": {
+        "statusDmgPct": 6.0
+      },
+      "4": {
+        "statusDmgPct": 8.0
+      },
+      "5": {
+        "statusDmgPct": 10.0
+      }
+    }
+  },
+  {
+    "id": "mod_9418",
+    "name": "Against All Odds",
+    "slot": "Shoes",
+    "archetypeTag": "Shoes",
+    "iconUrl": "./assets/images/mods/19500478.png",
+    "summary": "Weapon and Status DMG +10%. For every +5% Max HP consumed, gains an additional +5%, lasting 5s, stacking up to 3 stack(s).",
+    "obtain": "Chance to obtain from Securement Silo - PHI and Securement Silo - Delta.",
+    "mapLocationId": "securement-silo-b5ff5345",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "downstar",
+      "downstar_deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Weapon and Status DMG +2%. For every +5% Max HP consumed, gains an additional +1%, lasting 5s, stacking up to 3 stack(s).",
+      "2": "Weapon and Status DMG +4%. For every +5% Max HP consumed, gains an additional +2%, lasting 5s, stacking up to 3 stack(s).",
+      "3": "Weapon and Status DMG +6%. For every +5% Max HP consumed, gains an additional +3%, lasting 5s, stacking up to 3 stack(s).",
+      "4": "Weapon and Status DMG +8%. For every +5% Max HP consumed, gains an additional +4%, lasting 5s, stacking up to 3 stack(s).",
+      "5": "Weapon and Status DMG +10%. For every +5% Max HP consumed, gains an additional +5%, lasting 5s, stacking up to 3 stack(s)."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "statusDmgPct": 2.0
+      },
+      "2": {
+        "statusDmgPct": 4.0
+      },
+      "3": {
+        "statusDmgPct": 6.0
+      },
+      "4": {
+        "statusDmgPct": 8.0
+      },
+      "5": {
+        "statusDmgPct": 10.0
+      }
+    }
+  },
+  {
+    "id": "mod_9419",
+    "name": "Power of Striving",
+    "slot": "Shoes",
+    "archetypeTag": "Shoes",
+    "iconUrl": "./assets/images/mods/19500479.png",
+    "summary": "Weapon and Status DMG +10%. Stamina loss grants an additional DMG boost, up to +20%.",
+    "obtain": "Chance to obtain from Securement Silo - PHI and Securement Silo - Delta.",
+    "mapLocationId": "securement-silo-b5ff5345",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "downstar",
+      "downstar_deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Weapon and Status DMG +2%. Stamina loss grants an additional DMG boost, up to +4%.",
+      "2": "Weapon and Status DMG +4%. Stamina loss grants an additional DMG boost, up to +8%.",
+      "3": "Weapon and Status DMG +6%. Stamina loss grants an additional DMG boost, up to +12%.",
+      "4": "Weapon and Status DMG +8%. Stamina loss grants an additional DMG boost, up to +16%.",
+      "5": "Weapon and Status DMG +10%. Stamina loss grants an additional DMG boost, up to +20%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "statusDmgPct": 2.0
+      },
+      "2": {
+        "statusDmgPct": 4.0
+      },
+      "3": {
+        "statusDmgPct": 6.0
+      },
+      "4": {
+        "statusDmgPct": 8.0
+      },
+      "5": {
+        "statusDmgPct": 10.0
+      }
+    }
+  },
+  {
+    "id": "mod_9511",
+    "name": "Crit Boost",
+    "slot": "Gloves",
+    "archetypeTag": "Gloves",
+    "iconUrl": "./assets/images/mods/19500788.png",
+    "summary": "Crit Rate +15%",
+    "obtain": "Chance to obtain from Securement Silo - SIGMA and Securement Silo - Delta.",
+    "mapLocationId": "securement-silo-bfb2d05f",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "resonance",
+      "resonant_deviant_energy",
+      "survival",
+      "aero",
+      "aero_deviant_energy"
+    ],
+    "coreEffectByLevel": {
+      "1": "Crit Rate +3%",
+      "2": "Crit Rate +6%",
+      "3": "Crit Rate +9%",
+      "4": "Crit Rate +12%",
+      "5": "Crit Rate +15%"
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "critRatePct": 3.0
+      },
+      "2": {
+        "critRatePct": 6.0
+      },
+      "3": {
+        "critRatePct": 9.0
+      },
+      "4": {
+        "critRatePct": 12.0
+      },
+      "5": {
+        "critRatePct": 15.0
+      }
+    }
+  },
+  {
+    "id": "mod_9512",
+    "name": "Crit Amplifier",
+    "slot": "Gloves",
+    "archetypeTag": "Gloves",
+    "iconUrl": "./assets/images/mods/19500789.png",
+    "summary": "Crit Rate +10%, Crit DMG +15%.",
+    "obtain": "Chance to obtain from Securement Silo - SIGMA and Securement Silo - Delta.",
+    "mapLocationId": "securement-silo-bfb2d05f",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "resonance",
+      "resonant_deviant_energy",
+      "survival",
+      "aero",
+      "aero_deviant_energy"
+    ],
+    "coreEffectByLevel": {
+      "1": "Crit Rate +2%, Crit DMG +4%.",
+      "2": "Crit Rate +2%, Crit DMG +8%.",
+      "3": "Crit Rate +2%, Crit DMG +12%.",
+      "4": "Crit Rate +5%, Crit DMG +15%.",
+      "5": "Crit Rate +10%, Crit DMG +15%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "critDmgPct": 4.0,
+        "critRatePct": 2.0
+      },
+      "2": {
+        "critDmgPct": 8.0,
+        "critRatePct": 2.0
+      },
+      "3": {
+        "critDmgPct": 12.0,
+        "critRatePct": 2.0
+      },
+      "4": {
+        "critDmgPct": 15.0,
+        "critRatePct": 5.0
+      },
+      "5": {
+        "critDmgPct": 15.0,
+        "critRatePct": 10.0
+      }
+    }
+  },
+  {
+    "id": "mod_9513",
+    "name": "Weakspot DMG Boost",
+    "slot": "Gloves",
+    "archetypeTag": "Gloves",
+    "iconUrl": "./assets/images/mods/19500790.png",
+    "summary": "Weakspot DMG +25%",
+    "obtain": "Chance to obtain from Securement Silo - SIGMA and Securement Silo - Delta.",
+    "mapLocationId": "securement-silo-bfb2d05f",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "resonance",
+      "resonant_deviant_energy",
+      "survival",
+      "aero",
+      "aero_deviant_energy"
+    ],
+    "coreEffectByLevel": {
+      "1": "Weakspot DMG +5%",
+      "2": "Weakspot DMG +10%",
+      "3": "Weakspot DMG +15%",
+      "4": "Weakspot DMG +20%",
+      "5": "Weakspot DMG +25%"
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "weakspotDmgPct": 5.0
+      },
+      "2": {
+        "weakspotDmgPct": 10.0
+      },
+      "3": {
+        "weakspotDmgPct": 15.0
+      },
+      "4": {
+        "weakspotDmgPct": 20.0
+      },
+      "5": {
+        "weakspotDmgPct": 25.0
+      }
+    }
+  },
+  {
+    "id": "mod_9514",
+    "name": "Lifeforce Boost",
+    "slot": "Gloves",
+    "archetypeTag": "Gloves",
+    "iconUrl": "./assets/images/mods/19500791.png",
+    "summary": "HP +12%",
+    "obtain": "Chance to obtain from Securement Silo - SIGMA and Securement Silo - Delta. Looting Armor Crates in high-level areas has a chance to yield this.",
+    "mapLocationId": "securement-silo-bfb2d05f",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "resonance",
+      "resonant_deviant_energy",
+      "survival",
+      "aero",
+      "aero_deviant_energy"
+    ],
+    "coreEffectByLevel": {
+      "1": "HP +4%",
+      "2": "HP +6%",
+      "3": "HP +8%",
+      "4": "HP +10%",
+      "5": "HP +12%"
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9515",
+    "name": "Flame Resonance",
+    "slot": "Gloves",
+    "archetypeTag": "Gloves",
+    "iconUrl": "./assets/images/mods/19500312.png",
+    "summary": "Status DMG +20%",
+    "obtain": "Chance to obtain from Securement Silo - SIGMA and Securement Silo - Delta.",
+    "mapLocationId": "securement-silo-bfb2d05f",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "resonance",
+      "resonant_deviant_energy",
+      "survival",
+      "aero",
+      "aero_deviant_energy"
+    ],
+    "coreEffectByLevel": {
+      "1": "Status DMG +4%",
+      "2": "Status DMG +8%",
+      "3": "Status DMG +12%",
+      "4": "Status DMG +16%",
+      "5": "Status DMG +20%"
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "statusDmgPct": 4.0
+      },
+      "2": {
+        "statusDmgPct": 8.0
+      },
+      "3": {
+        "statusDmgPct": 12.0
+      },
+      "4": {
+        "statusDmgPct": 16.0
+      },
+      "5": {
+        "statusDmgPct": 20.0
+      }
+    }
+  },
+  {
+    "id": "mod_9516",
+    "name": "Weapon Amplifier",
+    "slot": "Gloves",
+    "archetypeTag": "Gloves",
+    "iconUrl": "./assets/images/mods/19500793.png",
+    "summary": "Weapon DMG +15%",
+    "obtain": "Chance to obtain from Securement Silo - SIGMA and Securement Silo - Delta.",
+    "mapLocationId": "securement-silo-bfb2d05f",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "resonance",
+      "resonant_deviant_energy",
+      "survival",
+      "aero",
+      "aero_deviant_energy"
+    ],
+    "coreEffectByLevel": {
+      "1": "Weapon DMG +3%",
+      "2": "Weapon DMG +6%",
+      "3": "Weapon DMG +9%",
+      "4": "Weapon DMG +12%",
+      "5": "Weapon DMG +15%"
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "weaponDmgPct": 3.0
+      },
+      "2": {
+        "weaponDmgPct": 6.0
+      },
+      "3": {
+        "weaponDmgPct": 9.0
+      },
+      "4": {
+        "weaponDmgPct": 12.0
+      },
+      "5": {
+        "weaponDmgPct": 15.0
+      }
+    }
+  },
+  {
+    "id": "mod_9517",
+    "name": "Melee Amplifier",
+    "slot": "Gloves",
+    "archetypeTag": "Gloves",
+    "iconUrl": "./assets/images/mods/19500794.png",
+    "summary": "Melee DMG +20%",
+    "obtain": "Chance to obtain from Securement Silo - SIGMA and Securement Silo - Delta.",
+    "mapLocationId": "securement-silo-bfb2d05f",
+    "subStatSetIds": [
+      "resonance",
+      "resonant_deviant_energy",
+      "survival",
+      "aero",
+      "aero_deviant_energy"
+    ],
+    "coreEffectByLevel": {
+      "1": "Melee DMG +4%",
+      "2": "Melee DMG +8%",
+      "3": "Melee DMG +12%",
+      "4": "Melee DMG +16%",
+      "5": "Melee DMG +20%"
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9519",
+    "name": "Elemental Overload",
+    "slot": "Gloves",
+    "archetypeTag": "Gloves",
+    "iconUrl": "./assets/images/mods/19500795.png",
+    "summary": "Element DMG (Blaze, Frost, Shock, Blast) +18%.",
+    "obtain": "Chance to obtain from Securement Silo - SIGMA and Securement Silo - Delta.",
+    "mapLocationId": "securement-silo-bfb2d05f",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "resonance",
+      "resonant_deviant_energy",
+      "survival",
+      "aero",
+      "aero_deviant_energy"
+    ],
+    "coreEffectByLevel": {
+      "1": "Element DMG (Blaze, Frost, Shock, Blast) +6%.",
+      "2": "Element DMG (Blaze, Frost, Shock, Blast) +9%.",
+      "3": "Element DMG (Blaze, Frost, Shock, Blast) +12%.",
+      "4": "Element DMG (Blaze, Frost, Shock, Blast) +15%.",
+      "5": "Element DMG (Blaze, Frost, Shock, Blast) +18%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9524",
+    "name": "Turret Enhancement",
+    "slot": "Gloves",
+    "archetypeTag": "Gloves",
+    "iconUrl": "./assets/images/mods/19500844.png",
+    "summary": "Facilities DMG +10%",
+    "obtain": "Unknown",
+    "mapLocationId": "securement-silo-b5ff5345",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "resonance",
+      "resonant_deviant_energy",
+      "survival",
+      "aero",
+      "aero_deviant_energy"
+    ],
+    "coreEffectByLevel": {
+      "1": "Facilities DMG +10%",
+      "2": "Facilities DMG +10%",
+      "3": "Facilities DMG +10%",
+      "4": "Facilities DMG +10%",
+      "5": "Facilities DMG +10%"
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9611",
+    "name": "Blaze Amplifier",
+    "slot": "Mask",
+    "archetypeTag": "Burn",
+    "iconUrl": "./assets/images/mods/19500387.png",
+    "summary": "Every stack of Burn grants +3% Psi Intensity DMG.",
+    "obtain": "Playing Securement Silo - EX1 has a chance to yield this.",
+    "mapLocationId": "securement-silo-197bec30",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Every stack of Burn grants +1% Psi Intensity DMG.",
+      "2": "Every stack of Burn grants +1.5% Psi Intensity DMG.",
+      "3": "Every stack of Burn grants +2% Psi Intensity DMG.",
+      "4": "Every stack of Burn grants +2.5% Psi Intensity DMG.",
+      "5": "Every stack of Burn grants +3% Psi Intensity DMG."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9612",
+    "name": "Frost Construct",
+    "slot": "Mask",
+    "archetypeTag": "Frost Vortex",
+    "iconUrl": "./assets/images/mods/19500287.png",
+    "summary": "Ice Constructs (Ice Spike, Ice Missile, Ice Crystal, Ice Shard, Ice Spear) deal +10% damage; if the target is in Frost Vortex status, damage dealt +10%.",
+    "obtain": "Playing Securement Silo - EX1 has a chance to yield this.",
+    "mapLocationId": "securement-silo-197bec30",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Ice Constructs (Ice Spike, Ice Missile, Ice Crystal, Ice Shard, Ice Spear) deal +2% damage; if the target is in Frost Vortex status, damage dealt is increased by +2%.",
+      "2": "Ice Constructs (Ice Spike, Ice Missile, Ice Crystal, Ice Shard, Ice Spear) deal +4% damage; if the target is in Frost Vortex status, damage dealt +4%.",
+      "3": "Ice Constructs (Ice Spike, Ice Missile, Ice Crystal, Ice Shard, Ice Spear) deal +6% damage; if the target is in Frost Vortex status, damage dealt +6%.",
+      "4": "Ice Constructs (Ice Spike, Ice Missile, Ice Crystal, Ice Shard, Ice Spear) deal +8% damage; if the target is in Frost Vortex status, damage dealt +8%.",
+      "5": "Ice Constructs (Ice Spike, Ice Missile, Ice Crystal, Ice Shard, Ice Spear) deal +10% damage; if the target is in Frost Vortex status, damage dealt +10%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9613",
+    "name": "Explosive Shrapnel",
+    "slot": "Mask",
+    "archetypeTag": "Shrapnel",
+    "iconUrl": "./assets/images/mods/19500086.png",
+    "summary": "The 20th Shrapnel is explosive and deals \b+300%\b DMG as a critical hit.",
+    "obtain": "Playing Securement Silo - EX1 has a chance to yield this.",
+    "mapLocationId": "securement-silo-197bec30",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "The 20th Shrapnel is explosive and deals \b+60%\b DMG as a critical hit.",
+      "2": "The 20th Shrapnel is explosive and deals \b+120%\b DMG as a critical hit.",
+      "3": "The 20th Shrapnel is explosive and deals \b+180%\b DMG as a critical hit.",
+      "4": "The 20th Shrapnel is explosive and deals \b+240%\b DMG as a critical hit.",
+      "5": "The 20th Shrapnel is explosive and deals \b+300%\b DMG as a critical hit."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9614",
+    "name": "Precision Bounce",
+    "slot": "Mask",
+    "archetypeTag": "Bounce",
+    "iconUrl": "./assets/images/mods/19500390.png",
+    "summary": "After triggering Bounce 6 times, the next bullet's Bounce DMG +125%.",
+    "obtain": "Playing Securement Silo - EX1 has a chance to yield this.",
+    "mapLocationId": "securement-silo-197bec30",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "After triggering Bounce 6 times, the next bullet's Bounce DMG +25%.",
+      "2": "After triggering Bounce 6 times, the next bullet's Bounce DMG +50%.",
+      "3": "After triggering Bounce 6 times, the next bullet's Bounce DMG +75%.",
+      "4": "After triggering Bounce 6 times, the next bullet's Bounce DMG +100%.",
+      "5": "After triggering Bounce 6 times, the next bullet's Bounce DMG +125%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "keywordDmgPct": 25.0
+      },
+      "2": {
+        "keywordDmgPct": 50.0
+      },
+      "3": {
+        "keywordDmgPct": 75.0
+      },
+      "4": {
+        "keywordDmgPct": 100.0
+      },
+      "5": {
+        "keywordDmgPct": 125.0
+      }
+    }
+  },
+  {
+    "id": "mod_9615",
+    "name": "Explosive Barrage",
+    "slot": "Mask",
+    "archetypeTag": "Fast Gunner",
+    "iconUrl": "./assets/images/mods/19500391.png",
+    "summary": "When in Fast Gunner state, Crit Rate +10%, and Weapon DMG +10%.",
+    "obtain": "Playing Securement Silo - EX1 has a chance to yield this.",
+    "mapLocationId": "securement-silo-197bec30",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "When in Fast Gunner state, Crit Rate +2%, and Weapon DMG +2%.",
+      "2": "When in Fast Gunner state, Crit Rate +4%, and Weapon DMG +4%.",
+      "3": "When in Fast Gunner state, Crit Rate +6%, and Weapon DMG +6%.",
+      "4": "When in Fast Gunner state, Crit Rate +8%, and Weapon DMG +8%.",
+      "5": "When in Fast Gunner state, Crit Rate +10%, and Weapon DMG +10%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "conditionalWeaponDmgPct": 2.0,
+        "critRatePct": 2.0
+      },
+      "2": {
+        "conditionalWeaponDmgPct": 4.0,
+        "critRatePct": 4.0
+      },
+      "3": {
+        "conditionalWeaponDmgPct": 6.0,
+        "critRatePct": 6.0
+      },
+      "4": {
+        "conditionalWeaponDmgPct": 8.0,
+        "critRatePct": 8.0
+      },
+      "5": {
+        "conditionalWeaponDmgPct": 10.0,
+        "critRatePct": 10.0
+      }
+    }
+  },
+  {
+    "id": "mod_9616",
+    "name": "Pinpoint Strike",
+    "slot": "Mask",
+    "archetypeTag": "Unstable Bomber",
+    "iconUrl": "./assets/images/mods/19500392.png",
+    "summary": "When Unstable Bomber hits only one enemy, Unstable Bomber final DMG +35%.",
+    "obtain": "Playing Securement Silo - EX1 has a chance to yield this.",
+    "mapLocationId": "securement-silo-197bec30",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "When Unstable Bomber hits only one enemy, Unstable Bomber final DMG +7%.",
+      "2": "When Unstable Bomber hits only one enemy, Unstable Bomber final DMG +14%.",
+      "3": "When Unstable Bomber hits only one enemy, Unstable Bomber final DMG +21%.",
+      "4": "When Unstable Bomber hits only one enemy, Unstable Bomber final DMG +28%.",
+      "5": "When Unstable Bomber hits only one enemy, Unstable Bomber final DMG +35%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9617",
+    "name": "Targeted Strike",
+    "slot": "Mask",
+    "archetypeTag": "The Bull's Eye",
+    "iconUrl": "./assets/images/mods/19500090.png",
+    "summary": "When hitting marked enemies, Crit Rate +10%, and Crit DMG +25%.",
+    "obtain": "Playing Securement Silo - EX1 has a chance to yield this.",
+    "mapLocationId": "securement-silo-197bec30",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "When hitting marked enemies, Crit Rate +2%, and Crit DMG +5%.",
+      "2": "When hitting marked enemies, Crit Rate +4%, and Crit DMG +10%.",
+      "3": "When hitting marked enemies, Crit Rate +6%, and Crit DMG +15%.",
+      "4": "When hitting marked enemies, Crit Rate +8%, and Crit DMG +20%.",
+      "5": "When hitting marked enemies, Crit Rate +10%, and Crit DMG +25%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "critDmgPct": 5.0,
+        "critRatePct": 2.0
+      },
+      "2": {
+        "critDmgPct": 10.0,
+        "critRatePct": 4.0
+      },
+      "3": {
+        "critDmgPct": 15.0,
+        "critRatePct": 6.0
+      },
+      "4": {
+        "critDmgPct": 20.0,
+        "critRatePct": 8.0
+      },
+      "5": {
+        "critDmgPct": 25.0,
+        "critRatePct": 10.0
+      }
+    }
+  },
+  {
+    "id": "mod_9618",
+    "name": "Thunderclap",
+    "slot": "Mask",
+    "archetypeTag": "Power Surge",
+    "iconUrl": "./assets/images/mods/19500293.png",
+    "summary": "After triggering Power Surge 20 times, the next hit summons Celestial Thunder (Shock DMG of 200% Psi Intensity).",
+    "obtain": "Playing Securement Silo - EX1 has a chance to yield this.",
+    "mapLocationId": "securement-silo-197bec30",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "After triggering Power Surge 20 times, the next weapon hit summons Celestial Thunder (Shock DMG of 40% Psi Intensity).",
+      "2": "After triggering Power Surge 20 times, the next hit summons Celestial Thunder (Shock DMG of 80% Psi Intensity).",
+      "3": "After triggering Power Surge 20 times, the next hit summons Celestial Thunder (Shock DMG of 120% Psi Intensity).",
+      "4": "After triggering Power Surge 20 times, the next hit summons Celestial Thunder (Shock DMG of 160% Psi Intensity).",
+      "5": "After triggering Power Surge 20 times, the next hit summons Celestial Thunder (Shock DMG of 200% Psi Intensity)."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9619",
+    "name": "Light Cannon",
+    "slot": "Mask",
+    "archetypeTag": "Fortress Warfare",
+    "iconUrl": "./assets/images/mods/19500395.png",
+    "summary": "No Super Armor inside Fortress Warfare. While in Fortress Warfare state, Attack +15%.",
+    "obtain": "Playing Securement Silo - EX1 has a chance to yield this.",
+    "mapLocationId": "securement-silo-197bec30",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "No Super Armor inside Fortress Warfare. While in Fortress Warfare state, Attack +3%.",
+      "2": "No Super Armor inside Fortress Warfare. While in Fortress Warfare state, Attack +6%.",
+      "3": "No Super Armor inside Fortress Warfare. While in Fortress Warfare state, Attack +9%.",
+      "4": "No Super Armor inside Fortress Warfare. While in Fortress Warfare state, Attack +12%.",
+      "5": "No Super Armor inside Fortress Warfare. While in Fortress Warfare state, Attack +15%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9620",
+    "name": "Unbreakable",
+    "slot": "Mask",
+    "archetypeTag": "Fortress Warfare",
+    "iconUrl": "./assets/images/mods/19500396.png",
+    "summary": "Fortress Warfare Range -30%. While in Fortress Warfare state, Attack +15%.",
+    "obtain": "Playing Securement Silo - EX1 has a chance to yield this.",
+    "mapLocationId": "securement-silo-197bec30",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Fortress Warfare Range -30%. While in Fortress Warfare state, Attack +3%.",
+      "2": "Fortress Warfare Range -30%. While in Fortress Warfare state, Attack +6%.",
+      "3": "Fortress Warfare Range -30%. While in Fortress Warfare state, Attack +9%.",
+      "4": "Fortress Warfare Range -30%. While in Fortress Warfare state, Attack +12%.",
+      "5": "Fortress Warfare Range -30%. While in Fortress Warfare state, Attack +15%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9621",
+    "name": "Retrusion Explosion",
+    "slot": "Mask",
+    "archetypeTag": "Burn",
+    "iconUrl": "./assets/images/mods/19500397.png",
+    "summary": "When hitting Burning enemies, Crit Rate +8%, and Crit DMG +20%.",
+    "obtain": "Playing Securement Silo - EX1 has a chance to yield this.",
+    "mapLocationId": "securement-silo-197bec30",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "When hitting Burning enemies, Crit Rate +1.6%, and Crit DMG +4%.",
+      "2": "When hitting Burning enemies, Crit Rate +3.2%, and Crit DMG +8%.",
+      "3": "When hitting Burning enemies, Crit Rate +4.8%, and Crit DMG +12%.",
+      "4": "When hitting Burning enemies, Crit Rate +6.4%, and Crit DMG +16%.",
+      "5": "When hitting Burning enemies, Crit Rate +8%, and Crit DMG +20%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "critDmgPct": 4.0,
+        "critRatePct": 1.6
+      },
+      "2": {
+        "critDmgPct": 8.0,
+        "critRatePct": 3.2
+      },
+      "3": {
+        "critDmgPct": 12.0,
+        "critRatePct": 4.8
+      },
+      "4": {
+        "critDmgPct": 16.0,
+        "critRatePct": 6.4
+      },
+      "5": {
+        "critDmgPct": 20.0,
+        "critRatePct": 8.0
+      }
+    }
+  },
+  {
+    "id": "mod_9622",
+    "name": "Shrapnel Carnage",
+    "slot": "Mask",
+    "archetypeTag": "Shrapnel",
+    "iconUrl": "./assets/images/mods/19500095.png",
+    "summary": "Shrapnel Weakspot Hit Weight +100%, Shrapnel Weakspot DMG +25%.",
+    "obtain": "Playing Securement Silo - EX1 has a chance to yield this.",
+    "mapLocationId": "securement-silo-197bec30",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Shrapnel Weakspot Hit Weight +20%, Shrapnel Weakspot DMG +5%.",
+      "2": "Shrapnel Weakspot Hit Weight +40%, Shrapnel Weakspot DMG +10%.",
+      "3": "Shrapnel Weakspot Hit Weight +60%, Shrapnel Weakspot DMG +15%.",
+      "4": "Shrapnel Weakspot Hit Weight +80%, Shrapnel Weakspot DMG +20%.",
+      "5": "Shrapnel Weakspot Hit Weight +100%, Shrapnel Weakspot DMG +25%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "weakspotDmgPct": 5.0
+      },
+      "2": {
+        "weakspotDmgPct": 10.0
+      },
+      "3": {
+        "weakspotDmgPct": 15.0
+      },
+      "4": {
+        "weakspotDmgPct": 20.0
+      },
+      "5": {
+        "weakspotDmgPct": 25.0
+      }
+    }
+  },
+  {
+    "id": "mod_9623",
+    "name": "First Electrocution",
+    "slot": "Mask",
+    "archetypeTag": "Power Surge",
+    "iconUrl": "./assets/images/mods/19500298.png",
+    "summary": "For enemies without Power Surge status, Power Surge's Ultimate DMG +35%.",
+    "obtain": "Playing Securement Silo - EX1 has a chance to yield this.",
+    "mapLocationId": "securement-silo-197bec30",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "For enemies without Power Surge status, Power Surge's Ultimate DMG +3%.",
+      "2": "For enemies without Power Surge status, Power Surge's Ultimate DMG +11%.",
+      "3": "For enemies without Power Surge status, Power Surge's Ultimate DMG +19%.",
+      "4": "For enemies without Power Surge status, Power Surge's Ultimate DMG +27%.",
+      "5": "For enemies without Power Surge status, Power Surge's Ultimate DMG +35%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9624",
+    "name": "Frostwave Wither",
+    "slot": "Mask",
+    "archetypeTag": "Frost Vortex",
+    "iconUrl": "./assets/images/mods/19500299.png",
+    "summary": "Frost Vortex's final DMG +30%, decreasing by 8% per second over time.",
+    "obtain": "Playing Securement Silo - EX1 has a chance to yield this.",
+    "mapLocationId": "securement-silo-197bec30",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Frost Vortex's final DMG +6%, decreasing by 1% per second over time.",
+      "2": "Frost Vortex's final DMG +12%, decreasing by 2% per second over time.",
+      "3": "Frost Vortex's final DMG +18%, decreasing by 4% per second over time.",
+      "4": "Frost Vortex's final DMG +24%, decreasing by 6% per second over time.",
+      "5": "Frost Vortex's final DMG +30%, decreasing by 8% per second over time."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9625",
+    "name": "Most Wanted",
+    "slot": "Mask",
+    "archetypeTag": "The Bull's Eye",
+    "iconUrl": "./assets/images/mods/19500098.png",
+    "summary": "Every time an enemy is marked, Attack +5% for 8s. Effect can stack up to 3 times.",
+    "obtain": "Playing Securement Silo - EX1 has a chance to yield this.",
+    "mapLocationId": "securement-silo-197bec30",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Every time an enemy is marked, Attack +1% for 8s. Effect can stack up to 3 times.",
+      "2": "Every time an enemy is marked, Attack +2% for 8s. Effect can stack up to 3 times.",
+      "3": "Every time an enemy is marked, Attack +3% for 8s. Effect can stack up to 3 times.",
+      "4": "Every time an enemy is marked, Attack +4% for 8s. Effect can stack up to 3 times.",
+      "5": "Every time an enemy is marked, Attack +5% for 8s. Effect can stack up to 3 times."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9626",
+    "name": "Break Bounce",
+    "slot": "Mask",
+    "archetypeTag": "Bounce",
+    "iconUrl": "./assets/images/mods/19500402.png",
+    "summary": "When a bullet hits an enemy above 50% HP, the bullet's final DMG +25%.",
+    "obtain": "Playing Securement Silo - EX1 has a chance to yield this.",
+    "mapLocationId": "securement-silo-197bec30",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "When a bullet hits an enemy above 50% HP, the bullet's final DMG +5%.",
+      "2": "When a bullet hits an enemy above 50% HP, the bullet's final DMG +10%.",
+      "3": "When a bullet hits an enemy above 50% HP, the bullet's final DMG +15%.",
+      "4": "When a bullet hits an enemy above 50% HP, the bullet's final DMG +20%.",
+      "5": "When a bullet hits an enemy above 50% HP, the bullet's final DMG +25%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_9627",
+    "name": "Blitzkrieg",
+    "slot": "Mask",
+    "archetypeTag": "Fast Gunner",
+    "iconUrl": "./assets/images/mods/19500403.png",
+    "summary": "Fast Gunner stacks +5 and additional Fire Rate +1% for each stack.",
+    "obtain": "Playing Securement Silo - EX1 has a chance to yield this.",
+    "mapLocationId": "securement-silo-197bec30",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Fast Gunner stacks +1 and additional Fire Rate +0.2% for each stack.",
+      "2": "Fast Gunner stacks +2 and additional Fire Rate +0.4% for each stack.",
+      "3": "Fast Gunner stacks +3 and additional Fire Rate +0.6% for each stack.",
+      "4": "Fast Gunner stacks +4 and additional Fire Rate +0.8% for each stack.",
+      "5": "Fast Gunner stacks +5 and additional Fire Rate +1% for each stack."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "fireRatePct": 0.2
+      },
+      "2": {
+        "fireRatePct": 0.4
+      },
+      "3": {
+        "fireRatePct": 0.6
+      },
+      "4": {
+        "fireRatePct": 0.8
+      },
+      "5": {
+        "fireRatePct": 1.0
+      }
+    }
+  },
+  {
+    "id": "mod_9628",
+    "name": "Delayed Blast",
+    "slot": "Mask",
+    "archetypeTag": "Unstable Bomber",
+    "iconUrl": "./assets/images/mods/19500404.png",
+    "summary": "Before the bomb explodes, for every 4 hits taken, the bomb's final DMG +25%.",
+    "obtain": "Playing Securement Silo - EX1 has a chance to yield this.",
+    "mapLocationId": "securement-silo-197bec30",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Before the bomb explodes, for every 4 hits taken, the bomb's final DMG +5%.",
+      "2": "Before the bomb explodes, for every 4 hits taken, the bomb's final DMG +10%.",
+      "3": "Before the bomb explodes, for every 4 hits taken, the bomb's final DMG +15%.",
+      "4": "Before the bomb explodes, for every 4 hits taken, the bomb's final DMG +20%.",
+      "5": "Before the bomb explodes, for every 4 hits taken, the bomb's final DMG +25%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_10101",
+    "name": "Shatter Them All",
+    "slot": "Weapon",
+    "archetypeTag": "Shrapnel",
+    "iconUrl": "./assets/images/mods/19500001.png",
+    "summary": "The more parts Shrapnel hits, the higher the Shrapnel DMG. Each part +15%, up to 45%.",
+    "obtain": "Chance to obtain by challenging the Shadow Hound of the Monolith of Thirst or the Forsaken Giant of the Emberdust Monolith.",
+    "mapLocationId": "monolith-737d1f67",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "The more parts Shrapnel hits, the higher the Shrapnel DMG. Each part +3%, up to 9%.",
+      "2": "The more parts Shrapnel hits, the higher the Shrapnel DMG. Each part +6%, up to 18%.",
+      "3": "The more parts Shrapnel hits, the higher the Shrapnel DMG. Each part +9%, up to 27%.",
+      "4": "The more parts Shrapnel hits, the higher the Shrapnel DMG. Each part +12%, up to 36%.",
+      "5": "The more parts Shrapnel hits, the higher the Shrapnel DMG. Each part +15%, up to 45%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_10102",
+    "name": "Shrapnel Souvenir",
+    "slot": "Weapon",
+    "archetypeTag": "Shrapnel",
+    "iconUrl": "./assets/images/mods/19500204.png",
+    "summary": "When Shrapnel hits a Weakspot, automatically refills 1 bullet(s) from inventory.",
+    "obtain": "Chance to obtain by challenging the Shadow Hound of the Monolith of Thirst or the Forsaken Giant of the Emberdust Monolith.",
+    "mapLocationId": "monolith-737d1f67",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "When Shrapnel hits a Weakspot, automatically refills 1 bullet(s) from inventory.",
+      "2": "When Shrapnel hits a Weakspot, automatically refills 1 bullet(s) from inventory.",
+      "3": "When Shrapnel hits a Weakspot, automatically refills 1 bullet(s) from inventory.",
+      "4": "When Shrapnel hits a Weakspot, automatically refills 1 bullet(s) from inventory.",
+      "5": "When Shrapnel hits a Weakspot, automatically refills 1 bullet(s) from inventory."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_10103",
+    "name": "Shrapnel Smash",
+    "slot": "Weapon",
+    "archetypeTag": "Shrapnel",
+    "iconUrl": "./assets/images/mods/19500003.png",
+    "summary": "Triggering Shrapnel grants Shrapnel Crit Rate +2% for 2s. Effect can stack up to 15 time(s).",
+    "obtain": "Chance to obtain by challenging the Shadow Hound of the Monolith of Thirst or the Forsaken Giant of the Emberdust Monolith.",
+    "mapLocationId": "monolith-737d1f67",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Triggering Shrapnel grants Shrapnel Crit Rate +2% for 2s. Effect can stack up to 15 time(s).",
+      "2": "Triggering Shrapnel grants Shrapnel Crit Rate +2% for 2s. Effect can stack up to 15 time(s).",
+      "3": "Triggering Shrapnel grants Shrapnel Crit Rate +2% for 2s. Effect can stack up to 15 time(s).",
+      "4": "Triggering Shrapnel grants Shrapnel Crit Rate +2% for 2s. Effect can stack up to 15 time(s).",
+      "5": "Triggering Shrapnel grants Shrapnel Crit Rate +2% for 2s. Effect can stack up to 15 time(s)."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "critRatePct": 2.0
+      },
+      "2": {
+        "critRatePct": 2.0
+      },
+      "3": {
+        "critRatePct": 2.0
+      },
+      "4": {
+        "critRatePct": 2.0
+      },
+      "5": {
+        "critRatePct": 2.0
+      }
+    }
+  },
+  {
+    "id": "mod_10104",
+    "name": "Shield Breaker",
+    "slot": "Weapon",
+    "archetypeTag": "Shrapnel",
+    "iconUrl": "./assets/images/mods/19500004.png",
+    "summary": "When hitting a shielded enemy, Shrapnel DMG +20% for 1s.",
+    "obtain": "Chance to obtain by challenging the Shadow Hound of the Monolith of Thirst or the Forsaken Giant of the Emberdust Monolith.",
+    "mapLocationId": "monolith-737d1f67",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "When hitting a shielded enemy, Shrapnel DMG +20% for 1s.",
+      "2": "When hitting a shielded enemy, Shrapnel DMG +20% for 1s.",
+      "3": "When hitting a shielded enemy, Shrapnel DMG +20% for 1s.",
+      "4": "When hitting a shielded enemy, Shrapnel DMG +20% for 1s.",
+      "5": "When hitting a shielded enemy, Shrapnel DMG +20% for 1s."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "keywordDmgPct": 20.0
+      },
+      "2": {
+        "keywordDmgPct": 20.0
+      },
+      "3": {
+        "keywordDmgPct": 20.0
+      },
+      "4": {
+        "keywordDmgPct": 20.0
+      },
+      "5": {
+        "keywordDmgPct": 20.0
+      }
+    }
+  },
+  {
+    "id": "mod_10201",
+    "name": "Flame Resonance (All Weapons)",
+    "slot": "Weapon",
+    "archetypeTag": "Burn",
+    "iconUrl": "./assets/images/mods/19500312.png",
+    "summary": "Max Burn stack +2, Burn duration -20%",
+    "obtain": "Chance to obtain by challenging the Ravenous Hunter of the Monolith of Greed or the Treant of the Avalanche Monolith.",
+    "mapLocationId": "monolith-9e0b23a5",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Max Burn stack +2, Burn duration -20%",
+      "2": "Max Burn stack +2, Burn duration -20%",
+      "3": "Max Burn stack +2, Burn duration -20%",
+      "4": "Max Burn stack +2, Burn duration -20%.",
+      "5": "Max Burn stack +2, Burn duration -20%"
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_10202",
+    "name": "Embers",
+    "slot": "Weapon",
+    "archetypeTag": "Burn",
+    "iconUrl": "./assets/images/mods/19500313.png",
+    "summary": "When Burn is removed, stacks only -50%.",
+    "obtain": "Chance to obtain by challenging the Ravenous Hunter of the Monolith of Greed or the Treant of the Avalanche Monolith.",
+    "mapLocationId": "monolith-9e0b23a5",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "When Burn is removed, stacks only -50%.",
+      "2": "When Burn is removed, stacks only -50%.",
+      "3": "When Burn is removed, stacks only -50%.",
+      "4": "When Burn is removed, stacks only -50%.",
+      "5": "When Burn is removed, stacks only -50%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_10203",
+    "name": "Blaze Blessing",
+    "slot": "Weapon",
+    "archetypeTag": "Burn",
+    "iconUrl": "./assets/images/mods/19500314.png",
+    "summary": "When defeating an enemy affected by Burn, recover 5% HP.",
+    "obtain": "Chance to obtain by challenging the Ravenous Hunter of the Monolith of Greed or the Treant of the Avalanche Monolith.",
+    "mapLocationId": "monolith-9e0b23a5",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "When defeating an enemy affected by Burn, recover 1% HP.",
+      "2": "When defeating an enemy affected by Burn, recover 2% HP.",
+      "3": "When defeating an enemy affected by Burn, recover 3% HP.",
+      "4": "When defeating an enemy affected by Burn, recover 4% HP.",
+      "5": "When defeating an enemy affected by Burn, recover 5% HP."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_10204",
+    "name": "Burning Wrath",
+    "slot": "Weapon",
+    "archetypeTag": "Burn",
+    "iconUrl": "./assets/images/mods/19500315.png",
+    "summary": "Triggering Burn has a 25% chance to grant +1 Burn stack(s).",
+    "obtain": "Chance to obtain by challenging the Ravenous Hunter of the Monolith of Greed or the Treant of the Avalanche Monolith.",
+    "mapLocationId": "monolith-9e0b23a5",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Triggering Burn has a 25% chance to grant +1 Burn stack(s).",
+      "2": "Triggering Burn has a 25% chance to grant +1 Burn stack(s).",
+      "3": "Triggering Burn has a 25% chance to grant +1 Burn stack(s).",
+      "4": "Triggering Burn has a 25% chance to grant +1 Burn stack(s).",
+      "5": "Triggering Burn has a 25% chance to grant +1 Burn stack(s)."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_10301",
+    "name": "Shock Rampage",
+    "slot": "Weapon",
+    "archetypeTag": "Power Surge",
+    "iconUrl": "./assets/images/mods/19500231.png",
+    "summary": "Inflicting Power Surge grants +5% Power Surge Trigger Chance (based on weapon's Trigger Chance) for 5s, up to 4 stack(s).",
+    "obtain": "Chance to obtain by challenging the Treant of the Gaia Cliff Monolith or the Secret Servitor of the Tundra Monolith.",
+    "mapLocationId": "monolith-c4e3ac7b",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Inflicting Power Surge grants +1% Power Surge Trigger Chance (based on weapon's Trigger Chance) for 5s, up to 4 stack(s).",
+      "2": "Inflicting Power Surge grants +2% Power Surge Trigger Chance (based on weapon's Trigger Chance) for 5s, up to 4 stack(s).",
+      "3": "Inflicting Power Surge grants +3% Power Surge Trigger Chance (based on weapon's Trigger Chance) for 5s, up to 4 stack(s).",
+      "4": "Inflicting Power Surge grants +4% Power Surge Trigger Chance (based on weapon's Trigger Chance) for 5s, up to 4 stack(s).",
+      "5": "Inflicting Power Surge grants +5% Power Surge Trigger Chance (based on weapon's Trigger Chance) for 5s, up to 4 stack(s)."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_10302",
+    "name": "Shock Diffusion",
+    "slot": "Weapon",
+    "archetypeTag": "Power Surge",
+    "iconUrl": "./assets/images/mods/19500232.png",
+    "summary": "When triggering Power Surge, apply the Power Surge Status to 1 enemy(s) within 10m of the target (prioritizes enemies that are not affected by Power Surge Status).",
+    "obtain": "Chance to obtain by challenging the Treant of the Gaia Cliff Monolith or the Secret Servitor of the Tundra Monolith.",
+    "mapLocationId": "monolith-c4e3ac7b",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "When triggering Power Surge, apply the Power Surge Status to 1 enemy(s) within 10m of the target (prioritizes enemies that are not affected by Power Surge Status).",
+      "2": "When triggering Power Surge, apply the Power Surge Status to 1 enemy(s) within 10m of the target (prioritizes enemies that are not affected by Power Surge Status).",
+      "3": "When triggering Power Surge, apply the Power Surge Status to 1 enemy(s) within 10m of the target (prioritizes enemies that are not affected by Power Surge Status).",
+      "4": "When triggering Power Surge, apply the Power Surge Status to 1 enemy(s) within 10m of the target (prioritizes enemies that are not affected by Power Surge Status).",
+      "5": "When triggering Power Surge, apply the Power Surge Status to 1 enemy(s) within 10m of the target (prioritizes enemies that are not affected by Power Surge Status)."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_10303",
+    "name": "Static Shock",
+    "slot": "Weapon",
+    "archetypeTag": "Power Surge",
+    "iconUrl": "./assets/images/mods/19500233.png",
+    "summary": "Power Surge Status duration -50%, and Power Surge DMG +20%.",
+    "obtain": "Chance to obtain by challenging the Treant of the Gaia Cliff Monolith or the Secret Servitor of the Tundra Monolith.",
+    "mapLocationId": "monolith-c4e3ac7b",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Power Surge Status duration -50%, and Power Surge DMG +20%.",
+      "2": "Power Surge Status duration -50%, and Power Surge DMG +20%.",
+      "3": "Power Surge Status duration -50%, and Power Surge DMG +20%.",
+      "4": "Power Surge Status duration -50%, and Power Surge DMG +20%.",
+      "5": "Power Surge Status duration -50%, and Power Surge DMG +20%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "keywordDmgPct": 20.0
+      },
+      "2": {
+        "keywordDmgPct": 20.0
+      },
+      "3": {
+        "keywordDmgPct": 20.0
+      },
+      "4": {
+        "keywordDmgPct": 20.0
+      },
+      "5": {
+        "keywordDmgPct": 20.0
+      }
+    }
+  },
+  {
+    "id": "mod_10304",
+    "name": "Surge Amplifier",
+    "slot": "Weapon",
+    "archetypeTag": "Power Surge",
+    "iconUrl": "./assets/images/mods/19500234.png",
+    "summary": "Inflicting Power Surge grants Power Surge DMG +5% for 3s, up to 4 stack(s).",
+    "obtain": "Chance to obtain by challenging the Treant of the Gaia Cliff Monolith or the Secret Servitor of the Tundra Monolith.",
+    "mapLocationId": "monolith-c4e3ac7b",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Inflicting Power Surge grants Power Surge DMG +5% for 3s, up to 4 stack(s).",
+      "2": "Inflicting Power Surge grants Power Surge DMG +5% for 3s, up to 4 stack(s).",
+      "3": "Inflicting Power Surge grants Power Surge DMG +5% for 3s, up to 4 stack(s).",
+      "4": "Inflicting Power Surge grants Power Surge DMG +5% for 3s, up to 4 stack(s).",
+      "5": "Inflicting Power Surge grants Power Surge DMG +5% for 3s, up to 4 stack(s)."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "keywordDmgPct": 5.0
+      },
+      "2": {
+        "keywordDmgPct": 5.0
+      },
+      "3": {
+        "keywordDmgPct": 5.0
+      },
+      "4": {
+        "keywordDmgPct": 5.0
+      },
+      "5": {
+        "keywordDmgPct": 5.0
+      }
+    }
+  },
+  {
+    "id": "mod_10401",
+    "name": "Shattering Ice",
+    "slot": "Weapon",
+    "archetypeTag": "Frost Vortex",
+    "iconUrl": "./assets/images/mods/19500207.png",
+    "summary": "When an enemy at the center of the Frost Vortex is defeated, deal 50% Psi Intensity Ice DMG to enemies within 1m once.",
+    "obtain": "Chance to obtain by challenging the Ravenous Hunter of the Monolith of Greed or the Secret Servitor of the Tundra Monolith.",
+    "mapLocationId": "monolith-9e0b23a5",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "When an enemy at the center of the Frost Vortex is defeated, deal 10% Psi Intensity Ice DMG to enemies within 1m once.",
+      "2": "When an enemy at the center of the Frost Vortex is defeated, deal 20% Psi Intensity Ice DMG to enemies within 1m once.",
+      "3": "When an enemy at the center of the Frost Vortex is defeated, deal 30% Psi Intensity Ice DMG to enemies within 1m once.",
+      "4": "When an enemy at the center of the Frost Vortex is defeated, deal 40% Psi Intensity Ice DMG to enemies within 1m once.",
+      "5": "When an enemy at the center of the Frost Vortex is defeated, deal 50% Psi Intensity Ice DMG to enemies within 1m once."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_10402",
+    "name": "Cryo Blast",
+    "slot": "Weapon",
+    "archetypeTag": "Frost Vortex",
+    "iconUrl": "./assets/images/mods/19500208.png",
+    "summary": "After triggering Frost Vortex, increases Frost Vortex DMG by +4%, up to 5 stacks, lasting 4s.",
+    "obtain": "Chance to obtain by challenging the Ravenous Hunter of the Monolith of Greed or the Secret Servitor of the Tundra Monolith.",
+    "mapLocationId": "monolith-9e0b23a5",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "After triggering Frost Vortex, increases Frost Vortex DMG by +4%, up to 5 stacks, lasting 4s.",
+      "2": "After triggering Frost Vortex, increases Frost Vortex DMG by +4%, up to 5 stacks, lasting 4s.",
+      "3": "After triggering Frost Vortex, increases Frost Vortex DMG by +4%, up to 5 stacks, lasting 4s.",
+      "4": "After triggering Frost Vortex, increases Frost Vortex DMG by +4%, up to 5 stacks, lasting 4s.",
+      "5": "After triggering Frost Vortex, increases Frost Vortex DMG by +4%, up to 5 stacks, lasting 4s."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_10403",
+    "name": "Cryo Catalyst",
+    "slot": "Weapon",
+    "archetypeTag": "Frost Vortex",
+    "iconUrl": "./assets/images/mods/19500209.png",
+    "summary": "Frost Vortex DMG +10%. After triggering an ice construct (Ice Spike, Ice Missile, Ice Crystal, Ice Shard, Ice Spear), Frost Vortex DMG +5% for 6s.",
+    "obtain": "Chance to obtain by challenging the Ravenous Hunter of the Monolith of Greed or the Secret Servitor of the Tundra Monolith.",
+    "mapLocationId": "monolith-9e0b23a5",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Frost Vortex DMG +10%. After triggering an ice construct (Ice Spike, Ice Missile, Ice Crystal, Ice Shard, Ice Spear), Frost Vortex DMG +5% for 6s.",
+      "2": "Frost Vortex DMG +10%. After triggering an ice construct (Ice Spike, Ice Missile, Ice Crystal, Ice Shard, Ice Spear), Frost Vortex DMG +5% for 6s.",
+      "3": "Frost Vortex DMG +10%. After triggering an ice construct (Ice Spike, Ice Missile, Ice Crystal, Ice Shard, Ice Spear), Frost Vortex DMG +5% for 6s.",
+      "4": "Frost Vortex DMG +10%. After triggering an ice construct (Ice Spike, Ice Missile, Ice Crystal, Ice Shard, Ice Spear), Frost Vortex DMG +5% for 6s.",
+      "5": "Frost Vortex DMG +10%. After triggering an ice construct (Ice Spike, Ice Missile, Ice Crystal, Ice Shard, Ice Spear), Frost Vortex DMG +5% for 6s."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "keywordDmgPct": 15.0
+      },
+      "2": {
+        "keywordDmgPct": 15.0
+      },
+      "3": {
+        "keywordDmgPct": 15.0
+      },
+      "4": {
+        "keywordDmgPct": 15.0
+      },
+      "5": {
+        "keywordDmgPct": 15.0
+      }
+    }
+  },
+  {
+    "id": "mod_10404",
+    "name": "Frosty Blessing",
+    "slot": "Weapon",
+    "archetypeTag": "Frost Vortex",
+    "iconUrl": "./assets/images/mods/19500210.png",
+    "summary": "When Frost Vortex disappears, restore 10% HP.",
+    "obtain": "Chance to obtain by challenging the Ravenous Hunter of the Monolith of Greed or the Secret Servitor of the Tundra Monolith.",
+    "mapLocationId": "monolith-9e0b23a5",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "When Frost Vortex disappears, restore 10% HP.",
+      "2": "When Frost Vortex disappears, restore 10% HP.",
+      "3": "When Frost Vortex disappears, restore 10% HP.",
+      "4": "When Frost Vortex disappears, restore 10% HP.",
+      "5": "When Frost Vortex disappears, restore 10% HP."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_10501",
+    "name": "Recover Mark",
+    "slot": "Weapon",
+    "archetypeTag": "The Bull's Eye",
+    "iconUrl": "./assets/images/mods/19500025.png",
+    "summary": "When defeating marked enemies, recover 15% HP and 25% Stamina.",
+    "obtain": "Chance to obtain by challenging the Arachsiam of the Mirage Monolith or the Forsaken Giant of the Emberdust Monolith.",
+    "mapLocationId": "monolith-da9acc1e",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "When defeating marked enemies, recover 3% HP and 5% Stamina.",
+      "2": "When defeating marked enemies, recover 6% HP and 10% Stamina.",
+      "3": "When defeating marked enemies, recover 9% HP and 15% Stamina.",
+      "4": "When defeating marked enemies, recover 12% HP and 20% Stamina.",
+      "5": "When defeating marked enemies, recover 15% HP and 25% Stamina."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_10502",
+    "name": "Hunter's Perk",
+    "slot": "Weapon",
+    "archetypeTag": "The Bull's Eye",
+    "iconUrl": "./assets/images/mods/19500026.png",
+    "summary": "Marked enemies DMG vs. Metas -20%.",
+    "obtain": "Chance to obtain by challenging the Arachsiam of the Mirage Monolith or the Forsaken Giant of the Emberdust Monolith.",
+    "mapLocationId": "monolith-da9acc1e",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Marked enemies DMG vs. Metas -20%.",
+      "2": "Marked enemies DMG vs. Metas -20%.",
+      "3": "Marked enemies DMG vs. Metas -20%.",
+      "4": "Marked enemies DMG vs. Metas -20%.",
+      "5": "Marked enemies DMG vs. Metas -20%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_10503",
+    "name": "Spreading Marks",
+    "slot": "Weapon",
+    "archetypeTag": "The Bull's Eye",
+    "iconUrl": "./assets/images/mods/19500027.png",
+    "summary": "When a marked enemy is defeated, The Bull's Eye will spread to 1 enemy(s) within 15m.",
+    "obtain": "Chance to obtain by challenging the Arachsiam of the Mirage Monolith or the Forsaken Giant of the Emberdust Monolith.",
+    "mapLocationId": "monolith-da9acc1e",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "When a marked enemy is defeated, The Bull's Eye will spread to 1 enemy(s) within 15m.",
+      "2": "When a marked enemy is defeated, The Bull's Eye will spread to 1 enemy(s) within 15m.",
+      "3": "When a marked enemy is defeated, The Bull's Eye will spread to 1 enemy(s) within 15m.",
+      "4": "When a marked enemy is defeated, The Bull's Eye will spread to 1 enemy(s) within 15m.",
+      "5": "When a marked enemy is defeated, The Bull's Eye will spread to 1 enemy(s) within 15m."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_10504",
+    "name": "Vulnerability Amplifier",
+    "slot": "Weapon",
+    "archetypeTag": "The Bull's Eye",
+    "iconUrl": "./assets/images/mods/19500028.png",
+    "summary": "The Bull's Eye adds Vulnerability +8%.",
+    "obtain": "Chance to obtain by challenging the Arachsiam of the Mirage Monolith or the Forsaken Giant of the Emberdust Monolith.",
+    "mapLocationId": "monolith-da9acc1e",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "The Bull's Eye adds Vulnerability +8%.",
+      "2": "The Bull's Eye adds Vulnerability +8%.",
+      "3": "The Bull's Eye adds Vulnerability +8%.",
+      "4": "The Bull's Eye adds Vulnerability +8%.",
+      "5": "The Bull's Eye adds Vulnerability +8%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_10601",
+    "name": "United We Stand",
+    "slot": "Weapon",
+    "archetypeTag": "Fortress Warfare",
+    "iconUrl": "./assets/images/mods/19500336.png",
+    "summary": "The more players inside Fortress Warfare, the greater the Weapon DMG bonus, up to 40%.",
+    "obtain": "Chance to obtain by challenging the Arachsiam of the Mirage Monolith or the Treant of the Avalanche Monolith.",
+    "mapLocationId": "monolith-da9acc1e",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "The more players inside Fortress Warfare, the greater the Weapon DMG bonus, up to 40%.",
+      "2": "The more players inside Fortress Warfare, the greater the Weapon DMG bonus, up to 40%.",
+      "3": "The more players inside Fortress Warfare, the greater the Weapon DMG bonus, up to 40%.",
+      "4": "The more players inside Fortress Warfare, the greater the Weapon DMG bonus, up to 40%.",
+      "5": "The more players inside Fortress Warfare, the greater the Weapon DMG bonus, up to 40%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "conditionalWeaponDmgPct": 40.0
+      },
+      "2": {
+        "conditionalWeaponDmgPct": 40.0
+      },
+      "3": {
+        "conditionalWeaponDmgPct": 40.0
+      },
+      "4": {
+        "conditionalWeaponDmgPct": 40.0
+      },
+      "5": {
+        "conditionalWeaponDmgPct": 40.0
+      }
+    }
+  },
+  {
+    "id": "mod_10602",
+    "name": "Durable Territory",
+    "slot": "Weapon",
+    "archetypeTag": "Fortress Warfare",
+    "iconUrl": "./assets/images/mods/19500337.png",
+    "summary": "Every hit landed while in Fortress Warfare state will extend the Fortress Warfare effect by 1s, up to 5s.",
+    "obtain": "Chance to obtain by challenging the Arachsiam of the Mirage Monolith or the Treant of the Avalanche Monolith.",
+    "mapLocationId": "monolith-da9acc1e",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Every hit landed while in Fortress Warfare state will extend the Fortress Warfare effect by 1s, up to 5s.",
+      "2": "Every hit landed while in Fortress Warfare state will extend the Fortress Warfare effect by 1s, up to 5s.",
+      "3": "Every hit landed while in Fortress Warfare state will extend the Fortress Warfare effect by 1s, up to 5s.",
+      "4": "Every hit landed while in Fortress Warfare state will extend the Fortress Warfare effect by 1s, up to 5s.",
+      "5": "Every hit landed while in Fortress Warfare state will extend the Fortress Warfare effect by 1s, up to 5s."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_10603",
+    "name": "Portable Territory",
+    "slot": "Weapon",
+    "archetypeTag": "Fortress Warfare",
+    "iconUrl": "./assets/images/mods/19500338.png",
+    "summary": "After leaving Fortress Warfare, the Fortress Warfare state will remain for 2s.",
+    "obtain": "Chance to obtain by challenging the Arachsiam of the Mirage Monolith or the Treant of the Avalanche Monolith.",
+    "mapLocationId": "monolith-da9acc1e",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "After leaving Fortress Warfare, the Fortress Warfare state will remain for 2s.",
+      "2": "After leaving Fortress Warfare, the Fortress Warfare state will remain for 2s.",
+      "3": "After leaving Fortress Warfare, the Fortress Warfare state will remain for 2s.",
+      "4": "After leaving Fortress Warfare, the Fortress Warfare state will remain for 2s.",
+      "5": "After leaving Fortress Warfare, the Fortress Warfare state will remain for 2s."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_10604",
+    "name": "Final Territory",
+    "slot": "Weapon",
+    "archetypeTag": "Fortress Warfare",
+    "iconUrl": "./assets/images/mods/19500339.png",
+    "summary": "When Fortress Warfare ends, Weapon DMG +10%, Movement Speed +10% for 10s.",
+    "obtain": "Chance to obtain by challenging the Arachsiam of the Mirage Monolith or the Treant of the Avalanche Monolith.",
+    "mapLocationId": "monolith-da9acc1e",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "When Fortress Warfare ends, Weapon DMG +2%, Movement Speed +2% for 10s.",
+      "2": "When Fortress Warfare ends, Weapon DMG +4%, Movement Speed +4% for 10s.",
+      "3": "When Fortress Warfare ends, Weapon DMG +6%, Movement Speed +6% for 10s.",
+      "4": "When Fortress Warfare ends, Weapon DMG +8%, Movement Speed +8% for 10s.",
+      "5": "When Fortress Warfare ends, Weapon DMG +10%, Movement Speed +10% for 10s."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "conditionalWeaponDmgPct": 2.0
+      },
+      "2": {
+        "conditionalWeaponDmgPct": 4.0
+      },
+      "3": {
+        "conditionalWeaponDmgPct": 6.0
+      },
+      "4": {
+        "conditionalWeaponDmgPct": 8.0
+      },
+      "5": {
+        "conditionalWeaponDmgPct": 10.0
+      }
+    }
+  },
+  {
+    "id": "mod_10701",
+    "name": "Super Bullet",
+    "slot": "Weapon",
+    "archetypeTag": "Bounce",
+    "iconUrl": "./assets/images/mods/19500316.png",
+    "summary": "Bounce Crit Rate +10%, Bounce Crit DMG +25%.",
+    "obtain": "Chance to obtain by challenging the Shadow Hound of the Monolith of Thirst or the Treant of the Avalanche Monolith.",
+    "mapLocationId": "monolith-737d1f67",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Bounce Crit Rate +2%, Bounce Crit DMG +5%.",
+      "2": "Bounce Crit Rate +4%, Bounce Crit DMG +10%.",
+      "3": "Bounce Crit Rate +6%, Bounce Crit DMG +15%.",
+      "4": "Bounce Crit Rate +8%, Bounce Crit DMG +20%.",
+      "5": "Bounce Crit Rate +10%, Bounce Crit DMG +25%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "critDmgPct": 5.0,
+        "critRatePct": 2.0
+      },
+      "2": {
+        "critDmgPct": 10.0,
+        "critRatePct": 4.0
+      },
+      "3": {
+        "critDmgPct": 15.0,
+        "critRatePct": 6.0
+      },
+      "4": {
+        "critDmgPct": 20.0,
+        "critRatePct": 8.0
+      },
+      "5": {
+        "critDmgPct": 25.0,
+        "critRatePct": 10.0
+      }
+    }
+  },
+  {
+    "id": "mod_10702",
+    "name": "Multi-Bounce",
+    "slot": "Weapon",
+    "archetypeTag": "Bounce",
+    "iconUrl": "./assets/images/mods/19500317.png",
+    "summary": "The more Bounces, the higher the damage, up to +45% (7.5% per Bounce).",
+    "obtain": "Chance to obtain by challenging the Shadow Hound of the Monolith of Thirst or the Treant of the Avalanche Monolith.",
+    "mapLocationId": "monolith-737d1f67",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "The more Bounces, the higher the damage, up to +45% (7.5% per Bounce).",
+      "2": "The more Bounces, the higher the damage, up to +45% (7.5% per Bounce).",
+      "3": "The more Bounces, the higher the damage, up to +45% (7.5% per Bounce).",
+      "4": "The more Bounces, the higher the damage, up to +45% (7.5% per Bounce).",
+      "5": "The more Bounces, the higher the damage, up to +45% (7.5% per Bounce)."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_10703",
+    "name": "Boomerang Bullet",
+    "slot": "Weapon",
+    "archetypeTag": "Bounce",
+    "iconUrl": "./assets/images/mods/19500318.png",
+    "summary": "Each time Bounce is triggered, its trigger chance +2% (based on the weapon's trigger chance), lasting for 5s and stacking up to 10 time(s).",
+    "obtain": "Chance to obtain by challenging the Shadow Hound of the Monolith of Thirst or the Treant of the Avalanche Monolith.",
+    "mapLocationId": "monolith-737d1f67",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Each time Bounce is triggered, its trigger chance +2% (based on the weapon's trigger chance), lasting for 5s and stacking up to 10 time(s).",
+      "2": "Each time Bounce is triggered, its trigger chance +2% (based on the weapon's trigger chance), lasting for 5s and stacking up to 10 time(s).",
+      "3": "Each time Bounce is triggered, its trigger chance +2% (based on the weapon's trigger chance), lasting for 5s and stacking up to 10 time(s).",
+      "4": "Each time Bounce is triggered, its trigger chance +2% (based on the weapon's trigger chance), lasting for 5s and stacking up to 10 time(s).",
+      "5": "Each time Bounce is triggered, its trigger chance +2% (based on the weapon's trigger chance), lasting for 5s and stacking up to 10 time(s)."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_10704",
+    "name": "Bounce Rampage",
+    "slot": "Weapon",
+    "archetypeTag": "Bounce",
+    "iconUrl": "./assets/images/mods/19500319.png",
+    "summary": "The more selectable targets Bounce has, the higher the Bounce DMG, up to +45% (15% per target).",
+    "obtain": "Chance to obtain by challenging the Shadow Hound of the Monolith of Thirst or the Treant of the Avalanche Monolith.",
+    "mapLocationId": "monolith-737d1f67",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "The more selectable targets Bounce has, the higher the Bounce DMG, up to +45% (15% per target).",
+      "2": "The more selectable targets Bounce has, the higher the Bounce DMG, up to +45% (15% per target).",
+      "3": "The more selectable targets Bounce has, the higher the Bounce DMG, up to +45% (15% per target).",
+      "4": "The more selectable targets Bounce has, the higher the Bounce DMG, up to +45% (15% per target).",
+      "5": "The more selectable targets Bounce has, the higher the Bounce DMG, up to +45% (15% per target)."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_10801",
+    "name": "Super Charged",
+    "slot": "Weapon",
+    "archetypeTag": "Unstable Bomber",
+    "iconUrl": "./assets/images/mods/19500324.png",
+    "summary": "Triggering Unstable Bomber grants Unstable Bomber DMG +5% for 3s. Effect can stack up to 6 times.",
+    "obtain": "Chance to obtain by challenging the Treant of the Gaia Cliff Monolith or the Secret Servitor of the Tundra Monolith.",
+    "mapLocationId": "monolith-c4e3ac7b",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Triggering Unstable Bomber grants Unstable Bomber DMG +1% for 3s. Effect can stack up to 6 times.",
+      "2": "Triggering Unstable Bomber grants Unstable Bomber DMG +2% for 3s. Effect can stack up to 6 times.",
+      "3": "Triggering Unstable Bomber grants Unstable Bomber DMG +3% for 3s. Effect can stack up to 6 times.",
+      "4": "Triggering Unstable Bomber grants Unstable Bomber DMG +4% for 3s. Effect can stack up to 6 times.",
+      "5": "Triggering Unstable Bomber grants Unstable Bomber DMG +5% for 3s. Effect can stack up to 6 times."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "keywordDmgPct": 1.0
+      },
+      "2": {
+        "keywordDmgPct": 2.0
+      },
+      "3": {
+        "keywordDmgPct": 3.0
+      },
+      "4": {
+        "keywordDmgPct": 4.0
+      },
+      "5": {
+        "keywordDmgPct": 5.0
+      }
+    }
+  },
+  {
+    "id": "mod_10802",
+    "name": "Reckless Bomber",
+    "slot": "Weapon",
+    "archetypeTag": "Unstable Bomber",
+    "iconUrl": "./assets/images/mods/19500325.png",
+    "summary": "For every 1% Crit Rate, Unstable Bomber DMG +0.5%.",
+    "obtain": "Chance to obtain by challenging the Treant of the Gaia Cliff Monolith or the Secret Servitor of the Tundra Monolith.",
+    "mapLocationId": "monolith-c4e3ac7b",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "For every 1% Crit Rate, Unstable Bomber DMG +0.5%.",
+      "2": "For every 1% Crit Rate, Unstable Bomber DMG +0.5%.",
+      "3": "For every 1% Crit Rate, Unstable Bomber DMG +0.5%.",
+      "4": "For every 1% Crit Rate, Unstable Bomber DMG +0.5%.",
+      "5": "For every 1% Crit Rate, Unstable Bomber DMG +0.5%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "keywordDmgPct": 0.5
+      },
+      "2": {
+        "keywordDmgPct": 0.5
+      },
+      "3": {
+        "keywordDmgPct": 0.5
+      },
+      "4": {
+        "keywordDmgPct": 0.5
+      },
+      "5": {
+        "keywordDmgPct": 0.5
+      }
+    }
+  },
+  {
+    "id": "mod_10803",
+    "name": "Bombardier Souvenir",
+    "slot": "Weapon",
+    "archetypeTag": "Unstable Bomber",
+    "iconUrl": "./assets/images/mods/19500326.png",
+    "summary": "When triggering Unstable Bomber, automatically refill 10% of your magazine.",
+    "obtain": "Chance to obtain by challenging the Treant of the Gaia Cliff Monolith or the Secret Servitor of the Tundra Monolith.",
+    "mapLocationId": "monolith-c4e3ac7b",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "When triggering Unstable Bomber, automatically refill 10% of your magazine.",
+      "2": "When triggering Unstable Bomber, automatically refill 10% of your magazine.",
+      "3": "When triggering Unstable Bomber, automatically refill 10% of your magazine.",
+      "4": "When triggering Unstable Bomber, automatically refill 10% of your magazine.",
+      "5": "When triggering Unstable Bomber, automatically refill 10% of your magazine."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_10804",
+    "name": "Heavy Explosives",
+    "slot": "Weapon",
+    "archetypeTag": "Unstable Bomber",
+    "iconUrl": "./assets/images/mods/19500327.png",
+    "summary": "Unstable Bomber inflicts stagger on enemies and deals 40% less damage to you.",
+    "obtain": "Chance to obtain by challenging the Treant of the Gaia Cliff Monolith or the Secret Servitor of the Tundra Monolith.",
+    "mapLocationId": "monolith-c4e3ac7b",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "deviant_energy",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Unstable Bomber inflicts stagger on enemies and deals 40% less damage to you.",
+      "2": "Unstable Bomber inflicts stagger on enemies and deals 40% less damage to you.",
+      "3": "Unstable Bomber inflicts stagger on enemies and deals 40% less damage to you.",
+      "4": "Unstable Bomber inflicts stagger on enemies and deals 40% less damage to you.",
+      "5": "Unstable Bomber inflicts stagger on enemies and deals 40% less damage to you."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  },
+  {
+    "id": "mod_10901",
+    "name": "Shoot Out",
+    "slot": "Weapon",
+    "archetypeTag": "Fast Gunner",
+    "iconUrl": "./assets/images/mods/19500320.png",
+    "summary": "When triggering Fast Gunner, Weapon DMG +1.5% for 10s, up to 20 stack(s).",
+    "obtain": "Chance to obtain by challenging the Arachsiam of the Mirage Monolith or the Forsaken Giant of the Emberdust Monolith.",
+    "mapLocationId": "monolith-da9acc1e",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "When triggering Fast Gunner, Weapon DMG +0.3% for 10s, up to 20 stack(s).",
+      "2": "When triggering Fast Gunner, Weapon DMG +0.6% for 10s, up to 20 stack(s).",
+      "3": "When triggering Fast Gunner, Weapon DMG +0.9% for 10s, up to 20 stack(s).",
+      "4": "When triggering Fast Gunner, Weapon DMG +1.2% for 10s, up to 20 stack(s).",
+      "5": "When triggering Fast Gunner, Weapon DMG +1.5% for 10s, up to 20 stack(s)."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "conditionalWeaponDmgPct": 0.3
+      },
+      "2": {
+        "conditionalWeaponDmgPct": 0.6
+      },
+      "3": {
+        "conditionalWeaponDmgPct": 0.9
+      },
+      "4": {
+        "conditionalWeaponDmgPct": 1.2
+      },
+      "5": {
+        "conditionalWeaponDmgPct": 1.5
+      }
+    }
+  },
+  {
+    "id": "mod_10902",
+    "name": "Precision Rush",
+    "slot": "Weapon",
+    "archetypeTag": "Fast Gunner",
+    "iconUrl": "./assets/images/mods/19500321.png",
+    "summary": "When Fast Gunner is active, increase Weakspot DMG for 3s, up to +45%.",
+    "obtain": "Chance to obtain by challenging the Arachsiam of the Mirage Monolith or the Forsaken Giant of the Emberdust Monolith.",
+    "mapLocationId": "monolith-da9acc1e",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "When Fast Gunner is active, increase Weakspot DMG for 3s, up to +45%.",
+      "2": "When Fast Gunner is active, increase Weakspot DMG for 3s, up to +45%.",
+      "3": "When Fast Gunner is active, increase Weakspot DMG for 3s, up to +45%.",
+      "4": "When Fast Gunner is active, increase Weakspot DMG for 3s, up to +45%.",
+      "5": "When Fast Gunner is active, increase Weakspot DMG for 3s, up to +45%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "weakspotDmgPct": 45.0
+      },
+      "2": {
+        "weakspotDmgPct": 45.0
+      },
+      "3": {
+        "weakspotDmgPct": 45.0
+      },
+      "4": {
+        "weakspotDmgPct": 45.0
+      },
+      "5": {
+        "weakspotDmgPct": 45.0
+      }
+    }
+  },
+  {
+    "id": "mod_10903",
+    "name": "Shooting Blitz",
+    "slot": "Weapon",
+    "archetypeTag": "Fast Gunner",
+    "iconUrl": "./assets/images/mods/19500322.png",
+    "summary": "Fast Gunner duration +4s. When Fast Gunner is active, Weapon DMG +15%.",
+    "obtain": "Chance to obtain by challenging the Arachsiam of the Mirage Monolith or the Forsaken Giant of the Emberdust Monolith.",
+    "mapLocationId": "monolith-da9acc1e",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "Fast Gunner duration +4s. When Fast Gunner is active, Weapon DMG +15%.",
+      "2": "Fast Gunner duration +4s. When Fast Gunner is active, Weapon DMG +15%.",
+      "3": "Fast Gunner duration +4s. When Fast Gunner is active, Weapon DMG +15%.",
+      "4": "Fast Gunner duration +4s. When Fast Gunner is active, Weapon DMG +15%.",
+      "5": "Fast Gunner duration +4s. When Fast Gunner is active, Weapon DMG +15%."
+    },
+    "dpsModifiersByLevel": {
+      "1": {
+        "conditionalWeaponDmgPct": 15.0
+      },
+      "2": {
+        "conditionalWeaponDmgPct": 15.0
+      },
+      "3": {
+        "conditionalWeaponDmgPct": 15.0
+      },
+      "4": {
+        "conditionalWeaponDmgPct": 15.0
+      },
+      "5": {
+        "conditionalWeaponDmgPct": 15.0
+      }
+    }
+  },
+  {
+    "id": "mod_10904",
+    "name": "Cowboy",
+    "slot": "Weapon",
+    "archetypeTag": "Fast Gunner",
+    "iconUrl": "./assets/images/mods/19500323.png",
+    "summary": "After reloading an empty magazine, Fast Gunner trigger chance +100% (based on the weapon's Trigger Chance) for 5s. When Fast Gunner reaches max stacks, the duration is increased by 5s.",
+    "obtain": "Chance to obtain by challenging the Arachsiam of the Mirage Monolith or the Forsaken Giant of the Emberdust Monolith.",
+    "mapLocationId": "monolith-da9acc1e",
+    "subStatSetIds": [
+      "general",
+      "violent",
+      "precision",
+      "survival"
+    ],
+    "coreEffectByLevel": {
+      "1": "After reloading an empty magazine, Fast Gunner trigger chance +100% (based on the weapon's Trigger Chance) for 5s. When Fast Gunner reaches max stacks, the duration is increased by 5s.",
+      "2": "After reloading an empty magazine, Fast Gunner trigger chance +100% (based on the weapon's Trigger Chance) for 5s. When Fast Gunner reaches max stacks, the duration is increased by 5s.",
+      "3": "After reloading an empty magazine, Fast Gunner trigger chance +100% (based on the weapon's Trigger Chance) for 5s. When Fast Gunner reaches max stacks, the duration is increased by 5s.",
+      "4": "After reloading an empty magazine, Fast Gunner trigger chance +100% (based on the weapon's Trigger Chance) for 5s. When Fast Gunner reaches max stacks, the duration is increased by 5s.",
+      "5": "After reloading an empty magazine, Fast Gunner trigger chance +100% (based on the weapon's Trigger Chance) for 5s. When Fast Gunner reaches max stacks, the duration is increased by 5s."
+    },
+    "dpsModifiersByLevel": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {}
+    }
+  }
+]

@@ -8,6 +8,7 @@ import { GlobalSearchModal } from './components/search/GlobalSearchModal';
 import { TimersView } from './components/timers/TimersView';
 import { GearWorkbenchView } from './components/workbench/GearWorkbenchView';
 import { META_BUILDS, TIMER_EVENTS } from './data/buildsAndTimers';
+import type { CodexModItem } from './data/mods/modCatalog';
 import type { CalculatorPreset, EncyclopediaSubTab, MetaBuild, NavTab } from './types/game';
 import type { SearchEntry } from './utils/searchIndex';
 import { readMapUrlParams } from './utils/mapUrlState';
@@ -25,6 +26,11 @@ export function App() {
 
   const [preset, setPreset] = useState<CalculatorPreset>(META_BUILDS[0].preset);
   const [activeBuildName, setActiveBuildName] = useState<string | null>(META_BUILDS[0].name);
+  const [equippedModRequest, setEquippedModRequest] = useState<{
+    mod: CodexModItem;
+    weaponSlot?: 'primary' | 'secondary' | 'melee';
+    seq: number;
+  } | null>(null);
   const [now, setNow] = useState(() => new Date());
 
   useEffect(() => {
@@ -104,6 +110,7 @@ export function App() {
                 setActiveBuildName(null);
               }}
               activeBuildName={activeBuildName}
+              equippedModRequest={equippedModRequest}
             />
           )}
 
@@ -134,6 +141,10 @@ export function App() {
               onLocateOnMap={(poiId) => {
                 setFocusedMapId(poiId);
                 setActiveTab('map');
+              }}
+              onEquipModInDps={(mod, weaponSlot) => {
+                setEquippedModRequest({ mod, weaponSlot, seq: Date.now() });
+                setActiveTab('calculator');
               }}
               onSimulateWeapon={(weapon) => {
                 const matchingMeta = META_BUILDS.find((b) => b.weaponId === weapon.id);

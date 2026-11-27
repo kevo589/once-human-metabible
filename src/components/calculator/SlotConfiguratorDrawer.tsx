@@ -1,21 +1,25 @@
-import { Check, Crosshair, Plus, Search, Shield, Sparkles, Trash2, X } from 'lucide-react';
+import { Check, Crosshair, Search, Shield, Sparkles, X } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import {
   DPS_DATA,
-  getSubstatValue,
   normalizeSlotForArmorCatalog,
-  normalizeSlotForMod,
   previewArmorSlotStats,
   previewWeaponSlotStats,
   type ActiveWeaponSlotKey,
   type ArmorSlotConfig,
   type EquipSlotId,
-  type StatKey,
-  type SubstatEntry,
-  type SubstatRarity,
   type WeaponSlotConfig,
 } from '../../data/dps/dpsEngine';
 import { ARMOR_SETS, MODS } from '../../data/gearAndMods';
+import {
+  clampModLevel,
+  evaluateSubStatValue,
+  MOD_CODEX,
+  MOD_SUBSTAT_SET_BY_ID,
+  MOD_SUBSTATS_PER_LEVEL,
+  resolveCodexMod,
+  type ModSlotName,
+} from '../../data/mods/modCatalog';
 import { WEAPONS } from '../../data/weapons';
 import {
   GENE_FABRICS,
@@ -50,7 +54,27 @@ const SLOT_LABELS: Record<EquipSlotId, string> = {
 };
 
 const TIERS: CraftTier[] = [1, 2, 3, 4, 5];
-const RARITIES: SubstatRarity[] = ['common', 'fine', 'epic', 'legendary'];
+const CORE_LEVELS = [1, 2, 3, 4, 5] as const;
+const ROMAN_LEVELS = ['I', 'II', 'III', 'IV', 'V'] as const;
+
+function mapEquipSlotToCodexSlot(slotId: EquipSlotId | null): ModSlotName {
+  switch (slotId) {
+    case 'helmet':
+      return 'Helmet';
+    case 'mask':
+      return 'Mask';
+    case 'top':
+      return 'Top';
+    case 'bottoms':
+      return 'Bottoms';
+    case 'shoes':
+      return 'Shoes';
+    case 'gloves':
+      return 'Gloves';
+    default:
+      return 'Weapon';
+  }
+}
 
 export function SlotConfiguratorDrawer({
   slotId,
@@ -68,7 +92,7 @@ export function SlotConfiguratorDrawer({
   const [hideSearch, setHideSearch] = useState('');
 
   const isWeapon = slotId === 'primary' || slotId === 'secondary' || slotId === 'melee';
-  const modSlot = slotId ? normalizeSlotForMod(slotId) : 'Weapon';
+  const modSlot = mapEquipSlotToCodexSlot(slotId);
 
   const weaponCatalog = useMemo(() => {
     if (!isWeapon) return [];
@@ -102,15 +126,19 @@ export function SlotConfiguratorDrawer({
 
   const modCatalog = useMemo(() => {
     const q = modSearch.trim().toLowerCase();
-    return MODS.filter((m) => {
+    return MOD_CODEX.filter((m) => {
       if (m.slot !== modSlot) return false;
       if (!q) return true;
       return (
         m.name.toLowerCase().includes(q) ||
-        m.variant.toLowerCase().includes(q) ||
-        m.primaryEffect.toLowerCase().includes(q)
+        m.summary.toLowerCase().includes(q) ||
+        m.obtain.toLowerCase().includes(q) ||
+        m.subStatSetIds.some((sid) => {
+          const s = MOD_SUBSTAT_SET_BY_ID.get(sid);
+          return s ? s.name.toLowerCase().includes(q) : false;
+        })
       );
-    }).slice(0, 60);
+    });
   }, [modSlot, modSearch]);
 
   const filteredHides = useMemo(() => {
@@ -144,14 +172,36 @@ export function SlotConfiguratorDrawer({
       : null;
 
   const activeModId = isWeapon ? weaponCfg?.modId ?? '' : armorCfg?.modId ?? '';
-  const activeMod = MODS.find((m) => m.id === activeModId) ?? null;
-  const substats = isWeapon ? weaponCfg?.substats ?? [] : armorCfg?.substats ?? [];
+  const activeLegacyMod = MODS.find((m) => m.id === activeModId) ?? null;
+  const activeCodexMod = resolveCodexMod(activeModId) ?? null;
+  const modCoreLevel = clampModLevel(
+    (isWeapon ? weaponCfg?.modCoreLevel : armorCfg?.modCoreLevel) ?? 5,
+  );
+  const availableSubStatSetIds =
+    activeCodexMod?.subStatSetIds ?? ['violent', 'talents', 'precision'];
+  const rawSetId = isWeapon ? weaponCfg?.modSubStatSetId : armorCfg?.modSubStatSetId;
+  const activeSubStatSetId =
+    rawSetId && MOD_SUBSTAT_SET_BY_ID.has(rawSetId)
+      ? rawSetId
+      : availableSubStatSetIds[0] ?? 'violent';
+  const activeSubStatSet = MOD_SUBSTAT_SET_BY_ID.get(activeSubStatSetId) ?? null;
+  const rawLevels = isWeapon ? weaponCfg?.modSubStatLevels : armorCfg?.modSubStatLevels;
+  const modSubStatLevels: [number, number, number, number] = [
+    clampModLevel(rawLevels?.[0] ?? 5),
+    clampModLevel(rawLevels?.[1] ?? 4),
+    clampModLevel(rawLevels?.[2] ?? 4),
+    clampModLevel(rawLevels?.[3] ?? 3),
+  ];
+  const upgradeScore =
+    modSubStatLevels[0] + modSubStatLevels[1] + modSubStatLevels[2] + modSubStatLevels[3];
 
-  const updateSubstats = (next: SubstatEntry[]) => {
+  const patchSlotMod = (
+    patch: Partial<Pick<WeaponSlotConfig, 'modId' | 'modCoreLevel' | 'modSubStatSetId' | 'modSubStatLevels'>>,
+  ) => {
     if (isWeapon && weaponCfg && onUpdateWeapon) {
-      onUpdateWeapon({ ...weaponCfg, substats: next });
+      onUpdateWeapon({ ...weaponCfg, ...patch });
     } else if (!isWeapon && armorCfg && onUpdateArmor) {
-      onUpdateArmor({ ...armorCfg, substats: next });
+      onUpdateArmor({ ...armorCfg, ...patch });
     }
   };
 
@@ -658,109 +708,16 @@ export function SlotConfiguratorDrawer({
           {/* TAB 3: MOD & SUBSTATS */}
           {section === 'mods' && (
             <div className="space-y-4">
-              {/* Substats (up to 4) */}
-              <div className="space-y-2 rounded-xl border border-white/[0.08] bg-[#131a1e] p-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-semibold uppercase tracking-wider text-[#3ee6c5]">
-                    Mod Substats ({substats.length}/4)
-                  </span>
-                  {substats.length < 4 && (
-                    <button
-                      type="button"
-                      onClick={() =>
-                        updateSubstats([...substats, { stat: 'critDmgPct', rarity: 'epic' }])
-                      }
-                      className="inline-flex items-center gap-1 rounded border border-[#3ee6c5]/45 bg-[#3ee6c5]/15 px-2 py-0.5 text-[10px] font-semibold text-[#3ee6c5]"
-                    >
-                      <Plus className="h-3 w-3" /> Add Substat
-                    </button>
-                  )}
-                </div>
-
-                {substats.length === 0 && (
-                  <div className="py-2 text-[11px] text-slate-500">
-                    No substats configured. Click + Add Substat.
-                  </div>
-                )}
-
-                <div className="space-y-2">
-                  {substats.map((sub, idx) => (
-                    <div
-                      key={idx}
-                      className="grid grid-cols-12 items-center gap-1.5 rounded-lg border border-white/[0.06] bg-[#0c1114] p-2"
-                    >
-                      <select
-                        value={sub.stat}
-                        onChange={(e) => {
-                          const next = [...substats];
-                          next[idx] = { ...sub, stat: e.target.value as StatKey, overrideValue: undefined };
-                          updateSubstats(next);
-                        }}
-                        className="col-span-5 rounded border border-white/[0.1] bg-[#131a1e] px-1.5 py-1 text-[11px] text-white outline-none"
-                      >
-                        {DPS_DATA.substatTypes.map((st) => (
-                          <option key={st.id} value={st.id}>
-                            {st.label}
-                          </option>
-                        ))}
-                      </select>
-                      <select
-                        value={sub.rarity}
-                        onChange={(e) => {
-                          const next = [...substats];
-                          next[idx] = {
-                            ...sub,
-                            rarity: e.target.value as SubstatRarity,
-                            overrideValue: undefined,
-                          };
-                          updateSubstats(next);
-                        }}
-                        className="col-span-3 rounded border border-white/[0.1] bg-[#131a1e] px-1.5 py-1 text-[11px] capitalize text-amber-300 outline-none"
-                      >
-                        {RARITIES.map((r) => (
-                          <option key={r} value={r}>
-                            {r}
-                          </option>
-                        ))}
-                      </select>
-                      <input
-                        type="number"
-                        step="0.5"
-                        value={getSubstatValue(sub)}
-                        onChange={(e) => {
-                          const next = [...substats];
-                          next[idx] = { ...sub, overrideValue: Number(e.target.value) };
-                          updateSubstats(next);
-                        }}
-                        aria-label="Substat percent value"
-                        className="col-span-3 rounded border border-white/[0.1] bg-[#131a1e] px-1.5 py-1 font-mono text-[11px] text-[#3ee6c5] outline-none"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => updateSubstats(substats.filter((_, i) => i !== idx))}
-                        className="col-span-1 flex justify-center text-slate-500 hover:text-rose-400"
-                        aria-label="Remove substat"
-                      >
-                        <Trash2 className="h-3.5 w-3.5" />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Active Mod Preview + Picker */}
+              {/* Active Mod Preview + Core Effect Level I-V */}
               <div className="space-y-2.5 rounded-xl border border-white/[0.08] bg-[#131a1e] p-3">
                 <div className="flex items-center justify-between">
                   <span className="text-[11px] font-semibold uppercase tracking-wider text-[#3ee6c5]">
                     Equipped {modSlot} Mod
                   </span>
-                  {activeMod && (
+                  {(activeCodexMod || activeLegacyMod) && (
                     <button
                       type="button"
-                      onClick={() => {
-                        if (isWeapon && weaponCfg) onUpdateWeapon?.({ ...weaponCfg, modId: '' });
-                        else if (!isWeapon && armorCfg) onUpdateArmor?.({ ...armorCfg, modId: '' });
-                      }}
+                      onClick={() => patchSlotMod({ modId: '' })}
                       className="text-[10px] text-rose-400 hover:underline"
                     >
                       Unequip
@@ -768,20 +725,54 @@ export function SlotConfiguratorDrawer({
                   )}
                 </div>
 
-                {activeMod ? (
-                  <div className="flex items-start gap-2.5 rounded-lg border border-[#3ee6c5]/35 bg-[#0c1114] p-2.5">
-                    <img
-                      src={activeMod.imageUrl}
-                      alt={activeMod.name}
-                      className="h-10 w-10 shrink-0 rounded border border-white/10 object-contain"
-                    />
-                    <div className="min-w-0 flex-1">
-                      <div className="font-semibold text-white">
-                        {activeMod.name}{' '}
-                        <span className="text-[10px] text-amber-300">({activeMod.variant})</span>
+                {activeCodexMod || activeLegacyMod ? (
+                  <div className="space-y-2.5 rounded-lg border border-[#3ee6c5]/35 bg-[#0c1114] p-2.5">
+                    <div className="flex items-start gap-2.5">
+                      <img
+                        src={activeCodexMod?.iconUrl || activeLegacyMod?.imageUrl || ''}
+                        alt={activeCodexMod?.name || activeLegacyMod?.name || 'Mod'}
+                        className="h-10 w-10 shrink-0 rounded border border-white/10 bg-[#111626] object-contain p-1"
+                      />
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="truncate font-semibold text-white">
+                            {activeCodexMod?.name ?? activeLegacyMod?.name}
+                          </span>
+                          {activeSubStatSet && (
+                            <span className="rounded bg-[#3ee6c5]/15 px-1.5 py-0.5 text-[10px] font-medium text-[#3ee6c5]">
+                              {activeSubStatSet.name}
+                            </span>
+                          )}
+                        </div>
+                        <div className="mt-0.5 text-[10px] leading-relaxed text-slate-300">
+                          {activeCodexMod
+                            ? activeCodexMod.coreEffectByLevel[String(modCoreLevel)] ??
+                              activeCodexMod.summary
+                            : activeLegacyMod?.primaryEffect}
+                        </div>
                       </div>
-                      <div className="mt-0.5 text-[10px] text-slate-300">
-                        {activeMod.primaryEffect}
+                    </div>
+
+                    {/* Core Effect Level I - V */}
+                    <div className="flex items-center justify-between border-t border-white/[0.06] pt-2">
+                      <span className="text-[10px] uppercase tracking-wider text-slate-400">
+                        Core Effect Level
+                      </span>
+                      <div className="flex items-center gap-1">
+                        {CORE_LEVELS.map((lvl, idx) => (
+                          <button
+                            key={lvl}
+                            type="button"
+                            onClick={() => patchSlotMod({ modCoreLevel: lvl })}
+                            className={`rounded px-2 py-0.5 font-mono text-[10px] font-bold transition ${
+                              modCoreLevel === lvl
+                                ? 'bg-[#3ee6c5] text-[#091214]'
+                                : 'bg-white/[0.06] text-slate-400 hover:text-white'
+                            }`}
+                          >
+                            {ROMAN_LEVELS[idx]}
+                          </button>
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -791,25 +782,109 @@ export function SlotConfiguratorDrawer({
                   </div>
                 )}
 
+                {/* Sub-Stat Set & 4 Sub-Stats Level 1-5 */}
+                <div className="space-y-2 rounded-lg border border-white/[0.06] bg-[#0c1114] p-2.5">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-[10px] font-semibold uppercase tracking-wider text-[#3ee6c5]">
+                      Sub-Stat Set
+                    </span>
+                    <span className="font-mono text-[10px] text-slate-400">
+                      Upgrade Score{' '}
+                      <span className="font-bold text-white">{upgradeScore}/20</span>
+                    </span>
+                  </div>
+
+                  <select
+                    value={activeSubStatSetId}
+                    onChange={(e) => patchSlotMod({ modSubStatSetId: e.target.value })}
+                    aria-label="Sub-Stat Set"
+                    className="w-full rounded border border-white/[0.12] bg-[#131a1e] px-2 py-1.5 text-xs text-white outline-none focus:border-[#3ee6c5]"
+                  >
+                    {availableSubStatSetIds.map((sid) => {
+                      const def = MOD_SUBSTAT_SET_BY_ID.get(sid);
+                      return (
+                        <option key={sid} value={sid}>
+                          {def ? def.name : sid}
+                        </option>
+                      );
+                    })}
+                  </select>
+
+                  {activeSubStatSet && (
+                    <div className="space-y-1.5 pt-1">
+                      {activeSubStatSet.stats.map((statId, idx) => {
+                        const def = MOD_SUBSTATS_PER_LEVEL[statId];
+                        const lv = modSubStatLevels[idx] ?? 1;
+                        const evaluated = evaluateSubStatValue(statId, lv);
+                        return (
+                          <div
+                            key={`${statId}-${idx}`}
+                            className="flex items-center justify-between gap-2 rounded border border-white/[0.05] bg-[#131a1e] px-2 py-1.5"
+                          >
+                            <div className="min-w-0 flex-1">
+                              <div className="truncate text-[11px] font-medium text-slate-200">
+                                {def?.label ?? statId}
+                              </div>
+                              <div className="font-mono text-[10px] text-[#3ee6c5]">
+                                {evaluated ? `+${evaluated.value.toFixed(1)}%` : 'Conditional'}
+                              </div>
+                            </div>
+                            <div className="flex shrink-0 items-center gap-0.5">
+                              {CORE_LEVELS.map((stepLv) => (
+                                <button
+                                  key={stepLv}
+                                  type="button"
+                                  onClick={() => {
+                                    const next: [number, number, number, number] = [
+                                      ...modSubStatLevels,
+                                    ];
+                                    next[idx] = stepLv;
+                                    patchSlotMod({ modSubStatLevels: next });
+                                  }}
+                                  className={`h-5 w-5 rounded font-mono text-[10px] font-bold transition ${
+                                    lv === stepLv
+                                      ? 'bg-[#3ee6c5] text-[#091214]'
+                                      : 'bg-white/[0.05] text-slate-400 hover:text-white'
+                                  }`}
+                                  title={`Set sub-stat level ${stepLv}`}
+                                >
+                                  {stepLv}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+
+                {/* Mod Picker */}
                 <input
                   type="text"
                   value={modSearch}
                   onChange={(e) => setModSearch(e.target.value)}
-                  placeholder={`Search ${modSlot} mods (e.g. Violent, Bounce, Crit)...`}
+                  placeholder={`Search ${modSlot} mods (e.g. Violent, Siphon, Crit)...`}
                   className="w-full rounded-lg border border-white/[0.08] bg-[#0c1114] px-2.5 py-1.5 text-xs text-white placeholder-slate-500 outline-none focus:border-[#3ee6c5]"
                 />
 
                 <div className="max-h-60 space-y-1.5 overflow-y-auto pr-1">
                   {modCatalog.map((m) => {
-                    const selected = activeModId === m.id;
+                    const selected = activeCodexMod?.id === m.id || activeModId === m.id;
                     return (
                       <button
                         key={m.id}
                         type="button"
-                        onClick={() => {
-                          if (isWeapon && weaponCfg) onUpdateWeapon?.({ ...weaponCfg, modId: m.id });
-                          else if (!isWeapon && armorCfg) onUpdateArmor?.({ ...armorCfg, modId: m.id });
-                        }}
+                        onClick={() =>
+                          patchSlotMod({
+                            modId: m.id,
+                            modCoreLevel: modCoreLevel,
+                            modSubStatSetId: m.subStatSetIds.includes(activeSubStatSetId)
+                              ? activeSubStatSetId
+                              : m.subStatSetIds[0],
+                            modSubStatLevels,
+                          })
+                        }
                         className={`flex w-full items-start gap-2.5 rounded-lg border p-2 text-left transition ${
                           selected
                             ? 'border-[#3ee6c5] bg-[#3ee6c5]/12'
@@ -817,20 +892,23 @@ export function SlotConfiguratorDrawer({
                         }`}
                       >
                         <img
-                          src={m.imageUrl}
+                          src={m.iconUrl}
                           alt={m.name}
-                          className="h-9 w-9 shrink-0 rounded object-contain"
+                          className="h-9 w-9 shrink-0 rounded bg-[#111626] object-contain p-1"
                         />
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center justify-between gap-2">
-                            <span className="truncate font-semibold text-white">
-                              {m.name} · {m.variant}
-                            </span>
+                            <span className="truncate font-semibold text-white">{m.name}</span>
                             {selected && <Check className="h-3.5 w-3.5 shrink-0 text-[#3ee6c5]" />}
                           </div>
                           <div className="mt-0.5 line-clamp-2 text-[10px] text-slate-400">
-                            {m.primaryEffect}
+                            {m.summary}
                           </div>
+                          {m.obtain && (
+                            <div className="mt-0.5 truncate text-[9px] text-cyan-400/80">
+                              {m.obtain}
+                            </div>
+                          )}
                         </div>
                       </button>
                     );

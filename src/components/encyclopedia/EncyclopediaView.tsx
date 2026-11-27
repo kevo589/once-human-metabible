@@ -2,7 +2,8 @@ import { useMemo, useState } from 'react';
 import { Award, ChefHat, Cpu, Crosshair, MapPin, Shield, Skull, Sparkles } from 'lucide-react';
 import { DEVIATION_MAP_SPAWNS } from '../../data/deviationMapLinks';
 import { DEVIATIONS, RECIPES } from '../../data/deviationsAndChef';
-import { ARMOR_SETS, MODS } from '../../data/gearAndMods';
+import { ARMOR_SETS } from '../../data/gearAndMods';
+import { MOD_CODEX, type CodexModItem } from '../../data/mods/modCatalog';
 import { CLASS_SPECS, ENCOUNTERS } from '../../data/mapsAndEncounters';
 import { WEAPONS } from '../../data/weapons';
 import type {
@@ -22,13 +23,14 @@ interface EncyclopediaViewProps {
   onChangeSubTab: (tab: EncyclopediaSubTab) => void;
   highlightedId?: string | null;
   onSimulateWeapon?: (weapon: Weapon) => void;
+  onEquipModInDps?: (mod: CodexModItem, targetWeaponSlot?: 'primary' | 'secondary' | 'melee') => void;
   onLocateOnMap?: (poiId: string) => void;
 }
 
 const SUB_TABS: Array<{ id: EncyclopediaSubTab; label: string; icon: typeof Crosshair }> = [
   { id: 'weapons', label: `Weapons (${WEAPONS.length})`, icon: Crosshair },
   { id: 'armor', label: `Armor (${ARMOR_SETS.length})`, icon: Shield },
-  { id: 'mods', label: `Mods (${MODS.length})`, icon: Cpu },
+  { id: 'mods', label: `Mods (${MOD_CODEX.length})`, icon: Cpu },
   { id: 'deviations', label: `Deviations (${DEVIATIONS.length})`, icon: Sparkles },
   { id: 'chef', label: 'Chef', icon: ChefHat },
   { id: 'encounters', label: 'Encounters', icon: Skull },
@@ -67,6 +69,7 @@ export function EncyclopediaView({
   onChangeSubTab,
   highlightedId,
   onSimulateWeapon,
+  onEquipModInDps,
   onLocateOnMap,
 }: EncyclopediaViewProps) {
   const [filterText, setFilterText] = useState('');
@@ -218,7 +221,13 @@ export function EncyclopediaView({
       )}
 
       {/* MODS */}
-      {subTab === 'mods' && <ModsMatrixView highlightedId={highlightedId} />}
+      {subTab === 'mods' && (
+        <ModsMatrixView
+          highlightedId={highlightedId}
+          onLocateOnMap={onLocateOnMap}
+          onEquipInDps={onEquipModInDps}
+        />
+      )}
 
       {/* DEVIATIONS */}
       {subTab === 'deviations' && (

@@ -1,0 +1,239 @@
+{
+  "subStatSets": [
+    {
+      "id": "general",
+      "name": "General",
+      "stats": ["dmg_boost", "magazine_capacity", "reload_speed", "dmg_against_enemies"]
+    },
+    {
+      "id": "violent",
+      "name": "Violent",
+      "stats": ["crit_dmg", "weapon_dmg", "magazine_capacity", "dmg_against_enemies"]
+    },
+    {
+      "id": "precision",
+      "name": "Precision",
+      "stats": ["weakspot_dmg", "weapon_dmg", "magazine_capacity", "dmg_against_enemies"]
+    },
+    {
+      "id": "deviant_energy",
+      "name": "Deviant Energy",
+      "stats": ["elemental_dmg", "status_dmg", "magazine_capacity", "dmg_against_enemies"]
+    },
+    {
+      "id": "resonance",
+      "name": "Resonance",
+      "stats": ["resonance_ws_to_elem", "resonance_elem_to_ws", "dmg_against_enemies", "magazine_capacity"]
+    },
+    {
+      "id": "downstar",
+      "name": "Downstar",
+      "stats": ["downstar_weapon_dmg", "downstar_crit_dmg", "dmg_against_enemies", "hp"]
+    },
+    {
+      "id": "resonant_deviant_energy",
+      "name": "Resonant Deviant Energy",
+      "stats": ["resonance_elem_to_crit", "resonance_crit_to_elem", "dmg_against_enemies", "magazine_capacity"]
+    },
+    {
+      "id": "downstar_deviant_energy",
+      "name": "Downstar Deviant Energy",
+      "stats": ["downstar_elemental_dmg", "downstar_status_dmg", "dmg_against_enemies", "hp"]
+    },
+    {
+      "id": "survival",
+      "name": "Survival",
+      "stats": ["hp", "dmg_reduction_when_hit", "deviant_dmg_reduction", "dmg_against_enemies"]
+    },
+    {
+      "id": "aero",
+      "name": "Aero",
+      "stats": ["aero_weapon_dmg", "aero_crit_dmg", "dmg_against_enemies", "hp"]
+    },
+    {
+      "id": "aero_deviant_energy",
+      "name": "Aero Deviant Energy",
+      "stats": ["aero_status_dmg", "aero_elemental_dmg", "dmg_against_enemies", "hp"]
+    }
+  ],
+  "subStatsPerLevel": {
+    "crit_dmg": {
+      "label": "Crit DMG",
+      "statKey": "critDmgPct",
+      "levels": [3.0, 6.0, 9.0, 12.0, 15.0],
+      "display": "+3% / +6% / +9% / +12% / +15%"
+    },
+    "weakspot_dmg": {
+      "label": "Weakspot DMG",
+      "statKey": "weakspotDmgPct",
+      "levels": [1.8, 3.6, 5.4, 7.2, 9.0],
+      "display": "+1.8% / +3.6% / +5.4% / +7.2% / +9%"
+    },
+    "magazine_capacity": {
+      "label": "Magazine Capacity",
+      "statKey": "magCapacityPct",
+      "levels": [2.4, 4.8, 7.2, 9.6, 12.0],
+      "display": "+2.4% / +4.8% / +7.2% / +9.6% / +12%"
+    },
+    "reload_speed": {
+      "label": "Reload Speed",
+      "statKey": "reloadSpeedPct",
+      "levels": [1.8, 3.6, 5.4, 7.2, 9.0],
+      "display": "+1.8% / +3.6% / +5.4% / +7.2% / +9%"
+    },
+    "weapon_dmg": {
+      "label": "Weapon DMG",
+      "statKey": "weaponDmgPct",
+      "levels": [1.2, 2.4, 3.6, 4.8, 6.0],
+      "display": "+1.2% / +2.4% / +3.6% / +4.8% / +6%"
+    },
+    "status_dmg": {
+      "label": "Status DMG",
+      "statKey": "statusDmgPct",
+      "levels": [1.2, 2.4, 3.6, 4.8, 6.0],
+      "display": "+1.2% / +2.4% / +3.6% / +4.8% / +6%"
+    },
+    "elemental_dmg": {
+      "label": "Elemental DMG",
+      "statKey": "elementalDmgPct",
+      "levels": [1.6, 3.2, 4.8, 6.4, 8.0],
+      "display": "+1.6% / +3.2% / +4.8% / +6.4% / +8%"
+    },
+    "hp": {
+      "label": "HP",
+      "statKey": "maxHpPct",
+      "levels": [1.2, 2.4, 3.6, 4.8, 6.0],
+      "display": "+1.2% / +2.4% / +3.6% / +4.8% / +6%"
+    },
+    "dmg_boost": {
+      "label": "DMG Boost",
+      "statKey": "dmgBoostPct",
+      "levels": [1.2, 2.4, 3.6, 4.8, 6.0],
+      "display": "+1.2% / +2.4% / +3.6% / +4.8% / +6%"
+    },
+    "dmg_against_enemies": {
+      "label": "DMG against Enemies",
+      "statKey": "enemyTypeDmgPct",
+      "levels": [1.5, 3.0, 4.5, 6.0, 7.5],
+      "display": "+1.5% / +3% / +4.5% / +6% / +7.5%"
+    },
+    "deviant_dmg_reduction": {
+      "label": "Deviant DMG Reduction (New)",
+      "statKey": "deviantDmgRedPct",
+      "levels": [1.6, 3.2, 4.8, 6.4, 8.0],
+      "display": "+1.6% / +3.2% / +4.8% / +6.4% / +8%"
+    },
+    "dmg_reduction_when_hit": {
+      "label": "DMG Reduction When Hit",
+      "statKey": "dmgRedWhenHitPct",
+      "levels": [1.6, 3.2, 4.8, 6.4, 8.0],
+      "maxStacks": 3,
+      "durationSec": 6,
+      "display": "1.6%, 3, 6 / 3.2%, 3, 6 / 4.8%, 3, 6 / 6.4%, 3, 6 / 8%, 3, 6"
+    },
+    "resonance_elem_to_crit": {
+      "label": "Resonance: Deal X instances of Elemental DMG, Crit DMG +X%. The effect stacks up to X time(s) and lasts for Xs.",
+      "statKey": "critDmgPct",
+      "condition": "resonance",
+      "perStack": [0.8, 1.6, 2.4, 3.2, 4.0],
+      "maxStacks": 5,
+      "durationSec": 6,
+      "display": "1, +0.8%, 5, 6 / 1, +1.6%, 5, 6 / 1, +2.4%, 5, 6 / 1, +3.2%, 5, 6 / 1, +4%, 5, 6"
+    },
+    "resonance_elem_to_ws": {
+      "label": "Resonance: Deal X instances of Elemental DMG, Weakspot DMG +X%. The effect stacks up to X time(s) and lasts for Xs.",
+      "statKey": "weakspotDmgPct",
+      "condition": "resonance",
+      "perStack": [0.4, 0.8, 1.2, 1.6, 2.0],
+      "maxStacks": 6,
+      "durationSec": 8,
+      "display": "1, +0.4%, 6, 8 / 1, +0.8%, 6, 8 / 1, +1.2%, 6, 8 / 1, +1.6%, 6, 8 / 1, +2%, 6, 8"
+    },
+    "resonance_crit_to_elem": {
+      "label": "Resonance: Deal X instances of Crit DMG, Elemental DMG +X%. The effect stacks up to X time(s) and lasts for Xs.",
+      "statKey": "elementalDmgPct",
+      "condition": "resonance",
+      "perStack": [0.2, 0.4, 0.6, 0.8, 1.0],
+      "maxStacks": 8,
+      "durationSec": 6,
+      "display": "1, +0.2%, 8, 6 / 1, +0.4%, 8, 6 / 1, +0.6%, 8, 6 / 1, +0.8%, 8, 6 / 1, +1%, 8, 6"
+    },
+    "resonance_ws_to_elem": {
+      "label": "Resonance: Deal X instances of Weakspot DMG, Elemental DMG +X%. The effect stacks up to X time(s) and lasts for Xs.",
+      "statKey": "elementalDmgPct",
+      "condition": "resonance",
+      "perStack": [0.2, 0.4, 0.6, 0.8, 1.0],
+      "maxStacks": 8,
+      "durationSec": 6,
+      "display": "1, +0.2%, 8, 6 / 1, +0.4%, 8, 6 / 1, +0.6%, 8, 6 / 1, +0.8%, 8, 6 / 1, +1%, 8, 6"
+    },
+    "downstar_crit_dmg": {
+      "label": "Downstar: Crit DMG +X%, increased by up to X% against enemies standing at a lower level than yourself (max at X meters).",
+      "statKey": "critDmgPct",
+      "condition": "downstar",
+      "base": [3.0, 6.0, 9.0, 12.0, 15.0],
+      "bonusMax": [1.5, 3.0, 4.5, 6.0, 7.5],
+      "maxMeters": 5,
+      "display": "+3%, 1.5%, 5 / +6%, 3%, 5 / +9%, 4.5%, 5 / +12%, 6%, 5 / +15%, 7.5%, 5"
+    },
+    "downstar_elemental_dmg": {
+      "label": "Downstar: Elemental DMG +X%, increased by up to X% against enemies standing at a lower level than yourself (max at X meters).",
+      "statKey": "elementalDmgPct",
+      "condition": "downstar",
+      "base": [1.6, 3.2, 4.8, 6.4, 8.0],
+      "bonusMax": [0.8, 1.6, 2.4, 3.2, 4.0],
+      "maxMeters": 5,
+      "display": "+1.6%, 0.8%, 5 / +3.2%, 1.6%, 5 / +4.8%, 2.4%, 5 / +6.4%, 3.2%, 5 / +8%, 4%, 5"
+    },
+    "downstar_weapon_dmg": {
+      "label": "Downstar: Weapon DMG +X%, increased by up to X% against enemies standing at a lower level than yourself (max at X meters).",
+      "statKey": "weaponDmgPct",
+      "condition": "downstar",
+      "base": [1.2, 2.4, 3.6, 4.8, 6.0],
+      "bonusMax": [0.6, 1.2, 1.8, 2.4, 3.0],
+      "maxMeters": 5,
+      "display": "+1.2%, 0.6%, 5 / +2.4%, 1.2%, 5 / +3.6%, 1.8%, 5 / +4.8%, 2.4%, 5 / +6%, 3%, 5"
+    },
+    "downstar_status_dmg": {
+      "label": "Downstar: Status DMG +X%, increased by up to X% against enemies standing at a lower level than yourself (max at X meters).",
+      "statKey": "statusDmgPct",
+      "condition": "downstar",
+      "base": [1.2, 2.4, 3.6, 4.8, 6.0],
+      "bonusMax": [0.6, 1.2, 1.8, 2.4, 3.0],
+      "maxMeters": 5,
+      "display": "+1.2%, 0.6%, 5 / +2.4%, 1.2%, 5 / +3.6%, 1.8%, 5 / +4.8%, 2.4%, 5 / +6%, 3%, 5"
+    },
+    "aero_weapon_dmg": {
+      "label": "Aero: Weapon DMG +X%, additional +X% for aerial hits",
+      "statKey": "weaponDmgPct",
+      "condition": "aero",
+      "base": [1.2, 2.4, 3.6, 4.8, 6.0],
+      "aerialBonus": [0.6, 1.2, 1.8, 2.4, 3.0],
+      "display": "+1.2%, +0.6% / +2.4%, +1.2% / +3.6%, +1.8% / +4.8%, +2.4% / +6%, +3%"
+    },
+    "aero_crit_dmg": {
+      "label": "Aero: Crit DMG +X%, additional +X% for aerial hits",
+      "statKey": "critDmgPct",
+      "condition": "aero",
+      "base": [3.0, 6.0, 9.0, 12.0, 15.0],
+      "aerialBonus": [1.5, 3.0, 4.5, 6.0, 7.5],
+      "display": "+3%, +1.5% / +6%, +3% / +9%, +4.5% / +12%, +6% / +15%, +7.5%"
+    },
+    "aero_status_dmg": {
+      "label": "Aero: Status DMG +X%, additional +X% for aerial hits",
+      "statKey": "statusDmgPct",
+      "condition": "aero",
+      "base": [1.2, 2.4, 3.6, 4.8, 6.0],
+      "aerialBonus": [0.6, 1.2, 1.8, 2.4, 3.0],
+      "display": "+1.2%, +0.6% / +2.4%, +1.2% / +3.6%, +1.8% / +4.8%, +2.4% / +6%, +3%"
+    },
+    "aero_elemental_dmg": {
+      "label": "Aero: Elemental DMG +X%, additional +X% for aerial hits",
+      "statKey": "elementalDmgPct",
+      "condition": "aero",
+      "base": [1.6, 3.2, 4.8, 6.4, 8.0],
+      "aerialBonus": [0.8, 1.6, 2.4, 3.2, 4.0],
+      "display": "+1.6%, +0.8% / +3.2%, +1.6% / +4.8%, +2.4% / +6.4%, +3.2% / +8%, +4%"
+    }
+  }
+}
