@@ -6,6 +6,7 @@ import {
   ImageOverlay,
   MapContainer,
   Marker,
+  Pane,
   Popup,
   useMap,
   useMapEvents,
@@ -70,11 +71,11 @@ function HybridNalcottTiles() {
       tileSize: NALCOTT_MAP.tileSize,
       minZoom: -1,
       minNativeZoom: 0,
-      maxZoom: 5,
+      maxZoom: 6,
       maxNativeZoom: NALCOTT_MAP.maxNativeZoom,
       bounds: NALCOTT_MAP_BOUNDS,
       noWrap: true,
-      keepBuffer: 1,
+      keepBuffer: 2,
       attribution: 'Map art © Starry Studio / NetEase Games',
     });
 
@@ -100,7 +101,7 @@ function MapController({
 
   useEffect(() => {
     if (focusPoi) {
-      const targetZoom = Math.max(map.getZoom(), 2.5);
+      const targetZoom = Math.max(map.getZoom(), 3);
       map.setView([focusPoi.lat, focusPoi.lng], targetZoom, { animate: true });
     }
   }, [focusPoi, map]);
@@ -411,15 +412,18 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
             center={[-265, 310]}
             zoom={0}
             minZoom={-1}
-            maxZoom={5}
-            zoomSnap={0.25}
+            maxZoom={6}
+            zoomSnap={0.5}
             preferCanvas
             className="h-full w-full"
           >
-            <ImageOverlay
-              url="./maps/nalcott/overview-1024.webp"
-              bounds={NALCOTT_MAP_BOUNDS}
-            />
+            <Pane name="nalcott-overview" style={{ zIndex: 150 }}>
+              <ImageOverlay
+                url="./maps/nalcott/overview-1024.webp"
+                bounds={NALCOTT_MAP_BOUNDS}
+                pane="nalcott-overview"
+              />
+            </Pane>
             <HybridNalcottTiles />
 
             <MapController
