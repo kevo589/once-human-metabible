@@ -421,10 +421,10 @@ export function CraftingInspectorPanel({
                     </span>
                   )}
 
-                  <MaterialIconGlyph name={mat.name} accent={vis.accent} />
+                  <MaterialIconGlyph name={mat.name} accent={vis.accent} className="h-9 w-9" />
 
                   <span
-                    className={`mt-1 font-mono text-[10px] font-bold ${
+                    className={`mt-0.5 font-mono text-[10px] font-bold leading-none ${
                       short ? 'text-rose-400' : inventoryMode ? 'text-[#3ee6c5]' : 'text-white'
                     }`}
                   >
@@ -437,8 +437,15 @@ export function CraftingInspectorPanel({
 
           {inspectedMat && (
             <div className="rounded-lg border border-white/[0.08] bg-[#0f1417] p-2.5 text-[11px]">
-              <div className="flex items-center justify-between">
-                <span className="font-semibold text-white">{inspectedMat}</span>
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex min-w-0 items-center gap-2">
+                  <MaterialIconGlyph
+                    name={inspectedMat}
+                    accent={inferMaterialVisual(inspectedMat).accent}
+                    className="h-7 w-7"
+                  />
+                  <span className="truncate font-semibold text-white">{inspectedMat}</span>
+                </div>
                 <button
                   type="button"
                   onClick={() => setInspectedMat(null)}

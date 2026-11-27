@@ -193,7 +193,7 @@ export function CraftQueueView({
                           )}
                         </button>
 
-                        <MaterialIconGlyph name={mat.name} accent={vis.accent} />
+                        <MaterialIconGlyph name={mat.name} accent={vis.accent} className="h-7 w-7" />
 
                         <div className="min-w-0 flex-1">
                           <div className="truncate text-xs font-medium text-white">{mat.name}</div>

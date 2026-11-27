@@ -6,7 +6,10 @@ import {
   aggregateCraftQueue,
   computeArmorCraft,
   computeWeaponCraft,
+  GENE_FABRICS,
+  HIDES_AND_WOOLS,
 } from '../src/utils/craftingEngine';
+import materialImages from '../src/data/crafting/materialImages.json';
 import {
   BUILT_IN_FILTER_PRESETS,
   MAP_CATEGORIES,
@@ -87,6 +90,18 @@ describe('Once Human game data schemas', () => {
       const rel = item.imageUrl.replace(/^\.\//, '');
       const absPath = path.resolve(process.cwd(), 'public', rel);
       expect(fs.existsSync(absPath), `Missing image for ${item.id}: ${absPath}`).toBe(true);
+    }
+
+    const materialMap = materialImages as Record<string, string>;
+    for (const h of HIDES_AND_WOOLS) {
+      expect(materialMap[h.name], `Missing hide image entry: ${h.name}`).toBeTruthy();
+    }
+    for (const gf of GENE_FABRICS.filter((g) => g.id !== 'none')) {
+      expect(materialMap[gf.name], `Missing gene fabric image entry: ${gf.name}`).toBeTruthy();
+    }
+    for (const [matName, relUrl] of Object.entries(materialMap)) {
+      const absPath = path.resolve(process.cwd(), 'public', relUrl.replace(/^\.\//, ''));
+      expect(fs.existsSync(absPath), `Missing material PNG for ${matName}: ${absPath}`).toBe(true);
     }
 
     const validModSlots = new Set(['Weapon', 'Helmet', 'Mask', 'Top', 'Bottom', 'Gloves', 'Shoes']);

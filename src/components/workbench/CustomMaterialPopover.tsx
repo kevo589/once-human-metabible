@@ -207,8 +207,8 @@ export function CustomMaterialPopover({
                   MATERIAL_RARITY_BORDER[mat.rarity]
                 }`}
               >
-                <MaterialIconGlyph name={mat.name} accent={accentColor} />
-                <span className="absolute bottom-0.5 right-1 font-mono text-[10px] font-bold text-white drop-shadow">
+                <MaterialIconGlyph name={mat.name} accent={accentColor} className="h-9 w-9" />
+                <span className="absolute bottom-0.5 right-1 rounded bg-black/55 px-1 font-mono text-[10px] font-bold text-white drop-shadow">
                   ×{hideCount}
                 </span>
               </div>
@@ -303,7 +303,12 @@ export function GeneFabricPopover({
               }`}
             >
               <div className="flex items-center justify-between gap-2">
-                <span className="text-xs font-semibold text-white">{gf.name}</span>
+                <div className="flex min-w-0 items-center gap-2">
+                  {gf.id !== 'none' && (
+                    <MaterialIconGlyph name={gf.name} accent="#fbbf24" className="h-7 w-7" />
+                  )}
+                  <span className="truncate text-xs font-semibold text-white">{gf.name}</span>
+                </div>
                 {gf.id !== 'none' && (
                   <span className="rounded bg-amber-500/20 px-1.5 py-0.5 font-mono text-[10px] text-amber-300">
                     ×1

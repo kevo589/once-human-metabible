@@ -1,4 +1,11 @@
 import { Layers } from 'lucide-react';
+import rawMaterialImages from '../../data/crafting/materialImages.json';
+
+export const MATERIAL_IMAGES = rawMaterialImages as Record<string, string>;
+
+export function getMaterialImageUrl(name: string): string | undefined {
+  return MATERIAL_IMAGES[name];
+}
 
 export const BENCH_BP_GRADIENT: Record<string, string> = {
   Legendary:
@@ -126,7 +133,27 @@ export function inferMaterialVisual(name: string): {
   };
 }
 
-export function MaterialIconGlyph({ name, accent }: { name: string; accent: string }) {
+export function MaterialIconGlyph({
+  name,
+  accent,
+  className = 'h-9 w-9',
+}: {
+  name: string;
+  accent: string;
+  className?: string;
+}) {
+  const imageUrl = getMaterialImageUrl(name);
+  if (imageUrl) {
+    return (
+      <img
+        src={imageUrl}
+        alt={name}
+        loading="lazy"
+        className={`${className} shrink-0 object-contain drop-shadow-[0_2px_6px_rgba(0,0,0,0.65)]`}
+      />
+    );
+  }
+
   const n = name.toLowerCase();
   if (n.includes('stardust')) {
     return (
