@@ -3,6 +3,11 @@ import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { calculatePolylineMeters } from '../src/components/map/mapState';
 import {
+  aggregateCraftQueue,
+  computeArmorCraft,
+  computeWeaponCraft,
+} from '../src/utils/craftingEngine';
+import {
   BUILT_IN_FILTER_PRESETS,
   MAP_CATEGORIES,
   MAP_DROP_TABLES,
@@ -128,5 +133,70 @@ describe('Fuzzy Search & Timers', () => {
     const waitingStatus = getTimerStatus(cargo, waitingTime);
     expect(waitingStatus.isActive).toBe(false);
     expect(formatCountdown(waitingStatus.secondsUntilNext)).toBe('00:35:00');
+  });
+});
+
+describe('Gear Workbench tier recipes & star scaling', () => {
+  it('computes exact Tier V Savior Top 6-star stats and materials', () => {
+    const saviorTop = ARMOR_SETS.find((a) => a.id === 'savior-top')!;
+    const craft = computeArmorCraft(saviorTop, 5, 6, 'golden_wool', 'extreme_gene_fabric');
+
+    expect(craft.baseHp).toBe(1924);
+    expect(craft.bonusHp).toBe(481);
+    expect(craft.basePsiIntensity).toBe(64);
+    expect(craft.bonusPsiIntensity).toBe(16);
+    expect(craft.elCost).toBe(2100);
+    expect(craft.workbench).toBe('Advanced Armor Workbench');
+    expect(craft.materials).toEqual(
+      expect.arrayContaining([
+        { name: 'Stardust Source', qty: 35, kind: 'base' },
+        { name: 'Tungsten Ingot', qty: 23, kind: 'base' },
+        { name: 'Fiber', qty: 60, kind: 'base' },
+        { name: 'Protective Lining V', qty: 1, kind: 'base' },
+        { name: 'Golden Wool', qty: 4, kind: 'hide' },
+        { name: 'Extreme Gene Fabric', qty: 1, kind: 'gene_fabric' },
+      ]),
+    );
+  });
+
+  it('aggregates Craft Queue totals cleanly across weapons and armor', () => {
+    const saviorTop = ARMOR_SETS.find((a) => a.id === 'savior-top')!;
+    const weapon = WEAPONS.find((w) => w.category === 'Assault Rifle')!;
+    const ac = computeArmorCraft(saviorTop, 5, 6, 'golden_wool', 'none');
+    const wc = computeWeaponCraft(weapon, 5, 5);
+
+    const totals = aggregateCraftQueue([
+      {
+        queueId: 'q1',
+        kind: 'armor',
+        itemId: saviorTop.id,
+        name: saviorTop.name,
+        rarity: saviorTop.rarity,
+        slotOrCategory: saviorTop.slot,
+        imageUrl: saviorTop.imageUrl,
+        tier: 5,
+        stars: 6,
+        elCost: ac.elCost,
+        materials: ac.materials,
+        workbench: ac.workbench,
+      },
+      {
+        queueId: 'q2',
+        kind: 'weapon',
+        itemId: weapon.id,
+        name: weapon.name,
+        rarity: weapon.rarity,
+        slotOrCategory: weapon.category,
+        imageUrl: weapon.imageUrl,
+        tier: 5,
+        stars: 5,
+        elCost: wc.elCost,
+        materials: wc.materials,
+        workbench: wc.workbench,
+      },
+    ]);
+
+    expect(totals.totalEl).toBe(ac.elCost + wc.elCost);
+    expect(totals.grouped.stardust[0].qty).toBeGreaterThan(100);
   });
 });

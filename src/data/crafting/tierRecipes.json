@@ -1,0 +1,139 @@
+{
+  "starBonusPerLevel": 0.05,
+  "rarityCostMultiplier": {
+    "legendary": 1.0,
+    "epic": 0.85,
+    "fine": 0.7,
+    "common": 0.6
+  },
+  "armor": {
+    "top": {
+      "slotMaterial": "Fiber",
+      "liningName": "Protective Lining",
+      "tiers": {
+        "1": { "workbench": "Primary Armor Workbench", "el": 90, "hideCount": 3, "materials": [ { "name": "Wood", "qty": 10 }, { "name": "Copper Ore", "qty": 11 } ] },
+        "2": { "workbench": "Armor Workbench", "el": 250, "hideCount": 3, "materials": [ { "name": "Stardust Source", "qty": 7 }, { "name": "Bronze Ingot", "qty": 5 }, { "name": "Fiber", "qty": 18 } ] },
+        "3": { "workbench": "Advanced Armor Workbench", "el": 550, "hideCount": 3, "materials": [ { "name": "Stardust Source", "qty": 15 }, { "name": "Steel Ingot", "qty": 8 }, { "name": "Fiber", "qty": 28 }, { "name": "Protective Lining III", "qty": 1 } ] },
+        "4": { "workbench": "Advanced Armor Workbench", "el": 1100, "hideCount": 4, "materials": [ { "name": "Stardust Source", "qty": 25 }, { "name": "Alloy Steel Ingot", "qty": 10 }, { "name": "Fiber", "qty": 40 }, { "name": "Protective Lining IV", "qty": 1 } ] },
+        "5": { "workbench": "Advanced Armor Workbench", "el": 2100, "hideCount": 4, "supportsGeneFabric": true, "materials": [ { "name": "Stardust Source", "qty": 35 }, { "name": "Tungsten Ingot", "qty": 23 }, { "name": "Fiber", "qty": 60 }, { "name": "Protective Lining V", "qty": 1 } ] }
+      }
+    },
+    "bottoms": {
+      "slotMaterial": "Fiber",
+      "liningName": "Protective Lining",
+      "tiers": {
+        "1": { "workbench": "Primary Armor Workbench", "el": 90, "hideCount": 3, "materials": [ { "name": "Wood", "qty": 10 }, { "name": "Copper Ore", "qty": 11 } ] },
+        "2": { "workbench": "Armor Workbench", "el": 250, "hideCount": 3, "materials": [ { "name": "Stardust Source", "qty": 7 }, { "name": "Bronze Ingot", "qty": 5 }, { "name": "Fiber", "qty": 16 } ] },
+        "3": { "workbench": "Advanced Armor Workbench", "el": 550, "hideCount": 3, "materials": [ { "name": "Stardust Source", "qty": 15 }, { "name": "Steel Ingot", "qty": 7 }, { "name": "Fiber", "qty": 25 }, { "name": "Protective Lining III", "qty": 1 } ] },
+        "4": { "workbench": "Advanced Armor Workbench", "el": 1100, "hideCount": 4, "materials": [ { "name": "Stardust Source", "qty": 25 }, { "name": "Alloy Steel Ingot", "qty": 6 }, { "name": "Fiber", "qty": 27 }, { "name": "Protective Lining IV", "qty": 1 } ] },
+        "5": { "workbench": "Advanced Armor Workbench", "el": 2100, "hideCount": 4, "supportsGeneFabric": true, "materials": [ { "name": "Stardust Source", "qty": 35 }, { "name": "Tungsten Ingot", "qty": 23 }, { "name": "Fiber", "qty": 60 }, { "name": "Protective Lining V", "qty": 1 } ] }
+      }
+    },
+    "helmet": {
+      "slotMaterial": "Plastic",
+      "liningName": "Bulletproof Lining",
+      "tiers": {
+        "1": { "workbench": "Primary Armor Workbench", "el": 90, "hideCount": 2, "materials": [ { "name": "Wood", "qty": 10 }, { "name": "Copper Ore", "qty": 11 } ] },
+        "2": { "workbench": "Armor Workbench", "el": 250, "hideCount": 2, "materials": [ { "name": "Stardust Source", "qty": 7 }, { "name": "Bronze Ingot", "qty": 4 }, { "name": "Plastic", "qty": 12 } ] },
+        "3": { "workbench": "Advanced Armor Workbench", "el": 550, "hideCount": 2, "materials": [ { "name": "Stardust Source", "qty": 15 }, { "name": "Steel Ingot", "qty": 5 }, { "name": "Plastic", "qty": 19 }, { "name": "Bulletproof Lining III", "qty": 1 } ] },
+        "4": { "workbench": "Advanced Armor Workbench", "el": 1100, "hideCount": 3, "materials": [ { "name": "Stardust Source", "qty": 25 }, { "name": "Alloy Steel Ingot", "qty": 6 }, { "name": "Plastic", "qty": 28 }, { "name": "Bulletproof Lining IV", "qty": 1 } ] },
+        "5": { "workbench": "Advanced Armor Workbench", "el": 2100, "hideCount": 3, "supportsGeneFabric": true, "materials": [ { "name": "Stardust Source", "qty": 35 }, { "name": "Tungsten Ingot", "qty": 15 }, { "name": "Plastic", "qty": 40 }, { "name": "Bulletproof Lining V", "qty": 1 } ] }
+      }
+    },
+    "mask": {
+      "slotMaterial": "Plastic",
+      "liningName": "Bulletproof Lining",
+      "tiers": {
+        "1": { "workbench": "Primary Armor Workbench", "el": 90, "hideCount": 2, "materials": [ { "name": "Wood", "qty": 10 }, { "name": "Copper Ore", "qty": 11 } ] },
+        "2": { "workbench": "Armor Workbench", "el": 250, "hideCount": 2, "materials": [ { "name": "Stardust Source", "qty": 7 }, { "name": "Bronze Ingot", "qty": 4 }, { "name": "Plastic", "qty": 12 } ] },
+        "3": { "workbench": "Advanced Armor Workbench", "el": 550, "hideCount": 2, "materials": [ { "name": "Stardust Source", "qty": 15 }, { "name": "Steel Ingot", "qty": 5 }, { "name": "Plastic", "qty": 19 }, { "name": "Bulletproof Lining III", "qty": 1 } ] },
+        "4": { "workbench": "Advanced Armor Workbench", "el": 1100, "hideCount": 3, "materials": [ { "name": "Stardust Source", "qty": 25 }, { "name": "Alloy Steel Ingot", "qty": 8 }, { "name": "Plastic", "qty": 36 }, { "name": "Bulletproof Lining IV", "qty": 1 } ] },
+        "5": { "workbench": "Advanced Armor Workbench", "el": 2100, "hideCount": 3, "supportsGeneFabric": true, "materials": [ { "name": "Stardust Source", "qty": 35 }, { "name": "Tungsten Ingot", "qty": 15 }, { "name": "Plastic", "qty": 40 }, { "name": "Bulletproof Lining V", "qty": 1 } ] }
+      }
+    },
+    "gloves": {
+      "slotMaterial": "Adhesive",
+      "liningName": "Limb Lining",
+      "tiers": {
+        "1": { "workbench": "Primary Armor Workbench", "el": 90, "hideCount": 2, "materials": [ { "name": "Wood", "qty": 10 }, { "name": "Copper Ore", "qty": 8 } ] },
+        "2": { "workbench": "Armor Workbench", "el": 250, "hideCount": 2, "materials": [ { "name": "Stardust Source", "qty": 7 }, { "name": "Bronze Ingot", "qty": 3 }, { "name": "Adhesive", "qty": 6 } ] },
+        "3": { "workbench": "Advanced Armor Workbench", "el": 550, "hideCount": 2, "materials": [ { "name": "Stardust Source", "qty": 15 }, { "name": "Steel Ingot", "qty": 4 }, { "name": "Adhesive", "qty": 10 }, { "name": "Limb Lining III", "qty": 1 } ] },
+        "4": { "workbench": "Advanced Armor Workbench", "el": 1100, "hideCount": 3, "materials": [ { "name": "Stardust Source", "qty": 25 }, { "name": "Alloy Steel Ingot", "qty": 6 }, { "name": "Adhesive", "qty": 14 }, { "name": "Limb Lining IV", "qty": 1 } ] },
+        "5": { "workbench": "Advanced Armor Workbench", "el": 2100, "hideCount": 3, "supportsGeneFabric": true, "materials": [ { "name": "Stardust Source", "qty": 35 }, { "name": "Tungsten Ingot", "qty": 15 }, { "name": "Adhesive", "qty": 20 }, { "name": "Limb Lining V", "qty": 1 } ] }
+      }
+    },
+    "shoes": {
+      "slotMaterial": "Adhesive",
+      "liningName": "Limb Lining",
+      "tiers": {
+        "1": { "workbench": "Primary Armor Workbench", "el": 90, "hideCount": 2, "materials": [ { "name": "Wood", "qty": 10 }, { "name": "Copper Ore", "qty": 8 } ] },
+        "2": { "workbench": "Armor Workbench", "el": 250, "hideCount": 2, "materials": [ { "name": "Stardust Source", "qty": 7 }, { "name": "Bronze Ingot", "qty": 3 }, { "name": "Adhesive", "qty": 6 } ] },
+        "3": { "workbench": "Advanced Armor Workbench", "el": 550, "hideCount": 2, "materials": [ { "name": "Stardust Source", "qty": 15 }, { "name": "Steel Ingot", "qty": 4 }, { "name": "Adhesive", "qty": 10 }, { "name": "Limb Lining III", "qty": 1 } ] },
+        "4": { "workbench": "Advanced Armor Workbench", "el": 1100, "hideCount": 3, "materials": [ { "name": "Stardust Source", "qty": 25 }, { "name": "Alloy Steel Ingot", "qty": 6 }, { "name": "Adhesive", "qty": 14 }, { "name": "Limb Lining IV", "qty": 1 } ] },
+        "5": { "workbench": "Advanced Armor Workbench", "el": 2100, "hideCount": 3, "supportsGeneFabric": true, "materials": [ { "name": "Stardust Source", "qty": 35 }, { "name": "Tungsten Ingot", "qty": 15 }, { "name": "Adhesive", "qty": 20 }, { "name": "Limb Lining V", "qty": 1 } ] }
+      }
+    }
+  },
+  "weapons": {
+    "pistol": {
+      "bodyPrefix": "Pistol Body",
+      "tiers": {
+        "1": { "workbench": "Primary Gear Workbench", "el": 180, "materials": [ { "name": "Copper Ingot", "qty": 8 }, { "name": "Parts", "qty": 10 } ] },
+        "2": { "workbench": "Gear Workbench", "el": 500, "materials": [ { "name": "Stardust Source", "qty": 18 }, { "name": "Bronze Ingot", "qty": 10 }, { "name": "Parts", "qty": 18 } ] },
+        "3": { "workbench": "Advanced Gear Workbench", "el": 1100, "materials": [ { "name": "Stardust Source", "qty": 36 }, { "name": "Steel Ingot", "qty": 10 }, { "name": "Parts", "qty": 31 }, { "name": "Pistol Body III", "qty": 1 } ] },
+        "4": { "workbench": "Advanced Gear Workbench", "el": 2200, "materials": [ { "name": "Stardust Source", "qty": 55 }, { "name": "Alloy Steel Ingot", "qty": 18 }, { "name": "Parts", "qty": 45 }, { "name": "Pistol Body IV", "qty": 1 } ] },
+        "5": { "workbench": "Advanced Gear Workbench", "el": 4200, "materials": [ { "name": "Stardust Source", "qty": 75 }, { "name": "Tungsten Ingot", "qty": 30 }, { "name": "Parts", "qty": 60 }, { "name": "Pistol Body V", "qty": 1 } ] }
+      }
+    },
+    "rifle_smg_lmg": {
+      "bodyPrefix": "Medium-Caliber Weapon Body",
+      "tiers": {
+        "1": { "workbench": "Primary Gear Workbench", "el": 180, "materials": [ { "name": "Copper Ingot", "qty": 12 }, { "name": "Parts", "qty": 14 } ] },
+        "2": { "workbench": "Gear Workbench", "el": 500, "materials": [ { "name": "Stardust Source", "qty": 22 }, { "name": "Bronze Ingot", "qty": 15 }, { "name": "Parts", "qty": 24 } ] },
+        "3": { "workbench": "Advanced Gear Workbench", "el": 1100, "materials": [ { "name": "Stardust Source", "qty": 45 }, { "name": "Steel Ingot", "qty": 18 }, { "name": "Parts", "qty": 36 }, { "name": "Medium-Caliber Weapon Body III", "qty": 1 } ] },
+        "4": { "workbench": "Advanced Gear Workbench", "el": 2200, "materials": [ { "name": "Stardust Source", "qty": 70 }, { "name": "Alloy Steel Ingot", "qty": 28 }, { "name": "Parts", "qty": 48 }, { "name": "Medium-Caliber Weapon Body IV", "qty": 1 } ] },
+        "5": { "workbench": "Advanced Gear Workbench", "el": 4200, "materials": [ { "name": "Stardust Source", "qty": 105 }, { "name": "Tungsten Ingot", "qty": 45 }, { "name": "Parts", "qty": 60 }, { "name": "Medium-Caliber Weapon Body V", "qty": 1 } ] }
+      }
+    },
+    "shotgun": {
+      "bodyPrefix": "Shotgun Body",
+      "tiers": {
+        "1": { "workbench": "Primary Gear Workbench", "el": 180, "materials": [ { "name": "Copper Ingot", "qty": 12 }, { "name": "Parts", "qty": 12 } ] },
+        "2": { "workbench": "Gear Workbench", "el": 500, "materials": [ { "name": "Stardust Source", "qty": 22 }, { "name": "Bronze Ingot", "qty": 14 }, { "name": "Parts", "qty": 22 } ] },
+        "3": { "workbench": "Advanced Gear Workbench", "el": 1100, "materials": [ { "name": "Stardust Source", "qty": 45 }, { "name": "Steel Ingot", "qty": 16 }, { "name": "Parts", "qty": 34 }, { "name": "Shotgun Body III", "qty": 1 } ] },
+        "4": { "workbench": "Advanced Gear Workbench", "el": 2200, "materials": [ { "name": "Stardust Source", "qty": 70 }, { "name": "Alloy Steel Ingot", "qty": 26 }, { "name": "Parts", "qty": 45 }, { "name": "Shotgun Body IV", "qty": 1 } ] },
+        "5": { "workbench": "Advanced Gear Workbench", "el": 4200, "materials": [ { "name": "Stardust Source", "qty": 105 }, { "name": "Tungsten Ingot", "qty": 45 }, { "name": "Parts", "qty": 55 }, { "name": "Shotgun Body V", "qty": 1 } ] }
+      }
+    },
+    "sniper": {
+      "bodyPrefix": "Sniper Rifle Body",
+      "tiers": {
+        "1": { "workbench": "Primary Gear Workbench", "el": 180, "materials": [ { "name": "Copper Ingot", "qty": 12 }, { "name": "Parts", "qty": 12 } ] },
+        "2": { "workbench": "Gear Workbench", "el": 500, "materials": [ { "name": "Stardust Source", "qty": 25 }, { "name": "Bronze Ingot", "qty": 16 }, { "name": "Parts", "qty": 24 } ] },
+        "3": { "workbench": "Advanced Gear Workbench", "el": 1100, "materials": [ { "name": "Stardust Source", "qty": 48 }, { "name": "Steel Ingot", "qty": 20 }, { "name": "Parts", "qty": 34 }, { "name": "Sniper Rifle Frame III", "qty": 1 } ] },
+        "4": { "workbench": "Advanced Gear Workbench", "el": 2200, "materials": [ { "name": "Stardust Source", "qty": 75 }, { "name": "Alloy Steel Ingot", "qty": 32 }, { "name": "Parts", "qty": 44 }, { "name": "Sniper Rifle Body IV", "qty": 1 } ] },
+        "5": { "workbench": "Advanced Gear Workbench", "el": 4200, "materials": [ { "name": "Stardust Source", "qty": 105 }, { "name": "Tungsten Ingot", "qty": 55 }, { "name": "Parts", "qty": 51 }, { "name": "Sniper Rifle Body V", "qty": 1 } ] }
+      }
+    },
+    "crossbow_bow": {
+      "bodyPrefix": "Wooden Weapon Body",
+      "tiers": {
+        "1": { "workbench": "Primary Gear Workbench", "el": 180, "materials": [ { "name": "Wood", "qty": 20 }, { "name": "Copper Ingot", "qty": 6 }, { "name": "Parts", "qty": 8 } ] },
+        "2": { "workbench": "Gear Workbench", "el": 500, "materials": [ { "name": "Stardust Source", "qty": 18 }, { "name": "Bronze Ingot", "qty": 10 }, { "name": "Parts", "qty": 15 } ] },
+        "3": { "workbench": "Advanced Gear Workbench", "el": 1100, "materials": [ { "name": "Stardust Source", "qty": 36 }, { "name": "Steel Ingot", "qty": 14 }, { "name": "Parts", "qty": 24 }, { "name": "Wooden Weapon Body", "qty": 1 } ] },
+        "4": { "workbench": "Advanced Gear Workbench", "el": 2200, "materials": [ { "name": "Stardust Source", "qty": 55 }, { "name": "Alloy Steel Ingot", "qty": 20 }, { "name": "Parts", "qty": 32 }, { "name": "Wooden Weapon Body", "qty": 1 } ] },
+        "5": { "workbench": "Advanced Gear Workbench", "el": 4200, "materials": [ { "name": "Stardust Source", "qty": 85 }, { "name": "Tungsten Ingot", "qty": 35 }, { "name": "Parts", "qty": 45 }, { "name": "Wooden Weapon Body", "qty": 1 } ] }
+      }
+    },
+    "melee": {
+      "bodyPrefix": "Melee Frame",
+      "tiers": {
+        "1": { "workbench": "Primary Gear Workbench", "el": 180, "materials": [ { "name": "Copper Ingot", "qty": 10 }, { "name": "Wood", "qty": 10 } ] },
+        "2": { "workbench": "Gear Workbench", "el": 500, "materials": [ { "name": "Stardust Source", "qty": 15 }, { "name": "Bronze Ingot", "qty": 12 }, { "name": "Parts", "qty": 10 } ] },
+        "3": { "workbench": "Advanced Gear Workbench", "el": 1100, "materials": [ { "name": "Stardust Source", "qty": 35 }, { "name": "Steel Ingot", "qty": 18 }, { "name": "Parts", "qty": 18 } ] },
+        "4": { "workbench": "Advanced Gear Workbench", "el": 2200, "materials": [ { "name": "Stardust Source", "qty": 65 }, { "name": "Alloy Steel Ingot", "qty": 25 }, { "name": "Parts", "qty": 25 } ] },
+        "5": { "workbench": "Advanced Gear Workbench", "el": 4200, "materials": [ { "name": "Stardust Source", "qty": 100 }, { "name": "Tungsten Ingot", "qty": 40 }, { "name": "Parts", "qty": 35 } ] }
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { BookOpen, Calculator, Clock, Flame, Map, Search, Sparkles } from 'lucide-react';
+import { BookOpen, Calculator, Clock, Flame, Hammer, Map, Search, Sparkles } from 'lucide-react';
 import type { NavTab } from '../../types/game';
 import { cn } from '../../utils/cn';
 
@@ -12,8 +12,9 @@ interface SidebarProps {
 const NAV_ITEMS: Array<{ id: NavTab; label: string; desc: string; icon: typeof Calculator }> = [
   { id: 'calculator', label: 'DPS Calculator', desc: 'Weapon & mod math', icon: Calculator },
   { id: 'meta', label: 'Meta Builds', desc: 'S+ & S loadouts', icon: Flame },
+  { id: 'workbench', label: 'Gear Workbench', desc: 'Weapons, armor & queue', icon: Hammer },
   { id: 'map', label: 'Interactive Map', desc: 'Manibus, Winter, Abyss', icon: Map },
-  { id: 'encyclopedia', label: 'Encyclopedia', desc: 'Weapons, gear, recipes', icon: BookOpen },
+  { id: 'encyclopedia', label: 'Encyclopedia', desc: 'Mods, deviants, recipes', icon: BookOpen },
   { id: 'timers', label: 'Event Timers', desc: 'Cargo, Prime War, resets', icon: Clock },
 ];
 

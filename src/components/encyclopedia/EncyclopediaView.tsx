@@ -6,18 +6,15 @@ import { ARMOR_SETS, MODS } from '../../data/gearAndMods';
 import { CLASS_SPECS, ENCOUNTERS } from '../../data/mapsAndEncounters';
 import { WEAPONS } from '../../data/weapons';
 import type {
-  Archetype,
-  ArmorSet,
   Deviation,
-  ElementType,
   EncyclopediaSubTab,
   Rarity,
   Weapon,
 } from '../../types/game';
 import { cn } from '../../utils/cn';
-import { ELEMENT_TEXT, Pill, RARITY_LEFT_BORDER, RARITY_TEXT, RarityBadge } from '../common/Badge';
+import { Pill, RARITY_LEFT_BORDER, RarityBadge } from '../common/Badge';
 import { EntityDetailModal, EntityThumbnail, type InspectedEntity } from '../common/ItemVisuals';
-import { WeaponDetailModal, WeaponThumbnail } from '../weapons/WeaponVisuals';
+import { GearWorkbenchView } from '../workbench/GearWorkbenchView';
 import { ModsMatrixView } from './ModsMatrixView';
 
 interface EncyclopediaViewProps {
@@ -38,44 +35,6 @@ const SUB_TABS: Array<{ id: EncyclopediaSubTab; label: string; icon: typeof Cros
   { id: 'classes', label: 'Specs', icon: Award },
 ];
 
-const WEAPON_CATEGORIES: Array<'All' | Weapon['category']> = [
-  'All',
-  'Assault Rifle',
-  'SMG',
-  'Sniper Rifle',
-  'Shotgun',
-  'LMG',
-  'Pistol',
-  'Crossbow',
-  'Melee',
-  'Flamethrower',
-  'Rocket Launcher',
-];
-
-const WEAPON_ELEMENTS: Array<{ id: 'All' | ElementType; label: string }> = [
-  { id: 'All', label: 'All Elements' },
-  { id: 'Blaze', label: 'Blaze · Burn' },
-  { id: 'Frost', label: 'Frost · Vortex' },
-  { id: 'Shock', label: 'Shock · Surge' },
-  { id: 'Blast', label: 'Blast · Bomber' },
-  { id: 'Physical', label: 'Physical' },
-];
-
-const KEYWORDS: Array<'All' | Archetype> = [
-  'All',
-  'Burn',
-  'Frost Vortex',
-  'Power Surge',
-  'Unstable Bomber',
-  'Shrapnel',
-  'Bounce',
-  "Bull's Eye",
-  'Fast Gunner',
-  'Fortress Warfare',
-  'Standard',
-];
-
-const ARMOR_SLOTS: Array<'All' | ArmorSet['slot']> = ['All', 'Helmet', 'Mask', 'Top', 'Bottom', 'Gloves', 'Shoes'];
 const DEV_TYPES: Array<'All' | Deviation['type']> = ['All', 'Combat', 'Territory', 'Crafting'];
 const RARITIES: Array<'All' | Rarity> = ['All', 'Legendary', 'Epic', 'Rare', 'Uncommon', 'Common'];
 
@@ -111,80 +70,12 @@ export function EncyclopediaView({
   onLocateOnMap,
 }: EncyclopediaViewProps) {
   const [filterText, setFilterText] = useState('');
-  const [weaponCategory, setWeaponCategory] = useState<'All' | Weapon['category']>('All');
-  const [weaponGroupMode, setWeaponGroupMode] = useState<'element' | 'category'>('element');
-  const [elementFilter, setElementFilter] = useState<'All' | ElementType>('All');
-  const [keywordFilter, setKeywordFilter] = useState<'All' | Archetype>('All');
-
-  const [armorSlot, setArmorSlot] = useState<'All' | ArmorSet['slot']>('All');
-
   const [devType, setDevType] = useState<'All' | Deviation['type']>('All');
   const [rarityFilter, setRarityFilter] = useState<'All' | Rarity>('All');
 
-  const [inspectedWeapon, setInspectedWeapon] = useState<Weapon | null>(null);
   const [inspectedEntity, setInspectedEntity] = useState<InspectedEntity | null>(null);
 
   const q = filterText.trim().toLowerCase();
-
-  const filteredWeapons = useMemo(
-    () =>
-      WEAPONS.filter((w) => {
-        if (weaponCategory !== 'All' && w.category !== weaponCategory) return false;
-        if (elementFilter !== 'All' && w.element !== elementFilter) return false;
-        if (keywordFilter !== 'All' && w.archetype !== keywordFilter) return false;
-        if (rarityFilter !== 'All' && w.rarity !== rarityFilter) return false;
-        if (
-          q &&
-          !w.name.toLowerCase().includes(q) &&
-          !w.archetype.toLowerCase().includes(q) &&
-          !w.element.toLowerCase().includes(q) &&
-          !w.category.toLowerCase().includes(q) &&
-          !w.ammoType.toLowerCase().includes(q)
-        ) {
-          return false;
-        }
-        return true;
-      }),
-    [q, weaponCategory, elementFilter, keywordFilter, rarityFilter],
-  );
-
-  const weaponSections = useMemo(() => {
-    if (weaponGroupMode === 'element') {
-      return groupBySection(
-        filteredWeapons,
-        (w) => (w.archetype === 'Standard' ? 'Standard / Melee' : w.element),
-        ['Blaze', 'Frost', 'Shock', 'Blast', 'Physical', 'Standard / Melee'],
-      );
-    }
-    return groupBySection(filteredWeapons, (w) => w.category, WEAPON_CATEGORIES.slice(1));
-  }, [filteredWeapons, weaponGroupMode]);
-
-  const filteredArmor = useMemo(
-    () =>
-      ARMOR_SETS.filter((a) => {
-        if (armorSlot !== 'All' && a.slot !== armorSlot) return false;
-        if (rarityFilter !== 'All' && a.rarity !== rarityFilter) return false;
-        if (
-          q &&
-          !a.name.toLowerCase().includes(q) &&
-          !(a.setName ?? '').toLowerCase().includes(q) &&
-          !a.effectSummary.toLowerCase().includes(q)
-        ) {
-          return false;
-        }
-        return true;
-      }),
-    [q, armorSlot, rarityFilter],
-  );
-
-  const armorSections = useMemo(
-    () =>
-      groupBySection(
-        filteredArmor,
-        (a) => a.setName || (a.isKeyPiece ? 'Key Armor Pieces' : 'Standalone Gear'),
-      ),
-    [filteredArmor],
-  );
 
   const filteredDeviations = useMemo(
     () =>
@@ -251,6 +142,8 @@ export function EncyclopediaView({
     [q],
   );
 
+  const isWorkbenchSubTab = subTab === 'weapons' || subTab === 'armor';
+
   return (
     <div className="space-y-4">
       {/* Header + Toolbar */}
@@ -258,72 +151,37 @@ export function EncyclopediaView({
         <div>
           <h1 className="text-xl font-semibold text-white">Encyclopedia</h1>
           <p className="mt-0.5 text-xs text-slate-400">
-            Organized by gear slot, element, keyword, set, and mod variant.
+            Gear Workbench crafting, mods, deviations, chef buffs, and encounters.
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2">
-          {subTab === 'weapons' && (
-            <>
+        {!isWorkbenchSubTab && (
+          <div className="flex flex-wrap items-center gap-2">
+            {subTab === 'deviations' && (
               <select
-                value={weaponCategory}
-                onChange={(e) => setWeaponCategory(e.target.value as 'All' | Weapon['category'])}
+                value={rarityFilter}
+                onChange={(e) => setRarityFilter(e.target.value as 'All' | Rarity)}
                 className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none"
               >
-                {WEAPON_CATEGORIES.map((cat) => (
-                  <option key={cat} value={cat}>
-                    {cat === 'All' ? 'All Weapon Types' : cat}
+                {RARITIES.map((rar) => (
+                  <option key={rar} value={rar}>
+                    {rar === 'All' ? 'All Rarities' : rar}
                   </option>
                 ))}
               </select>
+            )}
 
-              <select
-                value={keywordFilter}
-                onChange={(e) => setKeywordFilter(e.target.value as 'All' | Archetype)}
-                className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none"
-              >
-                {KEYWORDS.map((kw) => (
-                  <option key={kw} value={kw}>
-                    {kw === 'All' ? 'All Keywords' : kw}
-                  </option>
-                ))}
-              </select>
-
-              <select
-                value={weaponGroupMode}
-                onChange={(e) => setWeaponGroupMode(e.target.value as 'element' | 'category')}
-                className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none"
-              >
-                <option value="element">Group: Element</option>
-                <option value="category">Group: Weapon Type</option>
-              </select>
-            </>
-          )}
-
-          {(subTab === 'weapons' || subTab === 'armor' || subTab === 'deviations') && (
-            <select
-              value={rarityFilter}
-              onChange={(e) => setRarityFilter(e.target.value as 'All' | Rarity)}
-              className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none"
-            >
-              {RARITIES.map((rar) => (
-                <option key={rar} value={rar}>
-                  {rar === 'All' ? 'All Rarities' : rar}
-                </option>
-              ))}
-            </select>
-          )}
-
-          {subTab !== 'mods' && (
-            <input
-              type="text"
-              value={filterText}
-              onChange={(e) => setFilterText(e.target.value)}
-              placeholder="Search..."
-              className="w-40 rounded-lg border border-obsidian-800 bg-obsidian-900 px-3 py-1.5 text-xs text-white placeholder-slate-500 outline-none focus:border-obsidian-600 sm:w-48"
-            />
-          )}
-        </div>
+            {subTab !== 'mods' && (
+              <input
+                type="text"
+                value={filterText}
+                onChange={(e) => setFilterText(e.target.value)}
+                placeholder="Search..."
+                className="w-40 rounded-lg border border-obsidian-800 bg-obsidian-900 px-3 py-1.5 text-xs text-white placeholder-slate-500 outline-none focus:border-obsidian-600 sm:w-48"
+              />
+            )}
+          </div>
+        )}
       </div>
 
       {/* Category Tabs */}
@@ -350,160 +208,13 @@ export function EncyclopediaView({
         })}
       </div>
 
-      {/* WEAPONS */}
-      {subTab === 'weapons' && (
-        <div className="space-y-5">
-          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-obsidian-800/80 pb-3">
-            <div className="flex flex-wrap gap-1">
-              {WEAPON_ELEMENTS.map((el) => (
-                <button
-                  key={el.id}
-                  type="button"
-                  onClick={() => setElementFilter(el.id)}
-                  className={cn(
-                    'rounded-md border px-2.5 py-1 text-[11px] font-medium transition',
-                    elementFilter === el.id
-                      ? 'border-obsidian-700 bg-obsidian-800 text-white'
-                      : 'border-transparent text-slate-400 hover:bg-obsidian-900 hover:text-slate-200',
-                  )}
-                >
-                  {el.label}
-                </button>
-              ))}
-            </div>
-            <span className="font-mono text-[11px] text-slate-500">
-              {filteredWeapons.length} / {WEAPONS.length}
-            </span>
-          </div>
-
-          {weaponSections.map(([sectionTitle, list]) => (
-            <section key={sectionTitle} className="space-y-2.5">
-              <div className="flex items-center justify-between border-b border-obsidian-800/60 pb-1.5">
-                <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-300">
-                  {sectionTitle}
-                </h2>
-                <span className="font-mono text-[11px] text-slate-500">{list.length}</span>
-              </div>
-
-              <div className="grid gap-2.5 md:grid-cols-2 xl:grid-cols-3">
-                {list.map((w) => (
-                  <button
-                    key={w.id}
-                    type="button"
-                    onClick={() => setInspectedWeapon(w)}
-                    className={cn(
-                      'group flex items-center gap-3 rounded-xl border border-l-2 bg-obsidian-900/70 px-3.5 py-3 text-left transition hover:bg-obsidian-850',
-                      RARITY_LEFT_BORDER[w.rarity],
-                      highlightedId === w.id ? 'border-stardust-400/60 ring-1 ring-stardust-400/30' : 'border-obsidian-800',
-                    )}
-                  >
-                    <WeaponThumbnail weapon={w} size="sm" />
-
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center justify-between gap-2">
-                        <h3 className="truncate text-sm font-medium text-slate-100 group-hover:text-white">
-                          {w.name}
-                        </h3>
-                        <span className={cn('shrink-0 text-[10px] font-medium uppercase tracking-wider', RARITY_TEXT[w.rarity])}>
-                          {w.rarity}
-                        </span>
-                      </div>
-
-                      <div className="mt-1 flex items-center gap-1.5 truncate text-[11px] text-slate-400">
-                        <span>{w.category}</span>
-                        {w.archetype !== 'Standard' && (
-                          <>
-                            <span className="text-slate-600">·</span>
-                            <span className={ELEMENT_TEXT[w.element]}>{w.archetype}</span>
-                          </>
-                        )}
-                        <span className="text-slate-600">·</span>
-                        <span className="font-mono">{w.baseDamage} DMG</span>
-                      </div>
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </section>
-          ))}
-        </div>
-      )}
-
-      {/* ARMOR */}
-      {subTab === 'armor' && (
-        <div className="space-y-5">
-          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-obsidian-800/80 pb-3">
-            <div className="flex flex-wrap gap-1">
-              {ARMOR_SLOTS.map((s) => (
-                <button
-                  key={s}
-                  type="button"
-                  onClick={() => setArmorSlot(s)}
-                  className={cn(
-                    'rounded-md border px-2.5 py-1 text-[11px] font-medium transition',
-                    armorSlot === s
-                      ? 'border-obsidian-700 bg-obsidian-800 text-white'
-                      : 'border-transparent text-slate-400 hover:bg-obsidian-900 hover:text-slate-200',
-                  )}
-                >
-                  {s === 'All' ? 'All Slots' : s}
-                </button>
-              ))}
-            </div>
-            <span className="font-mono text-[11px] text-slate-500">
-              {filteredArmor.length} / {ARMOR_SETS.length}
-            </span>
-          </div>
-
-          {armorSections.map(([setTitle, list]) => (
-            <section key={setTitle} className="space-y-2.5">
-              <div className="flex items-center justify-between border-b border-obsidian-800/60 pb-1.5">
-                <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-300">
-                  {setTitle}
-                </h2>
-                <span className="font-mono text-[11px] text-slate-500">{list.length}</span>
-              </div>
-
-              <div className="grid gap-2.5 md:grid-cols-2 xl:grid-cols-3">
-                {list.map((a) => (
-                  <button
-                    key={a.id}
-                    type="button"
-                    onClick={() => setInspectedEntity({ kind: 'armor', item: a })}
-                    className={cn(
-                      'group flex items-center gap-3 rounded-xl border border-l-2 bg-obsidian-900/70 px-3.5 py-3 text-left transition hover:bg-obsidian-850',
-                      RARITY_LEFT_BORDER[a.rarity],
-                      highlightedId === a.id ? 'border-stardust-400/60 ring-1 ring-stardust-400/30' : 'border-obsidian-800',
-                    )}
-                  >
-                    <EntityThumbnail src={a.imageUrl} alt={a.name} rarity={a.rarity} size="md" fallbackKind="armor" />
-
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center justify-between gap-2">
-                        <h3 className="truncate text-sm font-medium text-slate-100 group-hover:text-white">
-                          {a.name}
-                        </h3>
-                        <span className={cn('shrink-0 text-[10px] font-medium uppercase tracking-wider', RARITY_TEXT[a.rarity])}>
-                          {a.rarity}
-                        </span>
-                      </div>
-
-                      <div className="mt-1 flex items-center gap-2 truncate text-[11px] text-slate-400">
-                        <span>{a.slot}</span>
-                        {a.hp > 0 && (
-                          <>
-                            <span className="text-slate-600">·</span>
-                            <span className="font-mono">{a.hp} HP</span>
-                          </>
-                        )}
-                      </div>
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </section>
-          ))}
-        </div>
+      {/* WEAPONS & ARMOR WORKBENCH */}
+      {isWorkbenchSubTab && (
+        <GearWorkbenchView
+          initialTab={subTab === 'weapons' ? 'weapon' : 'armor'}
+          highlightedId={highlightedId}
+          onSimulateWeapon={onSimulateWeapon}
+        />
       )}
 
       {/* MODS */}
@@ -684,12 +395,6 @@ export function EncyclopediaView({
           ))}
         </div>
       )}
-
-      <WeaponDetailModal
-        weapon={inspectedWeapon}
-        onClose={() => setInspectedWeapon(null)}
-        onSimulate={onSimulateWeapon}
-      />
 
       <EntityDetailModal
         entity={inspectedEntity}

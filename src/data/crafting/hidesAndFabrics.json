@@ -1,0 +1,306 @@
+{
+  "hidesAndWools": [
+    {
+      "id": "rawhide", "name": "Rawhide", "rarity": "common", "tags": ["Heat Resist"],
+      "effects": {
+        "helmet": "Base Armor Protection",
+        "top": "Heat Resist & Burn Resist +5",
+        "bottoms": "Heat Resist & Burn Resist +5",
+        "gloves": "Gathering Speed +5%",
+        "shoes": "Base Movement Efficiency",
+        "mask": "Base Status Protection"
+      }
+    },
+    {
+      "id": "wool", "name": "Wool", "rarity": "common", "tags": ["Cold Resist"],
+      "effects": {
+        "helmet": "DMG Reduction +5% when not in combat",
+        "top": "Cold Resist & Frost Resist +10; Dampened duration +100%",
+        "bottoms": "Cold Resist & Frost Resist +10; Dampened duration +100%",
+        "gloves": "Berry & Plant Yield +10%",
+        "shoes": "Movement Speed +4% in Cold weather",
+        "mask": "Non-Weakspot DMG Reduction +5%"
+      }
+    },
+    {
+      "id": "rock_wall_wool", "name": "Rock Wall Wool", "rarity": "epic", "tags": ["Cold Resist", "Team"],
+      "effects": {
+        "helmet": "DMG Reduction +5% per nearby teammate",
+        "top": "Cold Resist & Frost Resist +10 (+3 per teammate)",
+        "bottoms": "Cold Resist & Frost Resist +10 (+3 per teammate)",
+        "gloves": "Ore Yield +10%",
+        "shoes": "Climb Speed +10%",
+        "mask": "Crit DMG Reduction +8%"
+      }
+    },
+    {
+      "id": "mountain_wool", "name": "Mountain Wool", "rarity": "epic", "tags": ["Cold Resist"],
+      "effects": {
+        "helmet": "DMG Reduction +10% when not in combat",
+        "top": "Cold Resist & Frost Resist +15; Dampened duration +100%",
+        "bottoms": "Cold Resist & Frost Resist +15; Dampened duration +100%",
+        "gloves": "Gathering Yield +12%",
+        "shoes": "Stamina Cost while climbing -20%",
+        "mask": "Pollution Resist +10"
+      }
+    },
+    {
+      "id": "golden_wool", "name": "Golden Wool", "rarity": "legendary", "tags": ["Cold Resist", "HP/Heal"],
+      "effects": {
+        "helmet": "DMG Reduction +14% when not in combat",
+        "top": "Cold Resist & Frost Resist +20; Heat & Burn Resist -5",
+        "bottoms": "Cold Resist & Frost Resist +20; Heat & Burn Resist -5",
+        "gloves": "Rare Ore & Plant Yield +15%",
+        "shoes": "Movement Speed +8% in Cold zones",
+        "mask": "Elemental DMG +5% in Cold weather"
+      }
+    },
+    {
+      "id": "lunar_wool", "name": "Lunar Wool", "rarity": "legendary", "tags": ["Cold Resist", "Low HP"],
+      "effects": {
+        "helmet": "DMG Reduction +8% when HP < 30%",
+        "top": "Cold & Frost Resist +15; Hypothermia immunity when HP < 30%",
+        "bottoms": "Cold & Frost Resist +15; Hypothermia immunity when HP < 30%",
+        "gloves": "Lunar Whisper Yield +20% (doubles when HP < 30%)",
+        "shoes": "Sprint Speed +6% when HP < 30%",
+        "mask": "Status DMG +6% when HP < 30%"
+      }
+    },
+    {
+      "id": "dreamfused_wool", "name": "Dreamfused Wool", "rarity": "legendary", "tags": ["Cold Resist", "Dream Zone"],
+      "effects": {
+        "helmet": "DMG Reduction +5% (doubles in Dream Zone)",
+        "top": "Cold & Frost Resist +10 (doubles in Dream Zone)",
+        "bottoms": "Cold & Frost Resist +10 (doubles in Dream Zone)",
+        "gloves": "20% extra yield when harvesting in Dream Zone",
+        "shoes": "Movement Speed +5% (doubles in Dream Zone)",
+        "mask": "Pollution Resist +10 (doubles in Dream Zone)"
+      }
+    },
+    {
+      "id": "wolf_skin", "name": "Wolf Skin", "rarity": "fine", "tags": ["Stamina", "Damage/Crit"],
+      "effects": {
+        "helmet": "Weakspot DMG Reduction +5%",
+        "top": "Max Stamina +15",
+        "bottoms": "Max Stamina +15",
+        "gloves": "Poultry Meat & Rabbit Meat Yield +10%",
+        "shoes": "Movement Speed +4%",
+        "mask": "Weakspot DMG +3%"
+      }
+    },
+    {
+      "id": "wasteland_wolf_skin", "name": "Wasteland Wolf Skin", "rarity": "epic", "tags": ["Stamina", "Movement Speed"],
+      "effects": {
+        "helmet": "Weakspot DMG Reduction +7% while moving",
+        "top": "Max Stamina +20; Sprint Speed +5%",
+        "bottoms": "Max Stamina +20; Sprint Speed +5%",
+        "gloves": "Poultry Meat & Rabbit Meat Yield +15%",
+        "shoes": "Movement Speed +6%",
+        "mask": "Weakspot DMG +5%"
+      }
+    },
+    {
+      "id": "grassland_wolf_skin", "name": "Grassland Wolf Skin", "rarity": "epic", "tags": ["Heat Resist", "Stamina"],
+      "effects": {
+        "helmet": "Weakspot DMG Reduction +8% when in a team",
+        "top": "Heat Resist & Burn Resist +10; Max Stamina +15",
+        "bottoms": "Heat Resist & Burn Resist +10; Max Stamina +15",
+        "gloves": "Poultry & Rabbit Meat Yield +15%",
+        "shoes": "Sprint Speed +6%",
+        "mask": "Weapon DMG +4% in Hot weather"
+      }
+    },
+    {
+      "id": "jungle_wolf_skin", "name": "Jungle Wolf Skin", "rarity": "epic", "tags": ["Cold Resist", "Stamina"],
+      "effects": {
+        "helmet": "Weakspot DMG Reduction +10% while crouched",
+        "top": "Cold Resist & Frost Resist +10; Max Stamina +15",
+        "bottoms": "Cold Resist & Frost Resist +10; Max Stamina +15",
+        "gloves": "Poultry & Rabbit Meat Yield +15%",
+        "shoes": "Crouch Movement Speed +15%",
+        "mask": "Crit DMG +5% while crouched"
+      }
+    },
+    {
+      "id": "lunar_wolf_skin", "name": "Lunar Wolf Skin", "rarity": "legendary", "tags": ["Stamina", "Damage/Crit", "Low HP"],
+      "effects": {
+        "helmet": "Weakspot DMG Reduction +6% (doubles if HP < 30%)",
+        "top": "Max Stamina +15; Hip-Fire & Scoped Move Speed +5% (doubles if HP < 30%)",
+        "bottoms": "Max Stamina +15; Hip-Fire & Scoped Move Speed +5% (doubles if HP < 30%)",
+        "gloves": "Lunar Whisper Yield +20% (doubles if HP < 30%)",
+        "shoes": "Movement Speed +5% (doubles if HP < 30%)",
+        "mask": "Weapon DMG +4% (+8% if HP < 30%)"
+      }
+    },
+    {
+      "id": "dreamfused_wolf_skin", "name": "Dreamfused Wolf Skin", "rarity": "legendary", "tags": ["Stamina", "Damage/Crit", "Dream Zone"],
+      "effects": {
+        "helmet": "Weakspot DMG Reduction +5% (doubles in Dream Zone)",
+        "top": "Max Stamina +15 (doubles in Dream Zone)",
+        "bottoms": "Max Stamina +15 (doubles in Dream Zone)",
+        "gloves": "20% chance for extra Dreamfused fur/hide when hunting in Dream Zone",
+        "shoes": "Movement Speed +4% (doubles in Dream Zone)",
+        "mask": "Weapon DMG +3% (doubles in Dream Zone)"
+      }
+    },
+    {
+      "id": "bear_skin", "name": "Bear Skin", "rarity": "fine", "tags": ["Cold Resist", "HP/Heal"],
+      "effects": {
+        "helmet": "DMG Reduction +3% when Energy is at 100",
+        "top": "Cold & Frost Resist +10; Recover 3% HP on kill at ≤10°C",
+        "bottoms": "Cold & Frost Resist +10; Recover 3% HP on kill at ≤10°C",
+        "gloves": "Deer, Beef, Goat & Pork Yield +10%",
+        "shoes": "Movement Speed +8% at ≤10°C",
+        "mask": "Frost Elemental DMG +5%"
+      }
+    },
+    {
+      "id": "floating_ice_bear_skin", "name": "Floating Ice Bear Skin", "rarity": "legendary", "tags": ["Cold Resist", "HP/Heal"],
+      "effects": {
+        "helmet": "DMG Reduction +4% when Energy > 60",
+        "top": "Cold & Frost Resist +15; Recover 5% HP on kill at ≤10°C",
+        "bottoms": "Cold & Frost Resist +15; Recover 5% HP on kill at ≤10°C",
+        "gloves": "Deer, Beef, Goat & Pork Yield +15%",
+        "shoes": "Movement Speed +15% at ≤10°C",
+        "mask": "Frost Elemental DMG +8% when Energy is at 100"
+      }
+    },
+    {
+      "id": "snowfield_bear_skin", "name": "Snowfield Bear Skin", "rarity": "legendary", "tags": ["Cold Resist", "HP/Heal"],
+      "effects": {
+        "helmet": "Max HP +800 when Energy < 60",
+        "top": "Cold & Frost Resist +15; Roll Speed +10% at ≤10°C",
+        "bottoms": "Cold & Frost Resist +15; Roll Speed +10% at ≤10°C",
+        "gloves": "Deer, Beef, Goat & Pork Yield +15%",
+        "shoes": "Movement Speed +12% at ≤10°C",
+        "mask": "Shock Elemental DMG +8% when Energy < 60"
+      }
+    },
+    {
+      "id": "cave_bear_skin", "name": "Cave Bear Skin", "rarity": "legendary", "tags": ["Cold Resist", "HP/Heal"],
+      "effects": {
+        "helmet": "On taking DMG, spend 10 Energy to recover 10% HP (30s CD)",
+        "top": "Cold & Frost Resist +10; Energy depletion -25% in Cold status",
+        "bottoms": "Cold & Frost Resist +10; Energy depletion -25% in Cold status",
+        "gloves": "Deer, Beef, Goat & Pork Yield +15%",
+        "shoes": "Movement Speed +20% inside any Territory",
+        "mask": "Elemental DMG +7% while crouched"
+      }
+    },
+    {
+      "id": "deer_hide", "name": "Deer Hide", "rarity": "common", "tags": ["Cold Resist", "Movement Speed"],
+      "effects": {
+        "helmet": "DMG Reduction +3% while sprinting",
+        "top": "Cold Resist & Frost Resist +5",
+        "bottoms": "Cold Resist & Frost Resist +5",
+        "gloves": "Logging & Mining Speed +10%",
+        "shoes": "Sprint Speed +6%",
+        "mask": "Impact DMG +12%"
+      }
+    },
+    {
+      "id": "highland_deer_hide", "name": "Highland Deer Hide", "rarity": "epic", "tags": ["Cold Resist", "Movement Speed"],
+      "effects": {
+        "helmet": "DMG Reduction +5% while sprinting",
+        "top": "Cold & Frost Resist +10; Sprint Speed +5%",
+        "bottoms": "Cold & Frost Resist +10; Sprint Speed +5%",
+        "gloves": "Logging & Mining Speed +12%",
+        "shoes": "Sprint Speed +8%",
+        "mask": "Impact DMG +10% (doubles when Sprint Speed > 120%)"
+      }
+    },
+    {
+      "id": "tundra_deer_hide", "name": "Tundra Deer Hide", "rarity": "epic", "tags": ["Cold Resist", "Stamina"],
+      "effects": {
+        "helmet": "DMG Reduction +3% while moving",
+        "top": "Cold Resist & Frost Resist +15",
+        "bottoms": "Cold Resist & Frost Resist +15",
+        "gloves": "Logging & Mining Speed +12%",
+        "shoes": "Sprinting Stamina Cost -50%",
+        "mask": "Impact DMG +15%"
+      }
+    },
+    {
+      "id": "rabbit_fur", "name": "Rabbit Fur", "rarity": "common", "tags": ["Cold Resist"],
+      "effects": {
+        "helmet": "DMG Reduction +5% while mid-air",
+        "top": "Cold Resist & Frost Resist +5",
+        "bottoms": "Cold Resist & Frost Resist +5",
+        "gloves": "Gathering Speed +8%",
+        "shoes": "Jump Height +8%",
+        "mask": "Reload Speed +4%"
+      }
+    },
+    {
+      "id": "dreamy_rabbit_fur", "name": "Dreamy Rabbit Fur", "rarity": "epic", "tags": ["Cold Resist", "Heat Resist"],
+      "effects": {
+        "helmet": "DMG Reduction +8% while vaulting",
+        "top": "Cold & Frost Resist +10; Heat & Burn Resist +5",
+        "bottoms": "Cold & Frost Resist +10; Heat & Burn Resist +5",
+        "gloves": "Gathering Yield +10%",
+        "shoes": "Roll Stamina Cost -15%",
+        "mask": "Status DMG Reduction +8%"
+      }
+    },
+    {
+      "id": "crocodile_skin", "name": "Crocodile Skin", "rarity": "fine", "tags": ["Heat Resist"],
+      "effects": {
+        "helmet": "Crit DMG Reduction +10%",
+        "top": "Heat & Burn Resist +10; Dampened duration +50%",
+        "bottoms": "Heat & Burn Resist +10; Dampened duration +50%",
+        "gloves": "Fishing & Water Yield +15%",
+        "shoes": "Swim Speed +15%",
+        "mask": "Blaze Elemental DMG +5%"
+      }
+    },
+    {
+      "id": "cowhide", "name": "Cowhide", "rarity": "fine", "tags": ["Carry Weight"],
+      "effects": {
+        "helmet": "DMG Reduction +3% when Load > 70%",
+        "top": "Cold & Frost Resist +5; Max Load +10",
+        "bottoms": "Cold & Frost Resist +5; Max Load +10",
+        "gloves": "Logging & Mining Yield +10%",
+        "shoes": "Max Load +15",
+        "mask": "Pollution Resist +8"
+      }
+    },
+    {
+      "id": "velvet", "name": "Velvet (Feather)", "rarity": "common", "tags": ["Cold Resist", "Damage/Crit"],
+      "effects": {
+        "helmet": "Pollution Resist +15",
+        "top": "Cold & Frost Resist +15; Dampened duration +150%",
+        "bottoms": "Cold & Frost Resist +15; Dampened duration +150%",
+        "gloves": "Berry Yield +10%",
+        "shoes": "Glide Descent Speed -10%",
+        "mask": "Status DMG +10% while Dampened"
+      }
+    }
+  ],
+  "geneFabrics": [
+    {
+      "id": "none", "name": "None (Standard Craft)", "rarity": "common",
+      "effect": "No additional Gene Fabric modifier",
+      "topBonus": null
+    },
+    {
+      "id": "extreme_gene_fabric", "name": "Extreme Gene Fabric", "rarity": "legendary",
+      "effect": "Weakspot DMG Reduction +3%",
+      "topBonus": "Top Bonus: Gain 2s Invincibility (0 Weapon/Sanity/Tactical DMG) when Coherence ends"
+    },
+    {
+      "id": "proliferation_gene_fabric", "name": "Proliferation Gene Fabric", "rarity": "legendary",
+      "effect": "Max Load +10%",
+      "topBonus": "Top Bonus: While in Coherence, converts Barreled Crude Oil in backpack into Portable Mixed Fuel every 30s"
+    },
+    {
+      "id": "lightning_gene_fabric", "name": "Lightning Gene Fabric", "rarity": "legendary",
+      "effect": "Crit DMG Reduction +3%",
+      "topBonus": "Top Bonus: When attacked in Coherence, calls a lightning strike (4000% Psi Intensity DMG, 30s CD)"
+    },
+    {
+      "id": "fortress_gene_fabric", "name": "Fortress Gene Fabric", "rarity": "legendary",
+      "effect": "Equipment Durability +30%",
+      "topBonus": "Top Bonus: Enhanced defensive stability in Coherence"
+    }
+  ]
+}

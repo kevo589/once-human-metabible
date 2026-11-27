@@ -6,6 +6,7 @@ import { InteractiveMapView } from './components/map/InteractiveMapView';
 import { MetaBuildsView } from './components/meta/MetaBuildsView';
 import { GlobalSearchModal } from './components/search/GlobalSearchModal';
 import { TimersView } from './components/timers/TimersView';
+import { GearWorkbenchView } from './components/workbench/GearWorkbenchView';
 import { META_BUILDS, TIMER_EVENTS } from './data/buildsAndTimers';
 import type { CalculatorPreset, EncyclopediaSubTab, MetaBuild, NavTab } from './types/game';
 import type { SearchEntry } from './utils/searchIndex';
@@ -84,7 +85,15 @@ export function App() {
             : 'min-w-0 flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8'
         }
       >
-        <div className={activeTab === 'map' ? 'h-full w-full' : 'mx-auto max-w-6xl'}>
+        <div
+          className={
+            activeTab === 'map'
+              ? 'h-full w-full'
+              : activeTab === 'workbench' || activeTab === 'encyclopedia'
+                ? 'mx-auto max-w-7xl'
+                : 'mx-auto max-w-6xl'
+          }
+        >
           {activeTab === 'calculator' && (
             <DpsCalculatorView
               preset={preset}
@@ -97,6 +106,18 @@ export function App() {
           )}
 
           {activeTab === 'meta' && <MetaBuildsView onLoadInCalculator={handleLoadMetaBuild} />}
+
+          {activeTab === 'workbench' && (
+            <GearWorkbenchView
+              initialTab="armor"
+              onSimulateWeapon={(weapon) => {
+                const matchingMeta = META_BUILDS.find((b) => b.weaponId === weapon.id);
+                setPreset(matchingMeta ? matchingMeta.preset : { ...preset, weaponId: weapon.id });
+                setActiveBuildName(matchingMeta ? matchingMeta.name : weapon.name);
+                setActiveTab('calculator');
+              }}
+            />
+          )}
 
           {activeTab === 'map' && <InteractiveMapView focusedMarkerId={focusedMapId} />}
 

@@ -50,6 +50,7 @@ export type TimerEvent = z.infer<typeof TimerEventSchema>;
 export type NavTab =
   | 'calculator'
   | 'meta'
+  | 'workbench'
   | 'map'
   | 'encyclopedia'
   | 'timers';
