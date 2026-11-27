@@ -51,3 +51,33 @@
   box-shadow: none !important;
   pointer-events: none;
 }
+
+.thgl-marker-icon {
+  background: transparent !important;
+  border: none !important;
+}
+
+.thgl-pin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(7, 9, 13, 0.92);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.72);
+  transition: transform 120ms ease, opacity 120ms ease, box-shadow 120ms ease;
+}
+
+.thgl-pin:hover {
+  transform: scale(1.18);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.45), 0 4px 12px rgba(0, 0, 0, 0.85);
+}
+
+.thgl-pin.is-selected {
+  transform: scale(1.26);
+  border-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.55), 0 4px 14px rgba(0, 0, 0, 0.9);
+}
+
+.thgl-pin.is-found {
+  opacity: 0.36;
+}

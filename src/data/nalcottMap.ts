@@ -70,9 +70,42 @@ export const NALCOTT_DEFAULT_TYPE_KEYS: string[] = NALCOTT_MAP.types
   .filter((t) => t.defaultOn)
   .map((t) => t.key);
 
+export interface NalcottTypeGroup {
+  id: string;
+  label: string;
+  keys: string[];
+}
+
+export const NALCOTT_TYPE_GROUPS: NalcottTypeGroup[] = [
+  {
+    id: 'world',
+    label: 'World & Fast Travel',
+    keys: ['teleport-tower', 'monolith', 'securement-silo', 'worldstone', 'rift-anchor'],
+  },
+  {
+    id: 'settlements',
+    label: 'Strongholds & Safe Zones',
+    keys: [
+      'mayfly-stronghold',
+      'settlement',
+      'harvesters-market',
+      'camp',
+      'arena',
+      'contest-area',
+      'attackers-base',
+    ],
+  },
+  {
+    id: 'resources',
+    label: 'Resources, Labs & Regions',
+    keys: ['extraction-site', 'mine-workshop', 'thermal-tower', 'research-lab', 'place'],
+  },
+];
+
 export interface MapCameraPreset {
   id: 'all' | 'manibus' | 'way_of_winter';
   label: string;
+  shortLabel: string;
   subtitle: string;
   center: [number, number];
   zoom: number;
@@ -81,22 +114,25 @@ export interface MapCameraPreset {
 export const NALCOTT_CAMERA_PRESETS: MapCameraPreset[] = [
   {
     id: 'all',
-    label: 'Full Nalcott',
-    subtitle: 'Complete Nalcott Island & Northern Sectors (966 POIs)',
+    label: 'All Nalcott',
+    shortLabel: 'Nalcott',
+    subtitle: 'Full Nalcott Island & Northern Sectors',
     center: [-265, 310],
     zoom: 0,
   },
   {
     id: 'manibus',
-    label: 'Manibus (South)',
+    label: "Manibus & Evolution's Call",
+    shortLabel: 'Manibus',
     subtitle: 'Dayton Wetlands, Broken Delta, Iron River, Chalk Peak & Red Sands',
     center: [-375, 405],
     zoom: 1,
   },
   {
     id: 'way_of_winter',
-    label: 'Way of Winter (North)',
-    subtitle: 'Vena Fjord, Onyx Tundra, Ember Strand & Blackheart Region',
+    label: 'The Way of Winter',
+    shortLabel: 'Winter',
+    subtitle: 'Vena Fjord, Onyx Tundra, Ember Strand & Blackheart',
     center: [-110, 315],
     zoom: 1,
   },

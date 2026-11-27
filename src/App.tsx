@@ -73,8 +73,14 @@ export function App() {
         activeEventCount={activeEventCount}
       />
 
-      <main className="min-w-0 flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
-        <div className="mx-auto max-w-6xl">
+      <main
+        className={
+          activeTab === 'map'
+            ? 'relative min-w-0 flex-1 overflow-hidden p-0'
+            : 'min-w-0 flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8'
+        }
+      >
+        <div className={activeTab === 'map' ? 'h-full w-full' : 'mx-auto max-w-6xl'}>
           {activeTab === 'calculator' && (
             <DpsCalculatorView
               preset={preset}
