@@ -2,7 +2,7 @@ import L from 'leaflet';
 import { useEffect, useRef } from 'react';
 import { useMap } from 'react-leaflet';
 import type { NalcottPoi } from '../../data/nalcottMap';
-import { getCategoryCanvasSprite } from './mapIcons';
+import { getCategoryCanvasSprite, getImageCanvasSprite } from './mapIcons';
 
 export type LabelDisplayMode = 'off' | 'hover' | 'always';
 
@@ -23,6 +23,7 @@ interface TacticalCanvasLayerProps {
 
 const BUCKET_SIZE = 32; // 32x32 map units across 512x512 -> 16x16 buckets
 const BASE_RADIUS_PX = 12;
+const BASE_IMAGE_RADIUS_PX = 16;
 
 export function TacticalCanvasLayer({
   markers,
@@ -74,10 +75,16 @@ export function TacticalCanvasLayer({
     }
     spatialBucketsRef.current = buckets;
 
-    // Warm sprite atlas for visible categories so icons rasterize promptly
+    // Warm sprite atlas for visible categories and image badges so icons rasterize promptly
     const seen = new Set<string>();
+    const seenImages = new Set<string>();
     for (const m of markers) {
-      if (!seen.has(m.typeKey)) {
+      if (m.imageUrl) {
+        if (!seenImages.has(m.imageUrl)) {
+          seenImages.add(m.imageUrl);
+          getImageCanvasSprite(m.imageUrl, m.color, () => redrawFnRef.current?.());
+        }
+      } else if (!seen.has(m.typeKey)) {
         seen.add(m.typeKey);
         getCategoryCanvasSprite(m.typeKey, m.color);
       }
@@ -186,9 +193,10 @@ export function TacticalCanvasLayer({
         const isHovered = m.id === curHover;
         const isFound = curFound.has(m.id);
 
+        const baseRadius = m.imageUrl ? BASE_IMAGE_RADIUS_PX : BASE_RADIUS_PX;
         const iconDiameter = Math.max(
-          11,
-          Math.min(48, Math.round(BASE_RADIUS_PX * 2 * scale * (isSelected ? 1.28 : isHovered ? 1.15 : 1))),
+          m.imageUrl ? 18 : 11,
+          Math.min(m.imageUrl ? 56 : 48, Math.round(baseRadius * 2 * scale * (isSelected ? 1.25 : isHovered ? 1.15 : 1))),
         );
         const r = iconDiameter / 2;
         const alpha = isSelected || isHovered ? 1 : isFound ? 0.35 : 0.96;
@@ -209,7 +217,9 @@ export function TacticalCanvasLayer({
           ctx.stroke();
         }
 
-        const sprite = getCategoryCanvasSprite(m.typeKey, m.color);
+        const sprite = m.imageUrl
+          ? getImageCanvasSprite(m.imageUrl, m.color, scheduleDraw)
+          : getCategoryCanvasSprite(m.typeKey, m.color);
         if (sprite) {
           ctx.drawImage(sprite, pt.x - r, pt.y - r, iconDiameter, iconDiameter);
         } else {
@@ -290,7 +300,7 @@ export function TacticalCanvasLayer({
           for (const m of list) {
             const p = map.latLngToContainerPoint([m.lat, m.lng]);
             const scale = settings[m.typeKey]?.iconScale ?? 1;
-            const hitRadius = Math.max(13, 14 * scale);
+            const hitRadius = Math.max(13, (m.imageUrl ? 17 : 14) * scale);
             const distX = p.x - containerPt.x;
             const distY = p.y - containerPt.y;
             const distSq = distX * distX + distY * distY;

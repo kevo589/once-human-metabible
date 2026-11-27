@@ -281,7 +281,15 @@ export function TacticalSidebar({
                   }}
                   className="flex w-full items-center gap-2 rounded px-1.5 py-1 text-left transition hover:bg-zinc-800"
                 >
-                  <CategoryGlyph typeKey={poi.typeKey} color={poi.color} />
+                  {poi.imageUrl ? (
+                    <img
+                      src={poi.imageUrl}
+                      alt={poi.name}
+                      className="h-6 w-6 shrink-0 rounded-md border border-orange-500/45 bg-zinc-900 object-cover"
+                    />
+                  ) : (
+                    <CategoryGlyph typeKey={poi.typeKey} color={poi.color} />
+                  )}
                   <div className="min-w-0 flex-1">
                     <div className="truncate text-[11px] font-medium text-white">{poi.name}</div>
                     <div className="truncate text-[10px] text-zinc-400">

@@ -70,6 +70,9 @@ describe('Once Human game data schemas', () => {
     expect(
       DEVIATIONS.every((d) => d.dropSource && !d.dropSource.includes('(oncehumandb.com)')),
     ).toBe(true);
+    const deviationPins = ALL_MAP_MARKERS.filter((m) => m.typeKey === 'deviation-spawn');
+    expect(deviationPins.length).toBeGreaterThanOrEqual(100);
+    expect(deviationPins.every((m) => Boolean(m.imageUrl))).toBe(true);
     expect(
       fs.existsSync(path.resolve(process.cwd(), 'public', 'maps', 'nalcott', 'overview-1024.webp')),
     ).toBe(true);

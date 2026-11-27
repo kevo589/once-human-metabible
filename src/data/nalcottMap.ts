@@ -1,4 +1,5 @@
 import type { NalcottMapData, ScenarioId } from '../types/game';
+import { DEVIATIONS } from './deviationsAndChef';
 import { MAP_CATEGORIES } from './mapCatalog';
 import rawGeneratedData from './generatedMapMarkers.json';
 import rawMapData from './nalcottMap.json';
@@ -24,6 +25,16 @@ export interface NalcottPoi {
   region: string;
   scenario: Extract<ScenarioId, 'manibus' | 'way_of_winter'>;
   tierNote?: string;
+  imageUrl?: string;
+}
+
+const DEVIATION_BY_ID = new Map(DEVIATIONS.map((d) => [d.id, d]));
+const DEVIATION_BY_NAME = new Map(DEVIATIONS.map((d) => [d.name.toLowerCase(), d]));
+
+function resolveDeviationImageUrl(id: string, label: string): string | undefined {
+  const slug = id.replace(/^devspawn-/, '').replace(/-\d+$/, '');
+  const titleName = label.split(' · ')[0]?.trim().toLowerCase() ?? '';
+  return DEVIATION_BY_ID.get(slug)?.imageUrl ?? DEVIATION_BY_NAME.get(titleName)?.imageUrl;
 }
 
 const WINTER_REGIONS = new Set(['Onyx Tundra', 'Ember Strand', 'Vena Fjord']);
@@ -95,6 +106,8 @@ const generatedList = (rawGeneratedData as { markers: GeneratedMarkerTuple[] }).
 const DENSE_POIS: NalcottPoi[] = generatedList.map(
   ([id, catKey, name, level, lat, lng, region, scenario, near], idx) => {
     const meta = CATEGORY_META_BY_KEY.get(catKey);
+    const imageUrl =
+      catKey === 'deviation-spawn' ? resolveDeviationImageUrl(id, name) : undefined;
     return {
       id,
       typeIndex: 100 + idx,
@@ -108,6 +121,7 @@ const DENSE_POIS: NalcottPoi[] = generatedList.map(
       near,
       region,
       scenario,
+      ...(imageUrl ? { imageUrl } : {}),
     };
   },
 );

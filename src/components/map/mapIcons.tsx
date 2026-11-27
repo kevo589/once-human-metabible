@@ -75,6 +75,8 @@ const SVG_PATHS: Record<string, string> = {
 };
 
 const SPRITE_CACHE = new Map<string, HTMLCanvasElement>();
+const IMAGE_SPRITE_CACHE = new Map<string, HTMLCanvasElement>();
+const IMAGE_SPRITE_PENDING = new Set<string>();
 const CUSTOM_ICON_CACHE = new Map<string, L.DivIcon>();
 
 export function CategoryGlyph({
@@ -149,6 +151,90 @@ export function getCategoryCanvasSprite(typeKey: string, color: string): HTMLCan
   img.src = blobUrl;
 
   SPRITE_CACHE.set(cacheKey, canvas);
+  return canvas;
+}
+
+/**
+ * Generates and caches a crisp 76x76 circular portrait badge for image-backed markers
+ * (such as Deviation Spawns), with a dark backdrop and glowing border ring.
+ */
+export function getImageCanvasSprite(
+  imageUrl: string,
+  borderColor: string,
+  onReady?: () => void,
+): HTMLCanvasElement | null {
+  if (typeof document === 'undefined' || !imageUrl) return null;
+  const cacheKey = `${imageUrl}|${borderColor}`;
+  const existing = IMAGE_SPRITE_CACHE.get(cacheKey);
+  if (existing) return existing;
+
+  const size = 76;
+  const canvas = document.createElement('canvas');
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return null;
+
+  drawFallbackBadge(ctx, size, borderColor);
+  IMAGE_SPRITE_CACHE.set(cacheKey, canvas);
+
+  if (!IMAGE_SPRITE_PENDING.has(cacheKey)) {
+    IMAGE_SPRITE_PENDING.add(cacheKey);
+    const img = new Image();
+    img.onload = () => {
+      IMAGE_SPRITE_PENDING.delete(cacheKey);
+      const center = size / 2;
+      const radius = size * 0.43;
+
+      ctx.clearRect(0, 0, size, size);
+
+      // Subtle dark outer halo for map contrast
+      ctx.beginPath();
+      ctx.arc(center, center, radius + 3.5, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(9, 9, 11, 0.9)';
+      ctx.fill();
+
+      // Circular dark plate behind transparent PNG corners
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(center, center, radius, 0, Math.PI * 2);
+      ctx.closePath();
+      ctx.clip();
+
+      ctx.fillStyle = '#14171c';
+      ctx.fillRect(0, 0, size, size);
+
+      // Aspect-fill crop centered on the portrait
+      const nw = img.naturalWidth || size;
+      const nh = img.naturalHeight || size;
+      const scale = Math.max((radius * 2) / nw, (radius * 2) / nh);
+      const dw = nw * scale;
+      const dh = nh * scale;
+      ctx.drawImage(img, center - dw / 2, center - dh / 2, dw, dh);
+      ctx.restore();
+
+      // Crisp category ring stroke
+      ctx.beginPath();
+      ctx.arc(center, center, radius, 0, Math.PI * 2);
+      ctx.lineWidth = 5;
+      ctx.strokeStyle = borderColor;
+      ctx.stroke();
+
+      // Thin inner gleam
+      ctx.beginPath();
+      ctx.arc(center, center, radius - 2.5, 0, Math.PI * 2);
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
+      ctx.stroke();
+
+      onReady?.();
+    };
+    img.onerror = () => {
+      IMAGE_SPRITE_PENDING.delete(cacheKey);
+    };
+    img.src = imageUrl;
+  }
+
   return canvas;
 }
 

@@ -110,12 +110,10 @@ function HybridNalcottTiles() {
   const map = useMap();
 
   useEffect(() => {
-    // ── Layer 1: Local tiles (z0–z2) – always crisp, no external dependency ──
+    // Layer 1: Local tiles (z0-z2) always available offline & during fast zoom transitions
     const LocalLayer = L.TileLayer.extend({
       getTileUrl(coords: L.Coords) {
-        // Clamp to z2 so we never request a local tile that doesn't exist
-        const z = Math.min(coords.z, 2);
-        // At lower zoom levels the tile grid is smaller; clamp x/y to valid range
+        const z = Math.max(0, Math.min(coords.z, 2));
         const maxTile = Math.pow(2, z) - 1;
         const x = Math.max(0, Math.min(coords.x, maxTile));
         const y = Math.max(0, Math.min(coords.y, maxTile));
@@ -130,20 +128,18 @@ function HybridNalcottTiles() {
       tileSize: NALCOTT_MAP.tileSize,
       minZoom: -1,
       minNativeZoom: 0,
-      // maxNativeZoom 2 → Leaflet upscales this layer for z3+
-      // We set CSS image-rendering below so the upscale is crisp (nearest-neighbor)
       maxNativeZoom: 2,
       maxZoom: 6,
+      zIndex: 1,
       bounds: NALCOTT_MAP_BOUNDS,
       noWrap: true,
-      keepBuffer: 4,
+      keepBuffer: 2,
       attribution: 'Map art © Starry Studio / NetEase Games',
       className: 'oh-map-tiles-local',
     });
 
-    // ── Layer 2: CDN tiles (z3–z5) layered on top when available ──
-    // These provide full detail when the CDN is reachable (desktop/WiFi).
-    // On CORS failure / CDN block, they're simply absent and layer 1 shows through.
+    // Layer 2: High-res CDN tiles (z3-z5 -> up to 16384x16384px map detail)
+    // IMPORTANT: Do NOT set crossOrigin: 'anonymous' — assets.oncehumandb.com serves WebP without ACAO headers.
     const CdnLayer = L.TileLayer.extend({
       getTileUrl(coords: L.Coords) {
         return NALCOTT_MAP.tileUrl
@@ -160,33 +156,25 @@ function HybridNalcottTiles() {
       tileSize: NALCOTT_MAP.tileSize,
       minNativeZoom: 3,
       maxNativeZoom: NALCOTT_MAP.maxNativeZoom,
-      minZoom: 3,
+      minZoom: 2.5,
       maxZoom: 6,
+      zIndex: 5,
       bounds: NALCOTT_MAP_BOUNDS,
       noWrap: true,
       keepBuffer: 2,
-      crossOrigin: 'anonymous',
       className: 'oh-map-tiles-cdn',
-      errorTileUrl: '', // silent on failure
+    });
+
+    cdnLayer.on('tileerror', (ev: L.TileErrorEvent) => {
+      if (ev.tile) {
+        ev.tile.style.opacity = '0';
+      }
     });
 
     localLayer.addTo(map);
     cdnLayer.addTo(map);
 
-    // Apply crisp-edges rendering to the local layer so upscaling at high zoom
-    // is nearest-neighbor (pixel-perfect) instead of blurry bilinear
-    const applyRenderingHint = () => {
-      const container = map.getContainer();
-      const localImg = container.querySelector('.oh-map-tiles-local img') as HTMLElement | null;
-      if (localImg) {
-        localImg.style.imageRendering = 'pixelated';
-      }
-      // Apply to all tiles via CSS class (injected once)
-    };
-    map.on('tileloadstart', applyRenderingHint);
-
     return () => {
-      map.off('tileloadstart', applyRenderingHint);
       localLayer.remove();
       cdnLayer.remove();
     };
@@ -440,7 +428,29 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
   const [contextMenu, setContextMenu] = useState<ContextMenuState | null>(null);
   const [toastMsg, setToastMsg] = useState<string | null>(null);
   const [cursorCoords, setCursorCoords] = useState<{ lng: number; lat: number } | null>(null);
-  const [zoomLevel, setZoomLevel] = useState(0);
+  const initialView = useMemo(() => {
+    if (initialPinFocus) {
+      return {
+        hasTarget: true,
+        center: [initialPinFocus.lat, initialPinFocus.lng] as [number, number],
+        zoom: initialUrl.z ?? 4,
+      };
+    }
+    if (typeof initialUrl.x === 'number' && typeof initialUrl.y === 'number') {
+      return {
+        hasTarget: true,
+        center: [initialUrl.y, initialUrl.x] as [number, number],
+        zoom: initialUrl.z ?? 3,
+      };
+    }
+    return {
+      hasTarget: false,
+      center: [-265, 310] as [number, number],
+      zoom: 0,
+    };
+  }, [initialPinFocus, initialUrl.x, initialUrl.y, initialUrl.z]);
+
+  const [zoomLevel, setZoomLevel] = useState(initialView.zoom);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   const [flyRequest, setFlyRequest] = useState<{
@@ -448,20 +458,7 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
     lng: number;
     zoom: number;
     seq: number;
-  } | null>(() => {
-    if (initialPinFocus) {
-      return { lat: initialPinFocus.lat, lng: initialPinFocus.lng, zoom: 4, seq: 1 };
-    }
-    if (typeof initialUrl.x === 'number' && typeof initialUrl.y === 'number') {
-      return {
-        lat: initialUrl.y,
-        lng: initialUrl.x,
-        zoom: initialUrl.z ?? 3,
-        seq: 1,
-      };
-    }
-    return null;
-  });
+  } | null>(null);
   const [fitBoundsRequest, setFitBoundsRequest] = useState<{
     bounds: [[number, number], [number, number]];
     seq: number;
@@ -801,13 +798,13 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
     >
       <MapContainer
         crs={L.CRS.Simple}
-        bounds={NALCOTT_MAP_BOUNDS}
+        bounds={initialView.hasTarget ? undefined : NALCOTT_MAP_BOUNDS}
         maxBounds={[
           [-565, -55],
           [55, 567],
         ]}
-        center={[-265, 310]}
-        zoom={0}
+        center={initialView.center}
+        zoom={initialView.zoom}
         minZoom={-1}
         maxZoom={6}
         zoomSnap={0.5}
@@ -1489,7 +1486,15 @@ function SelectedPoiPopupBody({
   return (
     <div className="min-w-[235px] max-w-[280px] space-y-2 text-xs text-zinc-100">
       <div className="flex items-start gap-2">
-        <CategoryGlyph typeKey={poi.typeKey} color={poi.color} />
+        {poi.imageUrl ? (
+          <img
+            src={poi.imageUrl}
+            alt={poi.name}
+            className="h-10 w-10 shrink-0 rounded-lg border border-orange-500/55 bg-zinc-900 object-cover shadow-md"
+          />
+        ) : (
+          <CategoryGlyph typeKey={poi.typeKey} color={poi.color} />
+        )}
         <div className="min-w-0 flex-1">
           <div className="font-bold leading-snug text-white">{poi.name}</div>
           <div className="mt-0.5 flex flex-wrap items-center gap-1 text-[11px] text-cyan-400">
