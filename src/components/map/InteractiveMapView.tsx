@@ -110,11 +110,42 @@ function HybridNalcottTiles() {
   const map = useMap();
 
   useEffect(() => {
-    const HybridLayer = L.TileLayer.extend({
+    // ── Layer 1: Local tiles (z0–z2) – always crisp, no external dependency ──
+    const LocalLayer = L.TileLayer.extend({
       getTileUrl(coords: L.Coords) {
-        if (coords.z >= 0 && coords.z <= 2) {
-          return `./maps/nalcott/${coords.z}/${coords.x}/${coords.y}.webp`;
-        }
+        // Clamp to z2 so we never request a local tile that doesn't exist
+        const z = Math.min(coords.z, 2);
+        // At lower zoom levels the tile grid is smaller; clamp x/y to valid range
+        const maxTile = Math.pow(2, z) - 1;
+        const x = Math.max(0, Math.min(coords.x, maxTile));
+        const y = Math.max(0, Math.min(coords.y, maxTile));
+        return `./maps/nalcott/${z}/${x}/${y}.webp`;
+      },
+    });
+
+    const localLayer = new (LocalLayer as unknown as new (
+      url: string,
+      opts: L.TileLayerOptions,
+    ) => L.TileLayer)('', {
+      tileSize: NALCOTT_MAP.tileSize,
+      minZoom: -1,
+      minNativeZoom: 0,
+      // maxNativeZoom 2 → Leaflet upscales this layer for z3+
+      // We set CSS image-rendering below so the upscale is crisp (nearest-neighbor)
+      maxNativeZoom: 2,
+      maxZoom: 6,
+      bounds: NALCOTT_MAP_BOUNDS,
+      noWrap: true,
+      keepBuffer: 4,
+      attribution: 'Map art © Starry Studio / NetEase Games',
+      className: 'oh-map-tiles-local',
+    });
+
+    // ── Layer 2: CDN tiles (z3–z5) layered on top when available ──
+    // These provide full detail when the CDN is reachable (desktop/WiFi).
+    // On CORS failure / CDN block, they're simply absent and layer 1 shows through.
+    const CdnLayer = L.TileLayer.extend({
+      getTileUrl(coords: L.Coords) {
         return NALCOTT_MAP.tileUrl
           .replace('{z}', String(coords.z))
           .replace('{x}', String(coords.x))
@@ -122,24 +153,42 @@ function HybridNalcottTiles() {
       },
     });
 
-    const layer = new (HybridLayer as unknown as new (
+    const cdnLayer = new (CdnLayer as unknown as new (
       url: string,
       opts: L.TileLayerOptions,
     ) => L.TileLayer)('', {
       tileSize: NALCOTT_MAP.tileSize,
-      minZoom: -1,
-      minNativeZoom: 0,
-      maxZoom: 6,
+      minNativeZoom: 3,
       maxNativeZoom: NALCOTT_MAP.maxNativeZoom,
+      minZoom: 3,
+      maxZoom: 6,
       bounds: NALCOTT_MAP_BOUNDS,
       noWrap: true,
       keepBuffer: 2,
-      attribution: 'Map art © Starry Studio / NetEase Games',
+      crossOrigin: 'anonymous',
+      className: 'oh-map-tiles-cdn',
+      errorTileUrl: '', // silent on failure
     });
 
-    layer.addTo(map);
+    localLayer.addTo(map);
+    cdnLayer.addTo(map);
+
+    // Apply crisp-edges rendering to the local layer so upscaling at high zoom
+    // is nearest-neighbor (pixel-perfect) instead of blurry bilinear
+    const applyRenderingHint = () => {
+      const container = map.getContainer();
+      const localImg = container.querySelector('.oh-map-tiles-local img') as HTMLElement | null;
+      if (localImg) {
+        localImg.style.imageRendering = 'pixelated';
+      }
+      // Apply to all tiles via CSS class (injected once)
+    };
+    map.on('tileloadstart', applyRenderingHint);
+
     return () => {
-      layer.remove();
+      map.off('tileloadstart', applyRenderingHint);
+      localLayer.remove();
+      cdnLayer.remove();
     };
   }, [map]);
 

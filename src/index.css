@@ -89,3 +89,17 @@
 .thgl-pin.is-found {
   opacity: 0.36;
 }
+
+/* ── Map tile rendering: crisp nearest-neighbor upscale (no blur at high zoom) ── */
+.oh-map-tiles-local img,
+.oh-map-tiles-local .leaflet-tile {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges; /* Firefox */
+  -ms-interpolation-mode: nearest-neighbor; /* IE legacy */
+}
+
+/* CDN tiles render normally (they have native resolution) */
+.oh-map-tiles-cdn img,
+.oh-map-tiles-cdn .leaflet-tile {
+  image-rendering: auto;
+}
