@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <defs>
+    <linearGradient id="daggerBlade" x1="30" y1="98" x2="104" y2="24" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="60%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+  </defs>
+  <path d="M24 104 L42 86 L48 92 L30 110 Z" fill="#78350f" stroke="#d97706" stroke-width="2"/>
+  <path d="M38 80 L54 96 L58 92 L42 76 Z" fill="#f59e0b"/>
+  <path d="M46 78 C64 56, 86 36, 106 22 C96 46, 78 68, 52 84 Z" fill="url(#daggerBlade)" stroke="#7dd3fc" stroke-width="2"/>
+  <circle cx="48" cy="84" r="3" fill="#22d3ee"/>
+</svg>
