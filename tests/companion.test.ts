@@ -48,6 +48,11 @@ describe('Once Human game data schemas', () => {
       const absPath = path.resolve(process.cwd(), 'public', rel);
       expect(fs.existsSync(absPath), `Missing image for ${item.id}: ${absPath}`).toBe(true);
     }
+
+    const validModSlots = new Set(['Weapon', 'Helmet', 'Mask', 'Top', 'Bottom', 'Gloves', 'Shoes']);
+    for (const mod of MODS) {
+      expect(validModSlots.has(mod.slot)).toBe(true);
+    }
   });
 });
 

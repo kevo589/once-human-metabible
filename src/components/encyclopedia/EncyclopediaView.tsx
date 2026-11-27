@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Award, ChefHat, Cpu, Crosshair, Shield, Skull, Sparkles } from 'lucide-react';
 import { DEVIATIONS, RECIPES } from '../../data/deviationsAndChef';
 import { ARMOR_SETS, MODS } from '../../data/gearAndMods';
@@ -10,7 +10,6 @@ import type {
   Deviation,
   ElementType,
   EncyclopediaSubTab,
-  ModItem,
   Rarity,
   Weapon,
 } from '../../types/game';
@@ -18,6 +17,7 @@ import { cn } from '../../utils/cn';
 import { ELEMENT_TEXT, Pill, RARITY_LEFT_BORDER, RARITY_TEXT, RarityBadge } from '../common/Badge';
 import { EntityDetailModal, EntityThumbnail, type InspectedEntity } from '../common/ItemVisuals';
 import { WeaponDetailModal, WeaponThumbnail } from '../weapons/WeaponVisuals';
+import { ModsMatrixView } from './ModsMatrixView';
 
 interface EncyclopediaViewProps {
   subTab: EncyclopediaSubTab;
@@ -59,16 +59,6 @@ const WEAPON_ELEMENTS: Array<{ id: 'All' | ElementType; label: string }> = [
   { id: 'Physical', label: 'Physical' },
 ];
 
-const MOD_ELEMENTS: Array<{ id: 'All' | ElementType; label: string }> = [
-  { id: 'All', label: 'All Elements' },
-  { id: 'Blaze', label: 'Blaze' },
-  { id: 'Frost', label: 'Frost' },
-  { id: 'Shock', label: 'Shock' },
-  { id: 'Blast', label: 'Blast' },
-  { id: 'Physical', label: 'Physical' },
-  { id: 'Universal', label: 'Universal' },
-];
-
 const KEYWORDS: Array<'All' | Archetype> = [
   'All',
   'Burn',
@@ -84,20 +74,8 @@ const KEYWORDS: Array<'All' | Archetype> = [
 ];
 
 const ARMOR_SLOTS: Array<'All' | ArmorSet['slot']> = ['All', 'Helmet', 'Mask', 'Top', 'Bottom', 'Gloves', 'Shoes'];
-const MOD_SLOTS: Array<'All' | ModItem['slot']> = ['All', 'Weapon', 'Helmet', 'Mask', 'Top', 'Bottom', 'Gloves', 'Shoes'];
 const DEV_TYPES: Array<'All' | Deviation['type']> = ['All', 'Combat', 'Territory', 'Crafting'];
 const RARITIES: Array<'All' | Rarity> = ['All', 'Legendary', 'Epic', 'Rare', 'Uncommon', 'Common'];
-
-const MOD_VARIANTS = ['All', ...Array.from(new Set(MODS.map((m) => m.variant))).sort((a, b) => a.localeCompare(b))];
-const ELEMENT_ORDER: ElementType[] = ['Blaze', 'Frost', 'Shock', 'Blast', 'Physical', 'Universal'];
-const MOD_SLOT_ORDER: ModItem['slot'][] = ['Weapon', 'Helmet', 'Mask', 'Top', 'Bottom', 'Gloves', 'Shoes'];
-const MOD_PAGE_SIZE = 60;
-
-interface ModFamilyGroup {
-  key: string;
-  representative: ModItem;
-  variants: ModItem[];
-}
 
 function groupBySection<T>(items: T[], getKey: (item: T) => string, preferredOrder?: string[]): Array<[string, T[]]> {
   const map = new Map<string, T[]>();
@@ -137,11 +115,6 @@ export function EncyclopediaView({
 
   const [armorSlot, setArmorSlot] = useState<'All' | ArmorSet['slot']>('All');
 
-  const [modSlot, setModSlot] = useState<'All' | ModItem['slot']>('All');
-  const [modVariant, setModVariant] = useState<string>('All');
-  const [modViewMode, setModViewMode] = useState<'families' | 'variants'>('families');
-  const [modVisibleLimit, setModVisibleLimit] = useState(MOD_PAGE_SIZE);
-
   const [devType, setDevType] = useState<'All' | Deviation['type']>('All');
   const [rarityFilter, setRarityFilter] = useState<'All' | Rarity>('All');
 
@@ -149,30 +122,6 @@ export function EncyclopediaView({
   const [inspectedEntity, setInspectedEntity] = useState<InspectedEntity | null>(null);
 
   const q = filterText.trim().toLowerCase();
-
-  // Map every mod family key `(slot::name)` to all its suffix variants (1,479 total)
-  const allModFamiliesMap = useMemo(() => {
-    const map = new Map<string, ModItem[]>();
-    for (const m of MODS) {
-      const key = `${m.slot}::${m.name}`;
-      const arr = map.get(key);
-      if (arr) arr.push(m);
-      else map.set(key, [m]);
-    }
-    return map;
-  }, []);
-
-  useEffect(() => {
-    setModVisibleLimit(MOD_PAGE_SIZE);
-  }, [q, modSlot, modVariant, elementFilter, rarityFilter, modViewMode, subTab]);
-
-  // If jumped via Ctrl+K to a specific mod variant, open or focus cleanly
-  useEffect(() => {
-    if (subTab === 'mods' && highlightedId) {
-      const hit = MODS.find((m) => m.id === highlightedId);
-      if (hit) setModSlot(hit.slot);
-    }
-  }, [subTab, highlightedId]);
 
   const filteredWeapons = useMemo(
     () =>
@@ -233,52 +182,6 @@ export function EncyclopediaView({
       ),
     [filteredArmor],
   );
-
-  const filteredMods = useMemo(
-    () =>
-      MODS.filter((m) => {
-        if (modSlot !== 'All' && m.slot !== modSlot) return false;
-        if (modVariant !== 'All' && m.variant !== modVariant) return false;
-        if (elementFilter !== 'All' && m.element !== elementFilter) return false;
-        if (rarityFilter !== 'All' && m.rarity !== rarityFilter) return false;
-        if (
-          q &&
-          !m.name.toLowerCase().includes(q) &&
-          !m.slot.toLowerCase().includes(q) &&
-          !m.variant.toLowerCase().includes(q) &&
-          !m.element.toLowerCase().includes(q) &&
-          !m.primaryEffect.toLowerCase().includes(q)
-        ) {
-          return false;
-        }
-        return true;
-      }),
-    [q, modSlot, modVariant, elementFilter, rarityFilter],
-  );
-
-  const modFamilyGroups = useMemo<ModFamilyGroup[]>(() => {
-    const grouped = new Map<string, ModItem[]>();
-    for (const m of filteredMods) {
-      const key = `${m.slot}::${m.name}`;
-      const list = grouped.get(key);
-      if (list) list.push(m);
-      else grouped.set(key, [m]);
-    }
-    return Array.from(grouped.entries()).map(([key, matches]) => {
-      const rep = matches.find((x) => x.variant === 'General') ?? matches[0];
-      const fullVariants = allModFamiliesMap.get(key) ?? matches;
-      return { key, representative: rep, variants: fullVariants };
-    });
-  }, [filteredMods, allModFamiliesMap]);
-
-  const modFamilySections = useMemo(() => {
-    if (modSlot === 'All') {
-      return groupBySection(modFamilyGroups, (g) => g.representative.slot, MOD_SLOT_ORDER);
-    }
-    return groupBySection(modFamilyGroups, (g) => g.representative.element, ELEMENT_ORDER);
-  }, [modFamilyGroups, modSlot]);
-
-  const visibleFlatMods = useMemo(() => filteredMods.slice(0, modVisibleLimit), [filteredMods, modVisibleLimit]);
 
   const filteredDeviations = useMemo(
     () =>
@@ -394,32 +297,7 @@ export function EncyclopediaView({
             </>
           )}
 
-          {subTab === 'mods' && (
-            <>
-              <select
-                value={modVariant}
-                onChange={(e) => setModVariant(e.target.value)}
-                className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none"
-              >
-                {MOD_VARIANTS.map((v) => (
-                  <option key={v} value={v}>
-                    {v === 'All' ? 'All Suffixes' : v}
-                  </option>
-                ))}
-              </select>
-
-              <select
-                value={modViewMode}
-                onChange={(e) => setModViewMode(e.target.value as 'families' | 'variants')}
-                className="rounded-lg border border-obsidian-800 bg-obsidian-900 px-2.5 py-1.5 text-xs text-slate-200 outline-none"
-              >
-                <option value="families">Grouped ({modFamilyGroups.length} families)</option>
-                <option value="variants">All Variants ({filteredMods.length})</option>
-              </select>
-            </>
-          )}
-
-          {(subTab === 'weapons' || subTab === 'armor' || subTab === 'mods' || subTab === 'deviations') && (
+          {(subTab === 'weapons' || subTab === 'armor' || subTab === 'deviations') && (
             <select
               value={rarityFilter}
               onChange={(e) => setRarityFilter(e.target.value as 'All' | Rarity)}
@@ -433,13 +311,15 @@ export function EncyclopediaView({
             </select>
           )}
 
-          <input
-            type="text"
-            value={filterText}
-            onChange={(e) => setFilterText(e.target.value)}
-            placeholder="Search..."
-            className="w-40 rounded-lg border border-obsidian-800 bg-obsidian-900 px-3 py-1.5 text-xs text-white placeholder-slate-500 outline-none focus:border-obsidian-600 sm:w-48"
-          />
+          {subTab !== 'mods' && (
+            <input
+              type="text"
+              value={filterText}
+              onChange={(e) => setFilterText(e.target.value)}
+              placeholder="Search..."
+              className="w-40 rounded-lg border border-obsidian-800 bg-obsidian-900 px-3 py-1.5 text-xs text-white placeholder-slate-500 outline-none focus:border-obsidian-600 sm:w-48"
+            />
+          )}
         </div>
       </div>
 
@@ -624,168 +504,7 @@ export function EncyclopediaView({
       )}
 
       {/* MODS */}
-      {subTab === 'mods' && (
-        <div className="space-y-5">
-          {/* In-game Slot Tabs + Element Filter Bar */}
-          <div className="space-y-2 border-b border-obsidian-800/80 pb-3">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <div className="flex flex-wrap gap-1">
-                {MOD_SLOTS.map((s) => (
-                  <button
-                    key={s}
-                    type="button"
-                    onClick={() => setModSlot(s)}
-                    className={cn(
-                      'rounded-md border px-2.5 py-1 text-[11px] font-medium transition',
-                      modSlot === s
-                        ? 'border-obsidian-700 bg-obsidian-800 text-white'
-                        : 'border-transparent text-slate-400 hover:bg-obsidian-900 hover:text-slate-200',
-                    )}
-                  >
-                    {s === 'All' ? 'All Slots' : s}
-                  </button>
-                ))}
-              </div>
-
-              <span className="font-mono text-[11px] text-slate-500">
-                {modViewMode === 'families'
-                  ? `${modFamilyGroups.length} families (${filteredMods.length} variants)`
-                  : `${filteredMods.length} / ${MODS.length}`}
-              </span>
-            </div>
-
-            <div className="flex flex-wrap gap-1">
-              {MOD_ELEMENTS.map((el) => (
-                <button
-                  key={el.id}
-                  type="button"
-                  onClick={() => setElementFilter(el.id)}
-                  className={cn(
-                    'rounded-md border px-2 py-0.5 text-[11px] transition',
-                    elementFilter === el.id
-                      ? 'border-obsidian-700 bg-obsidian-800 text-slate-100'
-                      : 'border-transparent text-slate-500 hover:text-slate-300',
-                  )}
-                >
-                  {el.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {modViewMode === 'families' ? (
-            modFamilySections.map(([sectionTitle, groups]) => (
-              <section key={sectionTitle} className="space-y-2.5">
-                <div className="flex items-center justify-between border-b border-obsidian-800/60 pb-1.5">
-                  <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-300">
-                    {modSlot === 'All' ? `${sectionTitle} Slot` : `${sectionTitle} Element`}
-                  </h2>
-                  <span className="font-mono text-[11px] text-slate-500">{groups.length} mods</span>
-                </div>
-
-                <div className="grid gap-2.5 md:grid-cols-2 xl:grid-cols-3">
-                  {groups.map(({ key, representative: m, variants }) => (
-                    <button
-                      key={key}
-                      type="button"
-                      onClick={() => setInspectedEntity({ kind: 'mod', item: m, variants })}
-                      className={cn(
-                        'group flex items-center gap-3 rounded-xl border border-l-2 bg-obsidian-900/70 px-3.5 py-3 text-left transition hover:bg-obsidian-850',
-                        RARITY_LEFT_BORDER[m.rarity],
-                        variants.some((v) => v.id === highlightedId)
-                          ? 'border-stardust-400/60 ring-1 ring-stardust-400/30'
-                          : 'border-obsidian-800',
-                      )}
-                    >
-                      <EntityThumbnail src={m.imageUrl} alt={m.name} rarity={m.rarity} size="md" fallbackKind="mod" />
-
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center justify-between gap-2">
-                          <h3 className="truncate text-sm font-medium text-slate-100 group-hover:text-white">
-                            {m.name}
-                          </h3>
-                          <span className="shrink-0 font-mono text-[10px] text-slate-500">
-                            {variants.length} var
-                          </span>
-                        </div>
-
-                        <div className="mt-1 flex items-center gap-1.5 truncate text-[11px] text-slate-400">
-                          <span className={ELEMENT_TEXT[m.element]}>{m.element}</span>
-                          <span className="text-slate-600">·</span>
-                          <span className="truncate text-slate-400">{m.primaryEffect}</span>
-                        </div>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </section>
-            ))
-          ) : (
-            <div className="space-y-4">
-              <div className="grid gap-2.5 md:grid-cols-2 xl:grid-cols-3">
-                {visibleFlatMods.map((m) => (
-                  <button
-                    key={m.id}
-                    type="button"
-                    onClick={() =>
-                      setInspectedEntity({
-                        kind: 'mod',
-                        item: m,
-                        variants: allModFamiliesMap.get(`${m.slot}::${m.name}`),
-                      })
-                    }
-                    className={cn(
-                      'group flex items-center gap-3 rounded-xl border border-l-2 bg-obsidian-900/70 px-3.5 py-3 text-left transition hover:bg-obsidian-850',
-                      RARITY_LEFT_BORDER[m.rarity],
-                      highlightedId === m.id ? 'border-stardust-400/60 ring-1 ring-stardust-400/30' : 'border-obsidian-800',
-                    )}
-                  >
-                    <EntityThumbnail src={m.imageUrl} alt={m.name} rarity={m.rarity} size="md" fallbackKind="mod" />
-
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center justify-between gap-2">
-                        <h3 className="truncate text-sm font-medium text-slate-100 group-hover:text-white">
-                          {m.name}
-                        </h3>
-                        <span className="shrink-0 text-[10px] font-medium text-slate-400">
-                          {m.variant}
-                        </span>
-                      </div>
-
-                      <div className="mt-1 flex items-center gap-1.5 truncate text-[11px] text-slate-400">
-                        <span>{m.slot}</span>
-                        <span className="text-slate-600">·</span>
-                        <span className={ELEMENT_TEXT[m.element]}>{m.element}</span>
-                        <span className="text-slate-600">·</span>
-                        <span className="truncate text-slate-500">{m.primaryEffect}</span>
-                      </div>
-                    </div>
-                  </button>
-                ))}
-              </div>
-
-              {filteredMods.length > visibleFlatMods.length && (
-                <div className="flex items-center justify-center gap-2 pt-2">
-                  <button
-                    type="button"
-                    onClick={() => setModVisibleLimit((v) => v + MOD_PAGE_SIZE)}
-                    className="rounded-lg border border-obsidian-700 bg-obsidian-900 px-4 py-2 text-xs font-medium text-slate-200 hover:bg-obsidian-800"
-                  >
-                    Show next {Math.min(MOD_PAGE_SIZE, filteredMods.length - visibleFlatMods.length)} ({visibleFlatMods.length} / {filteredMods.length})
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setModVisibleLimit(filteredMods.length)}
-                    className="rounded-lg border border-obsidian-800 bg-obsidian-950 px-3 py-2 text-xs text-slate-400 hover:text-white"
-                  >
-                    Show all
-                  </button>
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-      )}
+      {subTab === 'mods' && <ModsMatrixView highlightedId={highlightedId} />}
 
       {/* DEVIATIONS */}
       {subTab === 'deviations' && (
