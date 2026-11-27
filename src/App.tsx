@@ -89,9 +89,11 @@ export function App() {
           className={
             activeTab === 'map'
               ? 'h-full w-full'
-              : activeTab === 'workbench' || activeTab === 'encyclopedia'
-                ? 'mx-auto max-w-7xl'
-                : 'mx-auto max-w-6xl'
+              : activeTab === 'calculator'
+                ? 'mx-auto max-w-[1460px]'
+                : activeTab === 'workbench' || activeTab === 'encyclopedia'
+                  ? 'mx-auto max-w-7xl'
+                  : 'mx-auto max-w-6xl'
           }
         >
           {activeTab === 'calculator' && (

@@ -9,6 +9,11 @@ import {
   GENE_FABRICS,
   HIDES_AND_WOOLS,
 } from '../src/utils/craftingEngine';
+import {
+  aggregateLoadoutStats,
+  calculateFullLoadoutDps,
+  getStarterLoadouts,
+} from '../src/data/dps/dpsEngine';
 import materialImages from '../src/data/crafting/materialImages.json';
 import {
   BUILT_IN_FILTER_PRESETS,
@@ -216,5 +221,36 @@ describe('Gear Workbench tier recipes & star scaling', () => {
 
     expect(totals.totalEl).toBe(ac.elCost + wc.elCost);
     expect(totals.grouped.stardust[0].qty).toBeGreaterThan(100);
+  });
+});
+
+describe('Loadout Builder & Multiplicative DPS Engine', () => {
+  it('aggregates full 9-slot gear, sets, wools, mods, deviation, cradle, and food cleanly', () => {
+    const [lastValor, abyssFrost, brahminyBounce] = getStarterLoadouts();
+
+    const lvStats = aggregateLoadoutStats(lastValor);
+    expect(lvStats.maxHp).toBeGreaterThan(12000);
+    expect(lvStats.psiIntensity).toBeGreaterThan(200);
+    expect(lvStats.activeSets.some((s) => s.setName === 'Lonewolf Set' && s.count === 4)).toBe(true);
+    expect(lvStats.activeKeyArmors.some((k) => k.name === 'Beret')).toBe(true);
+    expect(lvStats.statDetails.critRatePct.sources.length).toBeGreaterThanOrEqual(4);
+
+    const lvDps = calculateFullLoadoutDps(lastValor, lvStats);
+    expect(lvDps.burstDps).toBeGreaterThan(lvDps.sustainedDps);
+    expect(lvDps.weakspotCritHit).toBeGreaterThan(lvDps.critHit);
+    expect(lvDps.critHit).toBeGreaterThan(lvDps.normalHit);
+    expect(lvDps.formula.keywordKind).toBe('physical');
+
+    const frostStats = aggregateLoadoutStats(abyssFrost);
+    const frostDps = calculateFullLoadoutDps(abyssFrost, frostStats);
+    expect(frostDps.formula.keywordKind).toBe('elemental');
+    expect(frostDps.elementalSharePct).toBeGreaterThan(10);
+
+    // Conditional Treacherous Tides scales Weapon/Status DMG higher at low HP than 100% HP
+    const lowHpBounce = { ...brahminyBounce, hpPct: 50 };
+    const fullHpBounce = { ...brahminyBounce, hpPct: 100 };
+    const lowStats = aggregateLoadoutStats(lowHpBounce);
+    const fullStats = aggregateLoadoutStats(fullHpBounce);
+    expect(lowStats.totals.weaponDmgPct).toBeGreaterThan(fullStats.totals.weaponDmgPct);
   });
 });

@@ -1,0 +1,563 @@
+{
+  "baseCharacter": {
+    "level": 50,
+    "baseAttack": 20,
+    "baseHp": 7000,
+    "basePsiIntensity": 0,
+    "basePollutionResist": 0,
+    "baseCritRatePct": 5,
+    "baseCritDmgPct": 30,
+    "baseWeakspotDmgPct": 25
+  },
+  "calibrationStyles": [
+    { "id": "none", "name": "Standard (None)", "attackPct": 0, "fireRatePct": 0, "magCapPct": 0, "reloadSpeedPct": 0, "critRatePct": 0, "critDmgPct": 0, "weakspotDmgPct": 0, "notes": "No specialized calibration style" },
+    { "id": "rapid", "name": "Rapid Style", "attackPct": -6, "fireRatePct": 15, "magCapPct": 0, "reloadSpeedPct": 10, "critRatePct": 0, "critDmgPct": 0, "weakspotDmgPct": 0, "notes": "ATK -6%, Fire Rate +15%, Reload Speed +10%" },
+    { "id": "precision", "name": "Precision Style", "attackPct": 6, "fireRatePct": -5, "magCapPct": 0, "reloadSpeedPct": 0, "critRatePct": 0, "critDmgPct": 0, "weakspotDmgPct": 25, "notes": "ATK +6%, Weakspot DMG +25%, Fire Rate -5%" },
+    { "id": "heavy", "name": "Heavy Style", "attackPct": 14, "fireRatePct": -10, "magCapPct": 20, "reloadSpeedPct": -8, "critRatePct": 0, "critDmgPct": 0, "weakspotDmgPct": 0, "notes": "ATK +14%, Mag Capacity +20%, Fire Rate -10%" },
+    { "id": "frugal", "name": "Frugal Style", "attackPct": 4, "fireRatePct": 8, "magCapPct": 15, "reloadSpeedPct": 8, "critRatePct": 0, "critDmgPct": 0, "weakspotDmgPct": 0, "notes": "ATK +4%, Fire Rate +8%, Mag Cap +15%, Ammo recovery" },
+    { "id": "portable", "name": "Portable Style", "attackPct": 5, "fireRatePct": 6, "magCapPct": 0, "reloadSpeedPct": 15, "critRatePct": 4, "critDmgPct": 0, "weakspotDmgPct": 0, "notes": "ATK +5%, Reload Speed +15%, Crit Rate +4%" },
+    { "id": "assault", "name": "Assault Style", "attackPct": 8, "fireRatePct": 6, "magCapPct": 0, "reloadSpeedPct": 0, "critRatePct": 6, "critDmgPct": 12, "weakspotDmgPct": 0, "notes": "ATK +8%, Fire Rate +6%, Crit Rate +6%, Crit DMG +12%" },
+    { "id": "overflow", "name": "Overflow Style", "attackPct": 4, "fireRatePct": 0, "magCapPct": 35, "reloadSpeedPct": 12, "critRatePct": 0, "critDmgPct": 0, "weakspotDmgPct": 0, "notes": "ATK +4%, Mag Capacity +35%, Reload Speed +12%" },
+    { "id": "underground", "name": "Underground Style", "attackPct": 7, "fireRatePct": 0, "magCapPct": 0, "reloadSpeedPct": 5, "critRatePct": 0, "critDmgPct": 10, "weakspotDmgPct": 15, "notes": "ATK +7%, Crit DMG +10%, Weakspot DMG +15%" }
+  ],
+  "calibrationSecondaryAttrs": [
+    { "id": "none", "label": "None", "stat": "none", "value": 0 },
+    { "id": "crit_rate_6", "label": "Crit Rate +6%", "stat": "critRatePct", "value": 6 },
+    { "id": "crit_dmg_15", "label": "Crit DMG +15%", "stat": "critDmgPct", "value": 15 },
+    { "id": "weakspot_12", "label": "Weakspot DMG +12%", "stat": "weakspotDmgPct", "value": 12 },
+    { "id": "elemental_10", "label": "Elemental DMG +10%", "stat": "elementalDmgPct", "value": 10 },
+    { "id": "attack_8", "label": "Attack +8%", "stat": "attackPct", "value": 8 },
+    { "id": "weapon_dmg_8", "label": "Weapon DMG +8%", "stat": "weaponDmgPct", "value": 8 },
+    { "id": "status_dmg_10", "label": "Status DMG +10%", "stat": "statusDmgPct", "value": 10 },
+    { "id": "mag_cap_10", "label": "Mag Capacity +10%", "stat": "magCapPct", "value": 10 },
+    { "id": "reload_speed_10", "label": "Reload Speed +10%", "stat": "reloadSpeedPct", "value": 10 }
+  ],
+  "ammoTypes": [
+    { "id": "copper", "name": "Copper Ammo", "dmgMult": 0.9, "weakspotBonusPct": 0, "notes": "Tier I–II entry rounds (-10% vs Tungsten)" },
+    { "id": "steel", "name": "Steel Ammo", "dmgMult": 1.0, "weakspotBonusPct": 0, "notes": "Baseline Tier III–IV rounds (1.00×)" },
+    { "id": "tungsten", "name": "Tungsten Ammo", "dmgMult": 1.12, "weakspotBonusPct": 0, "notes": "Tier V standard endgame rounds (+12% Base ATK)" },
+    { "id": "tungsten_ap", "name": "Tungsten AP Ammo", "dmgMult": 1.18, "weakspotBonusPct": 6, "notes": "Armor-piercing Tier V rounds (+18% Base ATK, +6% Weakspot)" },
+    { "id": "suppression", "name": "Suppression Ammo", "dmgMult": 1.06, "weakspotBonusPct": 10, "notes": "+6% Base ATK, +10% Weakspot DMG vs Elite/Boss" },
+    { "id": "arrow_steel", "name": "Steel Arrows", "dmgMult": 1.0, "weakspotBonusPct": 5, "notes": "Standard Crossbow/Bow arrows (1.00×)" },
+    { "id": "arrow_tungsten", "name": "Tungsten Arrows", "dmgMult": 1.15, "weakspotBonusPct": 8, "notes": "Heavy Tier V Crossbow/Bow arrows (+15% Base ATK)" },
+    { "id": "arrow_carbon", "name": "Carbon Arrows", "dmgMult": 1.12, "weakspotBonusPct": 15, "notes": "High-velocity weakspot arrows (+12% Base ATK, +15% Weakspot)" }
+  ],
+  "weaponAccessories": {
+    "optics": [
+      { "id": "none", "name": "Iron Sights", "critRatePct": 0, "weakspotDmgPct": 0, "critDmgPct": 0 },
+      { "id": "red_dot", "name": "Compact Reflex Sight", "critRatePct": 3, "weakspotDmgPct": 0, "critDmgPct": 4 },
+      { "id": "holo_tactical", "name": "Tactical Holographic", "critRatePct": 4, "weakspotDmgPct": 5, "critDmgPct": 0 },
+      { "id": "sniper_scope", "name": "8× Precision Scope", "critRatePct": 2, "weakspotDmgPct": 12, "critDmgPct": 5 }
+    ],
+    "muzzles": [
+      { "id": "none", "name": "Standard Barrel", "weaponDmgPct": 0, "critDmgPct": 0, "weakspotDmgPct": 0 },
+      { "id": "tactical_brake", "name": "Tactical Muzzle Brake", "weaponDmgPct": 4, "critDmgPct": 6, "weakspotDmgPct": 0 },
+      { "id": "calibrated_suppressor", "name": "Calibrated Suppressor", "weaponDmgPct": 2, "critDmgPct": 0, "weakspotDmgPct": 8 },
+      { "id": "heavy_compensator", "name": "Heavy Compensator", "weaponDmgPct": 5, "critDmgPct": 4, "weakspotDmgPct": 4 }
+    ],
+    "tacticals": [
+      { "id": "none", "name": "None", "critRatePct": 0, "weakspotDmgPct": 0, "reloadSpeedPct": 0 },
+      { "id": "compact_laser", "name": "Compact Laser Sight", "critRatePct": 4, "weakspotDmgPct": 4, "reloadSpeedPct": 0 },
+      { "id": "angled_foregrip", "name": "Angled Tactical Grip", "critRatePct": 2, "weakspotDmgPct": 6, "reloadSpeedPct": 5 }
+    ],
+    "magazines": [
+      { "id": "none", "name": "Standard Magazine", "magCapPct": 0, "reloadSpeedPct": 0 },
+      { "id": "extended_mag", "name": "Extended Magazine", "magCapPct": 22, "reloadSpeedPct": -4 },
+      { "id": "quick_eject", "name": "Quick-Eject Mag", "magCapPct": 8, "reloadSpeedPct": 16 },
+      { "id": "drum_mag", "name": "Tactical Drum Mag", "magCapPct": 35, "reloadSpeedPct": -8 }
+    ]
+  },
+  "substatTypes": [
+    { "id": "weaponDmgPct", "label": "Weapon DMG", "values": { "common": 2.4, "fine": 4.0, "epic": 6.0, "legendary": 8.0 } },
+    { "id": "critDmgPct", "label": "Crit DMG", "values": { "common": 4.5, "fine": 7.5, "epic": 11.2, "legendary": 15.0 } },
+    { "id": "weakspotDmgPct", "label": "Weakspot DMG", "values": { "common": 3.6, "fine": 6.0, "epic": 9.0, "legendary": 12.0 } },
+    { "id": "elementalDmgPct", "label": "Elemental DMG", "values": { "common": 3.0, "fine": 5.0, "epic": 7.5, "legendary": 10.0 } },
+    { "id": "statusDmgPct", "label": "Status DMG", "values": { "common": 3.0, "fine": 5.0, "epic": 7.5, "legendary": 10.0 } },
+    { "id": "dmgVsGreatOnesPct", "label": "DMG vs Great Ones", "values": { "common": 2.4, "fine": 4.0, "epic": 6.0, "legendary": 8.0 } },
+    { "id": "dmgVsElitesPct", "label": "DMG vs Elites", "values": { "common": 2.4, "fine": 4.0, "epic": 6.0, "legendary": 8.0 } },
+    { "id": "dmgVsNormalPct", "label": "DMG vs Normal", "values": { "common": 2.4, "fine": 4.0, "epic": 6.0, "legendary": 8.0 } },
+    { "id": "maxHpPct", "label": "Max HP %", "values": { "common": 1.8, "fine": 3.0, "epic": 4.5, "legendary": 6.0 } },
+    { "id": "magCapPct", "label": "Mag Capacity", "values": { "common": 3.6, "fine": 6.0, "epic": 9.0, "legendary": 12.0 } },
+    { "id": "reloadSpeedPct", "label": "Reload Speed", "values": { "common": 3.0, "fine": 5.0, "epic": 7.5, "legendary": 10.0 } },
+    { "id": "bounceDmgPct", "label": "Bounce DMG", "values": { "common": 4.0, "fine": 7.0, "epic": 10.5, "legendary": 14.0 } },
+    { "id": "shrapnelDmgPct", "label": "Shrapnel DMG", "values": { "common": 4.0, "fine": 7.0, "epic": 10.5, "legendary": 14.0 } }
+  ],
+  "modSuffixBonuses": {
+    "Violent": { "critDmgPct": 8 },
+    "Talents": { "elementalDmgPct": 6 },
+    "Precision": { "weakspotDmgPct": 8 },
+    "Resonance": { "statusDmgPct": 6 },
+    "Bastille": { "weaponDmgPct": 6 },
+    "Aero": { "fireRatePct": 4, "reloadSpeedPct": 5 },
+    "Lunar": { "critDmgPct": 10, "elementalDmgPct": 8, "condition": "lowHpOrSanity" },
+    "Munitions": { "magCapPct": 8, "reloadSpeedPct": 6 }
+  },
+  "armorSetEffects": {
+    "Lonewolf Set": {
+      "1": { "magCapPct": 10, "desc": "Mag Capacity +10%" },
+      "2": { "critRatePct": 5, "desc": "Crit Rate +5%" },
+      "3": { "critDmgPct": 48, "desc": "8 stacks Lone Shadow (+48% Crit DMG)" },
+      "4": { "critDmgPct": 12, "critRatePct": 8, "desc": "Max 10 stacks (+60% total Crit DMG) + 8% Crit Rate" }
+    },
+    "Savior Set": {
+      "1": { "desc": "Medicine CD Reduction +20%" },
+      "2": { "weaponDmgPct": 10, "statusDmgPct": 10, "condition": "shielded", "desc": "While shielded: Weapon & Status DMG +10%" },
+      "3": { "weaponDmgPct": 20, "statusDmgPct": 20, "desc": "4 stacks HP-shield buff: Weapon & Status DMG +20%" },
+      "4": { "desc": "Auto-Syringe emergency heal below 30% HP" }
+    },
+    "Treacherous Tides Set": {
+      "1": { "desc": "Weapon DMG Reduction +10%" },
+      "2": { "weaponDmgPct": 12, "statusDmgPct": 12, "condition": "hpBelow70", "desc": "HP < 70%: Weapon & Status DMG +12%" },
+      "3": { "weaponDmgPct": 28, "statusDmgPct": 28, "condition": "hpCurve", "desc": "Scales +8% to +28% Weapon/Status DMG as HP drops" },
+      "4": { "desc": "Generates 30% Max HP Shield when HP < 40%" }
+    },
+    "Bastille Set": {
+      "1": { "weaponDmgPct": 10, "condition": "hpAbove70", "desc": "HP > 70%: Weapon DMG +10%" },
+      "2": { "reloadSpeedPct": 15, "desc": "Reload Efficiency +15%" },
+      "3": { "weaponDmgPct": 40, "condition": "crouchedOrFortress", "desc": "Bastille State: Weapon DMG +40%" },
+      "4": { "desc": "Armor stacks convert to Max HP Shield" }
+    },
+    "Shelterer Set": {
+      "1": { "desc": "Status DMG Reduction +15%" },
+      "2": { "elementalDmgPct": 8, "desc": "Elemental DMG +8%" },
+      "3": { "elementalDmgPct": 20, "desc": "20 stacks Deviant Energy (+20% Elemental DMG)" },
+      "4": { "elementalDmgPct": 10, "desc": "Max 30 stacks Deviant Energy (+30% total Elemental DMG)" }
+    },
+    "Agent Set": {
+      "1": { "desc": "Head DMG Reduction +10%" },
+      "2": { "weakspotDmgPct": 10, "desc": "Weakspot DMG +10%" },
+      "3": { "weakspotDmgPct": 30, "desc": "Bullet Saver stacks (+30% Weakspot DMG)" },
+      "4": { "reloadSpeedPct": 20, "fireRatePct": 10, "desc": "Reload Efficiency +20%, Fire Rate +10%" }
+    },
+    "Falcon Set": {
+      "1": { "desc": "Roll Stamina Cost -20%" },
+      "2": { "critDmgPct": 12, "desc": "Crit DMG +12%" },
+      "3": { "critRatePct": 5, "critDmgPct": 20, "desc": "Stamina > 90%: Crit Rate +5%, Crit DMG +20%" },
+      "4": { "desc": "Max Stamina +25 & Stamina on kill" }
+    },
+    "Renegade Set": {
+      "1": { "reloadSpeedPct": 12, "desc": "Reload Efficiency +12%" },
+      "2": { "weakspotDmgPct": 12, "desc": "Weakspot DMG +12%" },
+      "3": { "weakspotDmgPct": 24, "critDmgPct": 18, "desc": "Weakspot chains (+24% Weakspot, +18% Crit DMG)" },
+      "4": { "weaponDmgPct": 15, "desc": "Precision stacks (+15% Weapon DMG)" }
+    },
+    "Heavy Duty Set": {
+      "1": { "maxHpPct": 8, "desc": "Max HP +8%" },
+      "2": { "elementalDmgPct": 10, "desc": "Elemental DMG +10%" },
+      "3": { "weaponDmgPct": 18, "statusDmgPct": 15, "desc": "Weapon +18%, Status DMG +15%" },
+      "4": { "dmgVsGreatOnesPct": 12, "desc": "DMG vs Great Ones +12%" }
+    },
+    "Blackstone Set": {
+      "1": { "maxHpPct": 10, "desc": "Max HP +10%" },
+      "2": { "elementalDmgPct": 12, "desc": "Elemental DMG +12%" },
+      "3": { "statusDmgPct": 20, "desc": "Status DMG +20%" },
+      "4": { "elementalDmgPct": 15, "statusDmgPct": 15, "desc": "Extreme Temperature Surge +15% Elem/Status" }
+    },
+    "Dark Resonance Set": {
+      "1": { "psiIntensity": 30, "desc": "Psi Intensity +30" },
+      "2": { "statusDmgPct": 12, "desc": "Status DMG +12%" },
+      "3": { "elementalDmgPct": 22, "desc": "Resonance Field +22% Elemental DMG" },
+      "4": { "keywordDmgPct": 25, "desc": "Keyword DMG +25%" }
+    },
+    "Gravity Tide Set": {
+      "1": { "magCapPct": 10, "desc": "Mag Capacity +10%" },
+      "2": { "weaponDmgPct": 12, "desc": "Weapon DMG +12%" },
+      "3": { "critRatePct": 10, "critDmgPct": 22, "desc": "Tide Shift +10% Crit Rate, +22% Crit DMG" },
+      "4": { "weaponDmgPct": 18, "desc": "Anti-Gravity Burst +18% Weapon DMG" }
+    },
+    "Stormweaver Set": {
+      "1": { "reloadSpeedPct": 10, "desc": "Reload Speed +10%" },
+      "2": { "elementalDmgPct": 12, "desc": "Shock & Frost DMG +12%" },
+      "3": { "statusDmgPct": 24, "desc": "Arc Storm +24% Status DMG" },
+      "4": { "critRatePct": 12, "desc": "Keyword Crit Rate +12%" }
+    }
+  },
+  "keyArmorEffects": {
+    "sharp-blade-pants": { "bounceExtraCount": 1, "bounceDmgPct": 20, "bounceCritDmgPct": 25, "weaponDmgPct": 10, "desc": "Extra Bounce target +1, Bounce DMG +20%, Bounce Crit DMG +25%" },
+    "beret": { "keywordDmgPct": 20, "weaponDmgPct": 10, "critDmgPct": 15, "desc": "Shrapnel triggers hit an extra weakspot part (+20% Keyword DMG, +15% Crit DMG)" },
+    "mayfly-goggles": { "keywordDmgPct": 25, "elementalDmgPct": 15, "desc": "Power Surge triggers additional shock bolts (+25% Keyword DMG)" },
+    "shaman-vulture-top": { "critRatePct": 8, "keywordDmgPct": 22, "desc": "Crits have high chance to trigger Unstable Bomber (+8% Crit Rate, +22% Keyword)" },
+    "snow-camo-gloves": { "elementalDmgPct": 18, "statusDmgPct": 18, "desc": "Frost Vortex shatters deal AOE Frost burst (+18% Elem & Status DMG)" },
+    "oasis-mask": { "weakspotDmgPct": 22, "critRatePct": 6, "desc": "Weakspot hits empower next shot (+22% Weakspot DMG)" },
+    "gas-tight-helmet": { "statusDmgPct": 22, "elementalDmgPct": 15, "desc": "Blaze stacks spread and detonate (+22% Status DMG)" },
+    "precise-shot-mask": { "weakspotDmgPct": 28, "weakspotCritDmgPct": 20, "desc": "Weakspot Crit DMG +20%, Weakspot DMG +28%" },
+    "cage-helmet": { "critDmgPct": 24, "critRatePct": 8, "desc": "Crit Rate +8%, Crit DMG +24%" },
+    "fire-rune-boots": { "elementalDmgPct": 20, "reloadSpeedPct": 12, "desc": "Blaze/Frost Elemental DMG +20%, Reload Speed +12%" },
+    "doyens-cloak": { "weaponDmgPct": 18, "magCapPct": 15, "desc": "Weapon DMG +18%, Mag Capacity +15%" }
+  },
+  "combatDeviations": [
+    {
+      "id": "lonewolf-whisper",
+      "name": "Lonewolf's Whisper",
+      "element": "Physical",
+      "role": "Crit & Clone Taunt",
+      "baseBonuses": { "critDmgPct": 28, "weaponDmgPct": 12, "vulnerabilityPct": 8 },
+      "companionBaseDps": 3200,
+      "summary": "Summons Shadow Clones that draw aggro, boost owner Crit DMG, and inflict Vulnerability."
+    },
+    {
+      "id": "butterflys-emissary",
+      "name": "Butterfly's Emissary",
+      "element": "Physical",
+      "role": "Weakspot Auto-Mark",
+      "baseBonuses": { "weakspotDmgPct": 32, "weaponDmgPct": 14, "vulnerabilityPct": 10 },
+      "companionBaseDps": 2800,
+      "summary": "Auto-marks enemy weakspots and amplifies Weakspot & Vulnerable target damage."
+    },
+    {
+      "id": "polar-jelly",
+      "name": "Polar Jelly",
+      "element": "Frost",
+      "role": "Frost Vortex Detonator",
+      "baseBonuses": { "elementalDmgPct": 26, "statusDmgPct": 18, "vulnerabilityPct": 8 },
+      "companionBaseDps": 4100,
+      "summary": "Creates persistent frost zones on impact that amplify Frost Elemental & Status DMG."
+    },
+    {
+      "id": "pyro-dino",
+      "name": "Pyro Dino",
+      "element": "Blaze",
+      "role": "Blaze & Status Amplifier",
+      "baseBonuses": { "elementalDmgPct": 24, "statusDmgPct": 28, "vulnerabilityPct": 6 },
+      "companionBaseDps": 4400,
+      "summary": "Breathes fire to detonate Burn stacks and massively amplifies Blaze Status DMG."
+    },
+    {
+      "id": "mini-feaster",
+      "name": "Mini Feaster",
+      "element": "Shock",
+      "role": "Tentacle Shock & Surge",
+      "baseBonuses": { "elementalDmgPct": 28, "statusDmgPct": 16, "critRatePct": 6 },
+      "companionBaseDps": 4200,
+      "summary": "Summons lightning tentacles that boost Shock Elemental DMG and trigger shock strikes."
+    },
+    {
+      "id": "zapamander",
+      "name": "Zapamander",
+      "element": "Shock",
+      "role": "Shock Vulnerability",
+      "baseBonuses": { "elementalDmgPct": 22, "statusDmgPct": 20, "vulnerabilityPct": 10 },
+      "companionBaseDps": 3600,
+      "summary": "Applies conductive shock debuffs increasing Status and Shock damage taken."
+    },
+    {
+      "id": "mr-wish",
+      "name": "Mr. Wish",
+      "element": "Physical",
+      "role": "Bull's Eye Auto-Tag",
+      "baseBonuses": { "weaponDmgPct": 16, "weakspotDmgPct": 18, "vulnerabilityPct": 12 },
+      "companionBaseDps": 3400,
+      "summary": "Fires rockets and applies The Bull's Eye (+Vulnerability) to targeted enemies."
+    },
+    {
+      "id": "chaos-zeno-purifier",
+      "name": "Chaos Zeno-Purifier",
+      "element": "Physical",
+      "role": "Blink Slash",
+      "baseBonuses": { "weaponDmgPct": 18, "critDmgPct": 22, "dmgVsGreatOnesPct": 8 },
+      "companionBaseDps": 4600,
+      "summary": "Strikes marked foes with dark blade slashes while boosting Weapon & Crit DMG."
+    },
+    {
+      "id": "festering-gel",
+      "name": "Festering Gel",
+      "element": "Utility",
+      "role": "HP & Sanity Shield Cover",
+      "baseBonuses": { "maxHpPct": 12, "weaponDmgPct": 8, "statusDmgPct": 8 },
+      "companionBaseDps": 600,
+      "summary": "Deploys healing cover that restores HP & Sanity continuously during boss fights."
+    }
+  ],
+  "cradleOverrides": [
+    { "id": "tactical-combo", "name": "Tactical Combo", "category": "Weapon", "effects": { "weaponDmgPct": 15 }, "desc": "Weapon swap or reload grants +15% Weapon DMG for 12s" },
+    { "id": "auto-weapon-enh", "name": "Automatic Weapon Enhancement", "category": "Weapon", "effects": { "weaponDmgPct": 14, "fireRatePct": 5 }, "desc": "Rifle / SMG / LMG Weapon DMG +14%, Fire Rate +5%" },
+    { "id": "bounty-hunter", "name": "Bounty Hunter", "category": "Target", "effects": { "dmgVsElitesPct": 15, "dmgVsGreatOnesPct": 15 }, "desc": "DMG vs Elites & Great Ones +15%" },
+    { "id": "deviation-master", "name": "Deviation Master", "category": "Deviation", "effects": { "weaponDmgPct": 10, "statusDmgPct": 12, "psiIntensity": 45 }, "desc": "While Combat Deviation is active: Weapon DMG +10%, Status DMG +12%, Psi +45" },
+    { "id": "status-enhancement", "name": "Status Enhancement", "category": "Elemental", "effects": { "statusDmgPct": 20, "elementalDmgPct": 12 }, "desc": "Elemental DMG +12% & Status DMG +20% after triggering keywords" },
+    { "id": "bounce-surge", "name": "Bounce & Shrapnel Resonance", "category": "Keyword", "effects": { "keywordDmgPct": 22, "bounceDmgPct": 18, "critDmgPct": 15 }, "desc": "Physical Keyword DMG +22%, Bounce DMG +18%, Crit DMG +15%" },
+    { "id": "frost-vortex-surge", "name": "Frost Vortex Surge", "category": "Keyword", "effects": { "elementalDmgPct": 18, "keywordDmgPct": 20 }, "desc": "Frost Elemental DMG +18%, Frost Vortex DMG +20%" },
+    { "id": "shock-resonance", "name": "Shock Resonance", "category": "Keyword", "effects": { "elementalDmgPct": 18, "keywordDmgPct": 20, "vulnerabilityPct": 6 }, "desc": "Shock Elemental DMG +18%, Power Surge DMG +20%, +6% Vulnerability" },
+    { "id": "blaze-overdrive", "name": "Blaze Overdrive", "category": "Keyword", "effects": { "statusDmgPct": 22, "elementalDmgPct": 14 }, "desc": "Burn Status DMG +22%, Blaze Elemental DMG +14%" },
+    { "id": "prec-weakspot", "name": "Deadeye Mark", "category": "Precision", "effects": { "weakspotDmgPct": 20, "weakspotCritDmgPct": 15 }, "desc": "Weakspot DMG +20%, Weakspot Crit DMG +15%" },
+    { "id": "rapid-pistol", "name": "Pistol & Sniper Surge", "category": "Weapon", "effects": { "weaponDmgPct": 16, "reloadSpeedPct": 15 }, "desc": "Weapon DMG +16%, Reload Speed +15%" },
+    { "id": "first-strike", "name": "Sustained Momentum", "category": "Crit", "effects": { "critRatePct": 8, "critDmgPct": 18 }, "desc": "Crit Rate +8%, Crit DMG +18% above 50% mag" }
+  ],
+  "consumables": {
+    "foods": [
+      { "id": "none", "name": "No Food Buff", "effects": {}, "desc": "Empty food slot" },
+      { "id": "crumbly-bread", "name": "Crumbly Bread", "effects": { "weakspotDmgPct": 25, "critDmgPct": 10 }, "desc": "+25% Weakspot DMG, +10% Crit DMG (30m)" },
+      { "id": "preserved-deviated-chops", "name": "Preserved Deviated Chops", "effects": { "critRatePct": 15, "critDmgPct": 25 }, "desc": "+15% Crit Rate, +25% Crit DMG (30m)" },
+      { "id": "deviated-sausage", "name": "Deviated Sausage", "effects": { "attackPct": 12, "weaponDmgPct": 15 }, "desc": "+12% Attack, +15% Weapon DMG (30m)" },
+      { "id": "canned-seafood-in-oil", "name": "Canned Seafood in Oil", "effects": { "maxHpPct": 10 }, "desc": "+35% Mining Ore Yield, +10% Max HP (30m)" },
+      { "id": "securement-soup", "name": "Securement Soup", "effects": { "psiIntensity": 65, "statusDmgPct": 18 }, "desc": "+65 Psi Intensity, +18% Status DMG (30m)" },
+      { "id": "mixed-fried-delicacy", "name": "Mixed Fried Delicacy", "effects": { "keywordDmgPct": 22, "bounceDmgPct": 20 }, "desc": "+22% Keyword DMG (Bounce/Shrapnel/Bomber) (30m)" }
+    ],
+    "drinks": [
+      { "id": "none", "name": "No Drink Buff", "effects": {}, "desc": "Empty drink slot" },
+      { "id": "whimsical-drink", "name": "Whimsical Drink", "effects": { "dmgVsGreatOnesPct": 25, "dmgVsElitesPct": 25 }, "desc": "+25% DMG vs Great Ones & Elites (30m)" },
+      { "id": "stardust-raspberry-shaved-ice", "name": "Stardust Raspberry Shaved Ice", "effects": { "elementalDmgPct": 20, "statusDmgPct": 20 }, "desc": "+20% Elemental & Status DMG (30m)" },
+      { "id": "stardust-energy-drink", "name": "Stardust Energy Drink", "effects": { "fireRatePct": 10, "reloadSpeedPct": 15 }, "desc": "+10% Fire Rate, +15% Reload Speed (30m)" },
+      { "id": "malt-ale", "name": "Malt Ale / Corn Ale", "effects": { "pollutionResist": 50, "maxHpPct": 8 }, "desc": "Sanity Immunity +50 Pollution Resist, +8% Max HP (30m)" }
+    ],
+    "whims": [
+      { "id": "none", "name": "No Whim / Tactical", "effects": {}, "desc": "No active Whim potion" },
+      { "id": "weaver-whim", "name": "Living Armor / Weaver Whim", "effects": { "weaponDmgPct": 12, "maxHpPct": 12 }, "desc": "+12% Weapon DMG & Max HP +12%" },
+      { "id": "spectral-cloner", "name": "Anomaly Surge Whim", "effects": { "statusDmgPct": 15, "elementalDmgPct": 15 }, "desc": "+15% Elemental & Status DMG" },
+      { "id": "adrenaline-shot", "name": "Combat Adrenaline Shot", "effects": { "critDmgPct": 20, "reloadSpeedPct": 12 }, "desc": "+20% Crit DMG, +12% Reload Speed" }
+    ]
+  },
+  "starterLoadouts": [
+    {
+      "id": "preset-last-valor",
+      "name": "Last Valor Shrapnel Crit (Lv.50)",
+      "hpPct": 85,
+      "sanityPct": 95,
+      "activeWeaponSlot": "primary",
+      "primary": {
+        "weaponId": "socr-last-valor",
+        "tier": 5,
+        "stars": 6,
+        "calibration": 10,
+        "calibrationStyleId": "assault",
+        "secondaryAttr1": "crit_rate_6",
+        "secondaryAttr2": "crit_dmg_15",
+        "ammoId": "tungsten_ap",
+        "opticId": "red_dot",
+        "muzzleId": "tactical_brake",
+        "tacticalId": "compact_laser",
+        "magId": "extended_mag",
+        "modId": "shatter-them-all-shrapnel",
+        "substats": [
+          { "stat": "critDmgPct", "rarity": "legendary" },
+          { "stat": "weaponDmgPct", "rarity": "legendary" },
+          { "stat": "dmgVsGreatOnesPct", "rarity": "epic" },
+          { "stat": "shrapnelDmgPct", "rarity": "epic" }
+        ]
+      },
+      "secondary": {
+        "weaponId": "aws338-bingo",
+        "tier": 5,
+        "stars": 5,
+        "calibration": 10,
+        "calibrationStyleId": "precision",
+        "secondaryAttr1": "weakspot_12",
+        "secondaryAttr2": "attack_8",
+        "ammoId": "tungsten_ap",
+        "opticId": "sniper_scope",
+        "muzzleId": "calibrated_suppressor",
+        "tacticalId": "compact_laser",
+        "magId": "quick_eject",
+        "modId": "shatter-them-all-precision",
+        "substats": [
+          { "stat": "weakspotDmgPct", "rarity": "legendary" },
+          { "stat": "dmgVsGreatOnesPct", "rarity": "legendary" },
+          { "stat": "weaponDmgPct", "rarity": "epic" },
+          { "stat": "critDmgPct", "rarity": "epic" }
+        ]
+      },
+      "melee": {
+        "weaponId": "the-fabled-masamune",
+        "tier": 5,
+        "stars": 4,
+        "calibration": 6,
+        "calibrationStyleId": "none",
+        "secondaryAttr1": "none",
+        "secondaryAttr2": "none",
+        "ammoId": "steel",
+        "opticId": "none",
+        "muzzleId": "none",
+        "tacticalId": "none",
+        "magId": "none",
+        "modId": "",
+        "substats": []
+      },
+      "armor": {
+        "helmet": { "armorId": "beret", "tier": 5, "stars": 6, "calibration": 10, "hideId": "wolf_skin", "geneFabricId": "none", "modId": "deviation-expert-crescent", "substats": [{ "stat": "critDmgPct", "rarity": "legendary" }, { "stat": "weaponDmgPct", "rarity": "epic" }] },
+        "mask": { "armorId": "lonewolf-mask", "tier": 5, "stars": 6, "calibration": 10, "hideId": "wolf_skin", "geneFabricId": "none", "modId": "explosive-shrapnel-precision", "substats": [{ "stat": "critDmgPct", "rarity": "legendary" }, { "stat": "dmgVsGreatOnesPct", "rarity": "epic" }] },
+        "gloves": { "armorId": "lonewolf-gloves", "tier": 5, "stars": 6, "calibration": 10, "hideId": "golden_wool", "geneFabricId": "none", "modId": "crit-amplifier-crescent", "substats": [{ "stat": "critDmgPct", "rarity": "legendary" }, { "stat": "weaponDmgPct", "rarity": "epic" }] },
+        "shoes": { "armorId": "lonewolf-shoes", "tier": 5, "stars": 6, "calibration": 10, "hideId": "wolf_skin", "geneFabricId": "none", "modId": "covered-advance-battle", "substats": [{ "stat": "critDmgPct", "rarity": "epic" }, { "stat": "reloadSpeedPct", "rarity": "epic" }] },
+        "top": { "armorId": "lonewolf-jacket", "tier": 5, "stars": 6, "calibration": 10, "hideId": "golden_wool", "geneFabricId": "extreme_gene_fabric", "modId": "rejuvenating-battle", "substats": [{ "stat": "critDmgPct", "rarity": "legendary" }, { "stat": "weaponDmgPct", "rarity": "epic" }] },
+        "bottoms": { "armorId": "bastille-pants", "tier": 5, "stars": 6, "calibration": 10, "hideId": "wolf_skin", "geneFabricId": "none", "modId": "deadshot-aero-e17abf4c91c2", "substats": [{ "stat": "critDmgPct", "rarity": "legendary" }, { "stat": "dmgVsGreatOnesPct", "rarity": "epic" }] }
+      },
+      "deviationId": "lonewolf-whisper",
+      "deviationSkillRating": 5,
+      "deviationActivityRating": 5,
+      "cradleIds": ["tactical-combo", "auto-weapon-enh", "bounty-hunter", "first-strike"],
+      "foodId": "preserved-deviated-chops",
+      "drinkId": "whimsical-drink",
+      "whimId": "adrenaline-shot",
+      "assumptions": {
+        "targetType": "great_one",
+        "weakspotHitRatePct": 45,
+        "bullsEye": true,
+        "marked": true,
+        "fortressWarfare": false,
+        "shielded": true
+      }
+    },
+    {
+      "id": "preset-abyss-frost",
+      "name": "Abyss Glance Frost Vortex",
+      "hpPct": 90,
+      "sanityPct": 95,
+      "activeWeaponSlot": "primary",
+      "primary": {
+        "weaponId": "kam-abyss-glance",
+        "tier": 5,
+        "stars": 6,
+        "calibration": 10,
+        "calibrationStyleId": "rapid",
+        "secondaryAttr1": "elemental_10",
+        "secondaryAttr2": "status_dmg_10",
+        "ammoId": "tungsten",
+        "opticId": "red_dot",
+        "muzzleId": "heavy_compensator",
+        "tacticalId": "compact_laser",
+        "magId": "extended_mag",
+        "modId": "frostwave-wither-frost-vortex",
+        "substats": [
+          { "stat": "elementalDmgPct", "rarity": "legendary" },
+          { "stat": "statusDmgPct", "rarity": "legendary" },
+          { "stat": "dmgVsGreatOnesPct", "rarity": "epic" }
+        ]
+      },
+      "secondary": {
+        "weaponId": "de50-jaws",
+        "tier": 5,
+        "stars": 4,
+        "calibration": 8,
+        "calibrationStyleId": "portable",
+        "secondaryAttr1": "crit_rate_6",
+        "secondaryAttr2": "elemental_10",
+        "ammoId": "tungsten",
+        "opticId": "red_dot",
+        "muzzleId": "tactical_brake",
+        "tacticalId": "none",
+        "magId": "quick_eject",
+        "modId": "blaze-blessing-violent",
+        "substats": []
+      },
+      "melee": {
+        "weaponId": "frozen-alligator-gar",
+        "tier": 5,
+        "stars": 3,
+        "calibration": 4,
+        "calibrationStyleId": "none",
+        "secondaryAttr1": "none",
+        "secondaryAttr2": "none",
+        "ammoId": "steel",
+        "opticId": "none",
+        "muzzleId": "none",
+        "tacticalId": "none",
+        "magId": "none",
+        "modId": "",
+        "substats": []
+      },
+      "armor": {
+        "helmet": { "armorId": "shelterer-hat", "tier": 5, "stars": 6, "calibration": 10, "hideId": "bear_skin", "geneFabricId": "none", "modId": "deviation-expert-crescent", "substats": [{ "stat": "elementalDmgPct", "rarity": "legendary" }, { "stat": "statusDmgPct", "rarity": "epic" }] },
+        "mask": { "armorId": "shelterer-mask", "tier": 5, "stars": 6, "calibration": 10, "hideId": "floating_ice_bear_skin", "geneFabricId": "none", "modId": "frost-construct-frost-vortex", "substats": [{ "stat": "elementalDmgPct", "rarity": "legendary" }, { "stat": "dmgVsGreatOnesPct", "rarity": "epic" }] },
+        "gloves": { "armorId": "snow-camo-gloves", "tier": 5, "stars": 6, "calibration": 10, "hideId": "golden_wool", "geneFabricId": "none", "modId": "status-enhancement-aero-1aa1a04ee5d5", "substats": [{ "stat": "elementalDmgPct", "rarity": "legendary" }, { "stat": "statusDmgPct", "rarity": "epic" }] },
+        "shoes": { "armorId": "shelterer-shoes", "tier": 5, "stars": 6, "calibration": 10, "hideId": "bear_skin", "geneFabricId": "none", "modId": "covered-advance-battle", "substats": [{ "stat": "elementalDmgPct", "rarity": "epic" }] },
+        "top": { "armorId": "shelterer-top", "tier": 5, "stars": 6, "calibration": 10, "hideId": "golden_wool", "geneFabricId": "lightning_gene_fabric", "modId": "rejuvenating-battle", "substats": [{ "stat": "elementalDmgPct", "rarity": "legendary" }, { "stat": "statusDmgPct", "rarity": "legendary" }] },
+        "bottoms": { "armorId": "bastille-pants", "tier": 5, "stars": 6, "calibration": 10, "hideId": "bear_skin", "geneFabricId": "none", "modId": "elemental-resonance-aero-f5135bf9ea36", "substats": [{ "stat": "elementalDmgPct", "rarity": "legendary" }] }
+      },
+      "deviationId": "polar-jelly",
+      "deviationSkillRating": 5,
+      "deviationActivityRating": 5,
+      "cradleIds": ["status-enhancement", "frost-vortex-surge", "deviation-master", "bounty-hunter"],
+      "foodId": "securement-soup",
+      "drinkId": "stardust-raspberry-shaved-ice",
+      "whimId": "spectral-cloner",
+      "assumptions": {
+        "targetType": "great_one",
+        "weakspotHitRatePct": 35,
+        "bullsEye": true,
+        "marked": true,
+        "fortressWarfare": false,
+        "shielded": true
+      }
+    },
+    {
+      "id": "preset-brahminy-bounce",
+      "name": "Brahminy Treacherous Bounce",
+      "hpPct": 55,
+      "sanityPct": 25,
+      "activeWeaponSlot": "primary",
+      "primary": {
+        "weaponId": "hamr-brahminy",
+        "tier": 5,
+        "stars": 6,
+        "calibration": 10,
+        "calibrationStyleId": "precision",
+        "secondaryAttr1": "crit_dmg_15",
+        "secondaryAttr2": "weakspot_12",
+        "ammoId": "tungsten_ap",
+        "opticId": "sniper_scope",
+        "muzzleId": "calibrated_suppressor",
+        "tacticalId": "compact_laser",
+        "magId": "quick_eject",
+        "modId": "bounce-rampage-bounce",
+        "substats": [
+          { "stat": "bounceDmgPct", "rarity": "legendary" },
+          { "stat": "critDmgPct", "rarity": "legendary" },
+          { "stat": "weakspotDmgPct", "rarity": "epic" }
+        ]
+      },
+      "secondary": {
+        "weaponId": "mps5-kumawink",
+        "tier": 5,
+        "stars": 5,
+        "calibration": 10,
+        "calibrationStyleId": "assault",
+        "secondaryAttr1": "crit_rate_6",
+        "secondaryAttr2": "crit_dmg_15",
+        "ammoId": "tungsten",
+        "opticId": "red_dot",
+        "muzzleId": "tactical_brake",
+        "tacticalId": "compact_laser",
+        "magId": "extended_mag",
+        "modId": "bounce-rampage-bounce",
+        "substats": []
+      },
+      "melee": {
+        "weaponId": "kukri",
+        "tier": 5,
+        "stars": 4,
+        "calibration": 6,
+        "calibrationStyleId": "none",
+        "secondaryAttr1": "none",
+        "secondaryAttr2": "none",
+        "ammoId": "steel",
+        "opticId": "none",
+        "muzzleId": "none",
+        "tacticalId": "none",
+        "magId": "none",
+        "modId": "",
+        "substats": []
+      },
+      "armor": {
+        "helmet": { "armorId": "treacherous-tides-helmet", "tier": 5, "stars": 6, "calibration": 10, "hideId": "lunar_wolf_skin", "geneFabricId": "none", "modId": "deviation-expert-crescent", "substats": [{ "stat": "bounceDmgPct", "rarity": "legendary" }, { "stat": "critDmgPct", "rarity": "epic" }] },
+        "mask": { "armorId": "treacherous-tides-mask", "tier": 5, "stars": 6, "calibration": 10, "hideId": "lunar_wolf_skin", "geneFabricId": "none", "modId": "break-bounce-bounce", "substats": [{ "stat": "bounceDmgPct", "rarity": "legendary" }, { "stat": "dmgVsGreatOnesPct", "rarity": "epic" }] },
+        "gloves": { "armorId": "treacherous-tides-gloves", "tier": 5, "stars": 6, "calibration": 10, "hideId": "golden_wool", "geneFabricId": "none", "modId": "crit-amplifier-crescent", "substats": [{ "stat": "critDmgPct", "rarity": "legendary" }] },
+        "shoes": { "armorId": "treacherous-tides-shoes", "tier": 5, "stars": 6, "calibration": 10, "hideId": "lunar_wolf_skin", "geneFabricId": "none", "modId": "covered-advance-battle", "substats": [{ "stat": "reloadSpeedPct", "rarity": "epic" }] },
+        "top": { "armorId": "savior-top", "tier": 5, "stars": 6, "calibration": 10, "hideId": "lunar_wool", "geneFabricId": "extreme_gene_fabric", "modId": "rejuvenating-battle", "substats": [{ "stat": "weaponDmgPct", "rarity": "legendary" }, { "stat": "critDmgPct", "rarity": "epic" }] },
+        "bottoms": { "armorId": "sharp-blade-pants", "tier": 5, "stars": 6, "calibration": 10, "hideId": "wolf_skin", "geneFabricId": "none", "modId": "deadshot-aero-e17abf4c91c2", "substats": [{ "stat": "bounceDmgPct", "rarity": "legendary" }, { "stat": "critDmgPct", "rarity": "legendary" }] }
+      },
+      "deviationId": "butterflys-emissary",
+      "deviationSkillRating": 5,
+      "deviationActivityRating": 5,
+      "cradleIds": ["bounce-surge", "prec-weakspot", "bounty-hunter", "tactical-combo"],
+      "foodId": "mixed-fried-delicacy",
+      "drinkId": "whimsical-drink",
+      "whimId": "adrenaline-shot",
+      "assumptions": {
+        "targetType": "great_one",
+        "weakspotHitRatePct": 65,
+        "bullsEye": true,
+        "marked": true,
+        "fortressWarfare": false,
+        "shielded": true
+      }
+    }
+  ]
+}
