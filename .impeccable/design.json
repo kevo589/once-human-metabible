@@ -1,0 +1,455 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-28T08:19:09.000Z",
+  "title": "Design System: MetaBible",
+  "extensions": {
+    "colorMeta": {
+      "sign-black": {
+        "role": "neutral",
+        "displayName": "Sign Black",
+        "canonical": "#000000",
+        "tonalRamp": [
+          "#000000",
+          "#000000",
+          "#000000",
+          "#000000",
+          "#404040",
+          "#808080",
+          "#b3b3b3",
+          "#d9d9d9"
+        ]
+      },
+      "sign-ground": {
+        "role": "neutral",
+        "displayName": "Night Ground",
+        "canonical": "#0b0c0d",
+        "tonalRamp": [
+          "#030303",
+          "#050506",
+          "#080809",
+          "#0b0c0d",
+          "#48494a",
+          "#858686",
+          "#b6b6b6",
+          "#dadbdb"
+        ]
+      },
+      "sign-panel": {
+        "role": "neutral",
+        "displayName": "Panel",
+        "canonical": "#111213",
+        "tonalRamp": [
+          "#040505",
+          "#080809",
+          "#0c0d0d",
+          "#111213",
+          "#4d4d4e",
+          "#888989",
+          "#b8b8b8",
+          "#dbdbdc"
+        ]
+      },
+      "sign-raised": {
+        "role": "neutral",
+        "displayName": "Raised",
+        "canonical": "#18191a",
+        "tonalRamp": [
+          "#060607",
+          "#0b0b0c",
+          "#111212",
+          "#18191a",
+          "#525353",
+          "#8c8c8d",
+          "#bababa",
+          "#dcdddd"
+        ]
+      },
+      "sign-seam": {
+        "role": "neutral",
+        "displayName": "Seam",
+        "canonical": "#2a2b2c",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#131314",
+          "#1d1e1f",
+          "#2a2b2c",
+          "#5f6061",
+          "#959596",
+          "#bfbfc0",
+          "#dfdfdf"
+        ]
+      },
+      "sign-dim": {
+        "role": "neutral",
+        "displayName": "Dim",
+        "canonical": "#8a8b87",
+        "tonalRamp": [
+          "#232322",
+          "#3e3f3d",
+          "#61615f",
+          "#8a8b87",
+          "#a7a8a5",
+          "#c5c5c3",
+          "#dcdcdb",
+          "#edeeed"
+        ]
+      },
+      "sign-mute": {
+        "role": "neutral",
+        "displayName": "Mute",
+        "canonical": "#a8a9a4",
+        "tonalRamp": [
+          "#2a2a29",
+          "#4c4c4a",
+          "#767673",
+          "#a8a9a4",
+          "#bebfbb",
+          "#d4d4d2",
+          "#e5e5e4",
+          "#f2f2f1"
+        ]
+      },
+      "sign-white": {
+        "role": "primary",
+        "displayName": "Sign White",
+        "canonical": "#f2f2ee",
+        "tonalRamp": [
+          "#3d3d3c",
+          "#6d6d6b",
+          "#a9a9a7",
+          "#f2f2ee",
+          "#f5f5f2",
+          "#f9f9f7",
+          "#fbfbfa",
+          "#fdfdfc"
+        ]
+      },
+      "sign-subline": {
+        "role": "neutral",
+        "displayName": "Sub-line Grey",
+        "canonical": "#3a3b38",
+        "tonalRamp": [
+          "#0f0f0e",
+          "#1a1b19",
+          "#292927",
+          "#3a3b38",
+          "#6b6c6a",
+          "#9d9d9c",
+          "#c4c4c3",
+          "#e1e2e1"
+        ]
+      },
+      "line-dps": {
+        "role": "secondary",
+        "displayName": "Signal Orange",
+        "canonical": "#f2762e",
+        "tonalRamp": [
+          "#3d1e0c",
+          "#6d3515",
+          "#a95320",
+          "#f2762e",
+          "#f59862",
+          "#f9bb97",
+          "#fbd6c0",
+          "#fdeae0"
+        ]
+      },
+      "line-builds": {
+        "role": "secondary",
+        "displayName": "Signal Red",
+        "canonical": "#e2332e",
+        "tonalRamp": [
+          "#390d0c",
+          "#661715",
+          "#9e2420",
+          "#e2332e",
+          "#e96662",
+          "#f19997",
+          "#f6c2c0",
+          "#fbe0e0"
+        ]
+      },
+      "line-workbench": {
+        "role": "secondary",
+        "displayName": "Signal Yellow",
+        "canonical": "#f7c319",
+        "tonalRamp": [
+          "#3e3106",
+          "#6f580b",
+          "#ad8912",
+          "#f7c319",
+          "#f9d253",
+          "#fbe18c",
+          "#fdedba",
+          "#fef6dd"
+        ]
+      },
+      "line-map": {
+        "role": "secondary",
+        "displayName": "Route Green",
+        "canonical": "#2fa36b",
+        "tonalRamp": [
+          "#0c291b",
+          "#154930",
+          "#21724b",
+          "#2fa36b",
+          "#63ba90",
+          "#97d1b5",
+          "#c1e3d3",
+          "#e0f1e9"
+        ]
+      },
+      "line-enc": {
+        "role": "secondary",
+        "displayName": "Route Blue",
+        "canonical": "#3b82f6",
+        "tonalRamp": [
+          "#0f213e",
+          "#1b3a6f",
+          "#295bac",
+          "#3b82f6",
+          "#6ca1f8",
+          "#9dc1fb",
+          "#c4dafc",
+          "#e2ecfe"
+        ]
+      },
+      "line-timers": {
+        "role": "secondary",
+        "displayName": "Route Purple",
+        "canonical": "#a26bd1",
+        "tonalRamp": [
+          "#291b34",
+          "#49305e",
+          "#714b92",
+          "#a26bd1",
+          "#b990dd",
+          "#d1b5e8",
+          "#e3d3f1",
+          "#f1e9f8"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Station sign title and wordmark."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Nav labels and Transfer rows."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Data rows, drop lists, button text."
+      },
+      "body-dense": {
+        "displayName": "Body Dense",
+        "purpose": "Layer legend entries and panel controls."
+      },
+      "readout": {
+        "displayName": "Readout",
+        "purpose": "Headline feature numbers: Sustained and Burst DPS over a 3px white rule."
+      },
+      "readout-compact": {
+        "displayName": "Readout Compact",
+        "purpose": "Readout in the phone sticky DPS bar under the band."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Uppercase section headers on a rule: Transfers, Drops per open, legend groups."
+      }
+    },
+    "shadows": [
+      {
+        "name": "map-popup",
+        "value": "0 12px 28px rgba(0,0,0,0.78)",
+        "purpose": "Leaflet popups over the map."
+      },
+      {
+        "name": "legend-edge",
+        "value": "8px 0 24px rgba(0,0,0,0.5)",
+        "purpose": "Docked layer legend edge."
+      },
+      {
+        "name": "floating-control",
+        "value": "0 4px 14px rgba(0,0,0,0.6)",
+        "purpose": "Collapsed legend reopen button."
+      },
+      {
+        "name": "selection-ring",
+        "value": "0 0 0 3px #000, 0 0 0 5px #f2f2ee",
+        "purpose": "Selected pin: black gap then a sign-white ring, independent of category hue."
+      }
+    ],
+    "motion": [
+      {
+        "name": "sign-in",
+        "value": "260ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Station sign slides 24px in from the right (desktop) or from below (phone). Off under reduced motion. The only motion in the world."
+      },
+      {
+        "name": "pin-state",
+        "value": "120ms ease",
+        "purpose": "Map pin hover and selection scale."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Sign Band",
+      "kind": "nav",
+      "refersTo": "sign-band",
+      "description": "Top black band with wordmark, route bullets and search, closed by a 3px white rule.",
+      "html": "<header class=\"ds-band\"><b class=\"ds-mark\">MetaBible</b><nav class=\"ds-nav\"><button class=\"ds-nav-item is-active\"><span class=\"ds-rb ds-rb-md\" style=\"background:#2fa36b\">M</span>Map</button><button class=\"ds-nav-item\"><span class=\"ds-rb ds-rb-md\" style=\"background:#3b82f6\">E</span>Encyclopedia</button></nav></header>",
+      "css": ".ds-band{display:flex;align-items:center;gap:24px;height:64px;padding:0 24px;background:#000;border-bottom:3px solid #f2f2ee;font-family:Archivo,Helvetica Neue,Arial,sans-serif;}.ds-mark{font-size:22px;font-weight:800;color:#f2f2ee;letter-spacing:-0.01em}.ds-nav{display:flex;gap:20px}.ds-nav-item{display:flex;align-items:center;gap:8px;background:none;border:0;color:#a8a9a4;font-weight:600;font-size:15px;font-family:Archivo,Helvetica Neue,Arial,sans-serif;cursor:pointer;transition:color .15s}.ds-nav-item:hover,.ds-nav-item.is-active{color:#f2f2ee}.ds-nav-item.is-active .ds-rb{box-shadow:0 0 0 2px #000,0 0 0 4px #f2f2ee}.ds-nav-item:focus-visible{outline:2px solid #f2f2ee;outline-offset:2px}.ds-rb{display:inline-grid;place-items:center;border-radius:9999px;color:#000;font-weight:800;line-height:1}.ds-rb-md{width:34px;height:34px;font-size:15px}"
+    },
+    {
+      "name": "Route Bullets",
+      "kind": "chip",
+      "refersTo": "route-bullet",
+      "description": "One round lettered bullet per feature line; the letter is always black.",
+      "html": "<span class=\"ds-rb ds-rb-md\" style=\"background:#f2762e\">D</span><span class=\"ds-rb ds-rb-md\" style=\"background:#e2332e\">B</span><span class=\"ds-rb ds-rb-md\" style=\"background:#f7c319\">W</span><span class=\"ds-rb ds-rb-md\" style=\"background:#2fa36b\">M</span><span class=\"ds-rb ds-rb-md\" style=\"background:#3b82f6\">E</span><span class=\"ds-rb ds-rb-md\" style=\"background:#a26bd1\">T</span>",
+      "css": ".ds-rb{display:inline-grid;place-items:center;border-radius:9999px;color:#000;font-weight:800;line-height:1}.ds-rb-md{width:34px;height:34px;margin-right:8px;font-size:15px;font-family:Archivo,Helvetica Neue,Arial,sans-serif;}"
+    },
+    {
+      "name": "Sign Outline Button",
+      "kind": "button",
+      "refersTo": "button-sign-outline",
+      "description": "Primary action on black; inverts on hover.",
+      "html": "<button class=\"ds-btn-sign\">Mark discovered</button>",
+      "css": ".ds-btn-sign{height:40px;padding:0 16px;border:2px solid #f2f2ee;border-radius:6px;background:#000;color:#f2f2ee;font-weight:600;font-size:14px;font-family:Archivo,Helvetica Neue,Arial,sans-serif;cursor:pointer;transition:background .15s,color .15s}.ds-btn-sign:hover{background:#f2f2ee;color:#000}.ds-btn-sign:focus-visible{outline:2px solid #f2f2ee;outline-offset:2px}"
+    },
+    {
+      "name": "Seam Button",
+      "kind": "button",
+      "refersTo": "button-seam",
+      "description": "Secondary action; the seam border brightens to white on hover.",
+      "html": "<button class=\"ds-btn-seam\">Share</button>",
+      "css": ".ds-btn-seam{height:40px;padding:0 12px;border:2px solid #2a2b2c;border-radius:6px;background:transparent;color:#a8a9a4;font-weight:600;font-size:14px;font-family:Archivo,Helvetica Neue,Arial,sans-serif;cursor:pointer;transition:border-color .15s,color .15s}.ds-btn-seam:hover{border-color:#f2f2ee;color:#f2f2ee}.ds-btn-seam:focus-visible{outline:2px solid #f2f2ee;outline-offset:2px}"
+    },
+    {
+      "name": "Line Filled Button",
+      "kind": "button",
+      "refersTo": "button-line-filled",
+      "description": "Confirmed state filled in the feature line colour, black text.",
+      "html": "<button class=\"ds-btn-line\">Discovered</button>",
+      "css": ".ds-btn-line{height:40px;padding:0 16px;border:0;border-radius:6px;background:#2fa36b;color:#000;font-weight:600;font-size:14px;font-family:Archivo,Helvetica Neue,Arial,sans-serif;cursor:pointer}.ds-btn-line:focus-visible{outline:2px solid #f2f2ee;outline-offset:2px}"
+    },
+    {
+      "name": "Outline Chip",
+      "kind": "chip",
+      "refersTo": "chip-outline",
+      "description": "One chip for tabs, toggles, target chips and toolbar buttons; fills sign-white when active.",
+      "html": "<div class=\"ds-chips\"><button class=\"ds-chip on\" aria-pressed=\"true\">Weapon 1</button><button class=\"ds-chip\" aria-pressed=\"false\">Weapon 2</button></div>",
+      "css": ".ds-chips{display:flex;gap:6px}.ds-chip{height:36px;padding:0 12px;border:2px solid #2a2b2c;border-radius:6px;background:transparent;color:#a8a9a4;font-size:13px;font-weight:600;font-family:Archivo,Helvetica Neue,Arial,sans-serif;white-space:nowrap;cursor:pointer;transition:border-color .15s,color .15s,background .15s}.ds-chip:hover{border-color:#f2f2ee;color:#f2f2ee}.ds-chip.on{border-color:#f2f2ee;background:#f2f2ee;color:#000}.ds-chip:focus-visible{outline:2px solid #f2f2ee;outline-offset:2px}"
+    },
+    {
+      "name": "Panel Input",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Dense field in map panels; focus border turns Route Green.",
+      "html": "<input class=\"ds-input\" placeholder=\"Filter layers\">",
+      "css": ".ds-input{width:240px;padding:6px 10px;border:1px solid #2a2b2c;border-radius:6px;background:#000;color:#f2f2ee;font-size:13px;font-family:Archivo,Helvetica Neue,Arial,sans-serif;outline:none}.ds-input::placeholder{color:#8a8b87}.ds-input:focus{border-color:#2fa36b}"
+    },
+    {
+      "name": "Station Sign",
+      "kind": "card",
+      "refersTo": "station-sign",
+      "description": "A selected pin as a station sign: white header band, data rows, then Transfers.",
+      "html": "<aside class=\"ds-sign\"><div class=\"ds-sign-head\"><h2>Rosetta Lighthouse</h2><p>Landmark · Red Sands</p></div><dl class=\"ds-rows\"><div><dt>Level</dt><dd>Lv 30</dd></div><div><dt>Status</dt><dd>Not discovered</dd></div></dl><div class=\"ds-transfers\"><h3>Transfers</h3><button class=\"ds-tr\"><span class=\"ds-rb ds-rb-sm\" style=\"background:#3b82f6\">E</span>Deviation in Encyclopedia</button></div></aside>",
+      "css": ".ds-sign{width:360px;background:#000;border:1px solid #2a2b2c;border-radius:6px;overflow:hidden;color:#f2f2ee;font-family:Archivo,Helvetica Neue,Arial,sans-serif;animation:ds-in 260ms cubic-bezier(.16,1,.3,1)}@keyframes ds-in{from{transform:translateX(24px);opacity:0}}@media (prefers-reduced-motion:reduce){.ds-sign{animation:none}}.ds-sign-head{background:#f2f2ee;color:#000;padding:14px 16px}.ds-sign-head h2{margin:0;font-size:22px;font-weight:800;letter-spacing:-0.015em;line-height:1.2}.ds-sign-head p{margin:4px 0 0;font-size:14px;font-weight:500;color:#3a3b38}.ds-rows{margin:0;padding:8px 16px;font-size:14px}.ds-rows div{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #2a2b2c}.ds-rows dt{color:#a8a9a4}.ds-rows dd{margin:0;font-weight:600}.ds-transfers{border-top:3px solid #f2f2ee;padding:12px 16px}.ds-transfers h3{margin:0 0 4px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:#a8a9a4}.ds-tr{display:flex;align-items:center;gap:12px;height:44px;width:100%;background:none;border:0;color:#f2f2ee;font-weight:600;font-size:15px;font-family:Archivo,Helvetica Neue,Arial,sans-serif;cursor:pointer;text-align:left}.ds-tr:hover{text-decoration:underline;text-underline-offset:4px}.ds-tr:focus-visible{outline:2px solid #f2f2ee;outline-offset:2px}.ds-rb{display:inline-grid;place-items:center;border-radius:9999px;color:#000;font-weight:800;line-height:1}.ds-rb-sm{width:28px;height:28px;font-size:13px}"
+    },
+    {
+      "name": "Legend Stops",
+      "kind": "custom",
+      "refersTo": "",
+      "description": "Layers as stops on a coloured line: solid ring shown, dashed ring hidden.",
+      "html": "<div class=\"ds-line\"><span class=\"ds-rail\"></span><button class=\"ds-stop on\"><i style=\"border-color:#f7c319\"></i>Loot Crates</button><button class=\"ds-stop\"><i style=\"border-color:#e2332e\"></i>Deviants</button></div>",
+      "css": ".ds-line{position:relative;width:260px;padding:4px 0;background:#0b0c0d;font-size:13px;font-family:Archivo,Helvetica Neue,Arial,sans-serif;}.ds-rail{position:absolute;left:13px;top:16px;bottom:16px;width:4px;background:#2fa36b}.ds-stop{position:relative;display:flex;align-items:center;gap:10px;width:100%;min-height:36px;padding:0 0 0 6px;background:none;border:0;color:#8a8b87;font:inherit;font-weight:500;cursor:pointer;text-align:left}.ds-stop:hover{color:#a8a9a4}.ds-stop.on{color:#f2f2ee;font-weight:600}.ds-stop:focus-visible{outline:2px solid #f2f2ee;outline-offset:2px}.ds-stop i{position:relative;z-index:1;width:17px;height:17px;box-sizing:border-box;border:3px dashed;border-radius:9999px;background:#000;opacity:.7}.ds-stop.on i{border-style:solid;opacity:1}"
+    },
+    {
+      "name": "DPS Readout and Stat Sheet",
+      "kind": "custom",
+      "refersTo": "",
+      "description": "Readout over a 3px white rule, then seam stat rows; rows with sources expand in place to a source list.",
+      "html": "<section class=\"ds-sheet\"><div class=\"ds-ro\"><div><small>Sustained DPS</small><b>48,210</b></div><div><small>Burst DPS</small><b>71,904</b></div></div><button class=\"ds-row\" aria-expanded=\"true\"><span>Crit Rate</span><strong>32.5%</strong><svg viewBox=\"0 0 24 24\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" style=\"transform:rotate(180deg)\"><path d=\"m6 9 6 6 6-6\"/></svg></button><div class=\"ds-src\"><div><span>Base</span><span>+5%</span></div><div><span>Mod: Precision</span><span>+12.5%</span></div></div><div class=\"ds-row\"><span>Magazine</span><strong>30</strong><i></i></div></section>",
+      "css": ".ds-sheet{width:340px;background:#0b0c0d;color:#f2f2ee;font-family:Archivo,Helvetica Neue,Arial,sans-serif;font-variant-numeric:tabular-nums}.ds-ro{display:flex;gap:32px;padding-bottom:16px;border-bottom:3px solid #f2f2ee}.ds-ro small{display:block;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#a8a9a4}.ds-ro b{font-size:34px;font-weight:800;line-height:1;letter-spacing:-0.02em}.ds-row{display:flex;align-items:center;gap:8px;width:100%;padding:6px 0;background:none;border:0;border-bottom:1px solid #2a2b2cb3;color:#f2f2ee;font:inherit;font-size:14px;text-align:left;cursor:pointer}.ds-row span{flex:1;color:#a8a9a4}.ds-row:hover span{color:#f2f2ee}.ds-row strong{font-weight:700}.ds-row svg{color:#8a8b87}.ds-row i{width:14px}.ds-row:focus-visible{outline:2px solid #f2f2ee;outline-offset:2px}.ds-src{padding:8px 10px;background:#111213;border-bottom:1px solid #2a2b2cb3;font-size:13px}.ds-src div{display:flex;justify-content:space-between}.ds-src div span:first-child{color:#a8a9a4}.ds-src div span:last-child{font-weight:600}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Night Transit Signage",
+    "overview": "Every feature is a transit line and every map pin is a station with transfers. The interface reads like Unimark-era wayfinding seen at night: pure black sign bands on a near-black ground, warm sign-white type set in Archivo, and one saturated route colour per feature. Colour names a place, never decorates it.\n\nThe world is dense but legible at a glance, because it is used alt-tabbed beside the game and on a phone as a second screen. The map owns the screen and panels yield to it: the legend docks left, the station sign docks right (a bottom sheet on phones), and both stay narrow. State is carried by shape and line form, not hue alone: a solid ring is on, a dashed ring is off, a white ring is selected.\n\nDepth is almost absent. Sign surfaces are flat black, separated by 3px sign-white rules and 1px seams. The one motion in the world is the station sign sliding in along a single axis.",
+    "keyCharacteristics": [
+      "Black sign bands with a 3px sign-white rule beneath or above them.",
+      "Six route colours, one per feature line, used as the ring of each route bullet.",
+      "Station-sign reading order: white header band, data rows, then Transfers.",
+      "State by form (solid, dashed, ringed), never by colour alone.",
+      "Small radii (2px and 6px) plus full circles for bullets and stops; no glass, no gradients on sign surfaces."
+    ],
+    "rules": [
+      {
+        "name": "The One Line Per Feature Rule",
+        "body": "A route colour means its feature and nothing else. Never use a line colour as a general accent outside its own feature; Route Green is allowed across the map because the map is the Map line.",
+        "section": "colors"
+      },
+      {
+        "name": "The Game Icon Rule",
+        "body": "Icons come from the game, never from a generic icon set: route bullets, legend stops, map pins and the station-sign header use the in-game icon from `src/data/gameIcons.tsx` (sheet via TH.GL, credited in the map attribution). A category with no verified game icon keeps its drawn glyph rather than borrowing a wrong one.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tabular Rule",
+        "body": "Numbers are always tabular (set on `body`); never switch a data surface to proportional figures.",
+        "section": "typography"
+      },
+      {
+        "name": "The Map Owns the Screen Rule",
+        "body": "Panels are narrow, docked and dismissible. Nothing permanently covers the map's centre.",
+        "section": "layout"
+      },
+      {
+        "name": "The Modals Over the Band Rule",
+        "body": "The band never outranks a modal: keep the band at z-40 and overlays at z-50. A band raised above that (the old z-[1500]) renders modals underneath it.",
+        "section": "layout"
+      },
+      {
+        "name": "The White Rule Rule",
+        "body": "A sign band is closed by a 3px sign-white rule: under the top band, along the top of the phone station sign, and above the Transfers block. Use the 3px rule for sign structure and the 1px seam for rows; never mix the two roles.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do give every new feature surface its route colour and in-game icon from the nav lines, and reach it from Transfers with the same bullet.",
+      "Do close sign bands with a 3px sign-white rule and separate rows with 1px seams.",
+      "Do show state by form: solid ring on, dashed ring off, white ring selected.",
+      "Do keep route-bullet letters black on every line colour.",
+      "Do keep the station sign's order: white header band, data rows, Transfers.",
+      "Do keep motion to the station sign's single-axis slide, and disable it under reduced motion.",
+      "Do use one outline chip for every tab, toggle and toolbar switch on a surface.",
+      "Do keep the sign band at z-40 and modal overlays at z-50."
+    ],
+    "donts": [
+      "Don't use a route colour as decoration or as an accent outside its own feature.",
+      "Don't use glass, backdrop blur or gradients on sign surfaces. The game's rarity card art on gear slots is content, not a sign surface.",
+      "Don't signal state with hue alone.",
+      "Don't add radii beyond 2px and 6px except full circles for bullets, stops and pins.",
+      "Don't let a panel cover the centre of the map permanently.",
+      "Don't port the pending views' cyan, amber and rose accents (`stardust`, `anomaly`, `crimson`) into restyled surfaces."
+    ]
+  }
+}

@@ -36,12 +36,12 @@ export function CategorySettingsPopover({
 
   return (
     <div
-      className="pointer-events-auto fixed inset-x-3 bottom-3 z-[1200] flex max-h-[78dvh] flex-col overflow-hidden rounded-xl border border-zinc-800 bg-[#121214]/98 text-zinc-100 shadow-2xl backdrop-blur-md sm:inset-x-auto sm:bottom-auto sm:left-[344px] sm:top-3 sm:w-[340px]"
+      className="pointer-events-auto fixed inset-x-3 bottom-3 z-[1200] flex max-h-[78dvh] flex-col overflow-hidden rounded-md border border-sign-seam bg-sign-black/95 text-sign-white shadow-2xl sm:inset-x-auto sm:bottom-auto sm:left-[344px] sm:top-3 sm:w-[340px]"
       role="dialog"
       aria-label={`${category.label} settings`}
     >
       {/* Header */}
-      <div className="flex items-start justify-between gap-2 border-b border-zinc-800 px-3.5 py-3">
+      <div className="flex items-start justify-between gap-2 border-b border-sign-seam px-3.5 py-3">
         <div className="flex items-center gap-2.5">
           <CategoryGlyph
             typeKey={category.key}
@@ -52,21 +52,21 @@ export function CategorySettingsPopover({
             <div className="flex items-center gap-1.5 text-sm font-semibold text-white">
               <span>{category.label}</span>
               {category.isNew && (
-                <span className="rounded bg-cyan-500/20 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-cyan-300">
+                <span className="rounded bg-line-map/20 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-line-map">
                   NEW
                 </span>
               )}
             </div>
-            <div className="mt-0.5 text-[11px] text-zinc-400">
-              Total: <span className="font-mono text-zinc-200">{totalCount}</span> · Discovered:{' '}
-              <span className="font-mono text-cyan-400">{discoveredCount}</span>
+            <div className="mt-0.5 text-[11px] text-sign-mute">
+              Total: <span className="font-mono text-sign-white">{totalCount}</span> · Discovered:{' '}
+              <span className="font-mono text-line-map">{discoveredCount}</span>
             </div>
           </div>
         </div>
         <button
           type="button"
           onClick={onClose}
-          className="rounded-md p-1 text-zinc-400 transition hover:bg-zinc-800 hover:text-white"
+          className="rounded-md p-1 text-sign-mute transition hover:bg-sign-seam hover:text-white"
           aria-label="Close category settings"
         >
           <X className="h-4 w-4" />
@@ -75,10 +75,10 @@ export function CategorySettingsPopover({
 
       {/* Controls Body */}
       <div className="flex-1 space-y-3.5 overflow-y-auto px-3.5 py-3 text-xs">
-        <p className="text-[11px] leading-relaxed text-zinc-400">{category.description}</p>
+        <p className="text-[11px] leading-relaxed text-sign-mute">{category.description}</p>
 
         {/* Discover All / Reset Discovered Progress Row */}
-        <div className="rounded-lg border border-zinc-800 bg-[#18181b] p-2.5">
+        <div className="rounded-md border border-sign-seam bg-sign-raised p-2.5">
           <div className="mb-1.5 flex items-center justify-between">
             {allDiscovered ? (
               confirmReset ? (
@@ -97,7 +97,7 @@ export function CategorySettingsPopover({
                   <button
                     type="button"
                     onClick={() => setConfirmReset(false)}
-                    className="rounded px-1.5 py-0.5 text-[11px] text-zinc-400 hover:text-white"
+                    className="rounded px-1.5 py-0.5 text-[11px] text-sign-mute hover:text-white"
                   >
                     Cancel
                   </button>
@@ -116,19 +116,19 @@ export function CategorySettingsPopover({
               <button
                 type="button"
                 onClick={onDiscoverAll}
-                className="inline-flex items-center gap-1.5 text-xs font-medium text-cyan-400 hover:text-cyan-300"
+                className="inline-flex items-center gap-1.5 text-xs font-medium text-line-map hover:text-line-map"
               >
                 <CheckCircle2 className="h-3.5 w-3.5" />
                 Discover all
               </button>
             )}
-            <span className="font-mono text-[11px] text-zinc-300">
+            <span className="font-mono text-[11px] text-sign-mute">
               {discoveredCount}/{totalCount}
             </span>
           </div>
-          <div className="h-1.5 w-full overflow-hidden rounded-full bg-zinc-800">
+          <div className="h-1.5 w-full overflow-hidden rounded-full bg-sign-seam">
             <div
-              className="h-full rounded-full bg-cyan-500 transition-all duration-200"
+              className="h-full rounded-full bg-line-map transition-all duration-200"
               style={{ width: `${pct}%` }}
             />
           </div>
@@ -137,10 +137,10 @@ export function CategorySettingsPopover({
         {/* Icon Size Slider */}
         <div className="space-y-1.5">
           <div className="flex items-center justify-between">
-            <label htmlFor={`size-${category.key}`} className="font-medium text-zinc-200">
+            <label htmlFor={`size-${category.key}`} className="font-medium text-sign-white">
               Icon Size
             </label>
-            <span className="rounded bg-zinc-800 px-1.5 py-0.5 font-mono text-[11px] text-cyan-300">
+            <span className="rounded bg-sign-seam px-1.5 py-0.5 font-mono text-[11px] text-line-map">
               {current.iconScale.toFixed(1)}x
             </span>
           </div>
@@ -157,9 +157,9 @@ export function CategorySettingsPopover({
                 iconScale: Number(e.target.value),
               })
             }
-            className="h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-zinc-800 accent-cyan-500"
+            className="h-1.5 w-full cursor-pointer appearance-none rounded-md bg-sign-seam accent-line-map"
           />
-          <div className="flex justify-between font-mono text-[10px] text-zinc-500">
+          <div className="flex justify-between font-mono text-[10px] text-sign-dim">
             <span>0.5x</span>
             <span>1.0x</span>
             <span>2.0x</span>
@@ -167,10 +167,10 @@ export function CategorySettingsPopover({
         </div>
 
         {/* Audio Alert & Tone Controls */}
-        <div className="space-y-2 rounded-lg border border-zinc-800 bg-[#18181b] p-2.5">
+        <div className="space-y-2 rounded-md border border-sign-seam bg-sign-raised p-2.5">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-1.5 font-medium text-zinc-200">
-              <Volume2 className="h-3.5 w-3.5 text-cyan-400" />
+            <div className="flex items-center gap-1.5 font-medium text-sign-white">
+              <Volume2 className="h-3.5 w-3.5 text-line-map" />
               <span>Audio Alert</span>
             </div>
             <button
@@ -183,7 +183,7 @@ export function CategorySettingsPopover({
                 if (nextEnabled) playMapAudioTone(current.audioTone);
               }}
               className={`relative h-5 w-9 rounded-full transition ${
-                current.audioEnabled ? 'bg-cyan-500' : 'bg-zinc-700'
+                current.audioEnabled ? 'bg-line-map' : 'bg-sign-seam'
               }`}
             >
               <span
@@ -195,7 +195,7 @@ export function CategorySettingsPopover({
           </div>
 
           <div className="flex items-center justify-between gap-2">
-            <label htmlFor={`tone-${category.key}`} className="text-[11px] text-zinc-400">
+            <label htmlFor={`tone-${category.key}`} className="text-[11px] text-sign-mute">
               Tone
             </label>
             <select
@@ -206,7 +206,7 @@ export function CategorySettingsPopover({
                 onChangePref({ ...current, audioTone: tone });
                 if (tone !== 'muted') playMapAudioTone(tone);
               }}
-              className="rounded-md border border-zinc-700 bg-[#121214] px-2 py-1 text-[11px] text-zinc-100 outline-none focus:border-cyan-500"
+              className="rounded-md border border-sign-seam bg-sign-black px-2 py-1 text-[11px] text-sign-white outline-none focus:border-line-map"
             >
               <option value="chime">Default (Chime)</option>
               <option value="ping">Soft Ping</option>
@@ -218,7 +218,7 @@ export function CategorySettingsPopover({
 
         {/* Label Display Mode */}
         <div className="flex items-center justify-between gap-2">
-          <label htmlFor={`label-${category.key}`} className="font-medium text-zinc-200">
+          <label htmlFor={`label-${category.key}`} className="font-medium text-sign-white">
             Map Labels
           </label>
           <select
@@ -230,7 +230,7 @@ export function CategorySettingsPopover({
                 labelMode: e.target.value as LabelDisplayMode,
               })
             }
-            className="rounded-md border border-zinc-700 bg-[#18181b] px-2.5 py-1 text-[11px] text-zinc-100 outline-none focus:border-cyan-500"
+            className="rounded-md border border-sign-seam bg-sign-raised px-2.5 py-1 text-[11px] text-sign-white outline-none focus:border-line-map"
           >
             <option value="off">Off</option>
             <option value="hover">Hover</option>
@@ -240,29 +240,29 @@ export function CategorySettingsPopover({
 
         {/* Drops (per open) Section */}
         {drops && drops.length > 0 && (
-          <div className="border-t border-zinc-800 pt-3">
+          <div className="border-t border-sign-seam pt-3">
             <div className="mb-2 flex items-center justify-between">
-              <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-300">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-sign-mute">
                 Drops (per open)
               </span>
-              <span className="text-[10px] text-zinc-500">{drops.length} entries</span>
+              <span className="text-[10px] text-sign-dim">{drops.length} entries</span>
             </div>
-            <div className="max-h-48 space-y-1 overflow-y-auto rounded-lg border border-zinc-800 bg-[#18181b] p-2">
+            <div className="max-h-48 space-y-1 overflow-y-auto rounded-md border border-sign-seam bg-sign-raised p-2">
               {drops.map((drop) => (
                 <div
                   key={drop.item}
-                  className="flex items-baseline justify-between gap-2 border-b border-zinc-800/70 pb-1 last:border-b-0 last:pb-0 text-[11px]"
+                  className="flex items-baseline justify-between gap-2 border-b border-sign-seam/70 pb-1 last:border-b-0 last:pb-0 text-[11px]"
                 >
-                  <span className="font-medium text-zinc-200">
+                  <span className="font-medium text-sign-white">
                     {drop.item}
                     {drop.quantity ? (
-                      <span className="ml-1 font-mono text-cyan-300">{drop.quantity}</span>
+                      <span className="ml-1 font-mono text-line-map">{drop.quantity}</span>
                     ) : null}
                   </span>
-                  <span className="shrink-0 text-right font-mono text-[10px] text-zinc-400">
+                  <span className="shrink-0 text-right font-mono text-[10px] text-sign-mute">
                     {drop.chance}
                     {drop.qualifier ? (
-                      <span className="ml-1 font-sans text-zinc-500">({drop.qualifier})</span>
+                      <span className="ml-1 font-sans text-sign-dim">({drop.qualifier})</span>
                     ) : null}
                   </span>
                 </div>

@@ -1,20 +1,14 @@
 import L from 'leaflet';
 import {
   Check,
-  CheckCircle2,
-  ChevronDown,
-  ChevronRight,
-  Circle,
   Copy,
   Crosshair,
   Eye,
   EyeOff,
-  Link2,
   MapPin,
   Maximize2,
   Minimize2,
   Minus,
-  Package,
   Plus,
   RotateCcw,
   Trash2,
@@ -48,11 +42,12 @@ import {
   NALCOTT_MAP_BOUNDS,
   type NalcottPoi,
 } from '../../data/nalcottMap';
+import { GAME_ICON_CREDIT } from '../../data/gameIcons';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { playMapAudioTone } from '../../utils/mapAudio';
-import { buildMapShareUrl, readMapUrlParams, syncMapUrlParams } from '../../utils/mapUrlState';
+import { readMapUrlParams, syncMapUrlParams } from '../../utils/mapUrlState';
 import { CategorySettingsPopover } from './CategorySettingsPopover';
-import { CategoryGlyph, PLAYER_POSITION_ICON, getCustomPinDivIcon } from './mapIcons';
+import { PLAYER_POSITION_ICON, getCustomPinDivIcon } from './mapIcons';
 import {
   DEFAULT_CATEGORY_PREF,
   DEFAULT_GLOBAL_FLAGS,
@@ -75,10 +70,13 @@ import {
   GlobalSettingsModal,
   PresetsManagerPopover,
 } from './TacticalPopovers';
+import { StationSign } from './StationSign';
 import { TacticalSidebar } from './TacticalSidebar';
+import type { SearchEntry } from '../../utils/searchIndex';
 
 interface InteractiveMapViewProps {
   focusedMarkerId?: string | null;
+  onTransfer?: (entry: SearchEntry) => void;
 }
 
 interface ContextMenuState {
@@ -134,7 +132,7 @@ function HybridNalcottTiles() {
       bounds: NALCOTT_MAP_BOUNDS,
       noWrap: true,
       keepBuffer: 2,
-      attribution: 'Map art © Starry Studio / NetEase Games',
+      attribution: `Map art © Starry Studio / NetEase Games · ${GAME_ICON_CREDIT}`,
       className: 'oh-map-tiles-local',
     });
 
@@ -319,14 +317,32 @@ function MapCameraAndEvents({
   return null;
 }
 
+/** On phones the station sign covers the lower 62%, so pan the picked pin into the visible top area. */
+function PhoneSheetFocus({ target }: { target: NalcottPoi | null }) {
+  const map = useMap();
+  useEffect(() => {
+    if (!target || window.innerWidth >= 768) return;
+    const focus = () => {
+      const p = map.latLngToContainerPoint([target.lat, target.lng]);
+      const size = map.getSize();
+      map.panBy([p.x - size.x / 2, p.y - size.y * 0.19]);
+    };
+    focus();
+    // shortcut: re-aims after a possible 0.55s flyTo instead of chaining moveend; upgrade if fly duration changes
+    const t = window.setTimeout(focus, 650);
+    return () => window.clearTimeout(t);
+  }, [target, map]);
+  return null;
+}
+
 function CustomZoomControls({ onReset }: { onReset: () => void }) {
   const map = useMap();
   return (
-    <div className="pointer-events-auto flex flex-col overflow-hidden rounded-xl border border-[#27272a] bg-[#121214]/94 shadow-2xl backdrop-blur-md">
+    <div className="pointer-events-auto flex flex-col overflow-hidden rounded-md border border-sign-seam bg-sign-black/95 shadow-2xl">
       <button
         type="button"
         onClick={() => map.zoomIn(1)}
-        className="flex h-9 w-9 items-center justify-center border-b border-[#27272a] text-zinc-200 transition hover:bg-[#18181b] hover:text-cyan-300"
+        className="flex h-9 w-9 items-center justify-center border-b border-sign-seam text-sign-white transition hover:bg-sign-raised hover:text-line-map"
         aria-label="Zoom in"
         title="Zoom in"
       >
@@ -335,7 +351,7 @@ function CustomZoomControls({ onReset }: { onReset: () => void }) {
       <button
         type="button"
         onClick={() => map.zoomOut(1)}
-        className="flex h-9 w-9 items-center justify-center border-b border-[#27272a] text-zinc-200 transition hover:bg-[#18181b] hover:text-cyan-300"
+        className="flex h-9 w-9 items-center justify-center border-b border-sign-seam text-sign-white transition hover:bg-sign-raised hover:text-line-map"
         aria-label="Zoom out"
         title="Zoom out"
       >
@@ -344,7 +360,7 @@ function CustomZoomControls({ onReset }: { onReset: () => void }) {
       <button
         type="button"
         onClick={onReset}
-        className="flex h-9 w-9 items-center justify-center text-zinc-300 transition hover:bg-[#18181b] hover:text-cyan-300"
+        className="flex h-9 w-9 items-center justify-center text-sign-mute transition hover:bg-sign-raised hover:text-line-map"
         aria-label="Reset camera view"
         title="Reset camera view"
       >
@@ -354,7 +370,7 @@ function CustomZoomControls({ onReset }: { onReset: () => void }) {
   );
 }
 
-export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps) {
+export function InteractiveMapView({ focusedMarkerId, onTransfer }: InteractiveMapViewProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const initialUrl = useMemo(() => readMapUrlParams(), []);
 
@@ -410,6 +426,12 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
 
   // Ephemeral UI / Interaction States
   const [selectedPoi, setSelectedPoi] = useState<NalcottPoi | null>(initialPinFocus);
+  useEffect(() => {
+    if (!selectedPoi) return;
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setSelectedPoi(null);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [selectedPoi]);
   const [settingsCatKey, setSettingsCatKey] = useState<string | null>(null);
   const [presetsOpen, setPresetsOpen] = useState(false);
   const [globalSettingsOpen, setGlobalSettingsOpen] = useState(false);
@@ -603,7 +625,7 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
         ...r,
         icon: L.divIcon({
           className: 'nalcott-region-badge',
-          html: `<div class="whitespace-nowrap -translate-x-1/2 -translate-y-1/2 rounded border border-zinc-700/75 bg-[#121214]/82 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-zinc-100 shadow-sm backdrop-blur-[2px]">${r.name}</div>`,
+          html: `<div class="whitespace-nowrap -translate-x-1/2 -translate-y-1/2 rounded border border-sign-seam/75 bg-sign-black/82 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-sign-white shadow-sm-[2px]">${r.name}</div>`,
           iconSize: [0, 0],
         }),
       })),
@@ -791,7 +813,7 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
   return (
     <div
       ref={wrapperRef}
-      className="relative h-[calc(100dvh-132px)] min-h-[540px] w-full overflow-hidden bg-[#090d14] select-none lg:h-[100dvh]"
+      className="relative h-[calc(100dvh-var(--band-h))] min-h-[480px] w-full overflow-hidden bg-sign-ground select-none"
       onClick={() => {
         if (contextMenu) setContextMenu(null);
       }}
@@ -878,8 +900,8 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
             <Tooltip sticky>
               <div className="space-y-0.5 text-xs">
                 <div className="font-semibold text-white">{area.name}</div>
-                <div className="text-[11px] text-cyan-300">{area.region}</div>
-                <div className="text-[10px] text-zinc-300">{area.resources.join(' · ')}</div>
+                <div className="text-[11px] text-line-map">{area.region}</div>
+                <div className="text-[10px] text-sign-mute">{area.resources.join(' · ')}</div>
               </div>
             </Tooltip>
           </Polygon>
@@ -898,7 +920,7 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
                 <Tooltip sticky>
                   <div className="text-xs">
                     <div className="font-semibold text-white">{d.title}</div>
-                    <div className="font-mono text-[10px] text-cyan-300">
+                    <div className="font-mono text-[10px] text-line-map">
                       Distance: {formatDistanceLabel(d.distanceMeters)}
                     </div>
                   </div>
@@ -966,9 +988,9 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
               <Popup>
                 <div className="min-w-[190px] space-y-1.5 text-xs">
                   <div className="font-bold text-white">{m.title}</div>
-                  {m.notes && <p className="text-[11px] text-zinc-300">{m.notes}</p>}
-                  <div className="flex items-center justify-between border-t border-zinc-800 pt-1.5">
-                    <span className="font-mono text-[10px] text-zinc-400">
+                  {m.notes && <p className="text-[11px] text-sign-mute">{m.notes}</p>}
+                  <div className="flex items-center justify-between border-t border-sign-seam pt-1.5">
+                    <span className="font-mono text-[10px] text-sign-mute">
                       ({m.lng.toFixed(1)}, {m.lat.toFixed(1)})
                     </span>
                     <button
@@ -995,8 +1017,8 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
           >
             <Popup>
               <div className="space-y-1 text-xs">
-                <div className="font-semibold text-cyan-300">Manual Player Position</div>
-                <div className="font-mono text-[11px] text-zinc-400">
+                <div className="font-semibold text-line-map">Manual Player Position</div>
+                <div className="font-mono text-[11px] text-sign-mute">
                   ({playerPosition.lng.toFixed(1)}, {playerPosition.lat.toFixed(1)})
                 </div>
                 <button
@@ -1011,26 +1033,7 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
           </Marker>
         )}
 
-        {/* Single Crisp Selected Pin Popup */}
-        {selectedPoi && (
-          <Popup
-            key={selectedPoi.id}
-            position={[selectedPoi.lat, selectedPoi.lng]}
-            offset={[0, -10]}
-            eventHandlers={{
-              remove: () => setSelectedPoi(null),
-            }}
-          >
-            <SelectedPoiPopupBody
-              poi={selectedPoi}
-              scenarioId={scenarioId}
-              zoomLevel={zoomLevel}
-              discovered={discoveredSet.has(selectedPoi.id)}
-              onToggleDiscovered={() => toggleDiscovered(selectedPoi.id)}
-              onToast={showToast}
-            />
-          </Popup>
-        )}
+        <PhoneSheetFocus target={selectedPoi} />
 
         {/* Bottom-Right Tactical Zoom + / - / Reset HUD */}
         <div className="pointer-events-none absolute bottom-5 right-3 z-[1050]">
@@ -1155,17 +1158,17 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
 
       {/* Top-Right Compact Tactical Controls Pill */}
       <div className="pointer-events-none absolute right-3 top-3 z-[1050] flex items-center gap-1.5">
-        <div className="pointer-events-auto flex items-center gap-1 rounded-xl border border-[#27272a] bg-[#121214]/94 p-1 shadow-2xl backdrop-blur-md">
-          <span className="hidden px-2 font-mono text-[10px] text-zinc-400 md:inline">
+        <div className="pointer-events-auto flex items-center gap-1 rounded-md border border-sign-seam bg-sign-black/95 p-1 shadow-2xl">
+          <span className="hidden px-2 font-mono text-[10px] text-sign-mute md:inline">
             {visibleMarkers.length} pins
           </span>
           <button
             type="button"
             onClick={() => setFlags({ ...flags, hideDiscovered: !flags.hideDiscovered })}
-            className={`inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[11px] font-medium transition ${
+            className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-[11px] font-medium transition ${
               flags.hideDiscovered
-                ? 'bg-cyan-500/20 text-cyan-300'
-                : 'text-zinc-300 hover:bg-[#18181b] hover:text-white'
+                ? 'bg-line-map/20 text-line-map'
+                : 'text-sign-mute hover:bg-sign-raised hover:text-white'
             }`}
             title="Hide discovered markers"
           >
@@ -1178,7 +1181,7 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
           <button
             type="button"
             onClick={toggleFullscreen}
-            className="inline-flex h-7 w-7 items-center justify-center rounded-lg text-zinc-300 transition hover:bg-[#18181b] hover:text-cyan-300"
+            className="inline-flex h-7 w-7 items-center justify-center rounded-md text-sign-mute transition hover:bg-sign-raised hover:text-line-map"
             aria-label="Toggle fullscreen map"
             title="Fullscreen"
           >
@@ -1189,12 +1192,12 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
 
       {/* Active Drawing Toolbar HUD */}
       {activeDrawingKind && (
-        <div className="pointer-events-auto absolute left-1/2 top-3 z-[1150] flex -translate-x-1/2 flex-wrap items-center gap-2 rounded-xl border border-cyan-500/50 bg-[#121214]/96 px-3 py-2 text-xs shadow-2xl backdrop-blur-md">
+        <div className="pointer-events-auto absolute left-1/2 top-3 z-[1150] flex -translate-x-1/2 flex-wrap items-center gap-2 rounded-md border border-line-map/50 bg-sign-black/95 px-3 py-2 text-xs shadow-2xl">
           <input
             type="text"
             value={draftDrawingTitle}
             onChange={(e) => setDraftDrawingTitle(e.target.value)}
-            className="w-28 rounded border border-[#27272a] bg-[#18181b] px-2 py-1 text-xs text-white outline-none focus:border-cyan-500"
+            className="w-28 rounded border border-sign-seam bg-sign-raised px-2 py-1 text-xs text-white outline-none focus:border-line-map"
           />
           <div className="flex gap-1">
             {DRAWING_COLORS.map((c) => (
@@ -1203,14 +1206,14 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
                 type="button"
                 onClick={() => setDraftDrawingColor(c)}
                 className={`h-4 w-4 rounded-full border ${
-                  draftDrawingColor === c ? 'scale-110 border-white' : 'border-zinc-700'
+                  draftDrawingColor === c ? 'scale-110 border-white' : 'border-sign-seam'
                 }`}
                 style={{ backgroundColor: c }}
                 aria-label={`Color ${c}`}
               />
             ))}
           </div>
-          <span className="font-mono text-[11px] text-cyan-300">
+          <span className="font-mono text-[11px] text-line-map">
             {formatDistanceLabel(
               calculatePolylineMeters(draftDrawingPoints, activeDrawingKind === 'polygon'),
             )}
@@ -1219,14 +1222,14 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
             type="button"
             onClick={() => setDraftDrawingPoints((p) => p.slice(0, -1))}
             disabled={draftDrawingPoints.length === 0}
-            className="inline-flex items-center gap-1 rounded border border-[#27272a] bg-[#18181b] px-2 py-1 text-[11px] text-zinc-300 disabled:opacity-40"
+            className="inline-flex items-center gap-1 rounded border border-sign-seam bg-sign-raised px-2 py-1 text-[11px] text-sign-mute disabled:opacity-40"
           >
             <Undo2 className="h-3 w-3" /> Undo
           </button>
           <button
             type="button"
             onClick={finishDrawing}
-            className="rounded bg-cyan-500 px-2.5 py-1 text-[11px] font-semibold text-zinc-950 hover:bg-cyan-400"
+            className="rounded bg-line-map px-2.5 py-1 text-[11px] font-semibold text-sign-black hover:bg-line-map"
           >
             Finish
           </button>
@@ -1236,7 +1239,7 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
               setActiveDrawingKind(null);
               setDraftDrawingPoints([]);
             }}
-            className="rounded px-1.5 py-1 text-zinc-400 hover:text-white"
+            className="rounded px-1.5 py-1 text-sign-mute hover:text-white"
             aria-label="Cancel drawing"
           >
             <X className="h-3.5 w-3.5" />
@@ -1246,13 +1249,13 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
 
       {/* Active Custom Marker Placement Banner */}
       {placeMarkerMode && (
-        <div className="pointer-events-auto absolute left-1/2 top-3 z-[1150] flex -translate-x-1/2 items-center gap-2 rounded-xl border border-cyan-500/50 bg-[#121214]/96 px-3 py-2 text-xs text-cyan-200 shadow-2xl">
-          <MapPin className="h-3.5 w-3.5 text-cyan-400" />
+        <div className="pointer-events-auto absolute left-1/2 top-3 z-[1150] flex -translate-x-1/2 items-center gap-2 rounded-md border border-line-map/50 bg-sign-black/95 px-3 py-2 text-xs text-line-map shadow-2xl">
+          <MapPin className="h-3.5 w-3.5 text-line-map" />
           <span>Click anywhere on the map to place your marker</span>
           <button
             type="button"
             onClick={() => setPlaceMarkerMode(false)}
-            className="text-zinc-400 hover:text-white"
+            className="text-sign-mute hover:text-white"
           >
             <X className="h-3.5 w-3.5" />
           </button>
@@ -1260,8 +1263,8 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
       )}
 
       {/* Bottom-Left Zoom Readout HUD */}
-      <div className="pointer-events-none absolute bottom-3 left-3 z-[1050] hidden items-center gap-2 rounded-lg border border-[#27272a] bg-[#121214]/90 px-2.5 py-1 font-mono text-[10px] text-zinc-400 shadow-lg backdrop-blur-md sm:flex">
-        <span className="text-zinc-200">
+      <div className="pointer-events-none absolute bottom-3 left-3 z-[1050] hidden items-center gap-2 rounded-md border border-sign-seam bg-sign-black/90 px-2.5 py-1 font-mono text-[10px] text-sign-mute shadow-lg sm:flex">
+        <span className="text-sign-white">
           Z{zoomLevel.toFixed(1)}
           {zoomLevel >= 3 ? ' HD' : ''}
         </span>
@@ -1379,14 +1382,14 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
       {/* Right-Click / Long-Press Context Menu */}
       {contextMenu && (
         <div
-          className="pointer-events-auto fixed z-[1400] w-56 overflow-hidden rounded-xl border border-[#27272a] bg-[#121214]/98 p-1 text-xs text-zinc-100 shadow-2xl backdrop-blur-md"
+          className="pointer-events-auto fixed z-[1400] w-56 overflow-hidden rounded-md border border-sign-seam bg-sign-black/95 p-1 text-xs text-sign-white shadow-2xl"
           style={{
             left: Math.min(contextMenu.screenX, (typeof window !== 'undefined' ? window.innerWidth : 400) - 236),
             top: Math.min(contextMenu.screenY, (typeof window !== 'undefined' ? window.innerHeight : 600) - 180),
           }}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="border-b border-[#27272a] px-2.5 py-1.5 font-mono text-[10px] text-cyan-400">
+          <div className="border-b border-sign-seam px-2.5 py-1.5 font-mono text-[10px] text-line-map">
             Coord ({contextMenu.lng.toFixed(1)}, {contextMenu.lat.toFixed(1)})
           </div>
           <button
@@ -1398,9 +1401,9 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
               setContextMenu(null);
               showToast('Coordinates copied to clipboard');
             }}
-            className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left hover:bg-[#18181b] hover:text-cyan-300"
+            className="flex w-full items-center gap-2 rounded-md px-2.5 py-2 text-left hover:bg-sign-raised hover:text-line-map"
           >
-            <Copy className="h-3.5 w-3.5 text-zinc-400" />
+            <Copy className="h-3.5 w-3.5 text-sign-mute" />
             Copy (X, Y) Coordinates
           </button>
           <button
@@ -1409,17 +1412,17 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
               setPendingMarkerModalCoords({ lat: contextMenu.lat, lng: contextMenu.lng });
               setContextMenu(null);
             }}
-            className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left hover:bg-[#18181b] hover:text-cyan-300"
+            className="flex w-full items-center gap-2 rounded-md px-2.5 py-2 text-left hover:bg-sign-raised hover:text-line-map"
           >
-            <MapPin className="h-3.5 w-3.5 text-cyan-400" />
+            <MapPin className="h-3.5 w-3.5 text-line-map" />
             Add Custom Marker Here
           </button>
           <button
             type="button"
             onClick={() => handleSetManualPlayerPos(contextMenu.lat, contextMenu.lng)}
-            className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left hover:bg-[#18181b] hover:text-cyan-300"
+            className="flex w-full items-center gap-2 rounded-md px-2.5 py-2 text-left hover:bg-sign-raised hover:text-line-map"
           >
-            <Crosshair className="h-3.5 w-3.5 text-cyan-400" />
+            <Crosshair className="h-3.5 w-3.5 text-line-map" />
             Set Manual Player Position
           </button>
           <button
@@ -1427,7 +1430,7 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
             onClick={() =>
               handleStartDrawing('polyline', [contextMenu.lat, contextMenu.lng])
             }
-            className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left hover:bg-[#18181b] hover:text-cyan-300"
+            className="flex w-full items-center gap-2 rounded-md px-2.5 py-2 text-left hover:bg-sign-raised hover:text-line-map"
           >
             <Plus className="h-3.5 w-3.5 text-emerald-400" />
             Start Farming Route Here
@@ -1435,171 +1438,26 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
         </div>
       )}
 
+      {selectedPoi && (
+        <StationSign
+          poi={selectedPoi}
+          scenarioId={scenarioId}
+          zoomLevel={zoomLevel}
+          discovered={discoveredSet.has(selectedPoi.id)}
+          onToggleDiscovered={() => toggleDiscovered(selectedPoi.id)}
+          onToast={showToast}
+          onClose={() => setSelectedPoi(null)}
+          onTransfer={(entry) => onTransfer?.(entry)}
+        />
+      )}
+
       {/* Subtle Toast Banner */}
       {toastMsg && (
-        <div className="pointer-events-none fixed bottom-4 left-1/2 z-[1450] flex -translate-x-1/2 items-center gap-2 rounded-lg border border-cyan-500/45 bg-[#121214]/95 px-3 py-1.5 text-xs font-medium text-cyan-200 shadow-2xl">
-          <Check className="h-3.5 w-3.5 text-cyan-400" />
+        <div className="pointer-events-none fixed bottom-4 left-1/2 z-[1450] flex -translate-x-1/2 items-center gap-2 rounded-md border border-line-map/45 bg-sign-black/95 px-3 py-1.5 text-xs font-medium text-line-map shadow-2xl">
+          <Check className="h-3.5 w-3.5 text-line-map" />
           <span>{toastMsg}</span>
         </div>
       )}
-    </div>
-  );
-}
-
-function SelectedPoiPopupBody({
-  poi,
-  scenarioId,
-  zoomLevel,
-  discovered,
-  onToggleDiscovered,
-  onToast,
-}: {
-  poi: NalcottPoi;
-  scenarioId: string;
-  zoomLevel: number;
-  discovered: boolean;
-  onToggleDiscovered: () => void;
-  onToast: (msg: string) => void;
-}) {
-  const [dropsOpen, setDropsOpen] = useState(false);
-  const drops = MAP_DROP_TABLES[poi.typeKey];
-
-  const handleCopyCoords = async () => {
-    await navigator.clipboard
-      ?.writeText(`${poi.lng.toFixed(1)}, ${poi.lat.toFixed(1)}`)
-      .catch(() => {});
-    onToast('POI coordinates copied');
-  };
-
-  const handleCopyLink = async () => {
-    const url = buildMapShareUrl({
-      scenario: scenarioId,
-      x: poi.lng,
-      y: poi.lat,
-      z: Math.max(zoomLevel, 3),
-      pin: poi.id,
-    });
-    await navigator.clipboard?.writeText(url).catch(() => {});
-    onToast('Pin share link copied!');
-  };
-
-  return (
-    <div className="min-w-[235px] max-w-[280px] space-y-2 text-xs text-zinc-100">
-      <div className="flex items-start gap-2">
-        {poi.imageUrl ? (
-          <img
-            src={poi.imageUrl}
-            alt={poi.name}
-            className="h-10 w-10 shrink-0 rounded-lg border border-orange-500/55 bg-zinc-900 object-cover shadow-md"
-          />
-        ) : (
-          <CategoryGlyph typeKey={poi.typeKey} color={poi.color} />
-        )}
-        <div className="min-w-0 flex-1">
-          <div className="font-bold leading-snug text-white">{poi.name}</div>
-          <div className="mt-0.5 flex flex-wrap items-center gap-1 text-[11px] text-cyan-400">
-            <span>{poi.typeLabel}</span>
-            <span>·</span>
-            <span className="text-zinc-300">{poi.region}</span>
-            {poi.level !== null && (
-              <>
-                <span>·</span>
-                <span className="rounded bg-amber-500/15 px-1 font-mono text-[10px] text-amber-300">
-                  Lv {poi.level}
-                </span>
-              </>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {poi.near && (
-        <div className="rounded bg-[#18181b] px-2 py-1 text-[11px] text-zinc-300">
-          Near: <span className="text-white">{poi.near}</span>
-        </div>
-      )}
-
-      {/* Coordinates + Copy */}
-      <div className="flex items-center justify-between gap-2 rounded border border-[#27272a] bg-[#18181b] px-2 py-1">
-        <span className="font-mono text-[10px] text-zinc-300">
-          ({poi.lng.toFixed(1)}, {poi.lat.toFixed(1)})
-        </span>
-        <button
-          type="button"
-          onClick={handleCopyCoords}
-          className="inline-flex items-center gap-1 text-[10px] text-cyan-400 hover:text-cyan-300"
-        >
-          <Copy className="h-3 w-3" /> Copy
-        </button>
-      </div>
-
-      {/* Collapsible Drops List */}
-      {drops && drops.length > 0 && (
-        <div className="rounded border border-[#27272a] bg-[#18181b]">
-          <button
-            type="button"
-            onClick={() => setDropsOpen((v) => !v)}
-            className="flex w-full items-center justify-between px-2 py-1.5 text-[11px] font-medium text-zinc-200 hover:text-cyan-300"
-          >
-            <span className="inline-flex items-center gap-1.5">
-              <Package className="h-3 w-3 text-cyan-400" />
-              Drops (per open) · {drops.length}
-            </span>
-            {dropsOpen ? (
-              <ChevronDown className="h-3.5 w-3.5 text-zinc-500" />
-            ) : (
-              <ChevronRight className="h-3.5 w-3.5 text-zinc-500" />
-            )}
-          </button>
-          {dropsOpen && (
-            <div className="max-h-32 space-y-1 overflow-y-auto border-t border-[#27272a] p-2 text-[10px]">
-              {drops.map((d) => (
-                <div key={d.item} className="flex items-baseline justify-between gap-2">
-                  <span className="text-zinc-200">
-                    {d.item} {d.quantity ? <span className="text-cyan-300">{d.quantity}</span> : ''}
-                  </span>
-                  <span className="font-mono text-zinc-400">{d.chance}</span>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Popup Action Row */}
-      <div className="flex items-center gap-1.5 border-t border-[#27272a] pt-2">
-        <button
-          type="button"
-          onClick={onToggleDiscovered}
-          className={`inline-flex flex-1 items-center justify-center gap-1 rounded-md border px-2 py-1.5 text-[11px] font-medium transition ${
-            discovered
-              ? 'border-cyan-500/45 bg-cyan-500/20 text-cyan-300'
-              : 'border-[#27272a] bg-[#18181b] text-zinc-200 hover:border-cyan-500/50'
-          }`}
-        >
-          {discovered ? (
-            <>
-              <CheckCircle2 className="h-3.5 w-3.5" />
-              Discovered
-            </>
-          ) : (
-            <>
-              <Circle className="h-3.5 w-3.5" />
-              Mark Discovered
-            </>
-          )}
-        </button>
-
-        <button
-          type="button"
-          onClick={handleCopyLink}
-          className="inline-flex items-center gap-1 rounded-md border border-[#27272a] bg-[#18181b] px-2 py-1.5 text-[11px] font-medium text-zinc-200 hover:border-cyan-500/50 hover:text-cyan-300"
-          title="Copy shareable link to this pin"
-        >
-          <Link2 className="h-3.5 w-3.5" />
-          Link
-        </button>
-      </div>
     </div>
   );
 }

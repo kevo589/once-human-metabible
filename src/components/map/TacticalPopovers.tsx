@@ -119,18 +119,18 @@ export function PresetsManagerPopover({
 
   return (
     <div
-      className="pointer-events-auto fixed inset-x-3 bottom-3 z-[1200] flex max-h-[75dvh] flex-col overflow-hidden rounded-xl border border-zinc-800 bg-[#121214]/98 text-zinc-100 shadow-2xl backdrop-blur-md sm:inset-x-auto sm:bottom-auto sm:left-[344px] sm:top-16 sm:w-[330px]"
+      className="pointer-events-auto fixed inset-x-3 bottom-3 z-[1200] flex max-h-[75dvh] flex-col overflow-hidden rounded-md border border-sign-seam bg-sign-black/95 text-sign-white shadow-2xl sm:inset-x-auto sm:bottom-auto sm:left-[344px] sm:top-16 sm:w-[330px]"
       role="dialog"
       aria-label="Filter Presets"
     >
-      <div className="flex items-center justify-between border-b border-zinc-800 px-3.5 py-2.5">
+      <div className="flex items-center justify-between border-b border-sign-seam px-3.5 py-2.5">
         <span className="text-xs font-semibold uppercase tracking-wider text-white">
           Filter Presets
         </span>
         <button
           type="button"
           onClick={onClose}
-          className="rounded p-1 text-zinc-400 hover:bg-zinc-800 hover:text-white"
+          className="rounded p-1 text-sign-mute hover:bg-sign-seam hover:text-white"
           aria-label="Close presets"
         >
           <X className="h-4 w-4" />
@@ -139,7 +139,7 @@ export function PresetsManagerPopover({
 
       <div className="flex-1 space-y-3 overflow-y-auto p-3 text-xs">
         <div className="space-y-1.5">
-          <div className="text-[10px] font-semibold uppercase tracking-wider text-zinc-400">
+          <div className="text-[10px] font-semibold uppercase tracking-wider text-sign-mute">
             Built-in Farming Routes
           </div>
           {BUILT_IN_FILTER_PRESETS.map((p) => (
@@ -150,21 +150,21 @@ export function PresetsManagerPopover({
                 onApplyPreset(p.categories, p.resourceAreaIds);
                 onClose();
               }}
-              className="w-full rounded-lg border border-zinc-800 bg-[#18181b] p-2.5 text-left transition hover:border-cyan-500/50 hover:bg-zinc-800/80"
+              className="w-full rounded-md border border-sign-seam bg-sign-raised p-2.5 text-left transition hover:border-line-map/50 hover:bg-sign-seam/80"
             >
               <div className="flex items-center justify-between">
                 <span className="font-semibold text-white">{p.name}</span>
-                <span className="font-mono text-[10px] text-cyan-400">
+                <span className="font-mono text-[10px] text-line-map">
                   {p.categories.length} layers
                 </span>
               </div>
-              <div className="mt-0.5 text-[11px] text-zinc-400">{p.description}</div>
+              <div className="mt-0.5 text-[11px] text-sign-mute">{p.description}</div>
             </button>
           ))}
         </div>
 
-        <div className="border-t border-zinc-800 pt-2.5">
-          <div className="mb-1.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-400">
+        <div className="border-t border-sign-seam pt-2.5">
+          <div className="mb-1.5 text-[10px] font-semibold uppercase tracking-wider text-sign-mute">
             Save Current Filters
           </div>
           <div className="flex gap-1.5">
@@ -173,7 +173,7 @@ export function PresetsManagerPopover({
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
               placeholder="Preset name..."
-              className="flex-1 rounded-lg border border-zinc-700 bg-[#18181b] px-2.5 py-1.5 text-xs text-white placeholder-zinc-500 outline-none focus:border-cyan-500"
+              className="flex-1 rounded-md border border-sign-seam bg-sign-raised px-2.5 py-1.5 text-xs text-white placeholder-sign-dim outline-none focus:border-line-map"
             />
             <button
               type="button"
@@ -183,7 +183,7 @@ export function PresetsManagerPopover({
                 onSaveCurrentAsPreset(trimmed);
                 setNewName('');
               }}
-              className="inline-flex items-center gap-1 rounded-lg bg-cyan-500/20 px-2.5 py-1.5 text-xs font-medium text-cyan-300 hover:bg-cyan-500/30"
+              className="inline-flex items-center gap-1 rounded-md bg-line-map/20 px-2.5 py-1.5 text-xs font-medium text-line-map hover:bg-line-map/30"
             >
               <BookmarkPlus className="h-3.5 w-3.5" />
               Save
@@ -192,14 +192,14 @@ export function PresetsManagerPopover({
         </div>
 
         {customPresets.length > 0 && (
-          <div className="space-y-1.5 border-t border-zinc-800 pt-2.5">
-            <div className="text-[10px] font-semibold uppercase tracking-wider text-zinc-400">
+          <div className="space-y-1.5 border-t border-sign-seam pt-2.5">
+            <div className="text-[10px] font-semibold uppercase tracking-wider text-sign-mute">
               Your Saved Presets ({customPresets.length})
             </div>
             {customPresets.map((cp) => (
               <div
                 key={cp.id}
-                className="flex items-center gap-1.5 rounded-lg border border-zinc-800 bg-[#18181b] p-2"
+                className="flex items-center gap-1.5 rounded-md border border-sign-seam bg-sign-raised p-2"
               >
                 {editingId === cp.id ? (
                   <>
@@ -207,7 +207,7 @@ export function PresetsManagerPopover({
                       type="text"
                       value={editingName}
                       onChange={(e) => setEditingName(e.target.value)}
-                      className="flex-1 rounded border border-cyan-500 bg-[#121214] px-2 py-1 text-xs text-white outline-none"
+                      className="flex-1 rounded border border-line-map bg-sign-black px-2 py-1 text-xs text-white outline-none"
                     />
                     <button
                       type="button"
@@ -215,7 +215,7 @@ export function PresetsManagerPopover({
                         if (editingName.trim()) onRenamePreset(cp.id, editingName.trim());
                         setEditingId(null);
                       }}
-                      className="rounded p-1 text-cyan-400 hover:bg-zinc-800"
+                      className="rounded p-1 text-line-map hover:bg-sign-seam"
                       aria-label="Confirm rename"
                     >
                       <Check className="h-3.5 w-3.5" />
@@ -229,10 +229,10 @@ export function PresetsManagerPopover({
                         onApplyPreset(cp.categories, cp.resourceAreaIds);
                         onClose();
                       }}
-                      className="flex-1 truncate text-left font-medium text-white hover:text-cyan-300"
+                      className="flex-1 truncate text-left font-medium text-white hover:text-line-map"
                     >
                       {cp.name}{' '}
-                      <span className="font-mono text-[10px] text-zinc-500">
+                      <span className="font-mono text-[10px] text-sign-dim">
                         ({cp.categories.length})
                       </span>
                     </button>
@@ -242,7 +242,7 @@ export function PresetsManagerPopover({
                         setEditingId(cp.id);
                         setEditingName(cp.name);
                       }}
-                      className="rounded p-1 text-zinc-400 hover:bg-zinc-800 hover:text-white"
+                      className="rounded p-1 text-sign-mute hover:bg-sign-seam hover:text-white"
                       aria-label={`Rename ${cp.name}`}
                     >
                       <Edit3 className="h-3 w-3" />
@@ -250,7 +250,7 @@ export function PresetsManagerPopover({
                     <button
                       type="button"
                       onClick={() => onDeletePreset(cp.id)}
-                      className="rounded p-1 text-zinc-400 hover:bg-zinc-800 hover:text-rose-400"
+                      className="rounded p-1 text-sign-mute hover:bg-sign-seam hover:text-rose-400"
                       aria-label={`Delete ${cp.name}`}
                     >
                       <Trash2 className="h-3 w-3" />
@@ -322,17 +322,17 @@ export function GlobalSettingsModal({
 
   return (
     <div
-      className="pointer-events-auto fixed inset-0 z-[1300] flex items-center justify-center bg-black/65 p-4 backdrop-blur-sm"
+      className="pointer-events-auto fixed inset-0 z-[1300] flex items-center justify-center bg-black/65 p-4"
       role="dialog"
       aria-label="Global Map Settings"
     >
-      <div className="flex max-h-[88dvh] w-full max-w-md flex-col overflow-hidden rounded-xl border border-zinc-800 bg-[#121214] text-zinc-100 shadow-2xl">
-        <div className="flex items-center justify-between border-b border-zinc-800 px-4 py-3">
+      <div className="flex max-h-[88dvh] w-full max-w-md flex-col overflow-hidden rounded-md border border-sign-seam bg-sign-black text-sign-white shadow-2xl">
+        <div className="flex items-center justify-between border-b border-sign-seam px-4 py-3">
           <span className="text-sm font-semibold text-white">Map Settings & Backup</span>
           <button
             type="button"
             onClick={onClose}
-            className="rounded p-1 text-zinc-400 hover:bg-zinc-800 hover:text-white"
+            className="rounded p-1 text-sign-mute hover:bg-sign-seam hover:text-white"
             aria-label="Close global settings"
           >
             <X className="h-4 w-4" />
@@ -341,35 +341,35 @@ export function GlobalSettingsModal({
 
         <div className="flex-1 space-y-3.5 overflow-y-auto p-4 text-xs">
           {/* Toggles */}
-          <div className="space-y-2 rounded-lg border border-zinc-800 bg-[#18181b] p-3">
+          <div className="space-y-2 rounded-md border border-sign-seam bg-sign-raised p-3">
             <label className="flex cursor-pointer items-center justify-between gap-2">
-              <span className="flex items-center gap-2 text-zinc-200">
-                <EyeOff className="h-3.5 w-3.5 text-cyan-400" />
+              <span className="flex items-center gap-2 text-sign-white">
+                <EyeOff className="h-3.5 w-3.5 text-line-map" />
                 Hide Discovered Markers ({discoveredCount})
               </span>
               <input
                 type="checkbox"
                 checked={flags.hideDiscovered}
                 onChange={(e) => onChangeFlags({ ...flags, hideDiscovered: e.target.checked })}
-                className="h-4 w-4 accent-cyan-500"
+                className="h-4 w-4 accent-line-map"
               />
             </label>
 
             <label className="flex cursor-pointer items-center justify-between gap-2">
-              <span className="flex items-center gap-2 text-zinc-200">
-                <Grid className="h-3.5 w-3.5 text-cyan-400" />
+              <span className="flex items-center gap-2 text-sign-white">
+                <Grid className="h-3.5 w-3.5 text-line-map" />
                 Coordinate Grid Overlay (#)
               </span>
               <input
                 type="checkbox"
                 checked={flags.showGrid}
                 onChange={(e) => onChangeFlags({ ...flags, showGrid: e.target.checked })}
-                className="h-4 w-4 accent-cyan-500"
+                className="h-4 w-4 accent-line-map"
               />
             </label>
 
             <label className="flex cursor-pointer items-center justify-between gap-2">
-              <span className="flex items-center gap-2 text-zinc-200">
+              <span className="flex items-center gap-2 text-sign-white">
                 <Terminal className="h-3.5 w-3.5 text-amber-400" />
                 Dev Coordinate Logger (Click Map)
               </span>
@@ -383,10 +383,10 @@ export function GlobalSettingsModal({
           </div>
 
           {/* Resource Area Opacity */}
-          <div className="space-y-1.5 rounded-lg border border-zinc-800 bg-[#18181b] p-3">
+          <div className="space-y-1.5 rounded-md border border-sign-seam bg-sign-raised p-3">
             <div className="flex items-center justify-between">
-              <span className="font-medium text-zinc-200">Resource Zone Opacity</span>
-              <span className="font-mono text-[11px] text-cyan-300">
+              <span className="font-medium text-sign-white">Resource Zone Opacity</span>
+              <span className="font-mono text-[11px] text-line-map">
                 {Math.round(flags.resourceOpacity * 100)}%
               </span>
             </div>
@@ -399,18 +399,18 @@ export function GlobalSettingsModal({
               onChange={(e) =>
                 onChangeFlags({ ...flags, resourceOpacity: Number(e.target.value) })
               }
-              className="h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-zinc-800 accent-cyan-500"
+              className="h-1.5 w-full cursor-pointer appearance-none rounded-md bg-sign-seam accent-line-map"
             />
           </div>
 
           {/* Export / Import */}
-          <div className="space-y-2 rounded-lg border border-zinc-800 bg-[#18181b] p-3">
+          <div className="space-y-2 rounded-md border border-sign-seam bg-sign-raised p-3">
             <div className="flex items-center justify-between">
-              <span className="flex items-center gap-1.5 font-semibold text-zinc-200">
-                <FileJson className="h-3.5 w-3.5 text-cyan-400" />
+              <span className="flex items-center gap-1.5 font-semibold text-sign-white">
+                <FileJson className="h-3.5 w-3.5 text-line-map" />
                 JSON Backup & Restore
               </span>
-              <span className="text-[10px] text-zinc-500">
+              <span className="text-[10px] text-sign-dim">
                 {customCount} pins · {drawingsCount} routes
               </span>
             </div>
@@ -418,17 +418,17 @@ export function GlobalSettingsModal({
               <button
                 type="button"
                 onClick={handleDownloadBackup}
-                className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-zinc-700 bg-[#121214] px-2.5 py-1.5 font-medium text-zinc-200 hover:border-cyan-500/50 hover:text-white"
+                className="inline-flex items-center justify-center gap-1.5 rounded-md border border-sign-seam bg-sign-black px-2.5 py-1.5 font-medium text-sign-white hover:border-line-map/50 hover:text-white"
               >
-                <Download className="h-3.5 w-3.5 text-cyan-400" />
+                <Download className="h-3.5 w-3.5 text-line-map" />
                 Download JSON
               </button>
               <button
                 type="button"
                 onClick={handleCopyBackup}
-                className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-zinc-700 bg-[#121214] px-2.5 py-1.5 font-medium text-zinc-200 hover:border-cyan-500/50 hover:text-white"
+                className="inline-flex items-center justify-center gap-1.5 rounded-md border border-sign-seam bg-sign-black px-2.5 py-1.5 font-medium text-sign-white hover:border-line-map/50 hover:text-white"
               >
-                <Copy className="h-3.5 w-3.5 text-cyan-400" />
+                <Copy className="h-3.5 w-3.5 text-line-map" />
                 Copy JSON
               </button>
             </div>
@@ -452,13 +452,13 @@ export function GlobalSettingsModal({
                 value={importText}
                 onChange={(e) => setImportText(e.target.value)}
                 placeholder="Paste backup JSON here or upload a .json file..."
-                className="w-full rounded-lg border border-zinc-700 bg-[#121214] p-2 font-mono text-[10px] text-zinc-200 placeholder-zinc-500 outline-none focus:border-cyan-500"
+                className="w-full rounded-md border border-sign-seam bg-sign-black p-2 font-mono text-[10px] text-sign-white placeholder-sign-dim outline-none focus:border-line-map"
               />
               <div className="mt-1.5 flex gap-2">
                 <button
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
-                  className="inline-flex items-center gap-1 rounded-lg border border-zinc-700 bg-[#121214] px-2.5 py-1.5 text-[11px] text-zinc-300 hover:text-white"
+                  className="inline-flex items-center gap-1 rounded-md border border-sign-seam bg-sign-black px-2.5 py-1.5 text-[11px] text-sign-mute hover:text-white"
                 >
                   <Upload className="h-3 w-3" />
                   Load File
@@ -467,7 +467,7 @@ export function GlobalSettingsModal({
                   type="button"
                   disabled={!importText.trim()}
                   onClick={() => handleImportSubmit(importText)}
-                  className="flex-1 rounded-lg bg-cyan-500/20 px-2.5 py-1.5 text-[11px] font-medium text-cyan-300 hover:bg-cyan-500/30 disabled:opacity-40"
+                  className="flex-1 rounded-md bg-line-map/20 px-2.5 py-1.5 text-[11px] font-medium text-line-map hover:bg-line-map/30 disabled:opacity-40"
                 >
                   Restore Backup
                 </button>
@@ -476,15 +476,15 @@ export function GlobalSettingsModal({
           </div>
 
           {statusMsg && (
-            <div className="rounded-lg border border-cyan-500/35 bg-cyan-950/30 px-3 py-2 text-[11px] text-cyan-200">
+            <div className="rounded-md border border-line-map/35 bg-line-map/30 px-3 py-2 text-[11px] text-line-map">
               {statusMsg}
             </div>
           )}
 
           {/* Reset All Data */}
-          <div className="border-t border-zinc-800 pt-3">
+          <div className="border-t border-sign-seam pt-3">
             {confirmWipe ? (
-              <div className="flex items-center justify-between rounded-lg border border-rose-500/40 bg-rose-950/25 px-3 py-2">
+              <div className="flex items-center justify-between rounded-md border border-rose-500/40 bg-rose-950/25 px-3 py-2">
                 <span className="text-[11px] text-rose-200">Clear all local progress?</span>
                 <div className="flex gap-2">
                   <button
@@ -501,7 +501,7 @@ export function GlobalSettingsModal({
                   <button
                     type="button"
                     onClick={() => setConfirmWipe(false)}
-                    className="rounded px-2 py-1 text-[11px] text-zinc-400 hover:text-white"
+                    className="rounded px-2 py-1 text-[11px] text-sign-mute hover:text-white"
                   >
                     Cancel
                   </button>
@@ -511,7 +511,7 @@ export function GlobalSettingsModal({
               <button
                 type="button"
                 onClick={() => setConfirmWipe(true)}
-                className="inline-flex w-full items-center justify-center gap-1.5 rounded-lg border border-rose-500/30 bg-rose-950/20 px-3 py-2 text-xs font-medium text-rose-300 hover:bg-rose-950/40"
+                className="inline-flex w-full items-center justify-center gap-1.5 rounded-md border border-rose-500/30 bg-rose-950/20 px-3 py-2 text-xs font-medium text-rose-300 hover:bg-rose-950/40"
               >
                 <RotateCcw className="h-3.5 w-3.5" />
                 Reset All Data
@@ -557,22 +557,22 @@ export function CustomMarkerModal({
 
   return (
     <div
-      className="pointer-events-auto fixed inset-0 z-[1300] flex items-center justify-center bg-black/65 p-4 backdrop-blur-sm"
+      className="pointer-events-auto fixed inset-0 z-[1300] flex items-center justify-center bg-black/65 p-4"
       role="dialog"
       aria-label="Add Custom Marker"
     >
-      <div className="w-full max-w-sm overflow-hidden rounded-xl border border-zinc-800 bg-[#121214] text-zinc-100 shadow-2xl">
-        <div className="flex items-center justify-between border-b border-zinc-800 px-4 py-3">
+      <div className="w-full max-w-sm overflow-hidden rounded-md border border-sign-seam bg-sign-black text-sign-white shadow-2xl">
+        <div className="flex items-center justify-between border-b border-sign-seam px-4 py-3">
           <div>
             <div className="text-sm font-semibold text-white">Add Custom Marker</div>
-            <div className="font-mono text-[10px] text-cyan-400">
+            <div className="font-mono text-[10px] text-line-map">
               Coord ({initialLng.toFixed(1)}, {initialLat.toFixed(1)})
             </div>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="rounded p-1 text-zinc-400 hover:bg-zinc-800 hover:text-white"
+            className="rounded p-1 text-sign-mute hover:bg-sign-seam hover:text-white"
             aria-label="Cancel custom marker"
           >
             <X className="h-4 w-4" />
@@ -594,28 +594,28 @@ export function CustomMarkerModal({
           className="space-y-3 p-4 text-xs"
         >
           <div>
-            <label className="mb-1 block text-[11px] font-medium text-zinc-300">Title</label>
+            <label className="mb-1 block text-[11px] font-medium text-sign-mute">Title</label>
             <input
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full rounded-lg border border-zinc-700 bg-[#18181b] px-2.5 py-1.5 text-white outline-none focus:border-cyan-500"
+              className="w-full rounded-md border border-sign-seam bg-sign-raised px-2.5 py-1.5 text-white outline-none focus:border-line-map"
               autoFocus
             />
           </div>
 
           <div>
-            <label className="mb-1 block text-[11px] font-medium text-zinc-300">Icon</label>
+            <label className="mb-1 block text-[11px] font-medium text-sign-mute">Icon</label>
             <div className="grid grid-cols-3 gap-1.5">
               {CUSTOM_ICON_CHOICES.map((c) => (
                 <button
                   key={c.id}
                   type="button"
                   onClick={() => setIcon(c.id)}
-                  className={`rounded-lg border px-2 py-1.5 text-[11px] font-medium transition ${
+                  className={`rounded-md border px-2 py-1.5 text-[11px] font-medium transition ${
                     icon === c.id
-                      ? 'border-cyan-500 bg-cyan-500/15 text-cyan-200'
-                      : 'border-zinc-800 bg-[#18181b] text-zinc-400 hover:text-white'
+                      ? 'border-line-map bg-line-map/15 text-line-map'
+                      : 'border-sign-seam bg-sign-raised text-sign-mute hover:text-white'
                   }`}
                 >
                   {c.label}
@@ -625,7 +625,7 @@ export function CustomMarkerModal({
           </div>
 
           <div>
-            <label className="mb-1 block text-[11px] font-medium text-zinc-300">Color</label>
+            <label className="mb-1 block text-[11px] font-medium text-sign-mute">Color</label>
             <div className="flex gap-2">
               {CUSTOM_COLOR_CHOICES.map((swatch) => (
                 <button
@@ -633,7 +633,7 @@ export function CustomMarkerModal({
                   type="button"
                   onClick={() => setColor(swatch)}
                   className={`h-6 w-6 rounded-full border-2 transition ${
-                    color === swatch ? 'scale-110 border-white' : 'border-zinc-700'
+                    color === swatch ? 'scale-110 border-white' : 'border-sign-seam'
                   }`}
                   style={{ backgroundColor: swatch }}
                   aria-label={`Color ${swatch}`}
@@ -643,13 +643,13 @@ export function CustomMarkerModal({
           </div>
 
           <div>
-            <label className="mb-1 block text-[11px] font-medium text-zinc-300">Notes</label>
+            <label className="mb-1 block text-[11px] font-medium text-sign-mute">Notes</label>
             <textarea
               rows={2}
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Ore vein notes, timing, loot..."
-              className="w-full rounded-lg border border-zinc-700 bg-[#18181b] px-2.5 py-1.5 text-white placeholder-zinc-500 outline-none focus:border-cyan-500"
+              className="w-full rounded-md border border-sign-seam bg-sign-raised px-2.5 py-1.5 text-white placeholder-sign-dim outline-none focus:border-line-map"
             />
           </div>
 
@@ -657,13 +657,13 @@ export function CustomMarkerModal({
             <button
               type="button"
               onClick={onClose}
-              className="rounded-lg border border-zinc-700 px-3 py-1.5 text-zinc-300 hover:text-white"
+              className="rounded-md border border-sign-seam px-3 py-1.5 text-sign-mute hover:text-white"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="rounded-lg bg-cyan-500 px-3 py-1.5 font-semibold text-zinc-950 hover:bg-cyan-400"
+              className="rounded-md bg-line-map px-3 py-1.5 font-semibold text-sign-black hover:bg-line-map"
             >
               Save Marker
             </button>
@@ -713,11 +713,11 @@ export function DevCoordinateLoggerDrawer({
 
   return (
     <div
-      className="pointer-events-auto absolute bottom-14 right-3 z-[1150] flex max-h-[55dvh] w-[320px] max-w-[calc(100vw-1.5rem)] flex-col overflow-hidden rounded-xl border border-amber-500/45 bg-[#121214]/96 text-zinc-100 shadow-2xl backdrop-blur-md"
+      className="pointer-events-auto absolute bottom-14 right-3 z-[1150] flex max-h-[55dvh] w-[320px] max-w-[calc(100vw-1.5rem)] flex-col overflow-hidden rounded-md border border-amber-500/45 bg-sign-black/95 text-sign-white shadow-2xl"
       role="region"
       aria-label="Dev Coordinate Logger"
     >
-      <div className="flex items-center justify-between border-b border-zinc-800 px-3 py-2">
+      <div className="flex items-center justify-between border-b border-sign-seam px-3 py-2">
         <div className="flex items-center gap-1.5 text-xs font-semibold text-amber-300">
           <Terminal className="h-3.5 w-3.5" />
           Dev Coordinate Logger ({entries.length})
@@ -726,21 +726,21 @@ export function DevCoordinateLoggerDrawer({
           <button
             type="button"
             onClick={handleCopy}
-            className="rounded border border-zinc-700 bg-[#18181b] px-1.5 py-0.5 text-[10px] text-zinc-200 hover:border-cyan-500"
+            className="rounded border border-sign-seam bg-sign-raised px-1.5 py-0.5 text-[10px] text-sign-white hover:border-line-map"
           >
             {copied ? 'Copied!' : 'Copy JSON'}
           </button>
           <button
             type="button"
             onClick={handleDownload}
-            className="rounded border border-zinc-700 bg-[#18181b] px-1.5 py-0.5 text-[10px] text-zinc-200 hover:border-cyan-500"
+            className="rounded border border-sign-seam bg-sign-raised px-1.5 py-0.5 text-[10px] text-sign-white hover:border-line-map"
           >
             Export
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="rounded p-1 text-zinc-400 hover:text-white"
+            className="rounded p-1 text-sign-mute hover:text-white"
             aria-label="Disable Dev Logger"
           >
             <X className="h-3.5 w-3.5" />
@@ -748,29 +748,29 @@ export function DevCoordinateLoggerDrawer({
         </div>
       </div>
 
-      <div className="border-b border-zinc-800 bg-amber-950/20 px-3 py-1.5 text-[10px] text-amber-200/90">
+      <div className="border-b border-sign-seam bg-amber-950/20 px-3 py-1.5 text-[10px] text-amber-200/90">
         Click anywhere on the map to capture exact (X, Y) coordinates.
       </div>
 
       <div className="flex-1 space-y-1.5 overflow-y-auto p-2 text-xs">
         {entries.length === 0 ? (
-          <div className="py-6 text-center text-[11px] text-zinc-500">
+          <div className="py-6 text-center text-[11px] text-sign-dim">
             No coordinates captured yet. Click on map tiles to append rows.
           </div>
         ) : (
           entries.map((entry) => (
             <div
               key={entry.id}
-              className="space-y-1 rounded-lg border border-zinc-800 bg-[#18181b] p-2"
+              className="space-y-1 rounded-md border border-sign-seam bg-sign-raised p-2"
             >
               <div className="flex items-center justify-between gap-1">
-                <span className="font-mono text-[10px] text-cyan-400">
+                <span className="font-mono text-[10px] text-line-map">
                   ({entry.lng}, {entry.lat}) · {entry.region}
                 </span>
                 <button
                   type="button"
                   onClick={() => onRemoveEntry(entry.id)}
-                  className="text-zinc-500 hover:text-rose-400"
+                  className="text-sign-dim hover:text-rose-400"
                   aria-label="Remove log row"
                 >
                   <Trash2 className="h-3 w-3" />
@@ -780,7 +780,7 @@ export function DevCoordinateLoggerDrawer({
                 <select
                   value={entry.category}
                   onChange={(e) => onUpdateEntry(entry.id, { category: e.target.value })}
-                  className="rounded border border-zinc-700 bg-[#121214] px-1.5 py-0.5 text-[10px] text-zinc-200 outline-none"
+                  className="rounded border border-sign-seam bg-sign-black px-1.5 py-0.5 text-[10px] text-sign-white outline-none"
                 >
                   {MAP_CATEGORIES.map((c) => (
                     <option key={c.key} value={c.key}>
@@ -793,7 +793,7 @@ export function DevCoordinateLoggerDrawer({
                   value={entry.name}
                   onChange={(e) => onUpdateEntry(entry.id, { name: e.target.value })}
                   placeholder="Name..."
-                  className="rounded border border-zinc-700 bg-[#121214] px-1.5 py-0.5 text-[10px] text-white outline-none"
+                  className="rounded border border-sign-seam bg-sign-black px-1.5 py-0.5 text-[10px] text-white outline-none"
                 />
               </div>
             </div>
@@ -802,7 +802,7 @@ export function DevCoordinateLoggerDrawer({
       </div>
 
       {entries.length > 0 && (
-        <div className="border-t border-zinc-800 p-2 text-right">
+        <div className="border-t border-sign-seam p-2 text-right">
           <button
             type="button"
             onClick={onClearEntries}

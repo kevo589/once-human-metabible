@@ -1,4 +1,5 @@
 import L from 'leaflet';
+import { GAME_ICONS, GameIcon, getGameIconSheet } from '../../data/gameIcons';
 
 const SVG_PATHS: Record<string, string> = {
   // Locations
@@ -104,13 +105,14 @@ export function CategoryGlyph({
   color: string;
   variant?: 'default' | 'anomaly';
 }) {
+  if (GAME_ICONS[typeKey]) return <GameIcon id={typeKey} size={22} />;
   const path = SVG_PATHS[typeKey] ?? SVG_PATHS.place;
   return (
     <span
       className={`inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border ${
         variant === 'anomaly'
           ? 'border-orange-500/45 bg-orange-950/75 text-orange-400'
-          : 'border-zinc-700/80 bg-zinc-900 text-slate-100'
+          : 'border-sign-seam/80 bg-sign-raised text-sign-white'
       }`}
     >
       <svg
@@ -131,7 +133,11 @@ export function CategoryGlyph({
  * Generates and caches a crisp 64x64 offscreen canvas badge from inline vector SVG
  * so thousands of Canvas markers render with crisp edges across all zoom levels.
  */
-export function getCategoryCanvasSprite(typeKey: string, color: string): HTMLCanvasElement | null {
+export function getCategoryCanvasSprite(
+  typeKey: string,
+  color: string,
+  onReady?: () => void,
+): HTMLCanvasElement | null {
   if (typeof document === 'undefined') return null;
   const cacheKey = `${typeKey}|${color}`;
   const existing = SPRITE_CACHE.get(cacheKey);
@@ -147,9 +153,33 @@ export function getCategoryCanvasSprite(typeKey: string, color: string): HTMLCan
   // Fallback immediate synchronous vector draw so frame 1 is never blank before Image decode
   drawFallbackBadge(ctx, size, color);
 
+  const rect = GAME_ICONS[typeKey];
+  if (rect) {
+    // In-game icon from the shared sheet, with a soft shadow so it reads on bright terrain
+    const paint = (sheet: HTMLImageElement) => {
+      const [x, y, w, h] = rect;
+      const fit = (size - 8) / Math.max(w, h);
+      const dw = w * fit;
+      const dh = h * fit;
+      ctx.clearRect(0, 0, size, size);
+      ctx.shadowColor = 'rgba(0,0,0,0.85)';
+      ctx.shadowBlur = 6;
+      ctx.shadowOffsetY = 1;
+      ctx.drawImage(sheet, x, y, w, h, (size - dw) / 2, (size - dh) / 2, dw, dh);
+    };
+    const sheet = getGameIconSheet(() => {
+      const ready = getGameIconSheet();
+      if (ready) paint(ready);
+      onReady?.();
+    });
+    if (sheet) paint(sheet);
+    SPRITE_CACHE.set(cacheKey, canvas);
+    return canvas;
+  }
+
   const path = SVG_PATHS[typeKey] ?? SVG_PATHS.place;
   const svgString = `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
-    <circle cx="32" cy="32" r="27" fill="#121214" stroke="${color}" stroke-width="5"/>
+    <circle cx="32" cy="32" r="27" fill="#000000" stroke="${color}" stroke-width="5"/>
     <circle cx="32" cy="32" r="23" fill="${color}" fill-opacity="0.16"/>
     <g transform="translate(15,15) scale(1.42)" fill="none" stroke="#f8fafc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${path}</g>
   </svg>`;
@@ -258,7 +288,7 @@ function drawFallbackBadge(ctx: CanvasRenderingContext2D, size: number, color: s
   const c = size / 2;
   ctx.beginPath();
   ctx.arc(c, c, size * 0.42, 0, Math.PI * 2);
-  ctx.fillStyle = '#121214';
+  ctx.fillStyle = '#000000';
   ctx.fill();
   ctx.lineWidth = size * 0.08;
   ctx.strokeStyle = color;
@@ -281,7 +311,7 @@ export function getCustomPinDivIcon(iconKey: string, color: string, label?: stri
     iconSize: [28, 28],
     iconAnchor: [14, 14],
     popupAnchor: [0, -14],
-    html: `<div class="thgl-pin" style="width:28px;height:28px;background:#121214;border:2px solid ${color};box-shadow:0 0 12px ${color}55;"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="${color}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${path}</svg></div>`,
+    html: `<div class="thgl-pin" style="width:28px;height:28px;background:#000000;border:2px solid ${color};box-shadow:0 0 12px ${color}55;"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="${color}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${path}</svg></div>`,
   });
   CUSTOM_ICON_CACHE.set(cacheKey, icon);
   return icon;

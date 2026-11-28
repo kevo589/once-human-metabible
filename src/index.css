@@ -4,53 +4,139 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Archivo, self-hosted variable font (one file per subset serves every weight) */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('./assets/fonts/archivo-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('./assets/fonts/archivo-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 @layer base {
-  body {
-    background-color: #07090d;
-    color: #e2e8f0;
+  :root {
+    --band-h: 56px;
+    color-scheme: dark;
+  }
+  @media (min-width: 768px) {
+    :root {
+      --band-h: 64px;
+    }
   }
 
+  body {
+    background-color: #0b0c0d;
+    color: #f2f2ee;
+    font-variant-numeric: tabular-nums;
+  }
+
+  ::selection {
+    background: #f2f2ee;
+    color: #000;
+  }
+
+  :focus-visible {
+    outline: 2px solid #f2f2ee;
+    outline-offset: 2px;
+  }
+
+  * {
+    scrollbar-color: #3a3b3c #0b0c0d;
+  }
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: #0d1118;
+    background: #0b0c0d;
   }
   ::-webkit-scrollbar-thumb {
-    background: #232e3f;
-    border-radius: 4px;
+    background: #3a3b3c;
+    border-radius: 0;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #334155;
+    background: #5a5b5c;
+  }
+}
+
+/* Route bullet: the signature transit mark used by nav and Transfers */
+.route-bullet {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* Station sign: slides in along one axis */
+@keyframes sign-in-right {
+  from { transform: translateX(24px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+@keyframes sign-in-up {
+  from { transform: translateY(24px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+.station-sign {
+  animation: sign-in-up 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (min-width: 768px) {
+  .station-sign {
+    animation-name: sign-in-right;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .station-sign {
+    animation: none;
   }
 }
 
 .leaflet-container {
-  background: #090d14 !important;
+  background: #0b0c0d !important;
   font-family: inherit;
 }
 
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip {
-  background: #121214 !important;
-  color: #f4f4f5 !important;
-  border: 1px solid #27272a;
+  background: #000 !important;
+  color: #f2f2ee !important;
+  border: 1px solid #2a2b2c;
+  border-radius: 4px !important;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.78);
 }
 
+.leaflet-tooltip {
+  background: #000 !important;
+  color: #f2f2ee !important;
+  border: 1px solid #2a2b2c !important;
+  border-radius: 3px !important;
+}
+
 .leaflet-popup-close-button {
-  color: #a1a1aa !important;
+  color: #a8a9a4 !important;
 }
 
 .leaflet-popup-close-button:hover {
-  color: #22d3ee !important;
+  color: #f2f2ee !important;
 }
 
 .leaflet-control-attribution {
-  background: rgba(13, 17, 24, 0.85) !important;
-  color: #64748b !important;
+  background: rgba(0, 0, 0, 0.85) !important;
+  color: #8a8b87 !important;
   font-size: 10px !important;
+}
+.leaflet-control-attribution a {
+  color: #a8a9a4 !important;
 }
 
 .nalcott-region-badge {
@@ -82,8 +168,8 @@
 
 .thgl-pin.is-selected {
   transform: scale(1.26);
-  border-color: #ffffff;
-  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.55), 0 4px 14px rgba(0, 0, 0, 0.9);
+  border-color: #f2f2ee;
+  box-shadow: 0 0 0 3px #000, 0 0 0 5px #f2f2ee, 0 4px 14px rgba(0, 0, 0, 0.9);
 }
 
 .thgl-pin.is-found {

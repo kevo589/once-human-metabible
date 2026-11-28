@@ -1,5 +1,6 @@
-import { BookOpen, Calculator, Clock, Flame, Hammer, Map, Search, Sparkles } from 'lucide-react';
+import { Search } from 'lucide-react';
 import type { NavTab } from '../../types/game';
+import { GameIcon } from '../../data/gameIcons';
 import { cn } from '../../utils/cn';
 
 interface SidebarProps {
@@ -9,78 +10,89 @@ interface SidebarProps {
   activeEventCount: number;
 }
 
-const NAV_ITEMS: Array<{ id: NavTab; label: string; desc: string; icon: typeof Calculator }> = [
-  { id: 'calculator', label: 'DPS Calculator', desc: 'Weapon & mod math', icon: Calculator },
-  { id: 'meta', label: 'Meta Builds', desc: 'S+ & S loadouts', icon: Flame },
-  { id: 'workbench', label: 'Gear Workbench', desc: 'Weapons, armor & queue', icon: Hammer },
-  { id: 'map', label: 'Interactive Map', desc: 'Manibus, Winter, Abyss', icon: Map },
-  { id: 'encyclopedia', label: 'Encyclopedia', desc: 'Mods, deviants, recipes', icon: BookOpen },
-  { id: 'timers', label: 'Event Timers', desc: 'Cargo, Prime War, resets', icon: Clock },
-];
+/** Each feature is a transit line: a route letter and colour shared by nav and Transfers. */
+export const NAV_LINES: Record<NavTab, { label: string; letter: string; bg: string }> = {
+  calculator: { label: 'DPS', letter: 'D', bg: 'bg-line-dps' },
+  meta: { label: 'Builds', letter: 'B', bg: 'bg-line-builds' },
+  workbench: { label: 'Workbench', letter: 'W', bg: 'bg-line-workbench' },
+  map: { label: 'Map', letter: 'M', bg: 'bg-line-map' },
+  encyclopedia: { label: 'Encyclopedia', letter: 'E', bg: 'bg-line-enc' },
+  timers: { label: 'Timers', letter: 'T', bg: 'bg-line-timers' },
+};
 
+const ORDER: NavTab[] = ['calculator', 'meta', 'workbench', 'map', 'encyclopedia', 'timers'];
+
+/** Route mark: the feature's in-game icon inside its line-coloured ring. */
+export function RouteBullet({ tab, size = 'md' }: { tab: NavTab; size?: 'sm' | 'md' }) {
+  const line = NAV_LINES[tab];
+  const md = size === 'md';
+  return (
+    <span
+      aria-hidden
+      className={cn('route-bullet bg-black p-[2px]', line.bg, md ? 'h-[32px] w-[32px] md:h-[36px] md:w-[36px]' : 'h-7 w-7')}
+    >
+      <span className="grid h-full w-full place-items-center rounded-full bg-black">
+        <GameIcon id={`nav-${tab}`} size={md ? 26 : 20} />
+      </span>
+    </span>
+  );
+}
+
+/** Top sign band: wordmark, one route bullet per feature line, and global search. */
 export function Sidebar({ activeTab, onSelectTab, onOpenSearch, activeEventCount }: SidebarProps) {
   return (
-    <aside className="flex w-full flex-col border-b border-obsidian-800 bg-obsidian-900/70 lg:w-60 lg:shrink-0 lg:border-b-0 lg:border-r">
-      <div className="flex items-center gap-2.5 border-b border-obsidian-800 px-4 py-4">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-obsidian-700 bg-obsidian-800 text-stardust-400">
-          <Sparkles className="h-4 w-4" />
+    <header className="sticky top-0 z-40 flex h-[var(--band-h)] shrink-0 items-center gap-3 border-b-[3px] border-sign-white bg-sign-black px-3 md:gap-6 md:px-6">
+      <div className="shrink-0 leading-none">
+        <div className="text-[19px] font-extrabold tracking-[-0.01em] text-sign-white md:text-[22px]">
+          <span className="hidden sm:inline">MetaBible</span>
+          <span className="sm:hidden">MB</span>
         </div>
-        <div>
-          <div className="text-sm font-semibold tracking-wide text-white">MetaBible</div>
-          <div className="text-[11px] text-slate-500">Once Human Companion</div>
-        </div>
+        <div className="mt-1 hidden text-[11px] font-medium text-sign-dim lg:block">Once Human Companion</div>
       </div>
 
-      <div className="p-3">
-        <button
-          type="button"
-          onClick={onOpenSearch}
-          className="flex w-full items-center justify-between rounded-lg border border-obsidian-800 bg-obsidian-950/70 px-3 py-2 text-xs text-slate-400 transition hover:border-obsidian-700 hover:text-slate-200"
-        >
-          <span className="flex items-center gap-2">
-            <Search className="h-3.5 w-3.5 text-slate-500" />
-            Search...
-          </span>
-          <kbd className="rounded border border-obsidian-800 bg-obsidian-900 px-1.5 py-0.5 font-mono text-[10px] text-slate-500">
-            Ctrl K
-          </kbd>
-        </button>
-      </div>
-
-      <nav className="flex flex-row gap-1 overflow-x-auto px-3 pb-3 lg:flex-col lg:overflow-visible">
-        {NAV_ITEMS.map((item) => {
-          const Icon = item.icon;
-          const active = activeTab === item.id;
+      <nav aria-label="Features" className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto px-1 py-1 [scrollbar-width:none] md:gap-2 lg:gap-5">
+        {ORDER.map((tab) => {
+          const active = activeTab === tab;
+          const line = NAV_LINES[tab];
           return (
             <button
-              key={item.id}
+              key={tab}
               type="button"
-              onClick={() => onSelectTab(item.id)}
+              onClick={() => onSelectTab(tab)}
+              aria-current={active ? 'page' : undefined}
+              aria-label={line.label}
               className={cn(
-                'flex shrink-0 items-center gap-3 rounded-lg border px-3 py-2 text-left transition lg:w-full',
-                active
-                  ? 'border-obsidian-700 bg-obsidian-800/85 text-white'
-                  : 'border-transparent text-slate-400 hover:bg-obsidian-800/40 hover:text-slate-200',
+                'relative flex shrink-0 items-center gap-2 rounded-full py-1 pl-1 text-[15px] font-semibold transition-colors',
+                active ? 'pr-1 text-sign-white md:pr-3' : 'pr-1 text-sign-mute hover:text-sign-white lg:pr-2',
               )}
             >
-              <Icon className={cn('h-4 w-4 shrink-0', active ? 'text-stardust-400' : 'text-slate-500')} />
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center justify-between gap-2 text-[13px] font-medium">
-                  <span className="truncate">{item.label}</span>
-                  {item.id === 'timers' && activeEventCount > 0 && (
-                    <span className="h-2 w-2 rounded-full bg-emerald-400" title={`${activeEventCount} live`} />
-                  )}
-                </div>
-                <div className="hidden truncate text-[11px] text-slate-500 lg:block">{item.desc}</div>
-              </div>
+              <span className={cn('rounded-full', active && 'ring-2 ring-sign-white ring-offset-2 ring-offset-black')}>
+                <RouteBullet tab={tab} />
+              </span>
+              <span className={cn(active ? 'hidden md:inline' : 'hidden lg:inline')}>{line.label}</span>
+              {tab === 'timers' && activeEventCount > 0 && (
+                <span
+                  className="absolute left-7 top-0.5 h-2.5 w-2.5 rounded-full border-2 border-black bg-sign-white"
+                  title={`${activeEventCount} live now`}
+                />
+              )}
             </button>
           );
         })}
       </nav>
 
-      <div className="mt-auto hidden border-t border-obsidian-800 px-4 py-3 text-[11px] text-slate-500 lg:block">
-        Manibus · Way of Winter · Isles of Abyss
-      </div>
-    </aside>
+      <button
+        type="button"
+        onClick={onOpenSearch}
+        aria-label="Search everything (Ctrl K)"
+        className="flex h-10 shrink-0 items-center gap-3 rounded-md border-2 border-sign-seam px-3 text-[14px] text-sign-mute transition-colors hover:border-sign-white hover:text-sign-white md:w-[260px] md:justify-between"
+      >
+        <span className="flex items-center gap-2">
+          <Search className="h-4 w-4" />
+          <span className="hidden md:inline">Search everything</span>
+        </span>
+        <kbd className="hidden text-[12px] font-semibold text-sign-dim md:inline">Ctrl K</kbd>
+      </button>
+    </header>
   );
 }
