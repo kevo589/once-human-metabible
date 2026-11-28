@@ -24,6 +24,22 @@ const SVG_PATHS: Record<string, string> = {
   place:
     '<path d="M12 21s6-5.7 6-11a6 6 0 1 0-12 0c0 5.3 6 11 6 11Z"/><circle cx="12" cy="10" r="2"/>',
 
+  // Gathering & Resources
+  'ore-startrace':
+    '<path d="M6 3h12l4 6-10 12L2 9l4-6Z"/><path d="M11 3 8 9l4 12 4-12-3-6M2 9h20"/>',
+  'ore-tungsten':
+    '<path d="M14 5 5 14l5 5 9-9-5-5Z"/><path d="m11 8 5 5M4 20l4-4"/>',
+  'ore-gold-silver':
+    '<path d="M7 14 3 20h10l-3-6H7Zm10-8-4 8h8l-4-8Z"/><circle cx="8" cy="7" r="2.2"/>',
+  'ore-iron-copper':
+    '<path d="M4 16 8 7l6-3 6 6-3 9H7l-3-3Z"/><path d="M8 7l5 5 7-2"/>',
+  'hunting-grounds':
+    '<circle cx="11" cy="5.5" r="1.7"/><circle cx="16.5" cy="7" r="1.7"/><circle cx="6" cy="9" r="1.6"/><circle cx="18.5" cy="12" r="1.6"/><path d="M8.5 14c1.2-2 5.8-2 7 0l1.2 3.2c.5 1.3-.5 2.8-1.9 2.8H9.2c-1.4 0-2.4-1.5-1.9-2.8L8.5 14Z"/>',
+  'herbs-crops':
+    '<path d="M12 21V9m0 0C12 5 8 3 4 3c0 4 2 8 8 6Zm0 0c0-4 4-6 8-6 0 4-2 8-8 6Z"/>',
+  'acid-salt-sulfur':
+    '<path d="M9 3h6m-4 0v5l-4.5 8.5A2.2 2.2 0 0 0 8.4 20h7.2a2.2 2.2 0 0 0 1.9-3.5L13 8V3"/><path d="M7.5 15h9"/>',
+
   // Loot Containers
   'mystical-crate':
     '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M12 7v13M3 12h18M8 7c0-2 1.5-3 4-3s4 1 4 3"/>',

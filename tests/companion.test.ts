@@ -94,6 +94,21 @@ describe('Once Human game data schemas', () => {
     const deviationPins = ALL_MAP_MARKERS.filter((m) => m.typeKey === 'deviation-spawn');
     expect(deviationPins.length).toBeGreaterThanOrEqual(100);
     expect(deviationPins.every((m) => Boolean(m.imageUrl))).toBe(true);
+
+    const gatheringKeys = [
+      'ore-startrace',
+      'ore-tungsten',
+      'ore-gold-silver',
+      'ore-iron-copper',
+      'hunting-grounds',
+      'herbs-crops',
+      'acid-salt-sulfur',
+    ];
+    for (const gk of gatheringKeys) {
+      const pins = ALL_MAP_MARKERS.filter((m) => m.typeKey === gk);
+      expect(pins.length, `Expected gathering spots for ${gk}`).toBeGreaterThanOrEqual(10);
+      expect(MAP_DROP_TABLES[gk]?.length, `Expected drop table for ${gk}`).toBeGreaterThanOrEqual(3);
+    }
     expect(
       fs.existsSync(path.resolve(process.cwd(), 'public', 'maps', 'nalcott', 'overview-1024.webp')),
     ).toBe(true);

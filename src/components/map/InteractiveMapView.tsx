@@ -375,7 +375,7 @@ export function InteractiveMapView({ focusedMarkerId }: InteractiveMapViewProps)
 
   // Persisted State
   const [enabledCategoriesList, setEnabledCategoriesList] = useLocalStorage<string[]>(
-    'oh-map-enabled-cats-v2',
+    'oh-map-enabled-cats-v3',
     NALCOTT_DEFAULT_TYPE_KEYS,
   );
   const [discoveredIdsList, setDiscoveredIdsList] = useLocalStorage<string[]>(

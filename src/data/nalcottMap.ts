@@ -1,6 +1,7 @@
 import type { NalcottMapData, ScenarioId } from '../types/game';
 import { DEVIATIONS } from './deviationsAndChef';
 import { MAP_CATEGORIES } from './mapCatalog';
+import rawGatheringData from './gatheringSpots.json';
 import rawGeneratedData from './generatedMapMarkers.json';
 import rawMapData from './nalcottMap.json';
 
@@ -102,8 +103,9 @@ type GeneratedMarkerTuple = [
 ];
 
 const generatedList = (rawGeneratedData as { markers: GeneratedMarkerTuple[] }).markers;
+const gatheringList = (rawGatheringData as { markers: GeneratedMarkerTuple[] }).markers;
 
-const DENSE_POIS: NalcottPoi[] = generatedList.map(
+const DENSE_POIS: NalcottPoi[] = [...generatedList, ...gatheringList].map(
   ([id, catKey, name, level, lat, lng, region, scenario, near], idx) => {
     const meta = CATEGORY_META_BY_KEY.get(catKey);
     const imageUrl =

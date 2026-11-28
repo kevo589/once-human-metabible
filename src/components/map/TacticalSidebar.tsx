@@ -94,6 +94,7 @@ const ACCORDION_GROUPS: Array<{
   anomalyStyled?: boolean;
 }> = [
   { id: 'locations', title: 'Locations' },
+  { id: 'gathering', title: 'Gathering & Resources' },
   { id: 'loot_containers', title: 'Loot Containers' },
   { id: 'bosses_anomalies', title: 'Bosses, Lairs & Anomalies', anomalyStyled: true },
 ];
@@ -148,6 +149,7 @@ export function TacticalSidebar({
         'drawings',
         'resource_areas',
         'locations',
+        'gathering',
         'loot_containers',
         'bosses_anomalies',
       ]),

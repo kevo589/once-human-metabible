@@ -1,9 +1,10 @@
 import type { ScenarioId } from '../types/game';
 
-export const MAP_LAST_UPDATED = '2026-11-26';
+export const MAP_LAST_UPDATED = '2026-11-27';
 
 export type MapCategoryGroupId =
   | 'locations'
+  | 'gathering'
   | 'loot_containers'
   | 'bosses_anomalies';
 
@@ -319,6 +320,68 @@ export const MAP_CATEGORIES: MapCategoryDef[] = [
     color: '#64748b',
     defaultOn: false,
     description: 'Named points of interest, bridges, and junctions.',
+  },
+
+  // Gathering & Resources (Ores, Wildlife, Herbs, Sulfur/Salt)
+  {
+    key: 'ore-startrace',
+    label: 'Startrace Ore Veins',
+    group: 'gathering',
+    color: '#a855f7',
+    defaultOn: true,
+    isNew: true,
+    description: 'High-yield Startrace Ore crystal veins for Stardust Source smelting.',
+  },
+  {
+    key: 'ore-tungsten',
+    label: 'Tungsten & Aluminum Veins',
+    group: 'gathering',
+    color: '#38bdf8',
+    defaultOn: true,
+    isNew: true,
+    description: 'Dense Tier IV–V Tungsten and Aluminum ore farming ridges.',
+  },
+  {
+    key: 'ore-gold-silver',
+    label: 'Gold & Silver Veins',
+    group: 'gathering',
+    color: '#eab308',
+    defaultOn: true,
+    isNew: true,
+    description: 'High-value Gold & Silver ore runs for Energy Link ingot crafting.',
+  },
+  {
+    key: 'ore-iron-copper',
+    label: 'Copper, Tin & Iron Veins',
+    group: 'gathering',
+    color: '#d97706',
+    defaultOn: false,
+    description: 'Early-to-mid bulk Bronze, Steel & Iron smelting clusters.',
+  },
+  {
+    key: 'hunting-grounds',
+    label: 'Animal Hunting & Hides',
+    group: 'gathering',
+    color: '#22c55e',
+    defaultOn: true,
+    isNew: true,
+    description: 'Dense wildlife habitats for Bear, Wolf, Golden Wool, Crocodile & Game Meat.',
+  },
+  {
+    key: 'herbs-crops',
+    label: 'Herbs, Mushrooms & Crops',
+    group: 'gathering',
+    color: '#10b981',
+    defaultOn: false,
+    description: 'Foraging runs for Scarlet Calamus, Morel, Honeysuckle, Aloe & Snow Lotus.',
+  },
+  {
+    key: 'acid-salt-sulfur',
+    label: 'Salt, Sulfur & Acid/Oil',
+    group: 'gathering',
+    color: '#f97316',
+    defaultOn: true,
+    description: 'Sulfur crystal mesas, Saltwater flats & Oil/Acid pump hotspots.',
   },
 
   // Loot Containers
@@ -649,6 +712,41 @@ export const MAP_DROP_TABLES: Record<string, MapDropEntry[]> = {
     { item: 'Endgame Mod Parts & Cortex Lv.3', quantity: '×2-4', chance: '100%' },
     { item: 'Rare Deviation Capsule', quantity: '×1', chance: '25%' },
   ],
+  'ore-startrace': [
+    { item: 'Startrace Ore', quantity: '×20-38', chance: '100%', qualifier: 'Solar Drill + Digby' },
+    { item: 'Tungsten Ore', quantity: '×12-24', chance: '100%' },
+    { item: 'Stardust Source (Electric Furnace)', quantity: '×40-60', chance: '100%', qualifier: 'with Oil Processing' },
+  ],
+  'ore-tungsten': [
+    { item: 'Tungsten Ore', quantity: '×25-48', chance: '100%' },
+    { item: 'Aluminum Ore', quantity: '×20-40', chance: '85%' },
+    { item: 'Sulfur & Crushed Stone', quantity: '×15-30', chance: '100%' },
+  ],
+  'ore-gold-silver': [
+    { item: 'Gold Ore', quantity: '×8-18', chance: '35%', qualifier: 'Highland ridges / Red Sands' },
+    { item: 'Silver Ore', quantity: '×12-28', chance: '65%', qualifier: 'Solar Drill + Canned Seafood' },
+    { item: 'Tungsten / Iron Bonus Ore', quantity: '×20-35', chance: '100%' },
+  ],
+  'ore-iron-copper': [
+    { item: 'Iron Ore', quantity: '×30-55', chance: '100%', qualifier: 'Iron River / Broken Delta' },
+    { item: 'Copper & Tin Ore', quantity: '×30-50', chance: '100%', qualifier: 'Dayton Wetlands' },
+    { item: 'Coal & Gravel', quantity: '×20-40', chance: '100%' },
+  ],
+  'hunting-grounds': [
+    { item: 'Raw Hide / Bear / Wolf / Croc Skin', quantity: '×6-16', chance: '100%' },
+    { item: 'Golden / Highland Sheep Wool', quantity: '×4-10', chance: '60%', qualifier: 'Red Sands & Onyx Tundra rams' },
+    { item: 'Prime Game Meat & Animal Fat', quantity: '×8-20', chance: '100%' },
+  ],
+  'herbs-crops': [
+    { item: 'Scarlet Calamus / Honeysuckle / Aloe', quantity: '×6-15', chance: '100%' },
+    { item: 'Morel / Coneflower / Snow Lotus', quantity: '×4-10', chance: '75%' },
+    { item: 'Crop Seeds (Deviated Chance)', quantity: '×2-5', chance: '45%' },
+  ],
+  'acid-salt-sulfur': [
+    { item: 'Sulfur Crystals', quantity: '×25-50', chance: '100%', qualifier: 'Red Sands / Ember Strand' },
+    { item: 'Seawater -> Sea Salt (Stove)', quantity: '×20-40', chance: '100%', qualifier: 'East Coast / Tidal Bore' },
+    { item: 'Impure Acid / Crude Oil (Pump)', quantity: '×15-30/hr', chance: '100%' },
+  ],
 };
 
 export const MAP_RESOURCE_AREAS: ResourceAreaPolygon[] = [
@@ -757,13 +855,58 @@ export const MAP_RESOURCE_AREAS: ResourceAreaPolygon[] = [
       [-138, 415],
     ],
   },
+  {
+    id: 'res-iron-river-veins',
+    name: 'Iron River Winding Ridge Iron Belt',
+    kind: 'tungsten',
+    color: '#d97706',
+    scenario: 'manibus',
+    region: 'Iron River',
+    resources: ['Dense Iron Ore', 'Coal', 'Calamus & Herbs'],
+    coordinates: [
+      [-378, 434],
+      [-335, 438],
+      [-338, 478],
+      [-382, 472],
+    ],
+  },
+  {
+    id: 'res-blackheart-wolves',
+    name: 'Blackheart Lunar Wolf & Sulfur Plains',
+    kind: 'wildlife',
+    color: '#c084fc',
+    scenario: 'way_of_winter',
+    region: 'Blackheart Region',
+    resources: ['Lunar Wolf Skin', 'Sulfur', 'Startrace Ore'],
+    coordinates: [
+      [-262, 348],
+      [-202, 355],
+      [-206, 405],
+      [-266, 398],
+    ],
+  },
+  {
+    id: 'res-delta-salt-copper',
+    name: 'Broken Delta Silver, Tin & Salt Coast',
+    kind: 'gold_silver',
+    color: '#22c55e',
+    scenario: 'manibus',
+    region: 'Broken Delta',
+    resources: ['Silver Ore', 'Tin Ore', 'Sea Salt', 'Crocodile Hide'],
+    coordinates: [
+      [-488, 365],
+      [-455, 368],
+      [-458, 468],
+      [-492, 462],
+    ],
+  },
 ];
 
 export const BUILT_IN_FILTER_PRESETS: FilterPresetDef[] = [
   {
     id: 'preset-core',
-    name: 'Core Navigation',
-    description: 'Teleport Towers, Monoliths, Silos, Strongholds, Rift Anchors & Mystical Crates',
+    name: 'Core Navigation & Gathering',
+    description: 'Teleport Towers, Monoliths, Silos, Strongholds, Startrace/Tungsten/Gold Ores & Animals',
     builtIn: true,
     categories: [
       'teleport-tower',
@@ -772,16 +915,47 @@ export const BUILT_IN_FILTER_PRESETS: FilterPresetDef[] = [
       'mayfly-stronghold',
       'rift-anchor',
       'mystical-crate',
+      'ore-startrace',
+      'ore-tungsten',
+      'ore-gold-silver',
+      'hunting-grounds',
+      'acid-salt-sulfur',
     ],
     resourceAreaIds: [],
   },
   {
+    id: 'preset-gathering-all',
+    name: 'Ores, Animals & Herbs Run',
+    description: 'All Ore Veins, Animal Hunting Spots, Herbs/Crops, Salt/Sulfur & Teleport Towers',
+    builtIn: true,
+    categories: [
+      'teleport-tower',
+      'ore-startrace',
+      'ore-tungsten',
+      'ore-gold-silver',
+      'ore-iron-copper',
+      'hunting-grounds',
+      'herbs-crops',
+      'acid-salt-sulfur',
+    ],
+    resourceAreaIds: [
+      'res-tungsten-chalk',
+      'res-gold-red-sands',
+      'res-wildlife-dayton',
+      'res-wildlife-tundra',
+      'res-iron-river-veins',
+      'res-blackheart-wolves',
+      'res-delta-salt-copper',
+    ],
+  },
+  {
     id: 'preset-acid-fuel',
     name: 'Acid & Fuel Run',
-    description: 'Car Trunks, Oil Fields, Pollution Zones, Mine Workshops & Extraction Sites',
+    description: 'Car Trunks, Salt/Sulfur/Acid, Oil Fields, Pollution Zones & Mine Workshops',
     builtIn: true,
     categories: [
       'car-trunk',
+      'acid-salt-sulfur',
       'mine-workshop',
       'extraction-site',
       'teleport-tower',
@@ -806,10 +980,24 @@ export const BUILT_IN_FILTER_PRESETS: FilterPresetDef[] = [
   {
     id: 'preset-ore',
     name: 'Stardust & Gold Ore',
-    description: 'Worldstones, Mine Workshops, Extraction Sites & Mineral Hotspot Zones',
+    description: 'Startrace, Tungsten, Gold/Silver Veins, Sulfur, Mine Workshops & Hotspot Zones',
     builtIn: true,
-    categories: ['teleport-tower', 'extraction-site', 'mine-workshop', 'dusty-loot-crate'],
-    resourceAreaIds: ['res-tungsten-chalk', 'res-gold-red-sands', 'res-stardust-ember'],
+    categories: [
+      'teleport-tower',
+      'ore-startrace',
+      'ore-tungsten',
+      'ore-gold-silver',
+      'ore-iron-copper',
+      'acid-salt-sulfur',
+      'mine-workshop',
+    ],
+    resourceAreaIds: [
+      'res-tungsten-chalk',
+      'res-gold-red-sands',
+      'res-stardust-ember',
+      'res-iron-river-veins',
+      'res-delta-salt-copper',
+    ],
   },
   {
     id: 'preset-deviations-bosses',
