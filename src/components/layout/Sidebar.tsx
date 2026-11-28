@@ -41,7 +41,7 @@ export function RouteBullet({ tab, size = 'md' }: { tab: NavTab; size?: 'sm' | '
 /** Top sign band: wordmark, one route bullet per feature line, and global search. */
 export function Sidebar({ activeTab, onSelectTab, onOpenSearch, activeEventCount }: SidebarProps) {
   return (
-    <header className="sticky top-0 z-40 flex h-[var(--band-h)] shrink-0 items-center gap-3 border-b-[3px] border-sign-white bg-sign-black px-3 md:gap-6 md:px-6">
+    <header className="sticky top-0 z-40 flex h-[var(--band-h)] shrink-0 items-center gap-2 border-b-[3px] border-sign-white bg-sign-black px-3 md:gap-6 md:px-6">
       <div className="shrink-0 leading-none">
         <div className="text-[19px] font-extrabold tracking-[-0.01em] text-sign-white md:text-[22px]">
           <span className="hidden sm:inline">MetaBible</span>
@@ -62,8 +62,8 @@ export function Sidebar({ activeTab, onSelectTab, onOpenSearch, activeEventCount
               aria-current={active ? 'page' : undefined}
               aria-label={line.label}
               className={cn(
-                'relative flex shrink-0 items-center gap-2 rounded-full py-1 pl-1 text-[15px] font-semibold transition-colors',
-                active ? 'pr-1 text-sign-white md:pr-3' : 'pr-1 text-sign-mute hover:text-sign-white lg:pr-2',
+                'relative flex shrink-0 items-center gap-2 rounded-full py-1 pl-0.5 text-[15px] font-semibold transition-colors md:pl-1',
+                active ? 'pr-0.5 text-sign-white md:pr-3' : 'pr-0.5 text-sign-mute hover:text-sign-white md:pr-1 lg:pr-2',
               )}
             >
               <span className={cn('rounded-full', active && 'ring-2 ring-sign-white ring-offset-2 ring-offset-black')}>

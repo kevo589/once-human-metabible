@@ -9,7 +9,7 @@ import { TimersView } from './components/timers/TimersView';
 import { GearWorkbenchView } from './components/workbench/GearWorkbenchView';
 import { META_BUILDS, TIMER_EVENTS } from './data/buildsAndTimers';
 import type { CodexModItem } from './data/mods/modCatalog';
-import type { CalculatorPreset, EncyclopediaSubTab, MetaBuild, NavTab } from './types/game';
+import type { CalculatorPreset, EncyclopediaSubTab, MetaBuild, NavTab, Weapon } from './types/game';
 import type { SearchEntry } from './utils/searchIndex';
 import { readMapUrlParams } from './utils/mapUrlState';
 import { getTimerStatus } from './utils/timers';
@@ -57,10 +57,23 @@ export function App() {
     [now],
   );
 
+  const [loadSeq, setLoadSeq] = useState(0);
+
   const handleLoadMetaBuild = (build: MetaBuild) => {
     setPreset(build.preset);
     setActiveBuildName(build.name);
     setActiveMetaBuild(build);
+    setLoadSeq((n) => n + 1);
+    setActiveTab('calculator');
+  };
+
+  const handleSimulateWeapon = (weapon: Weapon) => {
+    const matchingMeta = META_BUILDS.find((b) => b.weaponId === weapon.id);
+    if (matchingMeta) return handleLoadMetaBuild(matchingMeta);
+    setPreset({ ...preset, weaponId: weapon.id });
+    setActiveBuildName(weapon.name);
+    setActiveMetaBuild(null);
+    setLoadSeq((n) => n + 1);
     setActiveTab('calculator');
   };
 
@@ -97,7 +110,7 @@ export function App() {
           className={
             activeTab === 'map'
               ? 'h-full w-full'
-              : activeTab === 'calculator'
+              : activeTab === 'calculator' || activeTab === 'meta'
                 ? 'mx-auto max-w-[1460px]'
                 : activeTab === 'workbench' || activeTab === 'encyclopedia'
                   ? 'mx-auto max-w-7xl'
@@ -114,6 +127,7 @@ export function App() {
               }}
               activeBuildName={activeBuildName}
               activeMetaBuild={activeMetaBuild}
+              loadSeq={loadSeq}
               equippedModRequest={equippedModRequest}
             />
           )}
@@ -123,13 +137,7 @@ export function App() {
           {activeTab === 'workbench' && (
             <GearWorkbenchView
               initialTab="armor"
-              onSimulateWeapon={(weapon) => {
-                const matchingMeta = META_BUILDS.find((b) => b.weaponId === weapon.id);
-                setPreset(matchingMeta ? matchingMeta.preset : { ...preset, weaponId: weapon.id });
-                setActiveBuildName(matchingMeta ? matchingMeta.name : weapon.name);
-                setActiveMetaBuild(matchingMeta ?? null);
-                setActiveTab('calculator');
-              }}
+              onSimulateWeapon={handleSimulateWeapon}
             />
           )}
 
@@ -153,12 +161,7 @@ export function App() {
                 setEquippedModRequest({ mod, weaponSlot, seq: Date.now() });
                 setActiveTab('calculator');
               }}
-              onSimulateWeapon={(weapon) => {
-                const matchingMeta = META_BUILDS.find((b) => b.weaponId === weapon.id);
-                setPreset(matchingMeta ? matchingMeta.preset : { ...preset, weaponId: weapon.id });
-                setActiveBuildName(matchingMeta ? matchingMeta.name : weapon.name);
-                setActiveTab('calculator');
-              }}
+              onSimulateWeapon={handleSimulateWeapon}
             />
           )}
 
