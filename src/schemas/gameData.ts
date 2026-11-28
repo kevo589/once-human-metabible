@@ -241,11 +241,19 @@ export const CalculatorPresetSchema = z.object({
   archetypeProcMultiplier: z.number().min(1),
 });
 
+export const MetaBuildLoadoutSpecSchema = z.object({
+  hpPct: z.number().min(1).max(100),
+  sanityPct: z.number().min(0).max(100),
+  armorIds: z.array(z.string()).length(6),
+  cradleIds: z.array(z.string()),
+});
+
 export const MetaBuildSchema = z.object({
   id: z.string(),
   name: z.string(),
   archetype: ArchetypeSchema,
   tier: z.enum(['S+', 'S', 'A']),
+  gameStage: z.enum(['Early Game', 'Mid Game', 'End Game']).default('End Game'),
   scenarioFit: z.array(ScenarioIdSchema),
   weaponId: z.string(),
   secondaryWeaponId: z.string(),
@@ -254,7 +262,14 @@ export const MetaBuildSchema = z.object({
   deviationId: z.string(),
   cradleOverrides: z.array(z.string()),
   foodBuffId: z.string(),
+  recommendedChefMode: z.boolean().default(true),
+  recommendedFoods: z.array(z.string()).default([]),
+  recommendedDrinks: z.array(z.string()).default([]),
+  activationRules: z.array(z.string()).default([]),
+  breakpoints: z.array(z.string()).default([]),
+  antiSynergies: z.array(z.string()).default([]),
   playstyleNotes: z.string(),
+  loadoutSpec: MetaBuildLoadoutSpecSchema.optional(),
   preset: CalculatorPresetSchema,
 });
 

@@ -1,0 +1,128 @@
+{
+  "foods": [
+    {
+      "id": "crumbly_bread",
+      "name": "Crumbly Bread",
+      "category": "food",
+      "rarity": "legendary",
+      "durationMin": 30,
+      "summary": "Weapon DMG +25%",
+      "bestFor": ["Bounce", "Shrapnel", "Fast Gunner", "The Bull's Eye", "Physical Crit"],
+      "dpsModifiers": { "weaponDmgPct": 25 }
+    },
+    {
+      "id": "bone_in_deviated_sausage",
+      "name": "Bone-in Deviated Sausage",
+      "category": "food",
+      "rarity": "legendary",
+      "durationMin": 30,
+      "summary": "DMG against Bosses / Great Ones +15%",
+      "bestFor": ["Boss Killer", "Chef Slot 2"],
+      "dpsModifiers": { "dmgVsGreatOnesPct": 15 }
+    },
+    {
+      "id": "mixed_fried_hotdog",
+      "name": "Mixed Fried Hotdog",
+      "category": "food",
+      "rarity": "epic",
+      "durationMin": 30,
+      "summary": "DMG +20% against targets marked by The Bull's Eye",
+      "bestFor": ["The Bull's Eye", "AWS.338 Secondary", "Chef Slot 2"],
+      "requiresMarked": true,
+      "dpsModifiers": { "dmgVsMarkedPct": 20 }
+    },
+    {
+      "id": "assorted_canned_fruit",
+      "name": "Assorted Canned Fruit",
+      "category": "food",
+      "rarity": "epic",
+      "durationMin": 30,
+      "summary": "Weakspot DMG +15%",
+      "bestFor": ["Unstable Bomber Sniper", "Bounce Sniper", "Weakspot", "Chef Slot 2"],
+      "dpsModifiers": { "weakspotDmgPct": 15 }
+    },
+    {
+      "id": "stardust_pumpkin_salad",
+      "name": "Stardust Pumpkin Salad (Poultry)",
+      "category": "food",
+      "rarity": "epic",
+      "durationMin": 30,
+      "summary": "Crit DMG +15% & Combat Utility",
+      "bestFor": ["Bounce Bow", "Crit Builds", "Chef Slot 2"],
+      "dpsModifiers": { "critDmgPct": 15 }
+    },
+    {
+      "id": "shellfish_meat_dish",
+      "name": "Shellfish Dish (Vulnerability)",
+      "category": "food",
+      "rarity": "fine",
+      "durationMin": 30,
+      "summary": "Applies +5% Vulnerability to targets",
+      "bestFor": ["Team Bossing", "Chef Slot 2"],
+      "dpsModifiers": { "vulnerabilityPct": 5 }
+    },
+    {
+      "id": "braised_beef",
+      "name": "Braised Beef",
+      "category": "food",
+      "rarity": "epic",
+      "durationMin": 30,
+      "summary": "Max HP +10% & Shield/Survivability Boost",
+      "bestFor": ["Primal Rage", "Shield Drain", "Survivability"],
+      "dpsModifiers": { "maxHpPct": 10 }
+    }
+  ],
+  "drinks": [
+    {
+      "id": "whimsical_drink_status",
+      "name": "Whimsical Drink (Status DMG)",
+      "category": "drink",
+      "rarity": "legendary",
+      "durationMin": 30,
+      "summary": "Status DMG +25%",
+      "bestFor": ["Frost Vortex", "Power Surge", "Burn", "Unstable Bomber"],
+      "dpsModifiers": { "statusDmgPct": 25 }
+    },
+    {
+      "id": "whimsical_drink_weapon",
+      "name": "Whimsical Drink (Weapon DMG)",
+      "category": "drink",
+      "rarity": "legendary",
+      "durationMin": 30,
+      "summary": "Weapon DMG +10%",
+      "bestFor": ["Bounce", "Shrapnel", "Fast Gunner", "The Bull's Eye"],
+      "dpsModifiers": { "weaponDmgPct": 10 }
+    },
+    {
+      "id": "stardust_energy_drink",
+      "name": "Stardust Energy Drink",
+      "category": "drink",
+      "rarity": "epic",
+      "durationMin": 30,
+      "summary": "Double Jump + Stamina Utility (Pairs with Aero Mods)",
+      "bestFor": ["Chef Slot 2", "Aero Mods", "Mobility"],
+      "dpsModifiers": {}
+    },
+    {
+      "id": "iced_tea",
+      "name": "Iced Tea",
+      "category": "drink",
+      "rarity": "fine",
+      "durationMin": 30,
+      "summary": "Movement Speed +15% (Warning: Do NOT craft with Coneflower for Low-Sanity builds)",
+      "bestFor": ["Chef Slot 2", "Speed Farming"],
+      "dpsModifiers": {}
+    },
+    {
+      "id": "malt_ale",
+      "name": "Malt Ale / Corn Ale",
+      "category": "drink",
+      "rarity": "epic",
+      "durationMin": 30,
+      "summary": "Clears Insanity & grants 30m Sanity Immunity",
+      "blocksLowSanity": true,
+      "bestFor": ["Full HP Safe", "Polluted Zones"],
+      "dpsModifiers": {}
+    }
+  ]
+}

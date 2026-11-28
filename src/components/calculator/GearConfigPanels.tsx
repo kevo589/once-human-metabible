@@ -1,14 +1,19 @@
-import { Check, Crosshair, Flame, Shield, Sparkles, Utensils } from 'lucide-react';
+import { AlertTriangle, Check, ChefHat, Crosshair, Flame, Lightbulb, Shield, Sparkles, Utensils } from 'lucide-react';
 import {
   computeArmorRating,
   computeWeaponRating,
   DPS_DATA,
+  DRINK_BUFFS,
   findDeviationImage,
+  FOOD_BUFFS,
   lookupEquipIcons,
+  resolveDrinkBuff,
+  resolveFoodBuff,
   type ActiveWeaponSlotKey,
   type ArmorSlotConfig,
   type EquipSlotId,
   type LoadoutConfig,
+  type LoadoutWarning,
   type WeaponSlotConfig,
 } from '../../data/dps/dpsEngine';
 import { ARMOR_SETS } from '../../data/gearAndMods';
@@ -420,11 +425,22 @@ export function CombatDeviationPanel({
 
 export function CradleAndFoodPanel({
   loadout,
+  warnings = [],
   onChange,
 }: {
   loadout: LoadoutConfig;
+  warnings?: LoadoutWarning[];
   onChange: (patch: Partial<LoadoutConfig>) => void;
 }) {
+  const chefEnabled = Boolean(loadout.chefClassEnabled);
+  const stoveBonus = loadout.chefStoveBonusPct ?? 0;
+  const stoveMult = chefEnabled ? 1 + stoveBonus / 100 : 1;
+
+  const food1 = resolveFoodBuff(loadout.foodId);
+  const food2 = chefEnabled ? resolveFoodBuff(loadout.foodId2) : undefined;
+  const drink1 = resolveDrinkBuff(loadout.drinkId);
+  const drink2 = chefEnabled ? resolveDrinkBuff(loadout.drinkId2) : undefined;
+
   const toggleCradle = (id: string) => {
     const exists = loadout.cradleIds.includes(id);
     if (exists) {
@@ -477,53 +493,241 @@ export function CradleAndFoodPanel({
         </div>
       </div>
 
-      <div className="space-y-2">
-        <div className="flex items-center gap-2 border-b border-white/[0.08] pb-1.5 text-xs font-semibold tracking-wide text-white">
-          <span className="h-3.5 w-[2px] bg-[#3ee6c5]" />
-          <Utensils className="h-3.5 w-3.5 text-[#3ee6c5]" />
-          <span>Food, Drink & Whim</span>
+      {/* Chef Class (Glutton) & Food / Drink / Whim Buffs */}
+      <div className="space-y-3">
+        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/[0.08] pb-1.5">
+          <div className="flex items-center gap-2 text-xs font-semibold tracking-wide text-white">
+            <span className="h-3.5 w-[2px] bg-[#3ee6c5]" />
+            <Utensils className="h-3.5 w-3.5 text-[#3ee6c5]" />
+            <span>Food, Drink & Whim</span>
+          </div>
+
+          <div className="flex items-center gap-1 rounded-lg border border-white/[0.08] bg-black/40 p-0.5 text-[10px]">
+            <button
+              type="button"
+              onClick={() => onChange({ chefClassEnabled: false })}
+              className={`rounded-md px-2 py-1 font-medium transition ${
+                !chefEnabled ? 'bg-white/15 text-white' : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              Standard (1+1)
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                onChange({
+                  chefClassEnabled: true,
+                  chefStoveBonusPct: stoveBonus || 30,
+                })
+              }
+              className={`inline-flex items-center gap-1 rounded-md px-2 py-1 font-semibold transition ${
+                chefEnabled
+                  ? 'bg-[#3ee6c5] text-[#091214]'
+                  : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              <ChefHat className="h-3 w-3" />
+              Chef — Glutton (2+2)
+            </button>
+          </div>
         </div>
 
-        <div className="grid gap-2">
-          <select
-            value={loadout.foodId}
-            onChange={(e) => onChange({ foodId: e.target.value })}
-            aria-label="Food buff selector"
-            className="w-full rounded-lg border border-white/[0.08] bg-black/35 px-2.5 py-2 text-xs text-white outline-none"
-          >
-            {DPS_DATA.consumables.foods.map((f) => (
-              <option key={f.id} value={f.id} className="bg-[#0f161a]">
-                Food: {f.name} — {f.desc}
-              </option>
-            ))}
-          </select>
+        {/* Chefosaurus Rex / Stove Buff Multiplier Slider */}
+        {chefEnabled && (
+          <div className="rounded-lg border border-[#3ee6c5]/30 bg-[#3ee6c5]/[0.06] p-2.5">
+            <div className="mb-1 flex items-center justify-between text-[11px]">
+              <span className="font-medium text-slate-200">
+                Chefosaurus Rex / Stove Buff Multiplier
+              </span>
+              <span className="font-mono font-bold text-[#3ee6c5]">+{stoveBonus}%</span>
+            </div>
+            <input
+              type="range"
+              min={0}
+              max={38}
+              step={1}
+              value={stoveBonus}
+              onChange={(e) => onChange({ chefStoveBonusPct: Number(e.target.value) })}
+              aria-label="Chefosaurus Rex stove buff multiplier"
+              className="h-1 w-full cursor-pointer accent-[#3ee6c5]"
+            />
+          </div>
+        )}
 
-          <select
-            value={loadout.drinkId}
-            onChange={(e) => onChange({ drinkId: e.target.value })}
-            aria-label="Drink buff selector"
-            className="w-full rounded-lg border border-white/[0.08] bg-black/35 px-2.5 py-2 text-xs text-white outline-none"
-          >
-            {DPS_DATA.consumables.drinks.map((d) => (
-              <option key={d.id} value={d.id} className="bg-[#0f161a]">
-                Drink: {d.name} — {d.desc}
-              </option>
+        {/* Warnings inside Cradle & Food */}
+        {warnings.length > 0 && (
+          <div className="space-y-1.5">
+            {warnings.map((w) => (
+              <div
+                key={w.id}
+                className={`flex items-start gap-2 rounded-lg border px-2.5 py-2 text-[11px] ${
+                  w.severity === 'warning'
+                    ? 'border-amber-500/45 bg-amber-500/12 text-amber-200'
+                    : 'border-cyan-500/40 bg-cyan-500/10 text-cyan-200'
+                }`}
+              >
+                {w.severity === 'warning' ? (
+                  <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-400" />
+                ) : (
+                  <Lightbulb className="mt-0.5 h-3.5 w-3.5 shrink-0 text-cyan-400" />
+                )}
+                <span>{w.message}</span>
+              </div>
             ))}
-          </select>
+          </div>
+        )}
 
-          <select
-            value={loadout.whimId}
-            onChange={(e) => onChange({ whimId: e.target.value })}
-            aria-label="Whim potion selector"
-            className="w-full rounded-lg border border-white/[0.08] bg-black/35 px-2.5 py-2 text-xs text-white outline-none"
-          >
-            {DPS_DATA.consumables.whims.map((w) => (
-              <option key={w.id} value={w.id} className="bg-[#0f161a]">
-                Whim: {w.name} — {w.desc}
-              </option>
-            ))}
-          </select>
+        <div className="grid gap-2.5 sm:grid-cols-2">
+          {/* Food Slot 1 */}
+          <div className="space-y-1 rounded-lg border border-white/[0.06] bg-black/25 p-2.5">
+            <div className="flex items-center justify-between text-[10px] uppercase tracking-wider text-slate-400">
+              <span>Food Slot 1</span>
+              {food1 && chefEnabled && stoveBonus > 0 && (
+                <span className="font-mono text-[#3ee6c5]">×{stoveMult.toFixed(2)}</span>
+              )}
+            </div>
+            <select
+              value={food1?.id ?? 'none'}
+              onChange={(e) => {
+                const nextId = e.target.value;
+                onChange({
+                  foodId: nextId,
+                  foodId2: nextId !== 'none' && nextId === food2?.id ? 'none' : loadout.foodId2,
+                });
+              }}
+              aria-label="Food Slot 1 selector"
+              className="w-full rounded border border-white/[0.1] bg-[#0f161a] px-2 py-1.5 text-xs text-white outline-none"
+            >
+              <option value="none">No Food Buff</option>
+              {FOOD_BUFFS.map((f) => (
+                <option key={f.id} value={f.id} disabled={chefEnabled && f.id === food2?.id}>
+                  {f.name} — {f.summary}
+                </option>
+              ))}
+            </select>
+            {food1 && (
+              <div className="text-[10px] text-slate-400">
+                <span className="text-slate-300">{food1.summary}</span> · {food1.bestFor.slice(0, 2).join(', ')}
+              </div>
+            )}
+          </div>
+
+          {/* Food Slot 2 (Chef Only) */}
+          {chefEnabled && (
+            <div className="space-y-1 rounded-lg border border-[#3ee6c5]/25 bg-[#3ee6c5]/[0.04] p-2.5">
+              <div className="flex items-center justify-between text-[10px] uppercase tracking-wider text-[#3ee6c5]">
+                <span>Food Slot 2 (Glutton)</span>
+                {food2 && stoveBonus > 0 && (
+                  <span className="font-mono">×{stoveMult.toFixed(2)}</span>
+                )}
+              </div>
+              <select
+                value={food2?.id ?? 'none'}
+                onChange={(e) => {
+                  const nextId = e.target.value;
+                  if (nextId !== 'none' && nextId === food1?.id) return;
+                  onChange({ foodId2: nextId });
+                }}
+                aria-label="Food Slot 2 selector"
+                className="w-full rounded border border-white/[0.1] bg-[#0f161a] px-2 py-1.5 text-xs text-white outline-none"
+              >
+                <option value="none">No Second Food</option>
+                {FOOD_BUFFS.map((f) => (
+                  <option key={f.id} value={f.id} disabled={f.id === food1?.id}>
+                    {f.name} — {f.summary}
+                  </option>
+                ))}
+              </select>
+              {food2 && (
+                <div className="text-[10px] text-slate-400">
+                  <span className="text-slate-300">{food2.summary}</span> · {food2.bestFor.slice(0, 2).join(', ')}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Drink Slot 1 */}
+          <div className="space-y-1 rounded-lg border border-white/[0.06] bg-black/25 p-2.5">
+            <div className="flex items-center justify-between text-[10px] uppercase tracking-wider text-slate-400">
+              <span>Drink Slot 1</span>
+              {drink1 && chefEnabled && stoveBonus > 0 && (
+                <span className="font-mono text-[#3ee6c5]">×{stoveMult.toFixed(2)}</span>
+              )}
+            </div>
+            <select
+              value={drink1?.id ?? 'none'}
+              onChange={(e) => {
+                const nextId = e.target.value;
+                onChange({
+                  drinkId: nextId,
+                  drinkId2: nextId !== 'none' && nextId === drink2?.id ? 'none' : loadout.drinkId2,
+                });
+              }}
+              aria-label="Drink Slot 1 selector"
+              className="w-full rounded border border-white/[0.1] bg-[#0f161a] px-2 py-1.5 text-xs text-white outline-none"
+            >
+              <option value="none">No Drink Buff</option>
+              {DRINK_BUFFS.map((d) => (
+                <option key={d.id} value={d.id} disabled={chefEnabled && d.id === drink2?.id}>
+                  {d.name} — {d.summary}
+                </option>
+              ))}
+            </select>
+            {drink1 && (
+              <div className="text-[10px] text-slate-400">
+                <span className="text-slate-300">{drink1.summary}</span>
+              </div>
+            )}
+          </div>
+
+          {/* Drink Slot 2 (Chef Only) */}
+          {chefEnabled && (
+            <div className="space-y-1 rounded-lg border border-[#3ee6c5]/25 bg-[#3ee6c5]/[0.04] p-2.5">
+              <div className="flex items-center justify-between text-[10px] uppercase tracking-wider text-[#3ee6c5]">
+                <span>Drink Slot 2 (Glutton)</span>
+                {drink2 && stoveBonus > 0 && (
+                  <span className="font-mono">×{stoveMult.toFixed(2)}</span>
+                )}
+              </div>
+              <select
+                value={drink2?.id ?? 'none'}
+                onChange={(e) => {
+                  const nextId = e.target.value;
+                  if (nextId !== 'none' && nextId === drink1?.id) return;
+                  onChange({ drinkId2: nextId });
+                }}
+                aria-label="Drink Slot 2 selector"
+                className="w-full rounded border border-white/[0.1] bg-[#0f161a] px-2 py-1.5 text-xs text-white outline-none"
+              >
+                <option value="none">No Second Drink</option>
+                {DRINK_BUFFS.map((d) => (
+                  <option key={d.id} value={d.id} disabled={d.id === drink1?.id}>
+                    {d.name} — {d.summary}
+                  </option>
+                ))}
+              </select>
+              {drink2 && (
+                <div className="text-[10px] text-slate-400">
+                  <span className="text-slate-300">{drink2.summary}</span>
+                </div>
+              )}
+            </div>
+          )}
         </div>
+
+        {/* Whim Potion */}
+        <select
+          value={loadout.whimId}
+          onChange={(e) => onChange({ whimId: e.target.value })}
+          aria-label="Whim potion selector"
+          className="w-full rounded-lg border border-white/[0.08] bg-black/35 px-2.5 py-2 text-xs text-white outline-none"
+        >
+          {DPS_DATA.consumables.whims.map((w) => (
+            <option key={w.id} value={w.id} className="bg-[#0f161a]">
+              Whim: {w.name} — {w.desc}
+            </option>
+          ))}
+        </select>
       </div>
     </div>
   );

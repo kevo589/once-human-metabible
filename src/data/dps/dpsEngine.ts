@@ -1,4 +1,4 @@
-import type { ArmorSet, ModItem, Weapon } from '../../types/game';
+import type { ArmorSet, MetaBuild, ModItem, Weapon } from '../../types/game';
 import {
   computeArmorCraft,
   computeWeaponCraft,
@@ -21,6 +21,7 @@ import {
 } from '../mods/modCatalog';
 import { WEAPONS } from '../weapons';
 import rawDpsData from './dpsData.json';
+import rawFoodDrinkBuffs from './foodDrinkBuffs.json';
 
 export type SubstatRarity = 'common' | 'fine' | 'epic' | 'legendary';
 export type TargetType = 'normal' | 'elite' | 'great_one';
@@ -58,6 +59,7 @@ export type StatKey =
   | 'dmgVsNormalPct'
   | 'dmgVsElitesPct'
   | 'dmgVsGreatOnesPct'
+  | 'dmgVsMarkedPct'
   | 'weakspotVsMarkedPct'
   | 'vulnerabilityPct'
   | 'fireRatePct'
@@ -130,10 +132,33 @@ export interface LoadoutConfig {
   deviationSkillRating: number;
   deviationActivityRating: number;
   cradleIds: string[];
+  chefClassEnabled?: boolean;
+  chefStoveBonusPct?: number;
   foodId: string;
+  foodId2?: string;
   drinkId: string;
+  drinkId2?: string;
   whimId: string;
   assumptions: CombatAssumptions;
+}
+
+export interface FoodDrinkBuff {
+  id: string;
+  name: string;
+  category: 'food' | 'drink';
+  rarity: string;
+  durationMin: number;
+  summary: string;
+  bestFor: string[];
+  requiresMarked?: boolean;
+  blocksLowSanity?: boolean;
+  dpsModifiers: Partial<Record<StatKey, number>>;
+}
+
+export interface LoadoutWarning {
+  id: string;
+  severity: 'warning' | 'tip';
+  message: string;
 }
 
 export interface StatSourceContribution {
@@ -301,6 +326,43 @@ export const DPS_DATA = rawDpsData as {
   starterLoadouts: LoadoutConfig[];
 };
 
+const rawBuffData = rawFoodDrinkBuffs as {
+  foods: FoodDrinkBuff[];
+  drinks: FoodDrinkBuff[];
+};
+
+export const FOOD_BUFFS: FoodDrinkBuff[] = rawBuffData.foods;
+export const DRINK_BUFFS: FoodDrinkBuff[] = rawBuffData.drinks;
+
+const LEGACY_FOOD_ALIASES: Record<string, string> = {
+  'crumbly-bread': 'crumbly_bread',
+  'crumpled-bread': 'crumbly_bread',
+  'deviated-sausage': 'bone_in_deviated_sausage',
+  'preserved-deviated-chops': 'stardust_pumpkin_salad',
+  'canned-seafood-in-oil': 'braised_beef',
+  'securement-soup': 'shellfish_meat_dish',
+  'mixed-fried-delicacy': 'crumbly_bread',
+};
+
+const LEGACY_DRINK_ALIASES: Record<string, string> = {
+  'whimsical-drink': 'whimsical_drink_weapon',
+  'stardust-raspberry-shaved-ice': 'whimsical_drink_status',
+  'stardust-energy-drink': 'stardust_energy_drink',
+  'malt-ale': 'malt_ale',
+};
+
+export function resolveFoodBuff(id?: string): FoodDrinkBuff | undefined {
+  if (!id || id === 'none') return undefined;
+  const canonical = LEGACY_FOOD_ALIASES[id] ?? id;
+  return FOOD_BUFFS.find((f) => f.id === canonical);
+}
+
+export function resolveDrinkBuff(id?: string): FoodDrinkBuff | undefined {
+  if (!id || id === 'none') return undefined;
+  const canonical = LEGACY_DRINK_ALIASES[id] ?? id;
+  return DRINK_BUFFS.find((d) => d.id === canonical);
+}
+
 const WEAPON_BY_ID = new Map(WEAPONS.map((w) => [w.id, w]));
 const ARMOR_BY_ID = new Map(ARMOR_SETS.map((a) => [a.id, a]));
 const MOD_BY_ID = new Map(MODS.map((m) => [m.id, m]));
@@ -325,6 +387,7 @@ export const STAT_DEFINITIONS: Array<{ key: StatKey; label: string; unit: '%' | 
   { key: 'dmgVsNormalPct', label: 'DMG Bonus vs Normal', unit: '%' },
   { key: 'dmgVsElitesPct', label: 'DMG Bonus vs Elites', unit: '%' },
   { key: 'dmgVsGreatOnesPct', label: 'DMG Bonus vs Great Ones', unit: '%' },
+  { key: 'dmgVsMarkedPct', label: 'DMG Bonus vs Marked', unit: '%' },
   { key: 'weakspotVsMarkedPct', label: 'Weakspot DMG vs Marked', unit: '%' },
   { key: 'vulnerabilityPct', label: 'Target Vulnerability Debuff', unit: '%' },
   { key: 'fireRatePct', label: 'Fire Rate Bonus', unit: '%' },
@@ -384,8 +447,40 @@ export function createLoadoutFromWeaponId(weaponId: string, buildName?: string):
   base.primary.weaponId = weapon.id;
   base.primary.ammoId = weapon.category === 'Crossbow' ? 'arrow_tungsten' : 'tungsten_ap';
   if (weapon.archetype === 'Unstable Bomber') {
-    base.armor.top.armorId = 'shaman-vulture-top';
+    base.armor.top.armorId = 'explosive-front-top';
     base.armor.helmet.armorId = 'lonewolf-hat';
+  }
+  return base;
+}
+
+export function createLoadoutFromMetaBuild(build: MetaBuild): LoadoutConfig {
+  const base = createLoadoutFromWeaponId(build.weaponId, build.name);
+  base.secondary.weaponId = build.secondaryWeaponId || base.secondary.weaponId;
+  base.deviationId =
+    build.deviationId === 'butterfly-emissary' ? 'butterflys-emissary' : build.deviationId;
+
+  if (build.loadoutSpec) {
+    base.hpPct = build.loadoutSpec.hpPct;
+    base.sanityPct = build.loadoutSpec.sanityPct;
+    base.cradleIds = [...build.loadoutSpec.cradleIds];
+    const slots: ArmorSlotKey[] = ['helmet', 'mask', 'top', 'bottoms', 'gloves', 'shoes'];
+    build.loadoutSpec.armorIds.forEach((aid, idx) => {
+      const slot = slots[idx];
+      if (slot && ARMOR_BY_ID.has(aid)) {
+        base.armor[slot] = { ...base.armor[slot], armorId: aid };
+      }
+    });
+  }
+
+  base.chefClassEnabled = build.recommendedChefMode ?? true;
+  base.chefStoveBonusPct = base.chefClassEnabled ? 30 : 0;
+  base.foodId = build.recommendedFoods?.[0] ?? build.foodBuffId ?? 'crumbly_bread';
+  base.foodId2 = build.recommendedFoods?.[1] ?? 'none';
+  base.drinkId = build.recommendedDrinks?.[0] ?? 'whimsical_drink_weapon';
+  base.drinkId2 = build.recommendedDrinks?.[1] ?? 'none';
+  if (build.weaponId === 'critical-pulse') {
+    base.primary.magId = 'drum_mag';
+    base.primary.calibrationStyleId = 'overflow';
   }
   return base;
 }
@@ -831,7 +926,9 @@ export function aggregateLoadoutStats(loadout: LoadoutConfig): AggregatedStats {
   }
 
   // 4. Combat Deviation
-  const devCfg = DPS_DATA.combatDeviations.find((d) => d.id === loadout.deviationId);
+  const normalizedDevId =
+    loadout.deviationId === 'butterfly-emissary' ? 'butterflys-emissary' : loadout.deviationId;
+  const devCfg = DPS_DATA.combatDeviations.find((d) => d.id === normalizedDevId);
   let deviationCompanionDps = 0;
   if (devCfg) {
     const skillMult = 0.7 + (loadout.deviationSkillRating - 1) * 0.15; // Skill 1 -> 0.7x, Skill 5 -> 1.3x
@@ -853,12 +950,57 @@ export function aggregateLoadoutStats(loadout: LoadoutConfig): AggregatedStats {
     if (cradle) applyMap(cradle.effects, `Cradle (${cradle.name})`);
   }
 
-  // 6. Food / Drink / Whim Buffs
-  const food = DPS_DATA.consumables.foods.find((f) => f.id === loadout.foodId);
-  if (food && food.id !== 'none') applyMap(food.effects, `Food (${food.name})`);
+  // 6. Food / Drink / Whim Buffs (Standard 1+1 vs Chef Glutton 2+2 + Stove Bonus Multiplier)
+  const stoveMult = loadout.chefClassEnabled
+    ? 1 + Math.min(38, Math.max(0, loadout.chefStoveBonusPct ?? 0)) / 100
+    : 1;
+  const targetIsMarked = Boolean(loadout.assumptions.marked || loadout.assumptions.bullsEye);
 
-  const drink = DPS_DATA.consumables.drinks.find((d) => d.id === loadout.drinkId);
-  if (drink && drink.id !== 'none') applyMap(drink.effects, `Drink (${drink.name})`);
+  const rawFoodIds = [
+    loadout.foodId,
+    ...(loadout.chefClassEnabled && loadout.foodId2 ? [loadout.foodId2] : []),
+  ];
+  const seenFoods = new Set<string>();
+  rawFoodIds.forEach((fid, slotIdx) => {
+    const buff = resolveFoodBuff(fid);
+    if (!buff || seenFoods.has(buff.id)) return;
+    seenFoods.add(buff.id);
+    if (buff.requiresMarked && !targetIsMarked) return;
+    const scaled: Partial<Record<StatKey, number>> = {};
+    for (const [k, v] of Object.entries(buff.dpsModifiers)) {
+      if (typeof v === 'number' && k in totals) {
+        scaled[k as StatKey] = Number((v * stoveMult).toFixed(1));
+      }
+    }
+    const stoveTag =
+      loadout.chefClassEnabled && (loadout.chefStoveBonusPct ?? 0) > 0
+        ? ` · +${loadout.chefStoveBonusPct}% Stove`
+        : '';
+    applyMap(scaled, `Food #${slotIdx + 1} (${buff.name}${stoveTag})`);
+  });
+
+  const rawDrinkIds = [
+    loadout.drinkId,
+    ...(loadout.chefClassEnabled && loadout.drinkId2 ? [loadout.drinkId2] : []),
+  ];
+  const seenDrinks = new Set<string>();
+  rawDrinkIds.forEach((did, slotIdx) => {
+    const buff = resolveDrinkBuff(did);
+    if (!buff || seenDrinks.has(buff.id)) return;
+    seenDrinks.add(buff.id);
+    if (buff.requiresMarked && !targetIsMarked) return;
+    const scaled: Partial<Record<StatKey, number>> = {};
+    for (const [k, v] of Object.entries(buff.dpsModifiers)) {
+      if (typeof v === 'number' && k in totals) {
+        scaled[k as StatKey] = Number((v * stoveMult).toFixed(1));
+      }
+    }
+    const stoveTag =
+      loadout.chefClassEnabled && (loadout.chefStoveBonusPct ?? 0) > 0
+        ? ` · +${loadout.chefStoveBonusPct}% Stove`
+        : '';
+    applyMap(scaled, `Drink #${slotIdx + 1} (${buff.name}${stoveTag})`);
+  });
 
   const whim = DPS_DATA.consumables.whims.find((w) => w.id === loadout.whimId);
   if (whim && whim.id !== 'none') applyMap(whim.effects, `Whim (${whim.name})`);
@@ -963,13 +1105,16 @@ export function calculateFullLoadoutDps(
     (1 - critRate) * wsRate * weakspotHitMult +
     critRate * wsRate * weakspotCritHitMult;
 
-  // 4. Enemy Type Bucket
-  const enemyTypePct =
+  // 4. Enemy Type Bucket (+ Marked target multiplier from Mixed Fried Hotdog etc.)
+  const baseEnemyTypePct =
     targetType === 'great_one'
       ? t.dmgVsGreatOnesPct
       : targetType === 'elite'
         ? t.dmgVsElitesPct
         : t.dmgVsNormalPct;
+  const markedBonusPct =
+    loadout.assumptions.marked || loadout.assumptions.bullsEye ? t.dmgVsMarkedPct : 0;
+  const enemyTypePct = baseEnemyTypePct + markedBonusPct;
   const enemyTypeLabel =
     targetType === 'great_one' ? 'Great One' : targetType === 'elite' ? 'Elite' : 'Normal';
   const enemyTypeBucket = 1 + enemyTypePct / 100;
@@ -1216,8 +1361,64 @@ export function applyModToLoadout(
   return next;
 }
 
+export function detectLoadoutWarnings(
+  loadout: LoadoutConfig,
+  stats: AggregatedStats,
+): LoadoutWarning[] {
+  const warnings: LoadoutWarning[] = [];
+  const hasTreacherous3pc = stats.activeSets.some(
+    (s) => s.setName === 'Treacherous Tides Set' && s.count >= 3,
+  );
+  const isPrimalRage =
+    stats.activeWeapon.id === 'mps5-primal-rage' ||
+    loadout.primary.weaponId === 'mps5-primal-rage';
+  const activeDrinkIds = [
+    loadout.drinkId,
+    ...(loadout.chefClassEnabled && loadout.drinkId2 ? [loadout.drinkId2] : []),
+  ];
+  const hasSanityImmunityDrink = activeDrinkIds.some((id) => {
+    const resolved = resolveDrinkBuff(id);
+    return (
+      Boolean(resolved?.blocksLowSanity) ||
+      (id ?? '').toLowerCase().includes('coneflower') ||
+      (id ?? '').toLowerCase().includes('malt')
+    );
+  });
+
+  if (hasSanityImmunityDrink && (hasTreacherous3pc || isPrimalRage)) {
+    warnings.push({
+      id: 'sanity-immunity-conflict',
+      severity: 'warning',
+      message: '⚠️ Sanity Immunity Drink conflicts with Treacherous Tides Low-Sanity scaling!',
+    });
+  }
+
+  const hasBastille = stats.activeSets.some(
+    (s) => s.setName === 'Bastille Set' && s.count >= 1,
+  );
+  if (hasBastille && (loadout.hpPct < 70 || isPrimalRage)) {
+    warnings.push({
+      id: 'bastille-low-hp-conflict',
+      severity: 'warning',
+      message:
+        '⚠️ Bastille Set requires HP ≥ 70% — conflicts with Low-HP (<70%) / Primal Rage drain!',
+    });
+  }
+
+  if (stats.activeWeapon.id === 'critical-pulse' && stats.totals.magCapPct < 50) {
+    warnings.push({
+      id: 'critical-pulse-mag-tip',
+      severity: 'tip',
+      message: 'Tip: Reach +50% Mag Capacity (1pc Lonewolf + Mag mods) to load 2 arrows at once.',
+    });
+  }
+
+  return warnings;
+}
+
 export function findDeviationImage(deviationId: string): string | undefined {
-  return DEVIATIONS.find((d) => d.id === deviationId || d.id.startsWith(deviationId))?.imageUrl;
+  const normalized = deviationId === 'butterflys-emissary' ? 'butterfly-emissary' : deviationId;
+  return DEVIATIONS.find((d) => d.id === normalized || d.id.startsWith(normalized))?.imageUrl;
 }
 
 export function normalizeSlotForMod(slotId: EquipSlotId): string {

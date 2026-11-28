@@ -13,6 +13,10 @@ import {
   aggregateLoadoutStats,
   applyModToLoadout,
   calculateFullLoadoutDps,
+  createLoadoutFromMetaBuild,
+  detectLoadoutWarnings,
+  DRINK_BUFFS,
+  FOOD_BUFFS,
   getStarterLoadouts,
 } from '../src/data/dps/dpsEngine';
 import {
@@ -333,5 +337,81 @@ describe('Mod Codex, 34 Sub-Stat Sets & DPS Mod Engine Integration', () => {
 
     const upgradedStats = aggregateLoadoutStats(upgraded);
     expect(upgradedStats.totals.weaponDmgPct).toBeGreaterThan(20);
+  });
+});
+
+describe('20 Meta Builds, Chef Glutton Buffs & Anti-Synergy Warnings', () => {
+  it('validates all 20 Meta Builds across Early, Mid, and End Game with Chef Food/Drink pairings', () => {
+    expect(META_BUILDS).toHaveLength(20);
+    const stages = new Set(META_BUILDS.map((b) => b.gameStage));
+    expect(stages.has('Early Game')).toBe(true);
+    expect(stages.has('Mid Game')).toBe(true);
+    expect(stages.has('End Game')).toBe(true);
+
+    expect(FOOD_BUFFS).toHaveLength(7);
+    expect(DRINK_BUFFS).toHaveLength(5);
+
+    const weaponIds = new Set(WEAPONS.map((w) => w.id));
+    for (const build of META_BUILDS) {
+      expect(weaponIds.has(build.weaponId), `Missing primary weapon ${build.weaponId}`).toBe(true);
+      const loadout = createLoadoutFromMetaBuild(build);
+      const stats = aggregateLoadoutStats(loadout);
+      const dps = calculateFullLoadoutDps(loadout, stats);
+      expect(dps.sustainedDps).toBeGreaterThan(0);
+    }
+  });
+
+  it('stacks 2+2 Chef buffs with Stove Bonus, deduplicates identical buffs, and detects anti-synergies', () => {
+    const [starter] = getStarterLoadouts();
+
+    // Standard 1+1 vs Chef 2+2 with +30% Stove Buff Multiplier
+    const stdLoadout = {
+      ...starter,
+      chefClassEnabled: false,
+      foodId: 'crumbly_bread',
+      foodId2: 'bone_in_deviated_sausage',
+      drinkId: 'whimsical_drink_weapon',
+      drinkId2: 'malt_ale',
+      chefStoveBonusPct: 30,
+    };
+    const chefLoadout = { ...stdLoadout, chefClassEnabled: true };
+    const dupChefLoadout = { ...chefLoadout, foodId2: 'crumbly_bread' };
+
+    const stdStats = aggregateLoadoutStats(stdLoadout);
+    const chefStats = aggregateLoadoutStats(chefLoadout);
+    const dupStats = aggregateLoadoutStats(dupChefLoadout);
+
+    // Chef scales Crumbly Bread (+25 * 1.3 = +32.5) + Whimsical Weapon (+10 * 1.3 = +13)
+    expect(chefStats.totals.weaponDmgPct).toBeGreaterThan(stdStats.totals.weaponDmgPct);
+    expect(chefStats.totals.dmgVsGreatOnesPct).toBeGreaterThan(stdStats.totals.dmgVsGreatOnesPct);
+    // Duplicate foodId2 is ignored so it equals single Food 1
+    expect(dupStats.totals.dmgVsGreatOnesPct).toBe(stdStats.totals.dmgVsGreatOnesPct);
+
+    // Anti-synergy 1: Malt Ale + Treacherous Tides (Brahminy build)
+    const brahminyBuild = META_BUILDS.find((b) => b.id === 'build-brahminy-treacherous-bounce')!;
+    const badBrahminy = {
+      ...createLoadoutFromMetaBuild(brahminyBuild),
+      drinkId: 'malt_ale',
+    };
+    const brahminyWarnings = detectLoadoutWarnings(badBrahminy, aggregateLoadoutStats(badBrahminy));
+    expect(brahminyWarnings.some((w) => w.id === 'sanity-immunity-conflict')).toBe(true);
+
+    // Anti-synergy 2: Bastille at <70% HP
+    const lastValorLowHp = { ...starter, hpPct: 50 };
+    const bastilleWarnings = detectLoadoutWarnings(
+      lastValorLowHp,
+      aggregateLoadoutStats(lastValorLowHp),
+    );
+    expect(bastilleWarnings.some((w) => w.id === 'bastille-low-hp-conflict')).toBe(true);
+
+    // Breakpoint Tip 3: Critical Pulse < +50% Mag Capacity
+    const pulseBuild = META_BUILDS.find((b) => b.id === 'build-critical-pulse-surge')!;
+    const pulseLowMag = createLoadoutFromMetaBuild(pulseBuild);
+    pulseLowMag.primary.magId = 'none';
+    pulseLowMag.primary.calibrationStyleId = 'none';
+    const pulseStats = aggregateLoadoutStats(pulseLowMag);
+    expect(pulseStats.totals.magCapPct).toBeLessThan(50);
+    const pulseWarnings = detectLoadoutWarnings(pulseLowMag, pulseStats);
+    expect(pulseWarnings.some((w) => w.id === 'critical-pulse-mag-tip')).toBe(true);
   });
 });

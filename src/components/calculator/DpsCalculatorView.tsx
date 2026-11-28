@@ -1,7 +1,9 @@
 import {
   Activity,
+  AlertTriangle,
   BookmarkPlus,
   Calculator,
+  ChefHat,
   ChevronDown,
   ChevronRight,
   Crosshair,
@@ -9,6 +11,7 @@ import {
   Flame,
   Heart,
   Layers,
+  Lightbulb,
   Radiation,
   RotateCcw,
   Save,
@@ -24,9 +27,13 @@ import {
   applyModToLoadout,
   calculateFullLoadoutDps,
   cloneLoadout,
+  createLoadoutFromMetaBuild,
   createLoadoutFromWeaponId,
+  detectLoadoutWarnings,
   findDeviationImage,
   getStarterLoadouts,
+  resolveDrinkBuff,
+  resolveFoodBuff,
   type ActiveWeaponSlotKey,
   type EquipSlotId,
   type FullDpsResult,
@@ -36,7 +43,7 @@ import {
 } from '../../data/dps/dpsEngine';
 import type { CodexModItem } from '../../data/mods/modCatalog';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
-import type { CalculatorPreset } from '../../types/game';
+import type { CalculatorPreset, MetaBuild } from '../../types/game';
 import { FormulaBreakdownModal } from './FormulaBreakdownModal';
 import {
   CombatDeviationPanel,
@@ -55,6 +62,7 @@ interface DpsCalculatorViewProps {
   preset: CalculatorPreset;
   onChangePreset: (next: CalculatorPreset) => void;
   activeBuildName?: string | null;
+  activeMetaBuild?: MetaBuild | null;
   equippedModRequest?: EquippedModRequest | null;
 }
 
@@ -79,6 +87,7 @@ const BATTLE_STAT_KEYS: StatKey[] = [
   'dmgVsNormalPct',
   'dmgVsElitesPct',
   'dmgVsGreatOnesPct',
+  'dmgVsMarkedPct',
   'weakspotVsMarkedPct',
   'vulnerabilityPct',
   'fireRatePct',
@@ -100,6 +109,7 @@ export function DpsCalculatorView({
   preset,
   onChangePreset,
   activeBuildName,
+  activeMetaBuild,
   equippedModRequest,
 }: DpsCalculatorViewProps) {
   const [savedLoadouts, setSavedLoadouts] = useLocalStorage<LoadoutConfig[]>(
@@ -133,17 +143,19 @@ export function DpsCalculatorView({
   const lastModReqSeqRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const sig = `${preset.weaponId}|${activeBuildName ?? ''}`;
+    const sig = `${preset.weaponId}|${activeBuildName ?? ''}|${activeMetaBuild?.id ?? ''}`;
     if (lastExternalWeaponRef.current === null) {
       lastExternalWeaponRef.current = sig;
       return;
     }
     if (lastExternalWeaponRef.current !== sig) {
       lastExternalWeaponRef.current = sig;
-      const next = createLoadoutFromWeaponId(preset.weaponId, activeBuildName ?? undefined);
+      const next = activeMetaBuild
+        ? createLoadoutFromMetaBuild(activeMetaBuild)
+        : createLoadoutFromWeaponId(preset.weaponId, activeBuildName ?? undefined);
       setLoadout(next);
     }
-  }, [preset.weaponId, activeBuildName, setLoadout]);
+  }, [preset.weaponId, activeBuildName, activeMetaBuild, setLoadout]);
 
   useEffect(() => {
     if (!equippedModRequest || equippedModRequest.seq === lastModReqSeqRef.current) return;
@@ -165,6 +177,23 @@ export function DpsCalculatorView({
 
   const stats = useMemo(() => aggregateLoadoutStats(loadout), [loadout]);
   const dps = useMemo(() => calculateFullLoadoutDps(loadout, stats), [loadout, stats]);
+  const warnings = useMemo(() => detectLoadoutWarnings(loadout, stats), [loadout, stats]);
+  const activeFoodsList = useMemo(
+    () =>
+      [
+        resolveFoodBuff(loadout.foodId),
+        loadout.chefClassEnabled ? resolveFoodBuff(loadout.foodId2) : undefined,
+      ].filter((x): x is NonNullable<typeof x> => Boolean(x)),
+    [loadout.foodId, loadout.foodId2, loadout.chefClassEnabled],
+  );
+  const activeDrinksList = useMemo(
+    () =>
+      [
+        resolveDrinkBuff(loadout.drinkId),
+        loadout.chefClassEnabled ? resolveDrinkBuff(loadout.drinkId2) : undefined,
+      ].filter((x): x is NonNullable<typeof x> => Boolean(x)),
+    [loadout.drinkId, loadout.drinkId2, loadout.chefClassEnabled],
+  );
 
   const allPresets = useMemo(
     () => [...savedLoadouts, ...STARTER_LOADOUTS],
@@ -504,6 +533,29 @@ export function DpsCalculatorView({
         </div>
       )}
 
+      {/* ANTI-SYNERGY & BREAKPOINT WARNING BANNER */}
+      {warnings.length > 0 && (
+        <div className="space-y-1.5">
+          {warnings.map((w) => (
+            <div
+              key={w.id}
+              className={`flex items-center gap-2 rounded-lg border px-3 py-2 text-xs font-medium ${
+                w.severity === 'warning'
+                  ? 'border-amber-500/45 bg-amber-500/12 text-amber-200'
+                  : 'border-cyan-500/40 bg-cyan-500/10 text-cyan-200'
+              }`}
+            >
+              {w.severity === 'warning' ? (
+                <AlertTriangle className="h-4 w-4 shrink-0 text-amber-400" />
+              ) : (
+                <Lightbulb className="h-4 w-4 shrink-0 text-cyan-400" />
+              )}
+              <span>{w.message}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* MAIN 4-COLUMN IN-GAME GEAR BACKPACK WORKSPACE */}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
         {/* 1. Far-Left Vertical Mode Rail */}
@@ -726,6 +778,37 @@ export function DpsCalculatorView({
                   />
                 </label>
               </div>
+
+              {/* Compact Food / Drink & Chef Status Pills */}
+              <button
+                type="button"
+                onClick={() => {
+                  setTopTab('gear_config');
+                  setRailMode('cradle_food');
+                }}
+                className="flex w-full flex-wrap items-center gap-1 rounded border border-white/[0.06] bg-black/25 px-2 py-1.5 text-left text-[10px] text-slate-300 transition hover:border-[#3ee6c5]/40"
+                title="Configure Chef (Glutton) Food & Drink Buffs"
+              >
+                {loadout.chefClassEnabled && (
+                  <span className="inline-flex items-center gap-1 rounded bg-[#3ee6c5]/18 px-1.5 py-0.5 font-semibold text-[#3ee6c5]">
+                    <ChefHat className="h-2.5 w-2.5" />
+                    Chef{loadout.chefStoveBonusPct ? ` +${loadout.chefStoveBonusPct}%` : ''}
+                  </span>
+                )}
+                {activeFoodsList.map((f) => (
+                  <span key={f.id} className="rounded bg-white/[0.06] px-1.5 py-0.5 text-slate-200">
+                    {f.name.split('(')[0].trim()}
+                  </span>
+                ))}
+                {activeDrinksList.map((d) => (
+                  <span key={d.id} className="rounded bg-white/[0.06] px-1.5 py-0.5 text-cyan-200">
+                    {d.name.split('(')[0].trim()}
+                  </span>
+                ))}
+                {activeFoodsList.length === 0 && activeDrinksList.length === 0 && (
+                  <span className="text-slate-500">No Food/Drink Buffs</span>
+                )}
+              </button>
             </div>
           </div>
 
@@ -929,7 +1012,7 @@ export function DpsCalculatorView({
           )}
 
           {activeRail === 'cradle_food' && (
-            <CradleAndFoodPanel loadout={loadout} onChange={patchLoadout} />
+            <CradleAndFoodPanel loadout={loadout} warnings={warnings} onChange={patchLoadout} />
           )}
         </section>
       </div>

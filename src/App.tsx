@@ -26,6 +26,7 @@ export function App() {
 
   const [preset, setPreset] = useState<CalculatorPreset>(META_BUILDS[0].preset);
   const [activeBuildName, setActiveBuildName] = useState<string | null>(META_BUILDS[0].name);
+  const [activeMetaBuild, setActiveMetaBuild] = useState<MetaBuild | null>(META_BUILDS[0]);
   const [equippedModRequest, setEquippedModRequest] = useState<{
     mod: CodexModItem;
     weaponSlot?: 'primary' | 'secondary' | 'melee';
@@ -59,6 +60,7 @@ export function App() {
   const handleLoadMetaBuild = (build: MetaBuild) => {
     setPreset(build.preset);
     setActiveBuildName(build.name);
+    setActiveMetaBuild(build);
     setActiveTab('calculator');
   };
 
@@ -108,8 +110,10 @@ export function App() {
               onChangePreset={(next) => {
                 setPreset(next);
                 setActiveBuildName(null);
+                setActiveMetaBuild(null);
               }}
               activeBuildName={activeBuildName}
+              activeMetaBuild={activeMetaBuild}
               equippedModRequest={equippedModRequest}
             />
           )}
@@ -123,6 +127,7 @@ export function App() {
                 const matchingMeta = META_BUILDS.find((b) => b.weaponId === weapon.id);
                 setPreset(matchingMeta ? matchingMeta.preset : { ...preset, weaponId: weapon.id });
                 setActiveBuildName(matchingMeta ? matchingMeta.name : weapon.name);
+                setActiveMetaBuild(matchingMeta ?? null);
                 setActiveTab('calculator');
               }}
             />

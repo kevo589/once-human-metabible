@@ -177,6 +177,7 @@
     "beret": { "keywordDmgPct": 20, "weaponDmgPct": 10, "critDmgPct": 15, "desc": "Shrapnel triggers hit an extra weakspot part (+20% Keyword DMG, +15% Crit DMG)" },
     "mayfly-goggles": { "keywordDmgPct": 25, "elementalDmgPct": 15, "desc": "Power Surge triggers additional shock bolts (+25% Keyword DMG)" },
     "shaman-vulture-top": { "critRatePct": 8, "keywordDmgPct": 22, "desc": "Crits have high chance to trigger Unstable Bomber (+8% Crit Rate, +22% Keyword)" },
+    "explosive-front-top": { "critRatePct": 8, "keywordDmgPct": 22, "desc": "Crits trigger explosive Unstable Bomber bursts (+8% Crit Rate, +22% Keyword DMG)" },
     "snow-camo-gloves": { "elementalDmgPct": 18, "statusDmgPct": 18, "desc": "Frost Vortex shatters deal AOE Frost burst (+18% Elem & Status DMG)" },
     "oasis-mask": { "weakspotDmgPct": 22, "critRatePct": 6, "desc": "Weakspot hits empower next shot (+22% Weakspot DMG)" },
     "gas-tight-helmet": { "statusDmgPct": 22, "elementalDmgPct": 15, "desc": "Blaze stacks spread and detonate (+22% Status DMG)" },

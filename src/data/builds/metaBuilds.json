@@ -1,0 +1,1025 @@
+[
+  {
+    "id": "build-last-valor-shrapnel",
+    "name": "Last Valor Shrapnel Crit",
+    "archetype": "Shrapnel",
+    "tier": "S+",
+    "gameStage": "End Game",
+    "scenarioFit": ["manibus", "way_of_winter", "isles_of_abyss"],
+    "weaponId": "socr-last-valor",
+    "secondaryWeaponId": "aws338-bingo",
+    "armorSetup": "4pc Lonewolf + Beret (Key Helmet) + 1pc Bastille",
+    "keyMods": ["Shatter Them All", "Shrapnel Souvenir", "Crit Amplifier", "Fate Resonance", "Covered Advance"],
+    "deviationId": "lonewolf-whisper",
+    "cradleOverrides": ["Tactical Combo", "Automatic Weapon Enhancement", "Bounce & Shrapnel Resonance", "Bounty Hunter"],
+    "foodBuffId": "crumbly_bread",
+    "recommendedChefMode": true,
+    "recommendedFoods": ["crumbly_bread", "bone_in_deviated_sausage"],
+    "recommendedDrinks": ["whimsical_drink_weapon", "stardust_energy_drink"],
+    "activationRules": [
+      "Open boss phase with AWS.338 Bingo hit to apply The Bull's Eye (+8% Vuln).",
+      "Stay above 70% HP when pairing 1pc Bastille (+10% Weapon DMG) with 4pc Lonewolf.",
+      "Crit hits every 4 shots trigger Shrapnel, scaling off Crit DMG and Beret weakspot splash."
+    ],
+    "breakpoints": [
+      "Crit Rate >= 45% + Lonewolf 4pc (max 10 Lone Shadow stacks) + Extended Mag for mag-dump uptime.",
+      "Sub-Stat Set Priority: Violent / Precision / Downstar."
+    ],
+    "antiSynergies": [
+      "Avoid low HP (<70%) if running Bastille pants — swap to Savior 1pc or Treacherous Tides for Low-HP variants."
+    ],
+    "playstyleNotes": "Tag bosses with AWS.338 Bingo for Bull's Eye (+8% Vulnerability), then mag-dump SOCR Last Valor for chained Shrapnel crits and magazine refunds.",
+    "loadoutSpec": {
+      "hpPct": 90,
+      "sanityPct": 95,
+      "armorIds": ["beret", "lonewolf-mask", "lonewolf-jacket", "bastille-pants", "lonewolf-gloves", "lonewolf-shoes"],
+      "cradleIds": ["tactical-combo", "auto-weapon-enh", "bounce-surge", "bounty-hunter"]
+    },
+    "preset": {
+      "weaponId": "socr-last-valor",
+      "weaponAttackBonusPct": 48,
+      "statusElementBonusPct": 0,
+      "critRateBonusPct": 38,
+      "critDamageBonusPct": 145,
+      "weakspotHitRatioPct": 45,
+      "weakspotDamageBonusPct": 40,
+      "fireRateBonusPct": 12,
+      "magSizeBonusPct": 25,
+      "reloadSpeedBonusPct": 20,
+      "vulnerableEnemyBonusPct": 16,
+      "cradleAndFoodBonusPct": 35,
+      "armorSetBonusPct": 25,
+      "archetypeProcMultiplier": 1.55
+    }
+  },
+  {
+    "id": "build-abyss-glance-frost",
+    "name": "Abyss Glance Frost Vortex",
+    "archetype": "Frost Vortex",
+    "tier": "S+",
+    "gameStage": "End Game",
+    "scenarioFit": ["manibus", "way_of_winter", "isles_of_abyss"],
+    "weaponId": "kam-abyss-glance",
+    "secondaryWeaponId": "de50-jaws",
+    "armorSetup": "4pc Shelterer + Snow Camo Gloves + 1pc Bastille",
+    "keyMods": ["Frostwave Wither", "Frost Construct", "Deviation Expert", "Status Enhancement", "Elemental Resonance"],
+    "deviationId": "polar-jelly",
+    "cradleOverrides": ["Status Enhancement", "Frost Vortex Surge", "Tactical Combo", "Deviation Master"],
+    "foodBuffId": "whimsical_drink_status",
+    "recommendedChefMode": true,
+    "recommendedFoods": ["bone_in_deviated_sausage", "shellfish_meat_dish"],
+    "recommendedDrinks": ["whimsical_drink_status", "stardust_energy_drink"],
+    "activationRules": [
+      "Build Deviant Energy stacks with Shelterer 4pc via reloading & tactical throws.",
+      "Summon Polar Jelly on boss spawn to overlap Ice Vortex shatter windows."
+    ],
+    "breakpoints": [
+      "Psi Intensity >= 850+ via Tier V 6-star armor + Deviation Master Cradle.",
+      "Keep HP >= 70% if using 1pc Bastille Pants; Status DMG + Elemental DMG scale multiplicatively."
+    ],
+    "antiSynergies": [
+      "Do not stack Crit DMG mods over Elemental/Status — Frost Vortex pulses scale on Psi Intensity & Elemental/Status."
+    ],
+    "playstyleNotes": "Stack Shelterer Deviant Energy via Polar Jelly + tactical throws, then detonate overlapping Frost Vortex fields.",
+    "loadoutSpec": {
+      "hpPct": 95,
+      "sanityPct": 95,
+      "armorIds": ["shelterer-hat", "shelterer-mask", "shelterer-top", "bastille-pants", "snow-camo-gloves", "shelterer-shoes"],
+      "cradleIds": ["status-enhancement", "frost-vortex-surge", "deviation-master", "bounty-hunter"]
+    },
+    "preset": {
+      "weaponId": "kam-abyss-glance",
+      "weaponAttackBonusPct": 24,
+      "statusElementBonusPct": 115,
+      "critRateBonusPct": 10,
+      "critDamageBonusPct": 30,
+      "weakspotHitRatioPct": 35,
+      "weakspotDamageBonusPct": 25,
+      "fireRateBonusPct": 10,
+      "magSizeBonusPct": 20,
+      "reloadSpeedBonusPct": 15,
+      "vulnerableEnemyBonusPct": 12,
+      "cradleAndFoodBonusPct": 40,
+      "armorSetBonusPct": 42,
+      "archetypeProcMultiplier": 1.65
+    }
+  },
+  {
+    "id": "build-critical-pulse-surge",
+    "name": "Critical Pulse 2-Arrow Power Surge",
+    "archetype": "Power Surge",
+    "tier": "S+",
+    "gameStage": "End Game",
+    "scenarioFit": ["manibus", "way_of_winter", "isles_of_abyss"],
+    "weaponId": "critical-pulse",
+    "secondaryWeaponId": "aws338-bingo",
+    "armorSetup": "1pc Lonewolf + 3pc Shelterer + Mayfly Goggles + 1pc Savior",
+    "keyMods": ["Shock Rampage", "Lightning Orb", "Elemental Resonance", "Status Enhancement", "Rejuvenating"],
+    "deviationId": "mini-feaster",
+    "cradleOverrides": ["Shock Resonance", "Status Enhancement", "Deviation Master", "Bounty Hunter"],
+    "foodBuffId": "whimsical_drink_status",
+    "recommendedChefMode": true,
+    "recommendedFoods": ["bone_in_deviated_sausage", "mixed_fried_hotdog"],
+    "recommendedDrinks": ["whimsical_drink_status", "stardust_energy_drink"],
+    "activationRules": [
+      "Reach +50% Magazine Capacity so Critical Pulse loads 2 arrows at once, doubling Power Surge & Shock Orb frequency.",
+      "Tag target with AWS.338 Bingo before firing dual-arrow Surge volleys."
+    ],
+    "breakpoints": [
+      "CRITICAL BREAKPOINT: +50% Mag Capacity (1pc Lonewolf +10%, Mag mods +24%, Overflow/Accessory +16%).",
+      "Target 100% Shock & Status scaling via Shelterer + Mayfly Goggles."
+    ],
+    "antiSynergies": [
+      "Missing the +50% Mag Capacity breakpoint drops Critical Pulse to 1 arrow per reload — cutting Shock Orb output in half."
+    ],
+    "playstyleNotes": "Hits the +50% Mag Capacity threshold to fire 2 arrows per load, spamming double Power Surge lightning orbs onto Marked targets.",
+    "loadoutSpec": {
+      "hpPct": 90,
+      "sanityPct": 95,
+      "armorIds": ["mayfly-goggles", "shelterer-mask", "shelterer-top", "lonewolf-pants", "shelterer-gloves", "savior-shoes"],
+      "cradleIds": ["shock-resonance", "status-enhancement", "deviation-master", "bounty-hunter"]
+    },
+    "preset": {
+      "weaponId": "critical-pulse",
+      "weaponAttackBonusPct": 28,
+      "statusElementBonusPct": 128,
+      "critRateBonusPct": 18,
+      "critDamageBonusPct": 45,
+      "weakspotHitRatioPct": 55,
+      "weakspotDamageBonusPct": 35,
+      "fireRateBonusPct": 14,
+      "magSizeBonusPct": 55,
+      "reloadSpeedBonusPct": 38,
+      "vulnerableEnemyBonusPct": 18,
+      "cradleAndFoodBonusPct": 42,
+      "armorSetBonusPct": 38,
+      "archetypeProcMultiplier": 1.82
+    }
+  },
+  {
+    "id": "build-brahminy-treacherous-bounce",
+    "name": "Brahminy Treacherous Lunar Bounce",
+    "archetype": "Bounce",
+    "tier": "S+",
+    "gameStage": "End Game",
+    "scenarioFit": ["manibus", "way_of_winter", "isles_of_abyss"],
+    "weaponId": "hamr-brahminy",
+    "secondaryWeaponId": "aws338-bingo",
+    "armorSetup": "4pc Treacherous Tides + Sharp Blade Pants + 1pc Savior",
+    "keyMods": ["Bounce Rampage", "Break Bounce", "Deadshot", "Covered Advance", "Lunar Resonance"],
+    "deviationId": "butterfly-emissary",
+    "cradleOverrides": ["Bounce & Shrapnel Resonance", "Deadeye Mark", "Bounty Hunter", "Tactical Combo"],
+    "foodBuffId": "crumbly_bread",
+    "recommendedChefMode": true,
+    "recommendedFoods": ["crumbly_bread", "stardust_pumpkin_salad"],
+    "recommendedDrinks": ["whimsical_drink_weapon", "iced_tea"],
+    "activationRules": [
+      "Maintain Sanity <= 30% (and HP <= 60%) to lock in 4pc Treacherous Tides +28% Weapon/Status DMG + Shield safety net.",
+      "Sharp Blade Pants adds +1 Bounce target so Weakspot sniper shots ricochet across packs & boss limbs."
+    ],
+    "breakpoints": [
+      "Sanity <= 30% & HP 40–60% for Treacherous Tides + Lunar sub-stat full scaling.",
+      "Sub-Stat Set Priority: Lunar / Violent / Precision."
+    ],
+    "antiSynergies": [
+      "CRITICAL: NEVER drink Malt Ale, Corn Ale, or Coneflower Iced Tea — Sanity Immunity clears your low-Sanity scaling!"
+    ],
+    "playstyleNotes": "High-risk, top-tier Bounce Sniper setup leveraging Treacherous Tides Low-Sanity HP shields and Sharp Blade extra ricochets.",
+    "loadoutSpec": {
+      "hpPct": 55,
+      "sanityPct": 25,
+      "armorIds": ["treacherous-tides-helmet", "treacherous-tides-mask", "savior-top", "sharp-blade-pants", "treacherous-tides-gloves", "treacherous-tides-shoes"],
+      "cradleIds": ["bounce-surge", "prec-weakspot", "bounty-hunter", "tactical-combo"]
+    },
+    "preset": {
+      "weaponId": "hamr-brahminy",
+      "weaponAttackBonusPct": 62,
+      "statusElementBonusPct": 0,
+      "critRateBonusPct": 34,
+      "critDamageBonusPct": 135,
+      "weakspotHitRatioPct": 70,
+      "weakspotDamageBonusPct": 85,
+      "fireRateBonusPct": 12,
+      "magSizeBonusPct": 20,
+      "reloadSpeedBonusPct": 26,
+      "vulnerableEnemyBonusPct": 18,
+      "cradleAndFoodBonusPct": 44,
+      "armorSetBonusPct": 45,
+      "archetypeProcMultiplier": 1.75
+    }
+  },
+  {
+    "id": "build-boom-boom-burn",
+    "name": "KVD Boom! Boom! Blaze Overdrive",
+    "archetype": "Burn",
+    "tier": "S+",
+    "gameStage": "End Game",
+    "scenarioFit": ["manibus", "way_of_winter", "isles_of_abyss"],
+    "weaponId": "kvd-boom-boom",
+    "secondaryWeaponId": "dbsg-doombringer",
+    "armorSetup": "4pc Shelterer + BBQ Gloves + 1pc Bastille",
+    "keyMods": ["Blaze Blessing", "Deviation Expert", "Covered Advance", "Rejuvenating"],
+    "deviationId": "pyro-dino",
+    "cradleOverrides": ["Status Enhancement", "Blaze Overdrive", "Tactical Combo", "Deviation Master"],
+    "foodBuffId": "whimsical_drink_status",
+    "recommendedChefMode": true,
+    "recommendedFoods": ["bone_in_deviated_sausage", "shellfish_meat_dish"],
+    "recommendedDrinks": ["whimsical_drink_status", "stardust_energy_drink"],
+    "activationRules": [
+      "Summon Pyro Dino on pull to double Burn Explosion frequency and Blaze vulnerability.",
+      "Hold sustained LMG fire at >= 70% HP to benefit from BBQ Gloves Blaze tick speed and 1pc Bastille."
+    ],
+    "breakpoints": [
+      "75-round magazine + Blaze Blessing keep Burn stacks capped permanently.",
+      "Way of Winter Heat variant swaps Shelterer -> 4pc Blackstone Cold/Heat armor."
+    ],
+    "antiSynergies": [
+      "Avoid low HP (<70%) if using Bastille piece; Burn damage ticks do not critically strike, so prioritize Status & Elemental over Crit."
+    ],
+    "playstyleNotes": "Deploy Pyro Dino for Blaze vulnerability and maintain 75-round sustained fire for nonstop Fiery Explosions.",
+    "loadoutSpec": {
+      "hpPct": 95,
+      "sanityPct": 95,
+      "armorIds": ["shelterer-hat", "shelterer-mask", "shelterer-top", "bastille-pants", "bbq-gloves", "shelterer-shoes"],
+      "cradleIds": ["status-enhancement", "blaze-overdrive", "tactical-combo", "deviation-master"]
+    },
+    "preset": {
+      "weaponId": "kvd-boom-boom",
+      "weaponAttackBonusPct": 28,
+      "statusElementBonusPct": 118,
+      "critRateBonusPct": 8,
+      "critDamageBonusPct": 20,
+      "weakspotHitRatioPct": 25,
+      "weakspotDamageBonusPct": 15,
+      "fireRateBonusPct": 10,
+      "magSizeBonusPct": 15,
+      "reloadSpeedBonusPct": 25,
+      "vulnerableEnemyBonusPct": 20,
+      "cradleAndFoodBonusPct": 42,
+      "armorSetBonusPct": 38,
+      "archetypeProcMultiplier": 1.62
+    }
+  },
+  {
+    "id": "build-jaws-bomber",
+    "name": "DE.50 Jaws Unstable Bomber",
+    "archetype": "Unstable Bomber",
+    "tier": "S+",
+    "gameStage": "End Game",
+    "scenarioFit": ["manibus", "way_of_winter", "isles_of_abyss"],
+    "weaponId": "de50-jaws",
+    "secondaryWeaponId": "aws338-bingo",
+    "armorSetup": "4pc Lonewolf + Explosive Front Top + 1pc Bastille",
+    "keyMods": ["Reckless Bomber", "Crit Amplifier", "Fate Resonance", "Covered Advance"],
+    "deviationId": "lonewolf-whisper",
+    "cradleOverrides": ["Pistol & Sniper Surge", "Status Enhancement", "Deviation Master", "Bounty Hunter"],
+    "foodBuffId": "crumbly_bread",
+    "recommendedChefMode": true,
+    "recommendedFoods": ["crumbly_bread", "stardust_pumpkin_salad"],
+    "recommendedDrinks": ["whimsical_drink_status", "whimsical_drink_weapon"],
+    "activationRules": [
+      "Explosive Front Top / Shaman Vulture empowers Unstable Bomber explosions to critically strike — build high Crit Rate & Crit DMG.",
+      "Quick-reload with Lonewolf stacks to sustain rapid 4-shot Bomber detonations."
+    ],
+    "breakpoints": [
+      "Crit Rate >= 40% + Reload Speed >= 30% turns DE.50 Jaws into one of the highest burst/sustained pistols in Manibus."
+    ],
+    "antiSynergies": [
+      "Prioritize Weapon Crit & Blast modifiers over pure Status builds."
+    ],
+    "playstyleNotes": "With Key Bomber Top, crits directly proc Unstable Bomber explosions scaling off Weapon ATK, Crit DMG & Elemental DMG.",
+    "loadoutSpec": {
+      "hpPct": 90,
+      "sanityPct": 95,
+      "armorIds": ["lonewolf-hat", "lonewolf-mask", "explosive-front-top", "bastille-pants", "lonewolf-gloves", "lonewolf-shoes"],
+      "cradleIds": ["rapid-pistol", "status-enhancement", "deviation-master", "bounty-hunter"]
+    },
+    "preset": {
+      "weaponId": "de50-jaws",
+      "weaponAttackBonusPct": 38,
+      "statusElementBonusPct": 68,
+      "critRateBonusPct": 42,
+      "critDamageBonusPct": 135,
+      "weakspotHitRatioPct": 50,
+      "weakspotDamageBonusPct": 45,
+      "fireRateBonusPct": 15,
+      "magSizeBonusPct": 25,
+      "reloadSpeedBonusPct": 35,
+      "vulnerableEnemyBonusPct": 16,
+      "cradleAndFoodBonusPct": 36,
+      "armorSetBonusPct": 35,
+      "archetypeProcMultiplier": 1.72
+    }
+  },
+  {
+    "id": "build-outer-space-surge",
+    "name": "MPS7 Outer Space Power Surge",
+    "archetype": "Power Surge",
+    "tier": "S",
+    "gameStage": "End Game",
+    "scenarioFit": ["manibus", "isles_of_abyss"],
+    "weaponId": "mps7-outer-space",
+    "secondaryWeaponId": "aws338-bingo",
+    "armorSetup": "4pc Shelterer + Mayfly Goggles + 1pc Lonewolf",
+    "keyMods": ["Shock Rampage", "Deviation Expert", "Covered Advance", "Elemental Resonance"],
+    "deviationId": "mini-feaster",
+    "cradleOverrides": ["Shock Resonance", "Automatic Weapon Enhancement", "Status Enhancement", "Tactical Combo"],
+    "foodBuffId": "whimsical_drink_status",
+    "recommendedChefMode": true,
+    "recommendedFoods": ["bone_in_deviated_sausage", "mixed_fried_hotdog"],
+    "recommendedDrinks": ["whimsical_drink_status", "stardust_energy_drink"],
+    "activationRules": [
+      "Reload right before boss DPS phases to trigger Outer Space's +40% Power Surge Trigger Bonus.",
+      "Mayfly Goggles causes Power Surge shocks to arc onto extra targets."
+    ],
+    "breakpoints": [
+      "1pc Lonewolf adds +10% Mag Capacity to extend buffed Shock spray duration.",
+      "High Reload Speed lowers downtime between reload-triggered Surge windows."
+    ],
+    "antiSynergies": [
+      "Reload-based buff drops if using infinite-ammo gimmick — deliberately empty/reload before burn windows."
+    ],
+    "playstyleNotes": "Reload before boss burn windows to double Power Surge proc rate; Mayfly Goggles melts grouped adds and single-target elites alike.",
+    "loadoutSpec": {
+      "hpPct": 95,
+      "sanityPct": 95,
+      "armorIds": ["mayfly-goggles", "shelterer-mask", "shelterer-top", "lonewolf-pants", "shelterer-gloves", "shelterer-shoes"],
+      "cradleIds": ["shock-resonance", "auto-weapon-enh", "status-enhancement", "tactical-combo"]
+    },
+    "preset": {
+      "weaponId": "mps7-outer-space",
+      "weaponAttackBonusPct": 22,
+      "statusElementBonusPct": 120,
+      "critRateBonusPct": 14,
+      "critDamageBonusPct": 35,
+      "weakspotHitRatioPct": 30,
+      "weakspotDamageBonusPct": 20,
+      "fireRateBonusPct": 18,
+      "magSizeBonusPct": 25,
+      "reloadSpeedBonusPct": 30,
+      "vulnerableEnemyBonusPct": 14,
+      "cradleAndFoodBonusPct": 38,
+      "armorSetBonusPct": 40,
+      "archetypeProcMultiplier": 1.6
+    }
+  },
+  {
+    "id": "build-kumawink-bounce",
+    "name": "MPS5 Kumawink Bounce Crit",
+    "archetype": "Bounce",
+    "tier": "S+",
+    "gameStage": "End Game",
+    "scenarioFit": ["manibus", "way_of_winter", "isles_of_abyss"],
+    "weaponId": "mps5-kumawink",
+    "secondaryWeaponId": "aws338-bingo",
+    "armorSetup": "4pc Lonewolf + Sharp Blade Pants + 1pc Savior",
+    "keyMods": ["Bounce Rampage", "Break Bounce", "Crit Amplifier", "Covered Advance"],
+    "deviationId": "lonewolf-whisper",
+    "cradleOverrides": ["Bounce & Shrapnel Resonance", "Automatic Weapon Enhancement", "Bounty Hunter", "Sustained Momentum"],
+    "foodBuffId": "crumbly_bread",
+    "recommendedChefMode": true,
+    "recommendedFoods": ["crumbly_bread", "stardust_pumpkin_salad"],
+    "recommendedDrinks": ["whimsical_drink_weapon", "stardust_energy_drink"],
+    "activationRules": [
+      "Rapid-fire SMG hits continuously roll Bounce ricochets, bouncing between weakspots with Sharp Blade Pants.",
+      "Keep Crit Rate > 35% so Bounce hits crit heavily."
+    ],
+    "breakpoints": [
+      "Sharp Blade Pants (+1 Bounce target) + Break Bounce Mask mod are mandatory for multi-target/single-boss Bounce efficiency."
+    ],
+    "antiSynergies": [
+      "Do not swap Sharp Blade Pants for generic pants — losing +1 Bounce target drops total proc DPS sharply."
+    ],
+    "playstyleNotes": "Ultra-fast SMG crit Bounce sprayer turning Lonewolf Crit DMG + Sharp Blade Pants into a mobile shredder.",
+    "loadoutSpec": {
+      "hpPct": 90,
+      "sanityPct": 95,
+      "armorIds": ["lonewolf-hat", "lonewolf-mask", "lonewolf-jacket", "sharp-blade-pants", "lonewolf-gloves", "savior-shoes"],
+      "cradleIds": ["bounce-surge", "auto-weapon-enh", "bounty-hunter", "first-strike"]
+    },
+    "preset": {
+      "weaponId": "mps5-kumawink",
+      "weaponAttackBonusPct": 46,
+      "statusElementBonusPct": 0,
+      "critRateBonusPct": 38,
+      "critDamageBonusPct": 140,
+      "weakspotHitRatioPct": 42,
+      "weakspotDamageBonusPct": 38,
+      "fireRateBonusPct": 14,
+      "magSizeBonusPct": 22,
+      "reloadSpeedBonusPct": 25,
+      "vulnerableEnemyBonusPct": 16,
+      "cradleAndFoodBonusPct": 38,
+      "armorSetBonusPct": 32,
+      "archetypeProcMultiplier": 1.68
+    }
+  },
+  {
+    "id": "build-primal-rage-lunar",
+    "name": "MPS5 Primal Rage Shield Drain",
+    "archetype": "Fast Gunner",
+    "tier": "S+",
+    "gameStage": "End Game",
+    "scenarioFit": ["manibus", "way_of_winter", "isles_of_abyss"],
+    "weaponId": "mps5-primal-rage",
+    "secondaryWeaponId": "aws338-bingo",
+    "armorSetup": "3pc Treacherous Tides + 2pc Savior + Cowboy Boots",
+    "keyMods": ["First-Move Advantage", "Targeted Strike", "Crit Amplifier", "Rejuvenating"],
+    "deviationId": "chaos-zeno-purifier",
+    "cradleOverrides": ["Automatic Weapon Enhancement", "Bounty Hunter", "Sustained Momentum", "Tactical Combo"],
+    "foodBuffId": "braised_beef",
+    "recommendedChefMode": true,
+    "recommendedFoods": ["crumbly_bread", "braised_beef"],
+    "recommendedDrinks": ["whimsical_drink_weapon", "iced_tea"],
+    "activationRules": [
+      "Primal Rage drains HP directly to feed massive Fast Gunner Fire Rate & Crit DMG multipliers.",
+      "Treacherous Tides generates protective Shields at <40% HP while Braised Beef boosts Max HP Shield pool."
+    ],
+    "breakpoints": [
+      "Maintain HP 35–55% for Lunar sub-stats + Treacherous Tides shield uptime.",
+      "High Max HP directly increases your Shield buffer while firing Primal Rage."
+    ],
+    "antiSynergies": [
+      "CONFLICTS with Bastille Set (breaks below 70% HP) and Malt Ale / Corn Ale / Coneflower Iced Tea (breaks Low-Sanity scaling)."
+    ],
+    "playstyleNotes": "High-APM Fast Gunner bullet hose converting your own HP pool into shields, Crit DMG, and overwhelming sustained DPS.",
+    "loadoutSpec": {
+      "hpPct": 45,
+      "sanityPct": 25,
+      "armorIds": ["treacherous-tides-helmet", "treacherous-tides-mask", "savior-top", "treacherous-tides-pants", "savior-gloves", "cowboy-boots"],
+      "cradleIds": ["auto-weapon-enh", "bounty-hunter", "first-strike", "tactical-combo"]
+    },
+    "preset": {
+      "weaponId": "mps5-primal-rage",
+      "weaponAttackBonusPct": 58,
+      "statusElementBonusPct": 0,
+      "critRateBonusPct": 34,
+      "critDamageBonusPct": 148,
+      "weakspotHitRatioPct": 45,
+      "weakspotDamageBonusPct": 32,
+      "fireRateBonusPct": 32,
+      "magSizeBonusPct": 18,
+      "reloadSpeedBonusPct": 30,
+      "vulnerableEnemyBonusPct": 16,
+      "cradleAndFoodBonusPct": 42,
+      "armorSetBonusPct": 46,
+      "archetypeProcMultiplier": 1.62
+    }
+  },
+  {
+    "id": "build-bingo-weakspot",
+    "name": "AWS.338 Bingo Weakspot Sniper",
+    "archetype": "Bull's Eye",
+    "tier": "S",
+    "gameStage": "End Game",
+    "scenarioFit": ["manibus", "way_of_winter", "isles_of_abyss"],
+    "weaponId": "aws338-bingo",
+    "secondaryWeaponId": "dbsg-doombringer",
+    "armorSetup": "3pc Renegade + 2pc Bastille + Old Huntsman Boots",
+    "keyMods": ["Targeted Strike", "Most Wanted", "Covered Advance", "Deadshot"],
+    "deviationId": "butterfly-emissary",
+    "cradleOverrides": ["Deadeye Mark", "Pistol & Sniper Surge", "Tactical Combo", "Bounty Hunter"],
+    "foodBuffId": "mixed_fried_hotdog",
+    "recommendedChefMode": true,
+    "recommendedFoods": ["mixed_fried_hotdog", "assorted_canned_fruit"],
+    "recommendedDrinks": ["whimsical_drink_weapon", "stardust_energy_drink"],
+    "activationRules": [
+      "Always trigger Bull's Eye first shot or weapon swap so Mixed Fried Hotdog (+20% DMG vs Marked) activates immediately.",
+      "Crouch or keep HP >= 70% to trigger Bastille Weapon DMG bonus."
+    ],
+    "breakpoints": [
+      "Precision Calibration +10 & Weakspot DMG >= 150% for guaranteed 1-shot elite clears.",
+      "Chef Combo: Mixed Fried Hotdog + Assorted Canned Fruit gives +20% Marked & +15% Weakspot DMG simultaneously."
+    ],
+    "antiSynergies": [
+      "Avoid low-HP setups when wearing 2pc Bastille."
+    ],
+    "playstyleNotes": "Swap-fire or scoped weakspot chain for massive single-shot burst and team-wide +8–16% Bull's Eye vulnerability.",
+    "loadoutSpec": {
+      "hpPct": 95,
+      "sanityPct": 95,
+      "armorIds": ["renegade-hood", "renegade-mask", "bastille-top", "bastille-pants", "renegade-gloves", "old-huntsman-boots"],
+      "cradleIds": ["prec-weakspot", "rapid-pistol", "tactical-combo", "bounty-hunter"]
+    },
+    "preset": {
+      "weaponId": "aws338-bingo",
+      "weaponAttackBonusPct": 52,
+      "statusElementBonusPct": 0,
+      "critRateBonusPct": 25,
+      "critDamageBonusPct": 80,
+      "weakspotHitRatioPct": 90,
+      "weakspotDamageBonusPct": 125,
+      "fireRateBonusPct": 10,
+      "magSizeBonusPct": 20,
+      "reloadSpeedBonusPct": 30,
+      "vulnerableEnemyBonusPct": 18,
+      "cradleAndFoodBonusPct": 32,
+      "armorSetBonusPct": 35,
+      "archetypeProcMultiplier": 1.32
+    }
+  },
+  {
+    "id": "build-corrosion-crit-surge",
+    "name": "ACS12 Corrosion Crit Surge",
+    "archetype": "Power Surge",
+    "tier": "S",
+    "gameStage": "End Game",
+    "scenarioFit": ["manibus", "isles_of_abyss"],
+    "weaponId": "acs12-corrosion",
+    "secondaryWeaponId": "aws338-bingo",
+    "armorSetup": "4pc Lonewolf + Mayfly Goggles + 1pc Savior",
+    "keyMods": ["Shock Rampage", "Crit Amplifier", "Surge Multiplier", "Covered Advance"],
+    "deviationId": "mini-feaster",
+    "cradleOverrides": ["Shock Resonance", "Status Enhancement", "Sustained Momentum", "Bounty Hunter"],
+    "foodBuffId": "crumbly_bread",
+    "recommendedChefMode": true,
+    "recommendedFoods": ["crumbly_bread", "bone_in_deviated_sausage"],
+    "recommendedDrinks": ["whimsical_drink_status", "whimsical_drink_weapon"],
+    "activationRules": [
+      "Unique Power Surge shotgun whose Shock procs can critically strike — blend Crit DMG with Elemental/Status.",
+      "Close-range pellet spread excels with Wild or Downstar sub-stats."
+    ],
+    "breakpoints": [
+      "Crit Rate >= 35% + Mayfly Goggles triggers chain Crit Surge blasts on close-range bosses."
+    ],
+    "antiSynergies": [
+      "Poor range beyond 12m — always close distance before burst phase."
+    ],
+    "playstyleNotes": "Close-quarters Power Surge shotgun converting Lonewolf Crit DMG into shock critical blasts.",
+    "loadoutSpec": {
+      "hpPct": 90,
+      "sanityPct": 95,
+      "armorIds": ["mayfly-goggles", "lonewolf-mask", "lonewolf-jacket", "lonewolf-pants", "lonewolf-gloves", "savior-shoes"],
+      "cradleIds": ["shock-resonance", "status-enhancement", "first-strike", "bounty-hunter"]
+    },
+    "preset": {
+      "weaponId": "acs12-corrosion",
+      "weaponAttackBonusPct": 36,
+      "statusElementBonusPct": 82,
+      "critRateBonusPct": 36,
+      "critDamageBonusPct": 115,
+      "weakspotHitRatioPct": 35,
+      "weakspotDamageBonusPct": 25,
+      "fireRateBonusPct": 12,
+      "magSizeBonusPct": 25,
+      "reloadSpeedBonusPct": 28,
+      "vulnerableEnemyBonusPct": 15,
+      "cradleAndFoodBonusPct": 40,
+      "armorSetBonusPct": 35,
+      "archetypeProcMultiplier": 1.66
+    }
+  },
+  {
+    "id": "build-anabasis-ice-crystal",
+    "name": "M416 Silent Anabasis Winter Shatter",
+    "archetype": "Frost Vortex",
+    "tier": "S",
+    "gameStage": "End Game",
+    "scenarioFit": ["way_of_winter", "manibus", "isles_of_abyss"],
+    "weaponId": "m416-silent-anabasis",
+    "secondaryWeaponId": "aws338-bingo",
+    "armorSetup": "4pc Blackstone + Snow Camo Gloves + 1pc Bastille",
+    "keyMods": ["Frost Construct", "Frostwave Wither", "Deviation Expert", "Elemental Resonance"],
+    "deviationId": "polar-jelly",
+    "cradleOverrides": ["Frost Vortex Surge", "Status Enhancement", "Automatic Weapon Enhancement", "Deviation Master"],
+    "foodBuffId": "whimsical_drink_status",
+    "recommendedChefMode": true,
+    "recommendedFoods": ["bone_in_deviated_sausage", "shellfish_meat_dish"],
+    "recommendedDrinks": ["whimsical_drink_status", "iced_tea"],
+    "activationRules": [
+      "Shoot spawned Ice Crystals to shatter them for AoE Frost damage while maintaining Blackstone Elemental buffs.",
+      "Snow Camo Gloves amplifies Frost Vortex shatter waves across frozen packs."
+    ],
+    "breakpoints": [
+      "Psi Intensity >= 850 & Blackstone 4pc thermal resist solve extreme temperature Chaosweaver zones in Way of Winter."
+    ],
+    "antiSynergies": [
+      "Avoid low HP (<70%) if using 1pc Bastille."
+    ],
+    "playstyleNotes": "Way of Winter Chaosweaver specialist spawning & detonating Ice Crystals with built-in thermal resilience.",
+    "loadoutSpec": {
+      "hpPct": 95,
+      "sanityPct": 95,
+      "armorIds": ["blackstone-hood", "blackstone-mask", "blackstone-top", "bastille-pants", "snow-camo-gloves", "blackstone-boots"],
+      "cradleIds": ["frost-vortex-surge", "status-enhancement", "auto-weapon-enh", "deviation-master"]
+    },
+    "preset": {
+      "weaponId": "m416-silent-anabasis",
+      "weaponAttackBonusPct": 26,
+      "statusElementBonusPct": 110,
+      "critRateBonusPct": 12,
+      "critDamageBonusPct": 28,
+      "weakspotHitRatioPct": 40,
+      "weakspotDamageBonusPct": 25,
+      "fireRateBonusPct": 12,
+      "magSizeBonusPct": 18,
+      "reloadSpeedBonusPct": 22,
+      "vulnerableEnemyBonusPct": 14,
+      "cradleAndFoodBonusPct": 38,
+      "armorSetBonusPct": 40,
+      "archetypeProcMultiplier": 1.62
+    }
+  },
+  {
+    "id": "build-mg4-predator-fortress",
+    "name": "MG4 Predator Fast Gunner / Bastille",
+    "archetype": "Fast Gunner",
+    "tier": "S",
+    "gameStage": "End Game",
+    "scenarioFit": ["manibus", "way_of_winter"],
+    "weaponId": "mg4-predator",
+    "secondaryWeaponId": "aws338-bingo",
+    "armorSetup": "3pc Bastille + 2pc Lonewolf + Oasis Mask",
+    "keyMods": ["Rapid Aid", "Deviation Expert", "Crit Amplifier", "Deadshot"],
+    "deviationId": "lonewolf-whisper",
+    "cradleOverrides": ["Automatic Weapon Enhancement", "Tactical Combo", "Bounty Hunter", "Sustained Momentum"],
+    "foodBuffId": "crumbly_bread",
+    "recommendedChefMode": true,
+    "recommendedFoods": ["crumbly_bread", "bone_in_deviated_sausage"],
+    "recommendedDrinks": ["whimsical_drink_weapon", "stardust_energy_drink"],
+    "activationRules": [
+      "Stay crouched/stationary in Bastille State while keeping HP >= 70% for +50% combined Bastille Weapon DMG.",
+      "MG4 Predator triggers infinite-mag burst windows on continuous Fast Gunner hits."
+    ],
+    "breakpoints": [
+      "HP >= 70% mandatory for Bastille 1pc/3pc activation; Drum/Extended Mag extends ramp-up uptime."
+    ],
+    "antiSynergies": [
+      "CONFLICTS with Low-HP / Treacherous Tides (<70% HP shuts down Bastille entirely)."
+    ],
+    "playstyleNotes": "Anchored LMG bullet storm excelling in Prime Wars and stationary Nightmare Monolith phases.",
+    "loadoutSpec": {
+      "hpPct": 100,
+      "sanityPct": 100,
+      "armorIds": ["bastille-helmet", "oasis-mask", "bastille-top", "bastille-pants", "lonewolf-gloves", "lonewolf-shoes"],
+      "cradleIds": ["auto-weapon-enh", "tactical-combo", "bounty-hunter", "first-strike"]
+    },
+    "preset": {
+      "weaponId": "mg4-predator",
+      "weaponAttackBonusPct": 58,
+      "statusElementBonusPct": 0,
+      "critRateBonusPct": 30,
+      "critDamageBonusPct": 105,
+      "weakspotHitRatioPct": 45,
+      "weakspotDamageBonusPct": 48,
+      "fireRateBonusPct": 24,
+      "magSizeBonusPct": 30,
+      "reloadSpeedBonusPct": 22,
+      "vulnerableEnemyBonusPct": 14,
+      "cradleAndFoodBonusPct": 35,
+      "armorSetBonusPct": 42,
+      "archetypeProcMultiplier": 1.48
+    }
+  },
+  {
+    "id": "build-raining-cash-fortress",
+    "name": "DB12 Raining Cash Fortress Tank",
+    "archetype": "Fortress Warfare",
+    "tier": "S",
+    "gameStage": "End Game",
+    "scenarioFit": ["manibus", "way_of_winter", "isles_of_abyss"],
+    "weaponId": "db12-raining-cash",
+    "secondaryWeaponId": "aws338-bingo",
+    "armorSetup": "3pc Bastille + 2pc Lonewolf + Oasis Mask",
+    "keyMods": ["Fortress Mastery", "Crit Amplifier", "Covered Advance", "Rejuvenating"],
+    "deviationId": "festering-gel",
+    "cradleOverrides": ["Tactical Combo", "Bounty Hunter", "Sustained Momentum", "Deviation Master"],
+    "foodBuffId": "crumbly_bread",
+    "recommendedChefMode": true,
+    "recommendedFoods": ["crumbly_bread", "braised_beef"],
+    "recommendedDrinks": ["whimsical_drink_weapon", "malt_ale"],
+    "activationRules": [
+      "Trigger Fortress Warfare Zone on shotgun reloads/hits while keeping HP >= 70% for full Bastille 1pc/3pc bonuses.",
+      "Excels in team Prime Wars & Chaosweaver anchors where allies stand inside your Fortress buff aura."
+    ],
+    "breakpoints": [
+      "HP >= 70% mandatory for Bastille activation; Festering Gel + Braised Beef keep Shields & HP topped cleanly."
+    ],
+    "antiSynergies": [
+      "CONFLICTS with Low-HP / Treacherous Tides builds (<70% HP shuts down Bastille)."
+    ],
+    "playstyleNotes": "Stationary Fortress Warfare brawler granting Super Armor, Weapon DMG team auras, and brutal point-blank shotgun bursts.",
+    "loadoutSpec": {
+      "hpPct": 100,
+      "sanityPct": 100,
+      "armorIds": ["bastille-helmet", "oasis-mask", "bastille-top", "bastille-pants", "lonewolf-gloves", "lonewolf-shoes"],
+      "cradleIds": ["tactical-combo", "bounty-hunter", "first-strike", "deviation-master"]
+    },
+    "preset": {
+      "weaponId": "db12-raining-cash",
+      "weaponAttackBonusPct": 54,
+      "statusElementBonusPct": 0,
+      "critRateBonusPct": 28,
+      "critDamageBonusPct": 95,
+      "weakspotHitRatioPct": 45,
+      "weakspotDamageBonusPct": 45,
+      "fireRateBonusPct": 14,
+      "magSizeBonusPct": 25,
+      "reloadSpeedBonusPct": 35,
+      "vulnerableEnemyBonusPct": 14,
+      "cradleAndFoodBonusPct": 35,
+      "armorSetBonusPct": 42,
+      "archetypeProcMultiplier": 1.46
+    }
+  },
+  {
+    "id": "build-little-jaws-mid-bomber",
+    "name": "KV-SBR Little Jaws Mid-Game Bomber",
+    "archetype": "Unstable Bomber",
+    "tier": "A",
+    "gameStage": "Mid Game",
+    "scenarioFit": ["manibus", "isles_of_abyss"],
+    "weaponId": "kv-sbr-little-jaws",
+    "secondaryWeaponId": "dbsg-old-huntsman",
+    "armorSetup": "4pc Heavy Duty + Explosive Front Top + 1pc Falcon",
+    "keyMods": ["Reckless Bomber", "Super Charged", "Covered Advance"],
+    "deviationId": "pyro-dino",
+    "cradleOverrides": ["Status Enhancement", "Automatic Weapon Enhancement", "Deviation Master", "Tactical Combo"],
+    "foodBuffId": "crumbly_bread",
+    "recommendedChefMode": false,
+    "recommendedFoods": ["crumbly_bread"],
+    "recommendedDrinks": ["whimsical_drink_status"],
+    "activationRules": [
+      "SMG fire rate stacks Unstable Bomber explosions rapidly against clustered Securement Silo adds."
+    ],
+    "breakpoints": [
+      "Easy Silo Alpha / Sigma farmable Heavy Duty armor keeps HP & Elemental DMG balanced at Level 35–50."
+    ],
+    "antiSynergies": [
+      "Keep engagement under 22m SMG falloff."
+    ],
+    "playstyleNotes": "Fast-firing Mid-Game SMG bomber ideal for clearing Securement Silos before assembling full Legendary Lonewolf.",
+    "loadoutSpec": {
+      "hpPct": 90,
+      "sanityPct": 95,
+      "armorIds": ["heavy-duty-helmet", "heavy-duty-mask", "explosive-front-top", "heavy-duty-pants", "heavy-duty-gloves", "falcon-shoes"],
+      "cradleIds": ["status-enhancement", "auto-weapon-enh", "deviation-master", "tactical-combo"]
+    },
+    "preset": {
+      "weaponId": "kv-sbr-little-jaws",
+      "weaponAttackBonusPct": 28,
+      "statusElementBonusPct": 72,
+      "critRateBonusPct": 20,
+      "critDamageBonusPct": 65,
+      "weakspotHitRatioPct": 35,
+      "weakspotDamageBonusPct": 25,
+      "fireRateBonusPct": 16,
+      "magSizeBonusPct": 20,
+      "reloadSpeedBonusPct": 24,
+      "vulnerableEnemyBonusPct": 12,
+      "cradleAndFoodBonusPct": 30,
+      "armorSetBonusPct": 26,
+      "archetypeProcMultiplier": 1.45
+    }
+  },
+  {
+    "id": "build-outsider-mid-surge",
+    "name": "SOCR Outsider Mid-Game Surge",
+    "archetype": "Power Surge",
+    "tier": "A",
+    "gameStage": "Mid Game",
+    "scenarioFit": ["manibus", "way_of_winter"],
+    "weaponId": "socr-outsider",
+    "secondaryWeaponId": "aws-338-black-panther",
+    "armorSetup": "3pc Stormweaver + 2pc Heavy Duty + Mayfly Goggles",
+    "keyMods": ["Shock Rampage", "Deviation Expert", "Status Enhancement"],
+    "deviationId": "zapamander",
+    "cradleOverrides": ["Shock Resonance", "Status Enhancement", "Automatic Weapon Enhancement", "Deviation Master"],
+    "foodBuffId": "whimsical_drink_status",
+    "recommendedChefMode": false,
+    "recommendedFoods": ["bone_in_deviated_sausage"],
+    "recommendedDrinks": ["whimsical_drink_status"],
+    "activationRules": [
+      "Low-cost Epic Blueprint obtainable via early Mystical Crates & Wish Machine, carrying cleanly into Hard Silos."
+    ],
+    "breakpoints": [
+      "Pairs effortlessly with Zapamander early drops before unlocking Mini Feaster."
+    ],
+    "antiSynergies": [
+      "Swap out Heavy Duty pieces once you acquire Shelterer 4pc blueprints."
+    ],
+    "playstyleNotes": "Budget Shock AR bridge build capable of clearing Hard Monoliths while saving Starchrom for Outer Space / Critical Pulse.",
+    "loadoutSpec": {
+      "hpPct": 95,
+      "sanityPct": 95,
+      "armorIds": ["mayfly-goggles", "stormweaver-mask", "stormweaver-top", "heavy-duty-pants", "heavy-duty-gloves", "stormweaver-shoes"],
+      "cradleIds": ["shock-resonance", "status-enhancement", "auto-weapon-enh", "deviation-master"]
+    },
+    "preset": {
+      "weaponId": "socr-outsider",
+      "weaponAttackBonusPct": 22,
+      "statusElementBonusPct": 82,
+      "critRateBonusPct": 16,
+      "critDamageBonusPct": 35,
+      "weakspotHitRatioPct": 35,
+      "weakspotDamageBonusPct": 22,
+      "fireRateBonusPct": 12,
+      "magSizeBonusPct": 15,
+      "reloadSpeedBonusPct": 22,
+      "vulnerableEnemyBonusPct": 10,
+      "cradleAndFoodBonusPct": 28,
+      "armorSetBonusPct": 28,
+      "archetypeProcMultiplier": 1.42
+    }
+  },
+  {
+    "id": "build-icebreaker-mid-frost",
+    "name": "KVD Icebreaker Mid-Game Frost",
+    "archetype": "Frost Vortex",
+    "tier": "A",
+    "gameStage": "Mid Game",
+    "scenarioFit": ["manibus", "way_of_winter"],
+    "weaponId": "kvd-icebreaker",
+    "secondaryWeaponId": "recurve-crossbow",
+    "armorSetup": "3pc Stormweaver + 2pc Blackstone + Snow Camo Gloves",
+    "keyMods": ["Frostwave Wither", "Frost Construct", "Covered Advance"],
+    "deviationId": "polar-jelly",
+    "cradleOverrides": ["Frost Vortex Surge", "Status Enhancement", "Tactical Combo", "Deviation Master"],
+    "foodBuffId": "whimsical_drink_status",
+    "recommendedChefMode": false,
+    "recommendedFoods": ["shellfish_meat_dish"],
+    "recommendedDrinks": ["whimsical_drink_status"],
+    "activationRules": [
+      "Use Recurve Crossbow opener to grant Bull's Eye Crit bonus, then hold LMG Frost Vortex fields."
+    ],
+    "breakpoints": [
+      "Zero Legendary LMG dependency — smoothly bridges Frost builds from Level 30 to Abyss Glance."
+    ],
+    "antiSynergies": [
+      "Slow base LMG reload; pair with Reload Speed calibration or Tactical Combo."
+    ],
+    "playstyleNotes": "Sturdy Mid-Game Frost LMG offering crowd-control freeze zones and sustained add-clear.",
+    "loadoutSpec": {
+      "hpPct": 95,
+      "sanityPct": 95,
+      "armorIds": ["stormweaver-helmet", "stormweaver-mask", "blackstone-top", "blackstone-pants", "snow-camo-gloves", "stormweaver-shoes"],
+      "cradleIds": ["frost-vortex-surge", "status-enhancement", "tactical-combo", "deviation-master"]
+    },
+    "preset": {
+      "weaponId": "kvd-icebreaker",
+      "weaponAttackBonusPct": 22,
+      "statusElementBonusPct": 85,
+      "critRateBonusPct": 12,
+      "critDamageBonusPct": 25,
+      "weakspotHitRatioPct": 30,
+      "weakspotDamageBonusPct": 20,
+      "fireRateBonusPct": 8,
+      "magSizeBonusPct": 18,
+      "reloadSpeedBonusPct": 20,
+      "vulnerableEnemyBonusPct": 12,
+      "cradleAndFoodBonusPct": 28,
+      "armorSetBonusPct": 28,
+      "archetypeProcMultiplier": 1.4
+    }
+  },
+  {
+    "id": "build-wildfire-early-pistol",
+    "name": "DE.50 Wildfire Early Weakspot",
+    "archetype": "Bull's Eye",
+    "tier": "A",
+    "gameStage": "Early Game",
+    "scenarioFit": ["manibus", "way_of_winter", "isles_of_abyss"],
+    "weaponId": "de-50-wildfire",
+    "secondaryWeaponId": "recurve-crossbow",
+    "armorSetup": "4pc Agent + 2pc Falcon",
+    "keyMods": ["Targeted Strike", "Precision Sub-Stat Set"],
+    "deviationId": "butterfly-emissary",
+    "cradleOverrides": ["Deadeye Mark", "Pistol & Sniper Surge", "Tactical Combo", "Bounty Hunter"],
+    "foodBuffId": "assorted_canned_fruit",
+    "recommendedChefMode": false,
+    "recommendedFoods": ["assorted_canned_fruit"],
+    "recommendedDrinks": ["whimsical_drink_weapon"],
+    "activationRules": [
+      "Unlocked for free from Mystical Crates in early regions — spreads Bull's Eye Marks automatically on kills/hits."
+    ],
+    "breakpoints": [
+      "Focus Agent 4pc (Weakspot DMG & Reload Speed) crafted from common Tier II–III scrap."
+    ],
+    "antiSynergies": [
+      "Do not craft Endgame Lonewolf early with scarce Starchrom — upgrade Agent + Wildfire first."
+    ],
+    "playstyleNotes": "Best Early-Game leveling pistol: spreads Bull's Eye vulnerability and drops most enemies in 1–2 weakspot shots.",
+    "loadoutSpec": {
+      "hpPct": 100,
+      "sanityPct": 100,
+      "armorIds": ["agent-helmet", "agent-mask", "agent-top", "agent-pants", "falcon-gloves", "falcon-shoes"],
+      "cradleIds": ["prec-weakspot", "rapid-pistol", "tactical-combo", "bounty-hunter"]
+    },
+    "preset": {
+      "weaponId": "de-50-wildfire",
+      "weaponAttackBonusPct": 28,
+      "statusElementBonusPct": 0,
+      "critRateBonusPct": 18,
+      "critDamageBonusPct": 50,
+      "weakspotHitRatioPct": 65,
+      "weakspotDamageBonusPct": 62,
+      "fireRateBonusPct": 8,
+      "magSizeBonusPct": 12,
+      "reloadSpeedBonusPct": 25,
+      "vulnerableEnemyBonusPct": 10,
+      "cradleAndFoodBonusPct": 22,
+      "armorSetBonusPct": 22,
+      "archetypeProcMultiplier": 1.24
+    }
+  },
+  {
+    "id": "build-mps7-focus-early",
+    "name": "MPS7 Focus Early Rapid SMG",
+    "archetype": "Standard",
+    "tier": "A",
+    "gameStage": "Early Game",
+    "scenarioFit": ["manibus", "way_of_winter"],
+    "weaponId": "mps7-focus",
+    "secondaryWeaponId": "aws-338-black-panther",
+    "armorSetup": "3pc Scout + 2pc Falcon + 1pc Agent",
+    "keyMods": ["Frostwave Wither", "General Sub-Stat Set"],
+    "deviationId": "festering-gel",
+    "cradleOverrides": ["Status Enhancement", "Automatic Weapon Enhancement", "Tactical Combo", "Deviation Master"],
+    "foodBuffId": "whimsical_drink_status",
+    "recommendedChefMode": false,
+    "recommendedFoods": ["crumbly_bread"],
+    "recommendedDrinks": ["whimsical_drink_status"],
+    "activationRules": [
+      "Zero-Starchrom Early Game SMG obtained cleanly through story/settlement crates with free Festering Gel healing cover."
+    ],
+    "breakpoints": [
+      "Upgrade directly from Tier I–III Rust/Scout gear without bottlenecks."
+    ],
+    "antiSynergies": [
+      "Low late-game scaling ceiling; migrate to Abyss Glance or Critical Pulse at Level 40+."
+    ],
+    "playstyleNotes": "Reliable Early-Game Frost SMG with built-in slow/crowd-control for solo clearing Rifts & Strongholds.",
+    "loadoutSpec": {
+      "hpPct": 100,
+      "sanityPct": 100,
+      "armorIds": ["scout-hood", "scout-mask", "scout-jacket", "falcon-pants", "falcon-gloves", "agent-shoes"],
+      "cradleIds": ["status-enhancement", "auto-weapon-enh", "tactical-combo", "deviation-master"]
+    },
+    "preset": {
+      "weaponId": "mps7-focus",
+      "weaponAttackBonusPct": 22,
+      "statusElementBonusPct": 45,
+      "critRateBonusPct": 16,
+      "critDamageBonusPct": 38,
+      "weakspotHitRatioPct": 35,
+      "weakspotDamageBonusPct": 22,
+      "fireRateBonusPct": 12,
+      "magSizeBonusPct": 15,
+      "reloadSpeedBonusPct": 18,
+      "vulnerableEnemyBonusPct": 8,
+      "cradleAndFoodBonusPct": 20,
+      "armorSetBonusPct": 18,
+      "archetypeProcMultiplier": 1.26
+    }
+  },
+  {
+    "id": "build-kam-pioneer-early",
+    "name": "KAM Pioneer Early Physical Leveling",
+    "archetype": "Standard",
+    "tier": "A",
+    "gameStage": "Early Game",
+    "scenarioFit": ["manibus", "way_of_winter", "isles_of_abyss"],
+    "weaponId": "kam-pioneer",
+    "secondaryWeaponId": "recurve-crossbow",
+    "armorSetup": "4pc Raid + 2pc Falcon",
+    "keyMods": ["Shatter Them All", "Violent Sub-Stat Set"],
+    "deviationId": "festering-gel",
+    "cradleOverrides": ["Automatic Weapon Enhancement", "Tactical Combo", "Bounce & Shrapnel Resonance", "Bounty Hunter"],
+    "foodBuffId": "crumbly_bread",
+    "recommendedChefMode": false,
+    "recommendedFoods": ["crumbly_bread"],
+    "recommendedDrinks": ["whimsical_drink_weapon"],
+    "activationRules": [
+      "Every 5th shot procs Shrapnel cleanly while Raid armor boosts early Assault Rifle weapon stability and damage."
+    ],
+    "breakpoints": [
+      "Pairs naturally with Festering Gel for zero-consumable early solo progression."
+    ],
+    "antiSynergies": [
+      "Replace Raid pieces with Lonewolf blueprints once reaching Endgame Wish Machine."
+    ],
+    "playstyleNotes": "Beginner-friendly Early-Game Shrapnel AR setup that smoothly upgrades into SOCR Last Valor later.",
+    "loadoutSpec": {
+      "hpPct": 100,
+      "sanityPct": 100,
+      "armorIds": ["raid-helmet", "raid-mask", "raid-top", "raid-pants", "falcon-gloves", "falcon-shoes"],
+      "cradleIds": ["auto-weapon-enh", "tactical-combo", "bounce-surge", "bounty-hunter"]
+    },
+    "preset": {
+      "weaponId": "kam-pioneer",
+      "weaponAttackBonusPct": 26,
+      "statusElementBonusPct": 0,
+      "critRateBonusPct": 18,
+      "critDamageBonusPct": 48,
+      "weakspotHitRatioPct": 40,
+      "weakspotDamageBonusPct": 28,
+      "fireRateBonusPct": 8,
+      "magSizeBonusPct": 15,
+      "reloadSpeedBonusPct": 15,
+      "vulnerableEnemyBonusPct": 8,
+      "cradleAndFoodBonusPct": 22,
+      "armorSetBonusPct": 20,
+      "archetypeProcMultiplier": 1.28
+    }
+  }
+]
