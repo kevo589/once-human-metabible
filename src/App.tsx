@@ -78,7 +78,7 @@ export function App() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-obsidian-950 text-slate-100 lg:flex-row">
+    <div className="flex min-h-screen flex-col bg-sign-ground text-sign-white">
       <Sidebar
         activeTab={activeTab}
         onSelectTab={setActiveTab}
@@ -90,7 +90,7 @@ export function App() {
         className={
           activeTab === 'map'
             ? 'relative min-w-0 flex-1 overflow-hidden p-0'
-            : 'min-w-0 flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8'
+            : 'min-w-0 flex-1 p-4 sm:p-6 lg:p-8'
         }
       >
         <div
@@ -133,7 +133,9 @@ export function App() {
             />
           )}
 
-          {activeTab === 'map' && <InteractiveMapView focusedMarkerId={focusedMapId} />}
+          {activeTab === 'map' && (
+            <InteractiveMapView focusedMarkerId={focusedMapId} onTransfer={handleSearchNavigate} />
+          )}
 
           {activeTab === 'encyclopedia' && (
             <EncyclopediaView

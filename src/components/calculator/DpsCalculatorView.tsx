@@ -1,25 +1,16 @@
 import {
-  Activity,
   AlertTriangle,
   BookmarkPlus,
   Calculator,
   ChefHat,
   ChevronDown,
-  ChevronRight,
-  Crosshair,
   Download,
-  Flame,
-  Heart,
-  Layers,
   Lightbulb,
-  Radiation,
   RotateCcw,
   Save,
-  Sparkles,
   Trash2,
   Upload,
   X,
-  Zap,
 } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
@@ -30,7 +21,6 @@ import {
   createLoadoutFromMetaBuild,
   createLoadoutFromWeaponId,
   detectLoadoutWarnings,
-  findDeviationImage,
   getStarterLoadouts,
   resolveDrinkBuff,
   resolveFoodBuff,
@@ -66,7 +56,6 @@ interface DpsCalculatorViewProps {
   equippedModRequest?: EquippedModRequest | null;
 }
 
-type TopSubTab = 'simulator' | 'gear_config' | 'buffs';
 type RailMode = 'gear' | 'deviation' | 'cradle_food';
 
 const STARTER_LOADOUTS = getStarterLoadouts();
@@ -95,15 +84,6 @@ const BATTLE_STAT_KEYS: StatKey[] = [
   'reloadSpeedPct',
 ];
 
-const CORE_ALWAYS_SHOW = new Set<StatKey>([
-  'critRatePct',
-  'critDmgPct',
-  'weakspotDmgPct',
-  'weakspotCritDmgPct',
-  'weaponDmgPct',
-  'statusDmgPct',
-  'elementalDmgPct',
-]);
 
 export function DpsCalculatorView({
   preset,
@@ -121,15 +101,10 @@ export function DpsCalculatorView({
     STARTER_LOADOUTS[0],
   );
 
-  const [topTab, setTopTab] = useState<TopSubTab>('gear_config');
   const [railMode, setRailMode] = useState<RailMode>('gear');
   const [drawerSlot, setDrawerSlot] = useState<EquipSlotId | null>(null);
   const [mathOpen, setMathOpen] = useState(false);
-  const [statsColumnOpen, setStatsColumnOpen] = useState(true);
-  const [basicOpen, setBasicOpen] = useState(true);
-  const [battleOpen, setBattleOpen] = useState(true);
-  const [showZeroStats, setShowZeroStats] = useState(false);
-  const [inspectedStatKey, setInspectedStatKey] = useState<StatKey | null>(null);
+  const [inspectedStatKey, setInspectedStatKey] = useState<string | null>(null);
   const [jsonModalOpen, setJsonModalOpen] = useState(false);
   const [jsonText, setJsonText] = useState('');
   const [jsonError, setJsonError] = useState<string | null>(null);
@@ -163,7 +138,6 @@ export function DpsCalculatorView({
     setLoadout((prev) =>
       applyModToLoadout(prev, equippedModRequest.mod, equippedModRequest.weaponSlot),
     );
-    setTopTab('gear_config');
     setRailMode('gear');
     const msg = `Equipped ${equippedModRequest.mod.name} (${equippedModRequest.mod.slot})`;
     setToast(msg);
@@ -263,292 +237,156 @@ export function DpsCalculatorView({
     }
   };
 
-  const activeRail = topTab === 'buffs' ? 'cradle_food' : railMode;
   const isCustomSaved = savedLoadouts.some((s) => s.id === loadout.id);
-  const avatarImg = findDeviationImage(loadout.deviationId);
 
-  const visibleBattleKeys = useMemo(() => {
-    if (showZeroStats) return BATTLE_STAT_KEYS;
-    return BATTLE_STAT_KEYS.filter(
-      (k) => CORE_ALWAYS_SHOW.has(k) || Math.abs(stats.statDetails[k].value) > 0,
+  type SheetRow =
+    | { heading: string }
+    | { id: string; label: string; value: string | number; sources: { source: string; value: number; unit: string }[] };
+  const sheetRows = useMemo<SheetRow[]>(() => {
+    const src = (...keys: StatKey[]) =>
+      keys.flatMap((k) =>
+        stats.statDetails[k].sources.map((x) => ({ ...x, unit: stats.statDetails[k].unit === '%' ? '%' : '' })),
+      );
+    return [
+      { heading: 'Basic' },
+      { id: 'weaponAttack', label: 'Weapon attack', value: stats.weaponAttack, sources: src('attackPct', 'flatAttack') },
+      { id: 'fireRate', label: 'Fire rate', value: `${stats.fireRateRpm} rpm`, sources: src('fireRatePct') },
+      { id: 'magazine', label: 'Magazine', value: stats.magCapacity, sources: src('magCapPct') },
+      { id: 'charAttack', label: 'Attack', value: stats.baseCharAttack, sources: [] },
+      { id: 'psi', label: 'Psi Intensity', value: stats.psiIntensity, sources: src('psiIntensity') },
+      { id: 'hp', label: 'HP', value: `${stats.currentHp.toLocaleString()} / ${stats.maxHp.toLocaleString()}`, sources: src('flatHp', 'maxHpPct') },
+      { id: 'pollution', label: 'Pollution Resist', value: stats.pollutionResist, sources: src('pollutionResist') },
+      { heading: 'Battle' },
+      ...BATTLE_STAT_KEYS.map((k) => {
+        const e = stats.statDetails[k];
+        return { id: k, label: e.label, value: e.unit === '%' ? `${e.value.toFixed(1)}%` : e.value, sources: src(k) };
+      }),
+    ];
+  }, [stats]);
+
+  const zones = [
+    { id: 'gear', label: 'Gear' },
+    { id: 'deviation', label: 'Deviation' },
+    { id: 'cradle_food', label: 'Cradle & Food' },
+  ] as const;
+
+  const delta = (now: number, then?: number) =>
+    then === undefined ? null : (
+      <span className={now >= then ? 'text-line-map' : 'text-line-builds'}>
+        {now >= then ? '+' : '−'}
+        {Math.abs(now - then).toLocaleString()}
+      </span>
     );
-  }, [showZeroStats, stats.statDetails]);
+
+  const DpsReadout = ({ compact = false }: { compact?: boolean }) => (
+    <div className={compact ? 'flex items-baseline gap-5' : 'flex flex-wrap items-end gap-x-8 gap-y-2'}>
+      <div>
+        <div className="text-[12px] font-semibold uppercase tracking-[0.12em] text-sign-mute">Sustained DPS</div>
+        <div className={`${compact ? 'text-[22px]' : 'text-[34px]'} font-extrabold leading-none tracking-[-0.02em]`}>
+          {dps.sustainedDps.toLocaleString()}
+        </div>
+        <div className="mt-1 text-[13px] font-semibold">{delta(dps.sustainedDps, baselineSnapshot?.dps.sustainedDps)}</div>
+      </div>
+      <div>
+        <div className="text-[12px] font-semibold uppercase tracking-[0.12em] text-sign-mute">Burst DPS</div>
+        <div className={`${compact ? 'text-[22px]' : 'text-[34px]'} font-extrabold leading-none tracking-[-0.02em]`}>
+          {dps.burstDps.toLocaleString()}
+        </div>
+        <div className="mt-1 text-[13px] font-semibold">{delta(dps.burstDps, baselineSnapshot?.dps.burstDps)}</div>
+      </div>
+    </div>
+  );
+
+
+  const chip = (on: boolean) =>
+    `h-9 whitespace-nowrap rounded-md border-2 px-3 text-[13px] font-semibold transition-colors ${
+      on ? 'border-sign-white bg-sign-white text-black' : 'border-sign-seam text-sign-mute hover:border-sign-white hover:text-sign-white'
+    }`;
 
   return (
-    <div className="space-y-4 rounded-xl border border-white/[0.07] bg-gradient-to-br from-[#172326] via-[#0e1518] to-[#0a0e11] p-3 text-slate-100 shadow-2xl sm:p-5">
-      {/* Sleek In-Game Style Top Header */}
-      <header className="flex flex-col justify-between gap-2 border-b border-white/[0.06] pb-2.5 lg:flex-row lg:items-center">
-        <nav className="flex items-center gap-6 overflow-x-auto px-1">
-          {(
-            [
-              { id: 'simulator', label: 'DPS Simulator' },
-              { id: 'gear_config', label: 'Gear Backpack' },
-              { id: 'buffs', label: 'Food & Cradle' },
-            ] as const
-          ).map((tab) => {
-            const active = topTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                type="button"
-                onClick={() => setTopTab(tab.id)}
-                className={`relative shrink-0 pb-2 text-sm font-medium tracking-wide transition ${
-                  active ? 'text-white' : 'text-slate-400 hover:text-slate-200'
-                }`}
-              >
-                {tab.label}
-                {active && (
-                  <span className="absolute inset-x-0 bottom-0 h-[2px] rounded-full bg-[#3ee6c5] shadow-[0_0_10px_#3ee6c5]" />
-                )}
-              </button>
-            );
-          })}
-        </nav>
+    <div className="space-y-4 text-sign-white">
+      {/* Phone: DPS stays in view while you edit gear further down */}
+      <div className="sticky top-[var(--band-h)] z-30 -mx-4 -mt-4 border-b border-sign-seam bg-black px-4 py-2.5 sm:-mx-6 sm:-mt-6 sm:px-6 lg:hidden">
+        <DpsReadout compact />
+      </div>
 
-        <div className="flex flex-wrap items-center gap-2">
-          <select
-            value={allPresets.some((p) => p.id === loadout.id) ? loadout.id : ''}
-            onChange={(e) => e.target.value && handleSelectPresetId(e.target.value)}
-            aria-label="Loadout preset switcher"
-            className="min-w-[180px] max-w-[250px] rounded border border-white/[0.08] bg-black/30 px-2.5 py-1 text-xs text-slate-200 outline-none focus:border-[#3ee6c5]/60"
-          >
-            {!allPresets.some((p) => p.id === loadout.id) && (
-              <option value="" className="bg-[#0e1518]">
-                Custom Build
-              </option>
-            )}
-            {savedLoadouts.length > 0 && (
-              <optgroup label="Saved Loadouts">
-                {savedLoadouts.map((s) => (
-                  <option key={s.id} value={s.id} className="bg-[#0e1518]">
-                    ★ {s.name}
-                  </option>
-                ))}
-              </optgroup>
-            )}
-            <optgroup label="Starter Templates">
-              {STARTER_LOADOUTS.map((s) => (
-                <option key={s.id} value={s.id} className="bg-[#0e1518]">
+      {/* Loadout toolbar */}
+      <div className="flex flex-wrap items-center gap-2">
+        <input
+          type="text"
+          value={loadout.name}
+          onChange={(e) => patchLoadout({ name: e.target.value })}
+          aria-label="Loadout name"
+          className="-ml-2.5 h-10 min-w-0 flex-1 basis-56 rounded-md border-2 border-transparent bg-transparent px-2 text-[22px] font-extrabold tracking-[-0.015em] text-sign-white outline-none hover:border-sign-seam focus:border-sign-white"
+        />
+        <select
+          value={allPresets.some((p) => p.id === loadout.id) ? loadout.id : ''}
+          onChange={(e) => e.target.value && handleSelectPresetId(e.target.value)}
+          aria-label="Load a saved or starter loadout"
+          className="h-10 max-w-[260px] rounded-md border-2 border-sign-seam bg-black px-2.5 text-[14px] text-sign-white outline-none focus:border-sign-white"
+        >
+          {!allPresets.some((p) => p.id === loadout.id) && <option value="">Custom build</option>}
+          {savedLoadouts.length > 0 && (
+            <optgroup label="Saved loadouts">
+              {savedLoadouts.map((s) => (
+                <option key={s.id} value={s.id}>
                   {s.name}
                 </option>
               ))}
             </optgroup>
-          </select>
-
-          {isCustomSaved && (
-            <button
-              type="button"
-              onClick={() => handleDeleteSavedPreset(loadout.id)}
-              className="rounded border border-white/[0.08] bg-black/30 p-1.5 text-slate-400 hover:text-rose-400"
-              title="Delete saved loadout"
-              aria-label="Delete current saved loadout"
-            >
-              <Trash2 className="h-3.5 w-3.5" />
-            </button>
           )}
-
+          <optgroup label="Starter templates">
+            {STARTER_LOADOUTS.map((s) => (
+              <option key={s.id} value={s.id}>
+                {s.name}
+              </option>
+            ))}
+          </optgroup>
+        </select>
+        <button type="button" onClick={handleSaveSnapshot} className={`${chip(false)} inline-flex h-10 items-center gap-1.5`}>
+          <Save className="h-4 w-4" /> Save
+        </button>
+        <button type="button" onClick={handleOpenJsonModal} className={`${chip(false)} inline-flex h-10 items-center gap-1.5`}>
+          <Download className="h-4 w-4" /> JSON
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setLoadout(cloneLoadout(STARTER_LOADOUTS[0]));
+            showToast('Reset to Lv.50 starter');
+          }}
+          className={`${chip(false)} grid h-10 w-10 place-items-center px-0`}
+          title="Reset loadout"
+          aria-label="Reset loadout"
+        >
+          <RotateCcw className="h-4 w-4" />
+        </button>
+        {isCustomSaved && (
           <button
             type="button"
-            onClick={handleOpenJsonModal}
-            className="inline-flex items-center gap-1 rounded border border-white/[0.08] bg-black/30 px-2.5 py-1 text-xs text-slate-300 transition hover:border-white/25 hover:text-white"
+            onClick={() => handleDeleteSavedPreset(loadout.id)}
+            className={`${chip(false)} grid h-10 w-10 place-items-center px-0 hover:!border-line-builds hover:!text-line-builds`}
+            title="Delete saved loadout"
+            aria-label="Delete current saved loadout"
           >
-            <Download className="h-3 w-3" />
-            <span>JSON</span>
+            <Trash2 className="h-4 w-4" />
           </button>
+        )}
+      </div>
 
-          <button
-            type="button"
-            onClick={() => {
-              setLoadout(cloneLoadout(STARTER_LOADOUTS[0]));
-              showToast('Reset to Lv.50 Starter');
-            }}
-            className="rounded border border-white/[0.08] bg-black/30 p-1.5 text-slate-400 transition hover:text-white"
-            title="Reset loadout"
-          >
-            <RotateCcw className="h-3 w-3" />
-          </button>
-        </div>
-      </header>
-
-      {/* EXPANDED DPS SIMULATOR PANEL (Clean, shown on DPS Simulator tab) */}
-      {topTab === 'simulator' && (
-        <div className="grid gap-3 rounded-lg border border-white/[0.07] bg-black/30 p-4 sm:grid-cols-2 lg:grid-cols-4">
-          <div>
-            <div className="text-[11px] text-slate-400">Sustained DPS (With Reload + Pet)</div>
-            <div className="mt-1 font-mono text-2xl font-bold text-[#3ee6c5]">
-              {dps.sustainedDps.toLocaleString()}
-            </div>
-            {baselineSnapshot ? (
-              <div className="mt-0.5 font-mono text-[11px] text-slate-300">
-                vs {baselineSnapshot.name}:{' '}
-                <span
-                  className={
-                    dps.sustainedDps >= baselineSnapshot.dps.sustainedDps
-                      ? 'text-emerald-400'
-                      : 'text-rose-400'
-                  }
-                >
-                  {dps.sustainedDps >= baselineSnapshot.dps.sustainedDps ? '+' : ''}
-                  {(dps.sustainedDps - baselineSnapshot.dps.sustainedDps).toLocaleString()}
-                </span>
-              </div>
-            ) : (
-              <div className="mt-0.5 font-mono text-[11px] text-slate-400">
-                Weapon {dps.weaponOnlySustainedDps.toLocaleString()} + Pet{' '}
-                {dps.deviationDps.toLocaleString()}
-              </div>
-            )}
-          </div>
-
-          <div>
-            <div className="text-[11px] text-slate-400">Burst DPS & Per-Shot Hits</div>
-            <div className="mt-1 font-mono text-2xl font-bold text-white">
-              {dps.burstDps.toLocaleString()}
-            </div>
-            <div className="mt-0.5 font-mono text-[11px] text-slate-400">
-              Norm {dps.normalHit} · Crit {dps.critHit} · WS Crit {dps.weakspotCritHit}
-            </div>
-          </div>
-
-          <div>
-            <div className="text-[11px] text-slate-400">Combat Assumptions</div>
-            <div className="mt-1.5 flex flex-wrap gap-1">
-              {(
-                [
-                  { id: 'normal', label: 'Normal' },
-                  { id: 'elite', label: 'Elite' },
-                  { id: 'great_one', label: 'Great One' },
-                ] as const
-              ).map((tt) => (
-                <button
-                  key={tt.id}
-                  type="button"
-                  onClick={() =>
-                    patchLoadout({
-                      assumptions: { ...loadout.assumptions, targetType: tt.id as TargetType },
-                    })
-                  }
-                  className={`rounded px-2 py-0.5 text-[11px] font-medium transition ${
-                    loadout.assumptions.targetType === tt.id
-                      ? 'bg-[#3ee6c5] text-[#091214]'
-                      : 'bg-white/[0.06] text-slate-300'
-                  }`}
-                >
-                  {tt.label}
-                </button>
-              ))}
-            </div>
-            <div className="mt-1.5 flex items-center gap-2 text-[10px]">
-              <span className="text-slate-400">WS {loadout.assumptions.weakspotHitRatePct}%</span>
-              <input
-                type="range"
-                min={0}
-                max={100}
-                value={loadout.assumptions.weakspotHitRatePct}
-                onChange={(e) =>
-                  patchLoadout({
-                    assumptions: {
-                      ...loadout.assumptions,
-                      weakspotHitRatePct: Number(e.target.value),
-                    },
-                  })
-                }
-                className="h-1 flex-1 cursor-pointer accent-[#3ee6c5]"
-              />
-            </div>
-          </div>
-
-          <div className="flex flex-col justify-between gap-2">
-            <div className="flex flex-wrap gap-1">
-              {(
-                [
-                  { key: 'bullsEye', label: "Bull's Eye" },
-                  { key: 'marked', label: 'Marked' },
-                  { key: 'fortressWarfare', label: 'Fortress' },
-                  { key: 'shielded', label: 'Shielded' },
-                  { key: 'aeroAerialHit', label: 'Aero Aerial' },
-                  { key: 'resonanceMaxStacks', label: 'Resonance Max' },
-                ] as const
-              ).map((flag) => (
-                <button
-                  key={flag.key}
-                  type="button"
-                  onClick={() =>
-                    patchLoadout({
-                      assumptions: {
-                        ...loadout.assumptions,
-                        [flag.key]: !loadout.assumptions[flag.key],
-                      },
-                    })
-                  }
-                  className={`rounded px-1.5 py-0.5 text-[10px] font-medium transition ${
-                    loadout.assumptions[flag.key]
-                      ? 'bg-[#3ee6c5]/20 text-[#3ee6c5]'
-                      : 'bg-white/[0.05] text-slate-400'
-                  }`}
-                >
-                  {flag.label}
-                </button>
-              ))}
-            </div>
-            <div className="flex items-center gap-2 text-[10px] text-slate-400">
-              <span>Downstar Elev {loadout.assumptions.downstarMeters ?? 0}m</span>
-              <input
-                type="range"
-                min={0}
-                max={5}
-                step={0.5}
-                value={loadout.assumptions.downstarMeters ?? 0}
-                onChange={(e) =>
-                  patchLoadout({
-                    assumptions: {
-                      ...loadout.assumptions,
-                      downstarMeters: Number(e.target.value),
-                    },
-                  })
-                }
-                aria-label="Downstar elevation meters"
-                className="h-1 flex-1 cursor-pointer accent-[#3ee6c5]"
-              />
-            </div>
-            <div className="flex gap-2">
-              <button
-                type="button"
-                onClick={() => setBaselineSnapshot({ name: loadout.name.slice(0, 18), dps })}
-                className="inline-flex flex-1 items-center justify-center gap-1 rounded border border-white/[0.1] bg-black/30 py-1 text-[11px] font-medium text-slate-200 hover:border-white/30"
-              >
-                <BookmarkPlus className="h-3.5 w-3.5 text-[#3ee6c5]" />
-                Pin Baseline
-              </button>
-              <button
-                type="button"
-                onClick={() => setMathOpen(true)}
-                className="inline-flex items-center gap-1 rounded bg-[#3ee6c5] px-3 py-1 text-[11px] font-bold text-[#091214]"
-              >
-                <Calculator className="h-3.5 w-3.5" />
-                Math
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ANTI-SYNERGY & BREAKPOINT WARNING BANNER */}
       {warnings.length > 0 && (
         <div className="space-y-1.5">
           {warnings.map((w) => (
             <div
               key={w.id}
-              className={`flex items-center gap-2 rounded-lg border px-3 py-2 text-xs font-medium ${
-                w.severity === 'warning'
-                  ? 'border-amber-500/45 bg-amber-500/12 text-amber-200'
-                  : 'border-cyan-500/40 bg-cyan-500/10 text-cyan-200'
+              className={`flex items-center gap-2.5 rounded-md border-2 px-3 py-2 text-[14px] font-medium ${
+                w.severity === 'warning' ? 'border-line-workbench text-sign-white' : 'border-sign-seam text-sign-mute'
               }`}
             >
               {w.severity === 'warning' ? (
-                <AlertTriangle className="h-4 w-4 shrink-0 text-amber-400" />
+                <AlertTriangle className="h-4 w-4 shrink-0 text-line-workbench" />
               ) : (
-                <Lightbulb className="h-4 w-4 shrink-0 text-cyan-400" />
+                <Lightbulb className="h-4 w-4 shrink-0" />
               )}
               <span>{w.message}</span>
             </div>
@@ -556,464 +394,268 @@ export function DpsCalculatorView({
         </div>
       )}
 
-      {/* MAIN 4-COLUMN IN-GAME GEAR BACKPACK WORKSPACE */}
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
-        {/* 1. Far-Left Vertical Mode Rail */}
-        <nav
-          aria-label="Config Mode Rail"
-          className="flex flex-row gap-2 border-b border-white/[0.06] pb-2 lg:col-span-1 lg:flex-col lg:border-b-0 lg:border-r lg:pb-0 lg:pr-2"
-        >
-          {(
-            [
-              { id: 'gear', label: 'Gear Config' },
-              { id: 'deviation', label: 'Combat Deviation' },
-              { id: 'cradle_food', label: 'Cradle & Food' },
-            ] as const
-          ).map((item) => {
-            const active = activeRail === item.id;
-            return (
+      {/* Character screen: equipment left, character sheet right */}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
+        <section aria-label="Equipment" className="lg:sticky lg:top-[calc(var(--band-h)+16px)] lg:self-start">
+          <div role="tablist" aria-label="Equipment zone" className="mb-3 flex gap-1.5">
+            {zones.map((z) => (
               <button
-                key={item.id}
+                key={z.id}
                 type="button"
-                onClick={() => {
-                  setRailMode(item.id);
-                  if (topTab === 'buffs' && item.id !== 'cradle_food') {
-                    setTopTab('gear_config');
-                  }
-                }}
-                className={`relative px-2 py-2 text-left text-xs transition lg:py-3 ${
-                  active
-                    ? 'font-semibold text-white'
-                    : 'font-normal text-slate-500 hover:text-slate-200'
-                }`}
+                role="tab"
+                aria-selected={railMode === z.id}
+                onClick={() => setRailMode(z.id)}
+                className={chip(railMode === z.id)}
               >
-                {active && (
-                  <span className="hidden lg:block absolute -right-[9px] top-1/2 h-3 w-[3px] -translate-y-1/2 rounded-full bg-[#e5b84b] shadow-[0_0_8px_#e5b84b]" />
-                )}
-                <span className="leading-snug">{item.label}</span>
+                {z.label}
               </button>
-            );
-          })}
-        </nav>
-
-        {/* 2. Left-Center Profile & Clean Core Summary Strip */}
-        <section className="flex flex-col justify-between gap-4 rounded-lg bg-black/20 p-3.5 lg:col-span-3">
-          <div className="space-y-4">
-            {/* Profile Avatar + Loadout Name + Lv. 50 */}
-            <div className="flex items-center gap-2.5 border-b border-white/[0.06] pb-3">
-              <div className="h-10 w-10 shrink-0 overflow-hidden rounded border border-white/15 bg-[#0b1014]">
-                {avatarImg ? (
-                  <img
-                    src={avatarImg}
-                    alt="Active Deviation"
-                    className="h-full w-full object-cover"
-                  />
-                ) : (
-                  <Sparkles className="m-2.5 h-5 w-5 text-[#3ee6c5]" />
-                )}
-              </div>
-              <div className="min-w-0 flex-1">
-                <input
-                  type="text"
-                  value={loadout.name}
-                  onChange={(e) => patchLoadout({ name: e.target.value })}
-                  aria-label="Loadout name"
-                  className="w-full truncate bg-transparent text-xs font-semibold text-white outline-none focus:text-[#3ee6c5]"
-                />
-                <div className="mt-0.5 flex items-center justify-between font-mono text-[11px] text-slate-400">
-                  <span>Lv. 50</span>
-                  <span>Rating {stats.gearScoreTotal}</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Active Weapon Inline Toggle + Open Stat Rows */}
-            <div className="space-y-2.5">
-              <div className="flex items-center justify-between border-b border-white/[0.06] pb-1.5">
-                <span className="text-xs font-semibold text-slate-200">
-                  {loadout.activeWeaponSlot === 'primary' ? 'Primary Weapon' : 'Secondary Weapon'}
-                </span>
-                <div className="flex items-center gap-1 text-[11px]">
-                  <button
-                    type="button"
-                    onClick={() => handleSetActiveWeapon('primary')}
-                    className={`rounded px-1.5 py-0.5 font-mono font-bold transition ${
-                      loadout.activeWeaponSlot === 'primary'
-                        ? 'bg-[#e5b84b] text-[#141004]'
-                        : 'text-slate-400 hover:text-white'
-                    }`}
-                  >
-                    1
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleSetActiveWeapon('secondary')}
-                    className={`rounded px-1.5 py-0.5 font-mono font-bold transition ${
-                      loadout.activeWeaponSlot === 'secondary'
-                        ? 'bg-[#e5b84b] text-[#141004]'
-                        : 'text-slate-400 hover:text-white'
-                    }`}
-                  >
-                    2
-                  </button>
-                </div>
-              </div>
-
-              <div className="space-y-2.5 text-xs">
-                <div className="flex items-center justify-between">
-                  <span className="flex items-center gap-2 text-slate-400">
-                    <Crosshair className="h-3.5 w-3.5 text-slate-500" />
-                    Attack
-                  </span>
-                  <span className="font-mono text-base font-semibold text-white">
-                    {stats.weaponAttack}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="flex items-center gap-2 text-slate-400">
-                    <Flame className="h-3.5 w-3.5 text-slate-500" />
-                    Fire Rate
-                  </span>
-                  <span className="font-mono text-base font-semibold text-white">
-                    {stats.fireRateRpm}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="flex items-center gap-2 text-slate-400">
-                    <Layers className="h-3.5 w-3.5 text-slate-500" />
-                    Magazine Capacity
-                  </span>
-                  <span className="font-mono text-base font-semibold text-white">
-                    {stats.magCapacity}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Core Character Stats (Open Hairline List) */}
-            <div className="space-y-2.5 border-t border-white/[0.06] pt-3 text-xs">
-              <div className="flex items-center justify-between">
-                <span className="flex items-center gap-2 text-slate-400">
-                  <Zap className="h-3.5 w-3.5 text-slate-500" />
-                  Psi Intensity
-                </span>
-                <span className="font-mono text-base font-semibold text-white">
-                  {stats.psiIntensity}
-                </span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="flex items-center gap-2 text-slate-400">
-                  <Heart className="h-3.5 w-3.5 text-slate-500" />
-                  Max HP
-                </span>
-                <span className="font-mono text-base font-semibold text-white">
-                  {stats.maxHp}
-                </span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="flex items-center gap-2 text-slate-400">
-                  <Radiation className="h-3.5 w-3.5 text-slate-500" />
-                  Pollution Resist
-                </span>
-                <span className="font-mono text-base font-semibold text-white">
-                  {stats.pollutionResist}
-                </span>
-              </div>
-            </div>
-
-            {/* Compact Live DPS & HP%/Sanity% */}
-            <div className="space-y-2 border-t border-white/[0.06] pt-3">
-              <div className="flex items-center justify-between text-xs">
-                <span className="flex items-center gap-1.5 text-slate-400">
-                  <Activity className="h-3.5 w-3.5 text-[#3ee6c5]" />
-                  Sustained DPS
-                </span>
-                <span className="font-mono text-base font-bold text-[#3ee6c5]">
-                  {dps.sustainedDps.toLocaleString()}
-                </span>
-              </div>
-              <div className="flex items-center justify-between text-[11px]">
-                <span className="text-slate-500">Burst DPS</span>
-                <div className="flex items-center gap-2">
-                  <span className="font-mono font-semibold text-slate-200">
-                    {dps.burstDps.toLocaleString()}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => setMathOpen(true)}
-                    className="text-[10px] text-[#3ee6c5] hover:underline"
-                  >
-                    Math
-                  </button>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-2 pt-1 text-[10px] text-slate-400">
-                <label className="block">
-                  <div className="flex justify-between">
-                    <span>HP</span>
-                    <span className="font-mono text-slate-200">{loadout.hpPct}%</span>
-                  </div>
-                  <input
-                    type="range"
-                    min={1}
-                    max={100}
-                    value={loadout.hpPct}
-                    onChange={(e) => patchLoadout({ hpPct: Number(e.target.value) })}
-                    className="h-1 w-full cursor-pointer accent-[#3ee6c5]"
-                  />
-                </label>
-                <label className="block">
-                  <div className="flex justify-between">
-                    <span>Sanity</span>
-                    <span className="font-mono text-slate-200">{loadout.sanityPct}%</span>
-                  </div>
-                  <input
-                    type="range"
-                    min={0}
-                    max={100}
-                    value={loadout.sanityPct}
-                    onChange={(e) => patchLoadout({ sanityPct: Number(e.target.value) })}
-                    className="h-1 w-full cursor-pointer accent-purple-400"
-                  />
-                </label>
-              </div>
-
-              {/* Compact Food / Drink & Chef Status Pills */}
-              <button
-                type="button"
-                onClick={() => {
-                  setTopTab('gear_config');
-                  setRailMode('cradle_food');
-                }}
-                className="flex w-full flex-wrap items-center gap-1 rounded border border-white/[0.06] bg-black/25 px-2 py-1.5 text-left text-[10px] text-slate-300 transition hover:border-[#3ee6c5]/40"
-                title="Configure Chef (Glutton) Food & Drink Buffs"
-              >
-                {loadout.chefClassEnabled && (
-                  <span className="inline-flex items-center gap-1 rounded bg-[#3ee6c5]/18 px-1.5 py-0.5 font-semibold text-[#3ee6c5]">
-                    <ChefHat className="h-2.5 w-2.5" />
-                    Chef{loadout.chefStoveBonusPct ? ` +${loadout.chefStoveBonusPct}%` : ''}
-                  </span>
-                )}
-                {activeFoodsList.map((f) => (
-                  <span key={f.id} className="rounded bg-white/[0.06] px-1.5 py-0.5 text-slate-200">
-                    {f.name.split('(')[0].trim()}
-                  </span>
-                ))}
-                {activeDrinksList.map((d) => (
-                  <span key={d.id} className="rounded bg-white/[0.06] px-1.5 py-0.5 text-cyan-200">
-                    {d.name.split('(')[0].trim()}
-                  </span>
-                ))}
-                {activeFoodsList.length === 0 && activeDrinksList.length === 0 && (
-                  <span className="text-slate-500">No Food/Drink Buffs</span>
-                )}
-              </button>
-            </div>
+            ))}
           </div>
-
-          {/* Bottom Clean Save + Stats Chevron Toggle */}
-          <div className="flex items-center justify-between border-t border-white/[0.06] pt-2.5">
-            <button
-              type="button"
-              onClick={handleSaveSnapshot}
-              className="inline-flex items-center gap-1.5 rounded px-2.5 py-1 text-xs font-medium text-slate-200 transition hover:bg-white/[0.06] hover:text-[#3ee6c5]"
-            >
-              <Save className="h-3.5 w-3.5 text-[#3ee6c5]" />
-              <span>Save</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setStatsColumnOpen((v) => !v)}
-              className="inline-flex h-7 w-7 items-center justify-center rounded text-slate-300 transition hover:bg-white/[0.06] hover:text-white"
-              title={statsColumnOpen ? 'Collapse Detailed Stats' : 'Expand Detailed Stats'}
-              aria-label="Toggle Basic and Battle Stats sheet"
-            >
-              <ChevronRight
-                className={`h-4 w-4 transition-transform ${statsColumnOpen ? 'rotate-180' : ''}`}
-              />
-            </button>
-          </div>
+          {railMode === 'gear' && (
+            <EquipmentGridPanel loadout={loadout} onSelectSlot={(s) => setDrawerSlot(s)} onSetActiveDps={handleSetActiveWeapon} />
+          )}
+          {railMode === 'deviation' && (
+            <CombatDeviationPanel loadout={loadout} deviationDps={dps.deviationDps} onChange={patchLoadout} />
+          )}
+          {railMode === 'cradle_food' && <CradleAndFoodPanel loadout={loadout} warnings={warnings} onChange={patchLoadout} />}
         </section>
 
-        {/* 3. Middle-Center Clean Stat Sheet (Basic Stats ^ & Battle Stats ^) */}
-        {statsColumnOpen && (
-          <section className="flex max-h-[615px] flex-col overflow-hidden rounded-lg bg-black/30 lg:col-span-3">
-            <div className="flex-1 overflow-y-auto px-3.5 py-2 text-xs">
-              {/* Basic Stats Accordion */}
-              <div>
+        <section aria-label="Character sheet" className="min-w-0">
+          <div className="hidden items-end justify-between gap-4 border-b-[3px] border-sign-white pb-4 lg:flex">
+            <DpsReadout />
+            <button
+              type="button"
+              onClick={() => setMathOpen(true)}
+              className="inline-flex h-10 shrink-0 items-center gap-1.5 rounded-md bg-sign-white px-4 text-[14px] font-semibold text-black hover:bg-white"
+            >
+              <Calculator className="h-4 w-4" /> Math
+            </button>
+          </div>
+
+          <div className="flex items-center justify-between gap-3 border-b border-sign-seam py-3">
+            <div className="flex items-center gap-1.5" role="group" aria-label="Weapon used for DPS">
+              {(['primary', 'secondary'] as const).map((slot, i) => (
                 <button
+                  key={slot}
                   type="button"
-                  onClick={() => setBasicOpen((v) => !v)}
-                  className="flex w-full items-center justify-between border-b border-white/[0.06] py-2 text-left text-xs font-semibold text-white"
+                  onClick={() => handleSetActiveWeapon(slot)}
+                  aria-pressed={loadout.activeWeaponSlot === slot}
+                  className={chip(loadout.activeWeaponSlot === slot)}
                 >
-                  <span>Basic Stats</span>
-                  <ChevronDown
-                    className={`h-3.5 w-3.5 text-slate-400 transition-transform ${
-                      basicOpen ? 'rotate-180' : ''
-                    }`}
-                  />
+                  Weapon {i + 1}
                 </button>
-
-                {basicOpen && (
-                  <div className="divide-y divide-white/[0.05] text-xs">
-                    <div className="flex items-center justify-between py-2">
-                      <span className="text-slate-400">Attack</span>
-                      <span className="font-mono text-white">{stats.baseCharAttack}</span>
-                    </div>
-                    <div className="flex items-center justify-between py-2">
-                      <span className="text-slate-400">Psi Intensity</span>
-                      <span className="font-mono text-white">{stats.psiIntensity}</span>
-                    </div>
-                    <div className="flex items-center justify-between py-2">
-                      <span className="text-slate-400">HP</span>
-                      <span className="font-mono text-white">
-                        {stats.currentHp}/{stats.maxHp}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between py-2">
-                      <span className="text-slate-400">Pollution Resist</span>
-                      <span className="font-mono text-white">{stats.pollutionResist}</span>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Battle Stats Accordion */}
-              <div className="mt-1">
-                <button
-                  type="button"
-                  onClick={() => setBattleOpen((v) => !v)}
-                  className="flex w-full items-center justify-between border-b border-white/[0.06] py-2 text-left text-xs font-semibold text-white"
-                >
-                  <span>Battle Stats</span>
-                  <ChevronDown
-                    className={`h-3.5 w-3.5 text-slate-400 transition-transform ${
-                      battleOpen ? 'rotate-180' : ''
-                    }`}
-                  />
-                </button>
-
-                {battleOpen && (
-                  <div className="divide-y divide-white/[0.04]">
-                    {visibleBattleKeys.map((key) => {
-                      const entry = stats.statDetails[key];
-                      const open = inspectedStatKey === key;
-                      const formattedVal =
-                        entry.unit === '%'
-                          ? `${entry.value.toFixed(1)}%`
-                          : `${entry.value}`;
-
-                      return (
-                        <div key={key}>
-                          <button
-                            type="button"
-                            onClick={() => setInspectedStatKey(open ? null : key)}
-                            className="flex w-full items-center justify-between gap-2 py-2 text-left text-xs transition hover:text-white"
-                          >
-                            <span className="truncate text-slate-300">{entry.label}</span>
-                            <span className="shrink-0 font-mono text-white">{formattedVal}</span>
-                          </button>
-
-                          {open && (
-                            <div className="mb-2 space-y-0.5 rounded bg-black/40 p-2 text-[10px]">
-                              {entry.sources.length === 0 ? (
-                                <div className="text-slate-500">No active sources.</div>
-                              ) : (
-                                entry.sources.map((src, idx) => (
-                                  <div
-                                    key={idx}
-                                    className="flex items-center justify-between gap-2 text-slate-300"
-                                  >
-                                    <span className="truncate">{src.source}</span>
-                                    <span className="font-mono text-[#3ee6c5]">
-                                      {src.value >= 0 ? '+' : ''}
-                                      {src.value}
-                                      {entry.unit === '%' ? '%' : ''}
-                                    </span>
-                                  </div>
-                                ))
-                              )}
-                            </div>
-                          )}
-                        </div>
-                      );
-                    })}
-
-                    <div className="flex items-center justify-between py-2">
-                      <button
-                        type="button"
-                        onClick={() => setShowZeroStats((v) => !v)}
-                        className="text-[10px] font-medium text-[#3ee6c5] hover:underline"
-                      >
-                        {showZeroStats ? 'Hide 0.0% stats' : 'Show all stats (incl. 0.0%)'}
-                      </button>
-                      <span className="text-[10px] text-slate-500">Tap row for math</span>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Compact Active Sets Summary */}
-              {(stats.activeSets.length > 0 || stats.activeKeyArmors.length > 0) && (
-                <div className="mt-2 space-y-1.5 border-t border-white/[0.06] py-2.5">
-                  <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">
-                    Active Set Effects
-                  </div>
-                  <div className="flex flex-wrap gap-1">
-                    {stats.activeSets.map((s) => (
-                      <span
-                        key={s.setName}
-                        title={s.activeTiers
-                          .filter((t) => t.active)
-                          .map((t) => `${t.count}pc: ${t.desc}`)
-                          .join('\n')}
-                        className="rounded border border-white/[0.08] bg-white/[0.04] px-1.5 py-0.5 text-[10px] text-slate-200"
-                      >
-                        {s.setName.replace(' Set', '')}{' '}
-                        <span className="font-mono text-[#3ee6c5]">{s.count}/4</span>
-                      </span>
-                    ))}
-                    {stats.activeKeyArmors.map((k) => (
-                      <span
-                        key={k.name}
-                        title={k.desc}
-                        className="rounded border border-amber-400/30 bg-amber-500/10 px-1.5 py-0.5 text-[10px] text-amber-200"
-                      >
-                        {k.name}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
+              ))}
             </div>
-          </section>
-        )}
+            <div className="flex items-center gap-2 text-[13px] text-sign-mute">
+              <span>Lv 50 · Rating {stats.gearScoreTotal}</span>
+              <button type="button" onClick={() => setMathOpen(true)} className={`${chip(false)} lg:hidden`}>
+                Math
+              </button>
+            </div>
+          </div>
 
-        {/* 4. Right Clean Equipment / Deviation / Cradle & Food Zone */}
-        <section
-          className={`p-1 ${statsColumnOpen ? 'lg:col-span-5' : 'lg:col-span-8'}`}
-        >
-          {activeRail === 'gear' && (
-            <EquipmentGridPanel
-              loadout={loadout}
-              onSelectSlot={(s) => setDrawerSlot(s)}
-              onSetActiveDps={handleSetActiveWeapon}
-            />
+          {/* Every stat, flowed across two columns so the whole sheet fits beside the gear grid */}
+          <div className="mt-3 columns-1 gap-x-8 sm:columns-2">
+            {sheetRows.map((row) =>
+              'heading' in row ? (
+                <h3
+                  key={row.heading}
+                  className="mb-1 mt-2 break-after-avoid text-[12px] font-semibold uppercase tracking-[0.12em] text-sign-mute first:mt-0"
+                >
+                  {row.heading}
+                </h3>
+              ) : (
+                <div key={row.id} className="break-inside-avoid">
+                  {row.sources.length > 0 ? (
+                    <button
+                      type="button"
+                      onClick={() => setInspectedStatKey(inspectedStatKey === row.id ? null : row.id)}
+                      aria-expanded={inspectedStatKey === row.id}
+                      className="group flex w-full items-center gap-2 border-b border-sign-seam/70 py-1.5 text-left text-[14px]"
+                    >
+                      <span className="min-w-0 flex-1 truncate text-sign-mute group-hover:text-sign-white">{row.label}</span>
+                      <span className="shrink-0 font-bold">{row.value}</span>
+                      <ChevronDown
+                        aria-hidden
+                        className={`h-3.5 w-3.5 shrink-0 text-sign-dim transition-transform group-hover:text-sign-white ${
+                          inspectedStatKey === row.id ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </button>
+                  ) : (
+                    <div className="flex items-center gap-2 border-b border-sign-seam/70 py-1.5 text-[14px]">
+                      <span className="min-w-0 flex-1 truncate text-sign-mute">{row.label}</span>
+                      <span className="shrink-0 font-bold">{row.value}</span>
+                      <span className="w-3.5 shrink-0" />
+                    </div>
+                  )}
+                  {inspectedStatKey === row.id && (
+                    <div className="space-y-1 border-b border-sign-seam/70 bg-sign-panel px-2.5 py-2 text-[13px]">
+                      {row.sources.map((src, idx) => (
+                        <div key={idx} className="flex items-center justify-between gap-2">
+                          <span className="truncate text-sign-mute">{src.source}</span>
+                          <span className="font-semibold">
+                            {src.value >= 0 ? '+' : ''}
+                            {src.value}
+                            {src.unit}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ),
+            )}
+          </div>
+
+          {(stats.activeSets.length > 0 || stats.activeKeyArmors.length > 0) && (
+            <div className="mt-5">
+              <h3 className="mb-2 text-[12px] font-semibold uppercase tracking-[0.12em] text-sign-mute">Set effects</h3>
+              <div className="flex flex-wrap gap-1.5">
+                {stats.activeSets.map((s) => (
+                  <span
+                    key={s.setName}
+                    title={s.activeTiers.filter((t) => t.active).map((t) => `${t.count}pc: ${t.desc}`).join('\n')}
+                    className="rounded-sm border border-sign-seam px-2 py-1 text-[13px]"
+                  >
+                    {s.setName.replace(' Set', '')} <span className="font-bold">{s.count}/4</span>
+                  </span>
+                ))}
+                {stats.activeKeyArmors.map((k) => (
+                  <span key={k.name} title={k.desc} className="rounded-sm border border-line-workbench px-2 py-1 text-[13px]">
+                    {k.name}
+                  </span>
+                ))}
+              </div>
+            </div>
           )}
 
-          {activeRail === 'deviation' && (
-            <CombatDeviationPanel
-              loadout={loadout}
-              deviationDps={dps.deviationDps}
-              onChange={patchLoadout}
-            />
-          )}
+          <button
+            type="button"
+            onClick={() => setRailMode('cradle_food')}
+            className="mt-5 flex w-full flex-wrap items-center gap-1.5 rounded-md border border-sign-seam px-3 py-2.5 text-left text-[13px] hover:border-sign-white"
+            title="Configure food, drink and Chef buffs"
+          >
+            <ChefHat className="h-4 w-4 text-sign-mute" />
+            {loadout.chefClassEnabled && (
+              <span className="font-semibold">Chef{loadout.chefStoveBonusPct ? ` +${loadout.chefStoveBonusPct}%` : ''} ·</span>
+            )}
+            {[...activeFoodsList, ...activeDrinksList].map((f) => f.name.split('(')[0].trim()).join(' · ') || (
+              <span className="text-sign-dim">No food or drink buffs</span>
+            )}
+          </button>
 
-          {activeRail === 'cradle_food' && (
-            <CradleAndFoodPanel loadout={loadout} warnings={warnings} onChange={patchLoadout} />
-          )}
+          {/* Target & assumptions: inline, collapsed by default */}
+          <details className="group mt-5 rounded-md border border-sign-seam">
+            <summary className="flex cursor-pointer list-none items-center justify-between px-3 py-2.5 text-[14px] font-semibold">
+              <span>
+                Target & assumptions
+                <span className="ml-2 font-normal text-sign-mute">
+                  {loadout.assumptions.targetType === 'great_one'
+                    ? 'Great One'
+                    : loadout.assumptions.targetType === 'elite'
+                      ? 'Elite'
+                      : 'Normal'}{' '}
+                  · WS {loadout.assumptions.weakspotHitRatePct}% · HP {loadout.hpPct}% · Sanity {loadout.sanityPct}%
+                </span>
+              </span>
+              <ChevronDown className="h-4 w-4 transition-transform group-open:rotate-180" />
+            </summary>
+            <div className="space-y-4 border-t border-sign-seam px-3 py-3 text-[13px]">
+              <div className="flex flex-wrap gap-1.5">
+                {(
+                  [
+                    { id: 'normal', label: 'Normal' },
+                    { id: 'elite', label: 'Elite' },
+                    { id: 'great_one', label: 'Great One' },
+                  ] as const
+                ).map((tt) => (
+                  <button
+                    key={tt.id}
+                    type="button"
+                    aria-pressed={loadout.assumptions.targetType === tt.id}
+                    onClick={() => patchLoadout({ assumptions: { ...loadout.assumptions, targetType: tt.id as TargetType } })}
+                    className={chip(loadout.assumptions.targetType === tt.id)}
+                  >
+                    {tt.label}
+                  </button>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {(
+                  [
+                    { key: 'bullsEye', label: "Bull's Eye" },
+                    { key: 'marked', label: 'Marked' },
+                    { key: 'fortressWarfare', label: 'Fortress' },
+                    { key: 'shielded', label: 'Shielded' },
+                    { key: 'aeroAerialHit', label: 'Aero aerial' },
+                    { key: 'resonanceMaxStacks', label: 'Resonance max' },
+                  ] as const
+                ).map((flag) => (
+                  <button
+                    key={flag.key}
+                    type="button"
+                    aria-pressed={Boolean(loadout.assumptions[flag.key])}
+                    onClick={() =>
+                      patchLoadout({ assumptions: { ...loadout.assumptions, [flag.key]: !loadout.assumptions[flag.key] } })
+                    }
+                    className={chip(Boolean(loadout.assumptions[flag.key]))}
+                  >
+                    {flag.label}
+                  </button>
+                ))}
+              </div>
+              <div className="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-2">
+                {(
+                  [
+                    { label: 'Weakspot hit rate', val: loadout.assumptions.weakspotHitRatePct, min: 0, max: 100, step: 1, unit: '%',
+                      set: (v: number) => patchLoadout({ assumptions: { ...loadout.assumptions, weakspotHitRatePct: v } }) },
+                    { label: 'Downstar elevation', val: loadout.assumptions.downstarMeters ?? 0, min: 0, max: 5, step: 0.5, unit: 'm',
+                      set: (v: number) => patchLoadout({ assumptions: { ...loadout.assumptions, downstarMeters: v } }) },
+                    { label: 'HP', val: loadout.hpPct, min: 1, max: 100, step: 1, unit: '%', set: (v: number) => patchLoadout({ hpPct: v }) },
+                    { label: 'Sanity', val: loadout.sanityPct, min: 0, max: 100, step: 1, unit: '%', set: (v: number) => patchLoadout({ sanityPct: v }) },
+                  ] as const
+                ).map((r) => (
+                  <label key={r.label} className="block">
+                    <span className="flex justify-between text-sign-mute">
+                      {r.label}
+                      <b className="text-sign-white">
+                        {r.val}
+                        {r.unit}
+                      </b>
+                    </span>
+                    <input
+                      type="range"
+                      min={r.min}
+                      max={r.max}
+                      step={r.step}
+                      value={r.val}
+                      onChange={(e) => r.set(Number(e.target.value))}
+                      className="mt-1.5 h-1.5 w-full cursor-pointer accent-line-dps"
+                    />
+                  </label>
+                ))}
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setBaselineSnapshot({ name: loadout.name.slice(0, 24), dps })}
+                  className={`${chip(false)} inline-flex items-center gap-1.5`}
+                >
+                  <BookmarkPlus className="h-4 w-4" /> Pin as baseline
+                </button>
+                <span className="text-sign-mute">
+                  {baselineSnapshot
+                    ? `DPS deltas compare against “${baselineSnapshot.name}”.`
+                    : 'Pin a baseline to see DPS change as you swap gear.'}
+                </span>
+              </div>
+              <div className="text-sign-dim">
+                Weapon {dps.weaponOnlySustainedDps.toLocaleString()} + Deviation {dps.deviationDps.toLocaleString()} · Hit {dps.normalHit} · Crit{' '}
+                {dps.critHit} · Weakspot crit {dps.weakspotCritHit}
+              </div>
+            </div>
+          </details>
         </section>
       </div>
 
@@ -1079,22 +721,22 @@ export function DpsCalculatorView({
       {/* Export / Import Loadout JSON Modal */}
       {jsonModalOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
           onClick={() => setJsonModalOpen(false)}
         >
           <div
-            className="w-full max-w-xl space-y-3 rounded-2xl border border-white/[0.12] bg-[#0f161a] p-5 text-xs shadow-2xl"
+            className="w-full max-w-xl space-y-3 rounded-2xl border border-white/[0.12] bg-sign-panel p-5 text-xs shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 font-bold text-white">
-                <Upload className="h-4 w-4 text-[#3ee6c5]" />
+                <Upload className="h-4 w-4 text-line-dps" />
                 <span>Export / Import Loadout JSON</span>
               </div>
               <button
                 type="button"
                 onClick={() => setJsonModalOpen(false)}
-                className="text-slate-400 hover:text-white"
+                className="text-sign-mute hover:text-white"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -1103,7 +745,7 @@ export function DpsCalculatorView({
               value={jsonText}
               onChange={(e) => setJsonText(e.target.value)}
               rows={12}
-              className="w-full rounded-xl border border-white/[0.1] bg-[#0c1114] p-3 font-mono text-[11px] text-slate-200 outline-none focus:border-[#3ee6c5]"
+              className="w-full rounded-xl border border-white/[0.1] bg-sign-panel p-3 text-[12px] text-sign-white outline-none focus:border-line-dps"
             />
             {jsonError && <div className="text-rose-400">{jsonError}</div>}
             <div className="flex justify-end gap-2">
@@ -1113,14 +755,14 @@ export function DpsCalculatorView({
                   await navigator.clipboard?.writeText(jsonText).catch(() => {});
                   showToast('Loadout JSON copied');
                 }}
-                className="rounded-lg border border-white/[0.12] bg-[#131a1e] px-3 py-1.5 font-semibold text-slate-200 hover:border-[#3ee6c5]"
+                className="rounded-lg border border-white/[0.12] bg-sign-raised px-3 py-1.5 font-semibold text-sign-white hover:border-line-dps"
               >
                 Copy JSON
               </button>
               <button
                 type="button"
                 onClick={handleImportJson}
-                className="rounded-lg bg-[#3ee6c5] px-4 py-1.5 font-bold text-[#091214] hover:bg-[#5df0d2]"
+                className="rounded-lg bg-line-dps px-4 py-1.5 font-bold text-black hover:bg-[#5df0d2]"
               >
                 Import Loadout
               </button>
@@ -1131,7 +773,7 @@ export function DpsCalculatorView({
 
       {/* Toast Feedback */}
       {toast && (
-        <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-lg border border-[#3ee6c5]/50 bg-[#0f161a]/95 px-3.5 py-1.5 text-xs font-semibold text-[#3ee6c5] shadow-2xl">
+        <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-lg border border-line-dps/50 bg-sign-panel/95 px-3.5 py-1.5 text-xs font-semibold text-line-dps shadow-2xl">
           {toast}
         </div>
       )}

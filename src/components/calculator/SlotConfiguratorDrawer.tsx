@@ -211,19 +211,19 @@ export function SlotConfiguratorDrawer({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex justify-end bg-black/70 backdrop-blur-xs"
+      className="fixed inset-0 z-50 flex justify-end bg-black/70"
       onClick={onClose}
       role="dialog"
       aria-label={SLOT_LABELS[slotId]}
     >
       <aside
-        className="flex h-full w-full max-w-[460px] flex-col border-l border-white/[0.12] bg-[#0f161a] text-slate-100 shadow-2xl"
+        className="flex h-full w-full max-w-[460px] flex-col border-l border-white/[0.12] bg-sign-panel text-sign-white shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Drawer Header */}
-        <div className="flex items-center justify-between border-b border-white/[0.08] bg-[#0c1114] px-4 py-3">
+        <div className="flex items-center justify-between border-b border-sign-seam bg-sign-panel px-4 py-3">
           <div>
-            <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#3ee6c5]">
+            <div className="text-[12px] font-bold uppercase tracking-[0.16em] text-line-dps">
               {SLOT_LABELS[slotId]}
             </div>
             <h3 className="text-sm font-bold text-white">
@@ -235,10 +235,10 @@ export function SlotConfiguratorDrawer({
               <button
                 type="button"
                 onClick={() => onSetActiveDpsWeapon(slotId)}
-                className={`rounded-lg border px-2.5 py-1 text-[11px] font-semibold transition ${
+                className={`rounded-lg border px-2.5 py-1 text-[12px] font-semibold transition ${
                   isActiveDpsWeapon
-                    ? 'border-[#3ee6c5] bg-[#3ee6c5]/20 text-[#3ee6c5]'
-                    : 'border-white/[0.12] bg-[#131a1e] text-slate-300 hover:border-[#3ee6c5]/50'
+                    ? 'border-line-dps bg-line-dps/20 text-line-dps'
+                    : 'border-white/[0.12] bg-sign-raised text-sign-mute hover:border-line-dps/50'
                 }`}
               >
                 {isActiveDpsWeapon ? '✓ Active DPS' : 'Set Active DPS'}
@@ -247,7 +247,7 @@ export function SlotConfiguratorDrawer({
             <button
               type="button"
               onClick={onClose}
-              className="rounded-lg p-1.5 text-slate-400 hover:bg-white/[0.06] hover:text-white"
+              className="rounded-lg p-1.5 text-sign-mute hover:bg-white/[0.06] hover:text-white"
               aria-label="Close configurator"
             >
               <X className="h-4 w-4" />
@@ -256,7 +256,7 @@ export function SlotConfiguratorDrawer({
         </div>
 
         {/* Sub-Section Switcher */}
-        <div className="grid grid-cols-3 border-b border-white/[0.08] bg-[#0c1114]/80 text-xs font-semibold">
+        <div className="grid grid-cols-3 border-b border-sign-seam bg-sign-panel/80 text-xs font-semibold">
           {(
             [
               { id: 'tuning', label: isWeapon ? 'Tune & Ammo' : 'Tune & Wool' },
@@ -270,8 +270,8 @@ export function SlotConfiguratorDrawer({
               onClick={() => setSection(t.id)}
               className={`border-b-2 py-2.5 transition ${
                 section === t.id
-                  ? 'border-[#3ee6c5] bg-[#3ee6c5]/10 text-[#3ee6c5]'
-                  : 'border-transparent text-slate-400 hover:text-white'
+                  ? 'border-line-dps bg-line-dps/10 text-line-dps'
+                  : 'border-transparent text-sign-mute hover:text-white'
               }`}
             >
               {t.label}
@@ -298,14 +298,14 @@ export function SlotConfiguratorDrawer({
                   <span className="truncate font-bold text-white">
                     {currentWeapon?.name ?? currentArmor?.name}
                   </span>
-                  <span className="font-mono text-[10px] text-amber-300">
+                  <span className=" text-[12px] text-amber-300">
                     {isWeapon
                       ? `+${weaponCfg?.calibration ?? 0}`
                       : `+${armorCfg?.calibration ?? 0}`}
                   </span>
                 </div>
                 {wPreview && currentWeapon && (
-                  <div className="flex flex-wrap gap-x-3 gap-y-0.5 font-mono text-[11px] text-slate-200">
+                  <div className="flex flex-wrap gap-x-3 gap-y-0.5 text-[12px] text-sign-white">
                     <span>ATK {wPreview.atkAfterCalAmmo}</span>
                     <span>{wPreview.fireRate} RPM</span>
                     <span>Mag {wPreview.magCap}</span>
@@ -313,7 +313,7 @@ export function SlotConfiguratorDrawer({
                   </div>
                 )}
                 {aPreview && (
-                  <div className="flex flex-wrap gap-x-3 gap-y-0.5 font-mono text-[11px] text-slate-200">
+                  <div className="flex flex-wrap gap-x-3 gap-y-0.5 text-[12px] text-sign-white">
                     <span>HP {aPreview.totalHp}</span>
                     <span>Psi {aPreview.totalPsi}</span>
                     <span>Poll {aPreview.totalPoll}</span>
@@ -327,10 +327,10 @@ export function SlotConfiguratorDrawer({
           {section === 'tuning' && (
             <div className="space-y-4">
               {/* Tier, Stars, Calibration */}
-              <div className="space-y-3 rounded-xl border border-white/[0.08] bg-[#131a1e] p-3">
+              <div className="space-y-3 rounded-xl border border-sign-seam bg-sign-raised p-3">
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="mb-1 block text-[10px] font-semibold uppercase tracking-wider text-slate-400">
+                    <label className="mb-1 block text-[12px] font-semibold uppercase tracking-wider text-sign-mute">
                       Craft Tier
                     </label>
                     <select
@@ -343,7 +343,7 @@ export function SlotConfiguratorDrawer({
                           onUpdateArmor({ ...armorCfg, tier: t });
                         }
                       }}
-                      className="w-full rounded-lg border border-white/[0.1] bg-[#0c1114] px-2.5 py-1.5 font-mono text-xs text-[#3ee6c5] outline-none"
+                      className="w-full rounded-lg border border-white/[0.1] bg-sign-panel px-2.5 py-1.5 text-xs text-line-dps outline-none"
                     >
                       {TIERS.map((t) => (
                         <option key={t} value={t}>
@@ -354,10 +354,10 @@ export function SlotConfiguratorDrawer({
                   </div>
 
                   <div>
-                    <label className="mb-1 block text-[10px] font-semibold uppercase tracking-wider text-slate-400">
+                    <label className="mb-1 block text-[12px] font-semibold uppercase tracking-wider text-sign-mute">
                       Blueprint Stars
                     </label>
-                    <div className="flex h-[30px] items-center justify-between rounded-lg border border-white/[0.1] bg-[#0c1114] px-2.5">
+                    <div className="flex h-[30px] items-center justify-between rounded-lg border border-white/[0.1] bg-sign-panel px-2.5">
                       <StarRatingDisplay
                         stars={isWeapon ? weaponCfg?.stars ?? 1 : armorCfg?.stars ?? 1}
                         interactive
@@ -374,9 +374,9 @@ export function SlotConfiguratorDrawer({
                 </div>
 
                 <div>
-                  <div className="mb-1 flex items-center justify-between text-[11px]">
-                    <span className="text-slate-400">Calibration Level</span>
-                    <span className="font-mono font-bold text-amber-300">
+                  <div className="mb-1 flex items-center justify-between text-[12px]">
+                    <span className="text-sign-mute">Calibration Level</span>
+                    <span className=" font-bold text-amber-300">
                       +{isWeapon ? weaponCfg?.calibration ?? 0 : armorCfg?.calibration ?? 0} / +10
                     </span>
                   </div>
@@ -393,7 +393,7 @@ export function SlotConfiguratorDrawer({
                         onUpdateArmor({ ...armorCfg, calibration: c });
                       }
                     }}
-                    className="h-1.5 w-full cursor-pointer accent-[#3ee6c5]"
+                    className="h-1.5 w-full cursor-pointer accent-line-dps"
                   />
                 </div>
               </div>
@@ -401,8 +401,8 @@ export function SlotConfiguratorDrawer({
               {/* WEAPON-SPECIFIC CONTROLS */}
               {isWeapon && weaponCfg && onUpdateWeapon && (
                 <>
-                  <div className="space-y-2.5 rounded-xl border border-white/[0.08] bg-[#131a1e] p-3">
-                    <div className="text-[11px] font-semibold uppercase tracking-wider text-[#3ee6c5]">
+                  <div className="space-y-2.5 rounded-xl border border-sign-seam bg-sign-raised p-3">
+                    <div className="text-[12px] font-semibold uppercase tracking-wider text-line-dps">
                       Calibration Blueprint & Secondary Attrs
                     </div>
                     <select
@@ -410,7 +410,7 @@ export function SlotConfiguratorDrawer({
                       onChange={(e) =>
                         onUpdateWeapon({ ...weaponCfg, calibrationStyleId: e.target.value })
                       }
-                      className="w-full rounded-lg border border-white/[0.1] bg-[#0c1114] px-2.5 py-1.5 text-xs text-white outline-none"
+                      className="w-full rounded-lg border border-white/[0.1] bg-sign-panel px-2.5 py-1.5 text-xs text-white outline-none"
                     >
                       {DPS_DATA.calibrationStyles.map((s) => (
                         <option key={s.id} value={s.id}>
@@ -426,7 +426,7 @@ export function SlotConfiguratorDrawer({
                           onUpdateWeapon({ ...weaponCfg, secondaryAttr1: e.target.value })
                         }
                         aria-label="Calibration Secondary Attribute 1"
-                        className="rounded-lg border border-white/[0.1] bg-[#0c1114] px-2 py-1.5 text-[11px] text-slate-200 outline-none"
+                        className="rounded-lg border border-white/[0.1] bg-sign-panel px-2 py-1.5 text-[12px] text-sign-white outline-none"
                       >
                         {DPS_DATA.calibrationSecondaryAttrs.map((a) => (
                           <option key={a.id} value={a.id}>
@@ -440,7 +440,7 @@ export function SlotConfiguratorDrawer({
                           onUpdateWeapon({ ...weaponCfg, secondaryAttr2: e.target.value })
                         }
                         aria-label="Calibration Secondary Attribute 2"
-                        className="rounded-lg border border-white/[0.1] bg-[#0c1114] px-2 py-1.5 text-[11px] text-slate-200 outline-none"
+                        className="rounded-lg border border-white/[0.1] bg-sign-panel px-2 py-1.5 text-[12px] text-sign-white outline-none"
                       >
                         {DPS_DATA.calibrationSecondaryAttrs.map((a) => (
                           <option key={a.id} value={a.id}>
@@ -452,16 +452,16 @@ export function SlotConfiguratorDrawer({
                   </div>
 
                   {slotId !== 'melee' && (
-                    <div className="space-y-2.5 rounded-xl border border-white/[0.08] bg-[#131a1e] p-3">
-                      <div className="text-[11px] font-semibold uppercase tracking-wider text-[#3ee6c5]">
+                    <div className="space-y-2.5 rounded-xl border border-sign-seam bg-sign-raised p-3">
+                      <div className="text-[12px] font-semibold uppercase tracking-wider text-line-dps">
                         Ammo Type & Accessories
                       </div>
                       <div>
-                        <label className="mb-1 block text-[10px] text-slate-400">Ammo Round</label>
+                        <label className="mb-1 block text-[12px] text-sign-mute">Ammo Round</label>
                         <select
                           value={weaponCfg.ammoId}
                           onChange={(e) => onUpdateWeapon({ ...weaponCfg, ammoId: e.target.value })}
-                          className="w-full rounded-lg border border-white/[0.1] bg-[#0c1114] px-2.5 py-1.5 text-xs text-white outline-none"
+                          className="w-full rounded-lg border border-white/[0.1] bg-sign-panel px-2.5 py-1.5 text-xs text-white outline-none"
                         >
                           {DPS_DATA.ammoTypes.map((a) => (
                             <option key={a.id} value={a.id}>
@@ -475,7 +475,7 @@ export function SlotConfiguratorDrawer({
                         <select
                           value={weaponCfg.opticId}
                           onChange={(e) => onUpdateWeapon({ ...weaponCfg, opticId: e.target.value })}
-                          className="rounded-lg border border-white/[0.1] bg-[#0c1114] px-2 py-1.5 text-[11px] text-slate-200 outline-none"
+                          className="rounded-lg border border-white/[0.1] bg-sign-panel px-2 py-1.5 text-[12px] text-sign-white outline-none"
                         >
                           {DPS_DATA.weaponAccessories.optics.map((o) => (
                             <option key={o.id} value={o.id}>
@@ -488,7 +488,7 @@ export function SlotConfiguratorDrawer({
                           onChange={(e) =>
                             onUpdateWeapon({ ...weaponCfg, muzzleId: e.target.value })
                           }
-                          className="rounded-lg border border-white/[0.1] bg-[#0c1114] px-2 py-1.5 text-[11px] text-slate-200 outline-none"
+                          className="rounded-lg border border-white/[0.1] bg-sign-panel px-2 py-1.5 text-[12px] text-sign-white outline-none"
                         >
                           {DPS_DATA.weaponAccessories.muzzles.map((m) => (
                             <option key={m.id} value={m.id}>
@@ -501,7 +501,7 @@ export function SlotConfiguratorDrawer({
                           onChange={(e) =>
                             onUpdateWeapon({ ...weaponCfg, tacticalId: e.target.value })
                           }
-                          className="rounded-lg border border-white/[0.1] bg-[#0c1114] px-2 py-1.5 text-[11px] text-slate-200 outline-none"
+                          className="rounded-lg border border-white/[0.1] bg-sign-panel px-2 py-1.5 text-[12px] text-sign-white outline-none"
                         >
                           {DPS_DATA.weaponAccessories.tacticals.map((t) => (
                             <option key={t.id} value={t.id}>
@@ -512,7 +512,7 @@ export function SlotConfiguratorDrawer({
                         <select
                           value={weaponCfg.magId}
                           onChange={(e) => onUpdateWeapon({ ...weaponCfg, magId: e.target.value })}
-                          className="rounded-lg border border-white/[0.1] bg-[#0c1114] px-2 py-1.5 text-[11px] text-slate-200 outline-none"
+                          className="rounded-lg border border-white/[0.1] bg-sign-panel px-2 py-1.5 text-[12px] text-sign-white outline-none"
                         >
                           {DPS_DATA.weaponAccessories.magazines.map((m) => (
                             <option key={m.id} value={m.id}>
@@ -529,12 +529,12 @@ export function SlotConfiguratorDrawer({
               {/* ARMOR-SPECIFIC CONTROLS: HIDE/WOOL + GENE FABRIC */}
               {!isWeapon && armorCfg && onUpdateArmor && (
                 <>
-                  <div className="space-y-2.5 rounded-xl border border-white/[0.08] bg-[#131a1e] p-3">
+                  <div className="space-y-2.5 rounded-xl border border-sign-seam bg-sign-raised p-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-[11px] font-semibold uppercase tracking-wider text-[#3ee6c5]">
+                      <span className="text-[12px] font-semibold uppercase tracking-wider text-line-dps">
                         Hide / Wool Material
                       </span>
-                      <span className="text-[10px] text-slate-400">Live stat active</span>
+                      <span className="text-[12px] text-sign-mute">Live stat active</span>
                     </div>
 
                     <input
@@ -542,7 +542,7 @@ export function SlotConfiguratorDrawer({
                       value={hideSearch}
                       onChange={(e) => setHideSearch(e.target.value)}
                       placeholder="Filter wool/hide or perk..."
-                      className="w-full rounded-lg border border-white/[0.08] bg-[#0c1114] px-2.5 py-1.5 text-xs text-white placeholder-slate-500 outline-none focus:border-[#3ee6c5]/60"
+                      className="w-full rounded-lg border border-sign-seam bg-sign-panel px-2.5 py-1.5 text-xs text-white placeholder-sign-dim outline-none focus:border-line-dps/60"
                     />
 
                     <div className="max-h-56 space-y-1.5 overflow-y-auto pr-1">
@@ -555,17 +555,17 @@ export function SlotConfiguratorDrawer({
                             onClick={() => onUpdateArmor({ ...armorCfg, hideId: h.id })}
                             className={`flex w-full items-center gap-2.5 rounded-lg border p-2 text-left transition ${
                               selected
-                                ? 'border-[#3ee6c5] bg-[#3ee6c5]/12'
-                                : 'border-white/[0.06] bg-[#0c1114] hover:border-white/20'
+                                ? 'border-line-dps bg-line-dps/12'
+                                : 'border-sign-seam bg-sign-panel hover:border-sign-seam'
                             }`}
                           >
                             <MaterialIconGlyph name={h.name} accent="#3ee6c5" className="h-8 w-8" />
                             <div className="min-w-0 flex-1">
                               <div className="flex items-center justify-between gap-2">
                                 <span className="truncate font-semibold text-white">{h.name}</span>
-                                {selected && <Check className="h-3.5 w-3.5 text-[#3ee6c5]" />}
+                                {selected && <Check className="h-3.5 w-3.5 text-line-dps" />}
                               </div>
-                              <div className="text-[10px] text-slate-300">
+                              <div className="text-[12px] text-sign-mute">
                                 {h.effects[slotId as ArmorSlotKey]}
                               </div>
                             </div>
@@ -576,8 +576,8 @@ export function SlotConfiguratorDrawer({
                   </div>
 
                   {armorCfg.tier === 5 && (
-                    <div className="space-y-2 rounded-xl border border-amber-400/30 bg-[#131a1e] p-3">
-                      <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-amber-300">
+                    <div className="space-y-2 rounded-xl border border-amber-400/30 bg-sign-raised p-3">
+                      <div className="flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-wider text-amber-300">
                         <Sparkles className="h-3.5 w-3.5" />
                         Tier V Gene Fabric
                       </div>
@@ -586,7 +586,7 @@ export function SlotConfiguratorDrawer({
                         onChange={(e) =>
                           onUpdateArmor({ ...armorCfg, geneFabricId: e.target.value })
                         }
-                        className="w-full rounded-lg border border-white/[0.1] bg-[#0c1114] px-2.5 py-1.5 text-xs text-white outline-none"
+                        className="w-full rounded-lg border border-white/[0.1] bg-sign-panel px-2.5 py-1.5 text-xs text-white outline-none"
                       >
                         {GENE_FABRICS.map((gf) => (
                           <option key={gf.id} value={gf.id}>
@@ -605,13 +605,13 @@ export function SlotConfiguratorDrawer({
           {section === 'item' && (
             <div className="space-y-3">
               <div className="relative">
-                <Search className="pointer-events-none absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-500" />
+                <Search className="pointer-events-none absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-sign-dim" />
                 <input
                   type="text"
                   value={itemSearch}
                   onChange={(e) => setItemSearch(e.target.value)}
                   placeholder={`Search ${isWeapon ? 'weapons or keywords' : 'armor or sets'}...`}
-                  className="w-full rounded-lg border border-white/[0.1] bg-[#131a1e] py-2 pl-8 pr-3 text-xs text-white placeholder-slate-500 outline-none focus:border-[#3ee6c5]"
+                  className="w-full rounded-lg border border-white/[0.1] bg-sign-raised py-2 pl-8 pr-3 text-xs text-white placeholder-sign-dim outline-none focus:border-line-dps"
                 />
               </div>
 
@@ -632,8 +632,8 @@ export function SlotConfiguratorDrawer({
                         }
                         className={`flex w-full items-center gap-3 rounded-xl border p-2.5 text-left transition ${
                           active
-                            ? 'border-[#3ee6c5] bg-[#3ee6c5]/12'
-                            : 'border-white/[0.06] bg-[#131a1e] hover:border-white/20'
+                            ? 'border-line-dps bg-line-dps/12'
+                            : 'border-sign-seam bg-sign-raised hover:border-sign-seam'
                         }`}
                       >
                         {w.imageUrl ? (
@@ -643,17 +643,17 @@ export function SlotConfiguratorDrawer({
                             className="h-11 w-14 shrink-0 object-contain"
                           />
                         ) : (
-                          <Crosshair className="h-6 w-6 text-slate-500" />
+                          <Crosshair className="h-6 w-6 text-sign-dim" />
                         )}
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center justify-between gap-2">
                             <span className="truncate font-semibold text-white">{w.name}</span>
-                            <span className="text-[10px] text-amber-300">{w.rarity}</span>
+                            <span className="text-[12px] text-amber-300">{w.rarity}</span>
                           </div>
-                          <div className="text-[10px] text-[#3ee6c5]">
+                          <div className="text-[12px] text-line-dps">
                             {w.category} · {w.archetype} ({w.element})
                           </div>
-                          <div className="mt-0.5 line-clamp-1 text-[10px] text-slate-400">
+                          <div className="mt-0.5 line-clamp-1 text-[12px] text-sign-mute">
                             {w.trait}
                           </div>
                         </div>
@@ -677,8 +677,8 @@ export function SlotConfiguratorDrawer({
                         }
                         className={`flex w-full items-center gap-3 rounded-xl border p-2.5 text-left transition ${
                           active
-                            ? 'border-[#3ee6c5] bg-[#3ee6c5]/12'
-                            : 'border-white/[0.06] bg-[#131a1e] hover:border-white/20'
+                            ? 'border-line-dps bg-line-dps/12'
+                            : 'border-sign-seam bg-sign-raised hover:border-sign-seam'
                         }`}
                       >
                         {a.imageUrl ? (
@@ -688,17 +688,17 @@ export function SlotConfiguratorDrawer({
                             className="h-11 w-11 shrink-0 object-contain"
                           />
                         ) : (
-                          <Shield className="h-6 w-6 text-slate-500" />
+                          <Shield className="h-6 w-6 text-sign-dim" />
                         )}
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center justify-between gap-2">
                             <span className="truncate font-semibold text-white">{a.name}</span>
-                            <span className="text-[10px] text-amber-300">{a.rarity}</span>
+                            <span className="text-[12px] text-amber-300">{a.rarity}</span>
                           </div>
-                          <div className="text-[10px] text-[#3ee6c5]">
+                          <div className="text-[12px] text-line-dps">
                             {a.setName ?? 'Key / Standalone Piece'}
                           </div>
-                          <div className="mt-0.5 line-clamp-1 text-[10px] text-slate-400">
+                          <div className="mt-0.5 line-clamp-1 text-[12px] text-sign-mute">
                             {a.onePieceBonus ?? a.effectSummary}
                           </div>
                         </div>
@@ -713,16 +713,16 @@ export function SlotConfiguratorDrawer({
           {section === 'mods' && (
             <div className="space-y-4">
               {/* Active Mod Preview + Core Effect Level I-V */}
-              <div className="space-y-2.5 rounded-xl border border-white/[0.08] bg-[#131a1e] p-3">
+              <div className="space-y-2.5 rounded-xl border border-sign-seam bg-sign-raised p-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-semibold uppercase tracking-wider text-[#3ee6c5]">
+                  <span className="text-[12px] font-semibold uppercase tracking-wider text-line-dps">
                     Equipped {modSlot} Mod
                   </span>
                   {(activeCodexMod || activeLegacyMod) && (
                     <button
                       type="button"
                       onClick={() => patchSlotMod({ modId: '' })}
-                      className="text-[10px] text-rose-400 hover:underline"
+                      className="text-[12px] text-rose-400 hover:underline"
                     >
                       Unequip
                     </button>
@@ -730,12 +730,12 @@ export function SlotConfiguratorDrawer({
                 </div>
 
                 {activeCodexMod || activeLegacyMod ? (
-                  <div className="space-y-2.5 rounded-lg border border-[#3ee6c5]/35 bg-[#0c1114] p-2.5">
+                  <div className="space-y-2.5 rounded-lg border border-line-dps/35 bg-sign-panel p-2.5">
                     <div className="flex items-start gap-2.5">
                       <img
                         src={activeCodexMod?.iconUrl || activeLegacyMod?.imageUrl || ''}
                         alt={activeCodexMod?.name || activeLegacyMod?.name || 'Mod'}
-                        className="h-10 w-10 shrink-0 rounded border border-white/10 bg-[#111626] object-contain p-1"
+                        className="h-10 w-10 shrink-0 rounded border border-sign-seam bg-[#111626] object-contain p-1"
                       />
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center justify-between gap-2">
@@ -743,12 +743,12 @@ export function SlotConfiguratorDrawer({
                             {activeCodexMod?.name ?? activeLegacyMod?.name}
                           </span>
                           {activeSubStatSet && (
-                            <span className="rounded bg-[#3ee6c5]/15 px-1.5 py-0.5 text-[10px] font-medium text-[#3ee6c5]">
+                            <span className="rounded bg-line-dps/15 px-1.5 py-0.5 text-[12px] font-medium text-line-dps">
                               {activeSubStatSet.name}
                             </span>
                           )}
                         </div>
-                        <div className="mt-0.5 text-[10px] leading-relaxed text-slate-300">
+                        <div className="mt-0.5 text-[12px] leading-relaxed text-sign-mute">
                           {activeCodexMod
                             ? activeCodexMod.coreEffectByLevel[String(modCoreLevel)] ??
                               activeCodexMod.summary
@@ -758,8 +758,8 @@ export function SlotConfiguratorDrawer({
                     </div>
 
                     {/* Core Effect Level I - V */}
-                    <div className="flex items-center justify-between border-t border-white/[0.06] pt-2">
-                      <span className="text-[10px] uppercase tracking-wider text-slate-400">
+                    <div className="flex items-center justify-between border-t border-sign-seam pt-2">
+                      <span className="text-[12px] uppercase tracking-wider text-sign-mute">
                         Core Effect Level
                       </span>
                       <div className="flex items-center gap-1">
@@ -768,10 +768,10 @@ export function SlotConfiguratorDrawer({
                             key={lvl}
                             type="button"
                             onClick={() => patchSlotMod({ modCoreLevel: lvl })}
-                            className={`rounded px-2 py-0.5 font-mono text-[10px] font-bold transition ${
+                            className={`rounded px-2 py-0.5 text-[12px] font-bold transition ${
                               modCoreLevel === lvl
-                                ? 'bg-[#3ee6c5] text-[#091214]'
-                                : 'bg-white/[0.06] text-slate-400 hover:text-white'
+                                ? 'bg-line-dps text-black'
+                                : 'bg-white/[0.06] text-sign-mute hover:text-white'
                             }`}
                           >
                             {ROMAN_LEVELS[idx]}
@@ -781,18 +781,18 @@ export function SlotConfiguratorDrawer({
                     </div>
                   </div>
                 ) : (
-                  <div className="rounded-lg border border-dashed border-white/[0.1] p-2.5 text-center text-[11px] text-slate-500">
+                  <div className="rounded-lg border border-dashed border-white/[0.1] p-2.5 text-center text-[12px] text-sign-dim">
                     No {modSlot} mod equipped
                   </div>
                 )}
 
                 {/* Sub-Stat Set & 4 Sub-Stats Level 1-5 */}
-                <div className="space-y-2 rounded-lg border border-white/[0.06] bg-[#0c1114] p-2.5">
+                <div className="space-y-2 rounded-lg border border-sign-seam bg-sign-panel p-2.5">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-[10px] font-semibold uppercase tracking-wider text-[#3ee6c5]">
+                    <span className="text-[12px] font-semibold uppercase tracking-wider text-line-dps">
                       Sub-Stat Set
                     </span>
-                    <span className="font-mono text-[10px] text-slate-400">
+                    <span className=" text-[12px] text-sign-mute">
                       Upgrade Score{' '}
                       <span className="font-bold text-white">{upgradeScore}/20</span>
                     </span>
@@ -802,7 +802,7 @@ export function SlotConfiguratorDrawer({
                     value={activeSubStatSetId}
                     onChange={(e) => patchSlotMod({ modSubStatSetId: e.target.value })}
                     aria-label="Sub-Stat Set"
-                    className="w-full rounded border border-white/[0.12] bg-[#131a1e] px-2 py-1.5 text-xs text-white outline-none focus:border-[#3ee6c5]"
+                    className="w-full rounded border border-white/[0.12] bg-sign-raised px-2 py-1.5 text-xs text-white outline-none focus:border-line-dps"
                   >
                     {availableSubStatSetIds.map((sid) => {
                       const def = MOD_SUBSTAT_SET_BY_ID.get(sid);
@@ -826,16 +826,16 @@ export function SlotConfiguratorDrawer({
                         return (
                           <div
                             key={`${statId}-${idx}`}
-                            className="flex items-center justify-between gap-2 rounded border border-white/[0.05] bg-[#131a1e] px-2 py-1.5"
+                            className="flex items-center justify-between gap-2 rounded border border-sign-seam bg-sign-raised px-2 py-1.5"
                           >
                             <div className="min-w-0 flex-1">
                               <div
-                                className="truncate text-[11px] font-medium text-slate-200"
+                                className="truncate text-[12px] font-medium text-sign-white"
                                 title={readable}
                               >
                                 {readable}
                               </div>
-                              <div className="font-mono text-[10px] text-[#3ee6c5]">
+                              <div className=" text-[12px] text-line-dps">
                                 {evaluated
                                   ? evaluated.statKey === 'utilityPct'
                                     ? `Utility (${evaluated.value.toFixed(1)}%)`
@@ -855,10 +855,10 @@ export function SlotConfiguratorDrawer({
                                     next[idx] = stepLv;
                                     patchSlotMod({ modSubStatLevels: next });
                                   }}
-                                  className={`h-5 w-5 rounded font-mono text-[10px] font-bold transition ${
+                                  className={`h-5 w-5 rounded text-[12px] font-bold transition ${
                                     lv === stepLv
-                                      ? 'bg-[#3ee6c5] text-[#091214]'
-                                      : 'bg-white/[0.05] text-slate-400 hover:text-white'
+                                      ? 'bg-line-dps text-black'
+                                      : 'bg-white/[0.05] text-sign-mute hover:text-white'
                                   }`}
                                   title={`Set sub-stat level ${stepLv}`}
                                 >
@@ -879,7 +879,7 @@ export function SlotConfiguratorDrawer({
                   value={modSearch}
                   onChange={(e) => setModSearch(e.target.value)}
                   placeholder={`Search ${modSlot} mods (e.g. Violent, Siphon, Crit)...`}
-                  className="w-full rounded-lg border border-white/[0.08] bg-[#0c1114] px-2.5 py-1.5 text-xs text-white placeholder-slate-500 outline-none focus:border-[#3ee6c5]"
+                  className="w-full rounded-lg border border-sign-seam bg-sign-panel px-2.5 py-1.5 text-xs text-white placeholder-sign-dim outline-none focus:border-line-dps"
                 />
 
                 <div className="max-h-60 space-y-1.5 overflow-y-auto pr-1">
@@ -901,8 +901,8 @@ export function SlotConfiguratorDrawer({
                         }
                         className={`flex w-full items-start gap-2.5 rounded-lg border p-2 text-left transition ${
                           selected
-                            ? 'border-[#3ee6c5] bg-[#3ee6c5]/12'
-                            : 'border-white/[0.06] bg-[#0c1114] hover:border-white/20'
+                            ? 'border-line-dps bg-line-dps/12'
+                            : 'border-sign-seam bg-sign-panel hover:border-sign-seam'
                         }`}
                       >
                         <img
@@ -913,13 +913,13 @@ export function SlotConfiguratorDrawer({
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center justify-between gap-2">
                             <span className="truncate font-semibold text-white">{m.name}</span>
-                            {selected && <Check className="h-3.5 w-3.5 shrink-0 text-[#3ee6c5]" />}
+                            {selected && <Check className="h-3.5 w-3.5 shrink-0 text-line-dps" />}
                           </div>
-                          <div className="mt-0.5 line-clamp-2 text-[10px] text-slate-400">
+                          <div className="mt-0.5 line-clamp-2 text-[12px] text-sign-mute">
                             {m.summary}
                           </div>
                           {m.obtain && (
-                            <div className="mt-0.5 truncate text-[9px] text-cyan-400/80">
+                            <div className="mt-0.5 truncate text-[12px] text-line-dps/80">
                               {m.obtain}
                             </div>
                           )}

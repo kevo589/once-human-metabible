@@ -86,7 +86,7 @@ export function TacticalCanvasLayer({
         }
       } else if (!seen.has(m.typeKey)) {
         seen.add(m.typeKey);
-        getCategoryCanvasSprite(m.typeKey, m.color);
+        getCategoryCanvasSprite(m.typeKey, m.color, () => redrawFnRef.current?.());
       }
     }
 
@@ -204,10 +204,16 @@ export function TacticalCanvasLayer({
         ctx.globalAlpha = alpha;
 
         if (isSelected) {
+          // sign system selection: black gap then a white ring, independent of category hue
           ctx.beginPath();
-          ctx.arc(pt.x, pt.y, r + 4, 0, Math.PI * 2);
-          ctx.strokeStyle = '#06b6d4';
-          ctx.lineWidth = 2.5;
+          ctx.arc(pt.x, pt.y, r + 3, 0, Math.PI * 2);
+          ctx.strokeStyle = '#000000';
+          ctx.lineWidth = 3;
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.arc(pt.x, pt.y, r + 6, 0, Math.PI * 2);
+          ctx.strokeStyle = '#f2f2ee';
+          ctx.lineWidth = 3;
           ctx.stroke();
         } else if (isHovered) {
           ctx.beginPath();
@@ -219,7 +225,7 @@ export function TacticalCanvasLayer({
 
         const sprite = m.imageUrl
           ? getImageCanvasSprite(m.imageUrl, m.color, scheduleDraw)
-          : getCategoryCanvasSprite(m.typeKey, m.color);
+          : getCategoryCanvasSprite(m.typeKey, m.color, scheduleDraw);
         if (sprite) {
           ctx.drawImage(sprite, pt.x - r, pt.y - r, iconDiameter, iconDiameter);
         } else {
