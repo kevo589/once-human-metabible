@@ -112,6 +112,16 @@ components:
     textColor: "{colors.sign-white}"
     rounded: "{rounded.md}"
     width: "360px"
+  build-sign:
+    backgroundColor: "{colors.sign-black}"
+    textColor: "{colors.sign-white}"
+    rounded: "{rounded.md}"
+    width: "400px"
+  build-card:
+    backgroundColor: "{colors.sign-panel}"
+    textColor: "{colors.sign-white}"
+    rounded: "{rounded.md}"
+    padding: "10px"
   chip-outline:
     textColor: "{colors.sign-mute}"
     rounded: "{rounded.md}"
@@ -142,7 +152,7 @@ Every feature is a transit line and every map pin is a station with transfers. T
 
 The world is dense but legible at a glance, because it is used alt-tabbed beside the game and on a phone as a second screen. The map owns the screen and panels yield to it: the legend docks left, the station sign docks right (a bottom sheet on phones), and both stay narrow. State is carried by shape and line form, not hue alone: a solid ring is on, a dashed ring is off, a white ring is selected.
 
-Depth is almost absent. Sign surfaces are flat black, separated by 3px sign-white rules and 1px seams. The one motion in the world is the station sign sliding in along a single axis.
+Depth is almost absent. Sign surfaces are flat black, separated by 3px sign-white rules and 1px seams. The one motion in the world is a sign sliding in along a single axis: the station sign, and any sign that becomes a bottom sheet.
 
 **Key Characteristics:**
 - Black sign bands with a 3px sign-white rule beneath or above them.
@@ -151,7 +161,7 @@ Depth is almost absent. Sign surfaces are flat black, separated by 3px sign-whit
 - State by form (solid, dashed, ringed), never by colour alone.
 - Small radii (2px and 6px) plus full circles for bullets and stops; no glass, no gradients on sign surfaces.
 
-**Migration status.** The system is shipped on the app shell (top sign band), the Interactive Map and the DPS calculator. The Meta Builds, Workbench, Encyclopedia and Timers views have not been restyled. They inherit the retuned neutral blacks through the legacy `obsidian.*` scale but still carry the previous world's accents (`stardust`, `anomaly`, `crimson`). Those views are pending migration and are not part of this system.
+**Migration status.** The system is shipped on the app shell (top sign band), the Interactive Map, the DPS calculator and Meta Builds. The Workbench, Encyclopedia and Timers views have not been restyled. They inherit the retuned neutral blacks through the legacy `obsidian.*` scale but still carry the previous world's accents (`stardust`, `anomaly`, `crimson`). Those views are pending migration and are not part of this system.
 
 ## Colors
 
@@ -163,8 +173,8 @@ A neutral black-and-white sign palette with six route colours as the only chroma
 ### Secondary: the route lines
 Each feature owns exactly one route colour, shared by its nav bullet and any Transfer that points to it.
 - **Signal Orange** (line-dps): DPS calculator, in-game turret icon. On its own line it is the accent: a 2px ring on the active weapon slot, slider accents, and the marks on selected bonus options.
-- **Signal Red** (line-builds): Meta Builds, in-game booster icon.
-- **Signal Yellow** (line-workbench): Gear Workbench, in-game gear workbench icon.
+- **Signal Red** (line-builds): Meta Builds, in-game booster icon. On its own line it is the accent: a 2px ring on the Deviation portrait discs on build cards and the build sign.
+- **Signal Yellow** (line-workbench): Gear Workbench, in-game gear workbench icon. Also the system-wide Caution role (see The Caution Exception).
 - **Route Green** (line-map): Interactive Map, in-game map-pin icon. Also the line the layer legend's stops sit on, the filled "Discovered" button, and focus borders on map-panel inputs.
 - **Route Blue** (line-enc): Encyclopedia, in-game book icon.
 - **Route Purple** (line-timers): Event Timers, in-game alarm icon.
@@ -179,7 +189,11 @@ Each feature owns exactly one route colour, shared by its nav bullet and any Tra
 - **Sub-line Grey** (sign-subline): the type and region line inside the white station-sign header only.
 
 ### Named Rules
-**The One Line Per Feature Rule.** A route colour means its feature and nothing else. Never use a line colour as a general accent outside its own feature; Route Green is allowed across the map because the map is the Map line.
+**The One Line Per Feature Rule.** A route colour means its feature and nothing else. Never use a line colour as a general accent outside its own feature; Route Green is allowed across the map because the map is the Map line. The one exception is the Caution role (below).
+
+**The Own Line Accent Rule.** On a feature surface, that feature's own line colour is its accent ring: a 2px ring in the line colour marks the surface's key object. Signal Orange rings the active weapon slot on DPS; Signal Red rings the Deviation portrait discs on Meta Builds cards and on the build sign. The ring never fills a surface or tints text.
+
+**The Caution Exception.** Signal Yellow doubles as the system's caution colour, a deliberate exception to One Line Per Feature: a 2px yellow outline on breakpoint notes and on calculator warnings, and yellow on the caution mark of anti-synergy and warning rows. In that role it reads as "take care", never as the Workbench line; it appears only as an outline or a mark, never as a fill.
 
 **The Game Icon Rule.** Icons come from the game, never from a generic icon set: route bullets, legend stops, map pins and the station-sign header use the in-game icon from `src/data/gameIcons.tsx` (sheet via TH.GL, credited in the map attribution). A category with no verified game icon keeps its drawn glyph rather than borrowing a wrong one.
 
@@ -207,6 +221,8 @@ Each feature owns exactly one route colour, shared by its nav bullet and any Tra
 A fixed sign band sits at the top: 56px on phones, 64px from 768px (the `--band-h` custom property), sticky, holding the wordmark, six route bullets and the Ctrl K search. Below it the map fills the remaining screen. Overlays float inside the map with a 12px gutter: the layer legend docks left (328px, max 88vw), the station sign docks right on desktop (360px, starting 60px from the top) and becomes a bottom sheet capped at 62% height on phones. Inside panels, padding is 16px horizontally; data rows are 8px top and bottom with a seam underneath. Tap targets are at least 36px (legend stops), 40px (buttons) and 44px (Transfer rows). The nav reflows by whole cells: inactive labels appear from 1024px, the active label from 768px, bullets are always visible.
 
 **Character screen (DPS calculator).** Two equal columns from 1024px with a 32px gap (24px below): equipment on the left, sticky 16px under the band, and the character sheet on the right, opened by the Readout over a 3px sign-white rule. Below 1024px the sheet follows the grid and the Readout moves into a sticky black bar directly under the band (compact 22px Readout, 1px seam beneath). The stat sheet flows across CSS columns: one column, two from 640px, 32px apart, with rows and headings kept unbroken.
+
+**Stage columns (Meta Builds).** Builds run as three stage columns (Early, Mid, End Game) with a 24px gap: one column on phones, three across from 768px, and from 1280px three columns plus a 400px build sign docked sticky on the right, 24px under the band. Each column opens with a Label heading on a 3px sign-white rule carrying the stage's build count in sign-white; cards stack 10px apart. Below 768px a row of stage jump links (outline chips) sits under the filters and anchors to each column, offset by the band height.
 
 **Layering.** The sign band is sticky at z-40; the phone DPS bar sits at z-30 under it; app modal overlays and toasts are z-50, above the band.
 
@@ -251,11 +267,17 @@ A selected pin reads like a station sign. A sign-white header band carries the p
 A 14px row: mute label left (white on hover), bold value right, 1px seam beneath. A row with sources ends in a dim chevron cue and expands in place into a 13px source list on sign-panel (mute source left, semibold signed value right); the chevron flips while open. A row without sources reserves the chevron's width and shows no chevron, so values stay aligned. Section headings inside the sheet are Labels.
 
 ### Gear Slot Cards
-Weapon and armor slots keep the game's rarity card gradients (legendary amber, epic purple, rare blue, common slate) as content art, a deliberate exception to the flat ground. The item name always shows. The active weapon slot carries the 2px Signal Orange ring.
+Weapon and armor slots keep the game's rarity card gradients (`CARD_SURFACE_GRADIENT`: legendary amber, epic purple, rare blue, common slate) as content art, a deliberate exception to the flat ground. The same gradients back the weapon art row on Meta Builds cards, because dark renders (the HAMR - Brahminy rifle, for one) disappear on flat Panel. The item name always shows. The active weapon slot carries the 2px Signal Orange ring.
+
+### Build Card
+A Panel card with a 2px seam border and 6px radius, 10px padding; hover lifts the border to Mute, selection turns it sign-white (`aria-pressed`). From 768px it stacks the weapon art (80px tall, on its rarity gradient) beside a 56px Deviation disc, then the 15px semibold build name, then the archetype in Mute and the tier with sustained DPS in bold. Below 768px it collapses to a compact row: a 48 by 96px weapon tile and a 44px disc on the left, name and meta on the right. Deviation discs carry the 2px Signal Red ring.
+
+### Build Sign and Bottom Sheet
+The build sign follows station-sign order: a sign-white header band (22px extra-bold name, sub-line of tier, stage, archetype and sustained DPS in Sub-line Grey), then the sign outline action, gear rows with seams, Label-headed fields, caution notes, and playstyle. From 1280px it is docked: sticky, 400px, 1px seam border, scrolling inside. Below 1280px it is a bottom sheet, the general form of the map's phone station sign: hidden until a card is tapped, then fixed to the bottom at up to 80% height with a 3px sign-white rule on top, over a Sign Black scrim at 70% that closes it on tap. As a sheet it is `role="dialog"` with `aria-modal`, focus moves to its Close button and returns to the card that opened it, Escape closes it, and the body scroll is locked. It slides up only (`.sheet-up`, 24px, 260ms, below 1280px only) and does not animate under reduced motion.
 
 ### Buttons
 - **Shape:** gently squared (6px), 40px tall, 14px semibold.
-- **Sign outline:** 2px sign-white border on black; hover inverts to white fill with black text.
+- **Sign outline:** 2px sign-white border on black; hover inverts to white fill with black text. It is the primary action on a sign, such as "Open in DPS calculator" on the build sign. A resting white fill is reserved for active state (chips, the station-sign header), never for an idle button.
 - **Seam outline:** 2px seam border, mute text; hover turns border and text white.
 - **Line filled:** route-colour fill with black text, used for a confirmed state (Discovered on the Map line).
 - **Focus:** 2px sign-white outline, 2px offset, everywhere.
@@ -270,6 +292,9 @@ Each layer group is a 4px Route Green line with layers as 17px stops on it. A st
 ### Map Pins
 Round pins in their category colour; hover scales 1.15 to 1.18, selection scales 1.25 with the black-gap white ring, discovered pins drop to about 35% opacity.
 
+### Named Rules
+**The Same Number Rule.** A number shown on a list must come from the same engine and loadout its destination uses. Meta Builds cards compute DPS with `createLoadoutFromMetaBuild` and `calculateFullLoadoutDps`, the path the calculator opens, so a card's DPS equals the calculator's DPS after Open in DPS calculator. Never show a list estimate from a separate formula.
+
 ## Do's and Don'ts
 
 ### Do:
@@ -278,13 +303,15 @@ Round pins in their category colour; hover scales 1.15 to 1.18, selection scales
 - **Do** show state by form: solid ring on, dashed ring off, white ring selected.
 - **Do** keep route-bullet letters black on every line colour.
 - **Do** keep the station sign's order: white header band, data rows, Transfers.
-- **Do** keep motion to the station sign's single-axis slide, and disable it under reduced motion.
+- **Do** keep motion to a sign's single-axis slide (the station sign, and bottom sheets sliding up only), and disable it under reduced motion.
 - **Do** use one outline chip for every tab, toggle and toolbar switch on a surface.
 - **Do** keep the sign band at z-40 and modal overlays at z-50.
+- **Do** give a feature surface's key object a 2px ring in its own line colour (orange on the active weapon slot, red on Builds Deviation discs).
+- **Do** show list numbers from the same engine and loadout the destination uses.
 
 ### Don't:
-- **Don't** use a route colour as decoration or as an accent outside its own feature.
-- **Don't** use glass, backdrop blur or gradients on sign surfaces. The game's rarity card art on gear slots is content, not a sign surface.
+- **Don't** use a route colour as decoration or as an accent outside its own feature; the only exception is Signal Yellow in its caution role, as an outline or mark.
+- **Don't** use glass, backdrop blur or gradients on sign surfaces. The game's rarity card art (`CARD_SURFACE_GRADIENT`) on calculator gear slots and behind the weapon art row on Meta Builds cards is content, not a sign surface; it stays there because dark weapon renders vanish on flat Panel.
 - **Don't** signal state with hue alone.
 - **Don't** add radii beyond 2px and 6px except full circles for bullets, stops and pins.
 - **Don't** let a panel cover the centre of the map permanently.

@@ -24,7 +24,8 @@ const WEAPON_BY_ID = new Map(WEAPONS.map((w) => [w.id, w]));
 const ARMOR_BY_ID = new Map(ARMOR_SETS.map((a) => [a.id, a]));
 const HIDE_BY_ID = new Map(HIDES_AND_WOOLS.map((h) => [h.id, h]));
 
-const CARD_SURFACE_GRADIENT: Record<string, string> = {
+/** The game's rarity card backgrounds; reused wherever item art sits on the dark ground. */
+export const CARD_SURFACE_GRADIENT: Record<string, string> = {
   Legendary:
     'bg-gradient-to-br from-[#5c4215]/75 via-[#2a2010]/70 to-sign-panel/90 border-amber-400/25',
   Epic:

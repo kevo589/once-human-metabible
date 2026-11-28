@@ -53,6 +53,8 @@ interface DpsCalculatorViewProps {
   onChangePreset: (next: CalculatorPreset) => void;
   activeBuildName?: string | null;
   activeMetaBuild?: MetaBuild | null;
+  /** Bumped by App each time another view asks the calculator to load a build or weapon. */
+  loadSeq: number;
   equippedModRequest?: EquippedModRequest | null;
 }
 
@@ -85,11 +87,15 @@ const BATTLE_STAT_KEYS: StatKey[] = [
 ];
 
 
+// shortcut: module-level, so it assumes one calculator instance; move to App state if a second one ever renders
+let handledLoadSeq = 0;
+
 export function DpsCalculatorView({
   preset,
   onChangePreset,
   activeBuildName,
   activeMetaBuild,
+  loadSeq,
   equippedModRequest,
 }: DpsCalculatorViewProps) {
   const [savedLoadouts, setSavedLoadouts] = useLocalStorage<LoadoutConfig[]>(
@@ -114,23 +120,19 @@ export function DpsCalculatorView({
     dps: FullDpsResult;
   } | null>(null);
 
-  const lastExternalWeaponRef = useRef<string | null>(null);
   const lastModReqSeqRef = useRef<number | null>(null);
 
+  // A build or weapon sent from another view. The handled seq lives outside the component
+  // because switching tabs remounts this view; a ref would reset and drop the request.
   useEffect(() => {
-    const sig = `${preset.weaponId}|${activeBuildName ?? ''}|${activeMetaBuild?.id ?? ''}`;
-    if (lastExternalWeaponRef.current === null) {
-      lastExternalWeaponRef.current = sig;
-      return;
-    }
-    if (lastExternalWeaponRef.current !== sig) {
-      lastExternalWeaponRef.current = sig;
-      const next = activeMetaBuild
+    if (loadSeq === handledLoadSeq) return;
+    handledLoadSeq = loadSeq;
+    setLoadout(
+      activeMetaBuild
         ? createLoadoutFromMetaBuild(activeMetaBuild)
-        : createLoadoutFromWeaponId(preset.weaponId, activeBuildName ?? undefined);
-      setLoadout(next);
-    }
-  }, [preset.weaponId, activeBuildName, activeMetaBuild, setLoadout]);
+        : createLoadoutFromWeaponId(preset.weaponId, activeBuildName ?? undefined),
+    );
+  }, [loadSeq, preset.weaponId, activeBuildName, activeMetaBuild, setLoadout]);
 
   useEffect(() => {
     if (!equippedModRequest || equippedModRequest.seq === lastModReqSeqRef.current) return;

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-28T08:19:09.000Z",
+  "generatedAt": "2026-11-28T12:00:00.000Z",
   "title": "Design System: MetaBible",
   "extensions": {
     "colorMeta": {
@@ -286,7 +286,12 @@
       {
         "name": "sign-in",
         "value": "260ms cubic-bezier(0.16, 1, 0.3, 1)",
-        "purpose": "Station sign slides 24px in from the right (desktop) or from below (phone). Off under reduced motion. The only motion in the world."
+        "purpose": "Station sign slides 24px in from the right (desktop) or from below (phone). Off under reduced motion."
+      },
+      {
+        "name": "sheet-up",
+        "value": "260ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Bottom sheets (the build sign below 1280px) slide 24px up, vertical only; no animation from 1280px or under reduced motion."
       },
       {
         "name": "pin-state",
@@ -306,6 +311,10 @@
       {
         "name": "lg",
         "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
       }
     ]
   },
@@ -389,11 +398,19 @@
       "description": "Readout over a 3px white rule, then seam stat rows; rows with sources expand in place to a source list.",
       "html": "<section class=\"ds-sheet\"><div class=\"ds-ro\"><div><small>Sustained DPS</small><b>48,210</b></div><div><small>Burst DPS</small><b>71,904</b></div></div><button class=\"ds-row\" aria-expanded=\"true\"><span>Crit Rate</span><strong>32.5%</strong><svg viewBox=\"0 0 24 24\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" style=\"transform:rotate(180deg)\"><path d=\"m6 9 6 6 6-6\"/></svg></button><div class=\"ds-src\"><div><span>Base</span><span>+5%</span></div><div><span>Mod: Precision</span><span>+12.5%</span></div></div><div class=\"ds-row\"><span>Magazine</span><strong>30</strong><i></i></div></section>",
       "css": ".ds-sheet{width:340px;background:#0b0c0d;color:#f2f2ee;font-family:Archivo,Helvetica Neue,Arial,sans-serif;font-variant-numeric:tabular-nums}.ds-ro{display:flex;gap:32px;padding-bottom:16px;border-bottom:3px solid #f2f2ee}.ds-ro small{display:block;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#a8a9a4}.ds-ro b{font-size:34px;font-weight:800;line-height:1;letter-spacing:-0.02em}.ds-row{display:flex;align-items:center;gap:8px;width:100%;padding:6px 0;background:none;border:0;border-bottom:1px solid #2a2b2cb3;color:#f2f2ee;font:inherit;font-size:14px;text-align:left;cursor:pointer}.ds-row span{flex:1;color:#a8a9a4}.ds-row:hover span{color:#f2f2ee}.ds-row strong{font-weight:700}.ds-row svg{color:#8a8b87}.ds-row i{width:14px}.ds-row:focus-visible{outline:2px solid #f2f2ee;outline-offset:2px}.ds-src{padding:8px 10px;background:#111213;border-bottom:1px solid #2a2b2cb3;font-size:13px}.ds-src div{display:flex;justify-content:space-between}.ds-src div span:first-child{color:#a8a9a4}.ds-src div span:last-child{font-weight:600}"
+    },
+    {
+      "name": "Build Card",
+      "kind": "card",
+      "refersTo": "build-card",
+      "description": "Meta Builds card: weapon art on its rarity gradient, Deviation disc ringed in Signal Red, name, archetype, tier and DPS; seam border turns white when selected. Shown with a caution note.",
+      "html": "<div class=\"ds-cards\"><button class=\"ds-bc on\" aria-pressed=\"true\"><span class=\"ds-bc-art\"><i class=\"ds-bc-wpn\"></i><i class=\"ds-bc-dev\"></i></span><b>Frost Vortex Lockdown</b><span class=\"ds-bc-meta\"><span>Frost Vortex</span><strong>S · 48,210 DPS</strong></span></button><button class=\"ds-bc\" aria-pressed=\"false\"><span class=\"ds-bc-art\"><i class=\"ds-bc-wpn\"></i><i class=\"ds-bc-dev\"></i></span><b>Shrapnel Starter</b><span class=\"ds-bc-meta\"><span>Shrapnel</span><strong>A · 21,880 DPS</strong></span></button></div><p class=\"ds-caution\">Needs 55% crit rate before the Vortex breakpoint.</p>",
+      "css": ".ds-cards{display:grid;gap:10px;width:280px}.ds-bc{display:block;width:100%;padding:10px;border:2px solid #2a2b2c;border-radius:6px;background:#111213;color:#f2f2ee;font-family:Archivo,Helvetica Neue,Arial,sans-serif;font-variant-numeric:tabular-nums;text-align:left;cursor:pointer;transition:border-color .15s}.ds-bc:hover{border-color:#a8a9a4}.ds-bc.on{border-color:#f2f2ee}.ds-bc:focus-visible{outline:2px solid #f2f2ee;outline-offset:2px}.ds-bc-art{display:flex;align-items:center;gap:12px}.ds-bc-wpn{flex:1;height:80px;border-radius:2px;background:linear-gradient(to bottom right,rgba(92,66,21,.75),rgba(42,32,16,.7),rgba(17,18,19,.9))}.ds-bc-dev{width:56px;height:56px;box-sizing:border-box;border:2px solid #e2332e;border-radius:9999px;background:#000}.ds-bc b{display:block;margin-top:8px;font-size:15px;font-weight:600}.ds-bc-meta{display:flex;justify-content:space-between;margin-top:4px;font-size:13px}.ds-bc-meta span{color:#a8a9a4}.ds-bc-meta strong{font-weight:700}.ds-caution{width:280px;box-sizing:border-box;margin:12px 0 0;padding:8px 12px;border:2px solid #f7c319;border-radius:6px;background:#000;color:#f2f2ee;font-size:14px;font-family:Archivo,Helvetica Neue,Arial,sans-serif}"
     }
   ],
   "narrative": {
     "northStar": "Night Transit Signage",
-    "overview": "Every feature is a transit line and every map pin is a station with transfers. The interface reads like Unimark-era wayfinding seen at night: pure black sign bands on a near-black ground, warm sign-white type set in Archivo, and one saturated route colour per feature. Colour names a place, never decorates it.\n\nThe world is dense but legible at a glance, because it is used alt-tabbed beside the game and on a phone as a second screen. The map owns the screen and panels yield to it: the legend docks left, the station sign docks right (a bottom sheet on phones), and both stay narrow. State is carried by shape and line form, not hue alone: a solid ring is on, a dashed ring is off, a white ring is selected.\n\nDepth is almost absent. Sign surfaces are flat black, separated by 3px sign-white rules and 1px seams. The one motion in the world is the station sign sliding in along a single axis.",
+    "overview": "Every feature is a transit line and every map pin is a station with transfers. The interface reads like Unimark-era wayfinding seen at night: pure black sign bands on a near-black ground, warm sign-white type set in Archivo, and one saturated route colour per feature. Colour names a place, never decorates it.\n\nThe world is dense but legible at a glance, because it is used alt-tabbed beside the game and on a phone as a second screen. The map owns the screen and panels yield to it: the legend docks left, the station sign docks right (a bottom sheet on phones), and both stay narrow. State is carried by shape and line form, not hue alone: a solid ring is on, a dashed ring is off, a white ring is selected.\n\nDepth is almost absent. Sign surfaces are flat black, separated by 3px sign-white rules and 1px seams. The one motion in the world is a sign sliding in along a single axis: the station sign, and any sign that becomes a bottom sheet.",
     "keyCharacteristics": [
       "Black sign bands with a 3px sign-white rule beneath or above them.",
       "Six route colours, one per feature line, used as the ring of each route bullet.",
@@ -404,7 +421,17 @@
     "rules": [
       {
         "name": "The One Line Per Feature Rule",
-        "body": "A route colour means its feature and nothing else. Never use a line colour as a general accent outside its own feature; Route Green is allowed across the map because the map is the Map line.",
+        "body": "A route colour means its feature and nothing else. Never use a line colour as a general accent outside its own feature; Route Green is allowed across the map because the map is the Map line. The one exception is the Caution role (below).",
+        "section": "colors"
+      },
+      {
+        "name": "The Own Line Accent Rule",
+        "body": "On a feature surface, that feature's own line colour is its accent ring: a 2px ring in the line colour marks the surface's key object. Signal Orange rings the active weapon slot on DPS; Signal Red rings the Deviation portrait discs on Meta Builds cards and on the build sign. The ring never fills a surface or tints text.",
+        "section": "colors"
+      },
+      {
+        "name": "The Caution Exception",
+        "body": "Signal Yellow doubles as the system's caution colour, a deliberate exception to One Line Per Feature: a 2px yellow outline on breakpoint notes and on calculator warnings, and yellow on the caution mark of anti-synergy and warning rows. In that role it reads as \"take care\", never as the Workbench line; it appears only as an outline or a mark, never as a fill.",
         "section": "colors"
       },
       {
@@ -431,6 +458,11 @@
         "name": "The White Rule Rule",
         "body": "A sign band is closed by a 3px sign-white rule: under the top band, along the top of the phone station sign, and above the Transfers block. Use the 3px rule for sign structure and the 1px seam for rows; never mix the two roles.",
         "section": "elevation"
+      },
+      {
+        "name": "The Same Number Rule",
+        "body": "A number shown on a list must come from the same engine and loadout its destination uses. Meta Builds cards compute DPS with `createLoadoutFromMetaBuild` and `calculateFullLoadoutDps`, the path the calculator opens, so a card's DPS equals the calculator's DPS after Open in DPS calculator. Never show a list estimate from a separate formula.",
+        "section": "components"
       }
     ],
     "dos": [
@@ -439,13 +471,15 @@
       "Do show state by form: solid ring on, dashed ring off, white ring selected.",
       "Do keep route-bullet letters black on every line colour.",
       "Do keep the station sign's order: white header band, data rows, Transfers.",
-      "Do keep motion to the station sign's single-axis slide, and disable it under reduced motion.",
+      "Do keep motion to a sign's single-axis slide (the station sign, and bottom sheets sliding up only), and disable it under reduced motion.",
       "Do use one outline chip for every tab, toggle and toolbar switch on a surface.",
-      "Do keep the sign band at z-40 and modal overlays at z-50."
+      "Do keep the sign band at z-40 and modal overlays at z-50.",
+      "Do give a feature surface's key object a 2px ring in its own line colour (orange on the active weapon slot, red on Builds Deviation discs).",
+      "Do show list numbers from the same engine and loadout the destination uses."
     ],
     "donts": [
-      "Don't use a route colour as decoration or as an accent outside its own feature.",
-      "Don't use glass, backdrop blur or gradients on sign surfaces. The game's rarity card art on gear slots is content, not a sign surface.",
+      "Don't use a route colour as decoration or as an accent outside its own feature; the only exception is Signal Yellow in its caution role, as an outline or mark.",
+      "Don't use glass, backdrop blur or gradients on sign surfaces. The game's rarity card art (`CARD_SURFACE_GRADIENT`) on calculator gear slots and behind the weapon art row on Meta Builds cards is content, not a sign surface; it stays there because dark weapon renders vanish on flat Panel.",
       "Don't signal state with hue alone.",
       "Don't add radii beyond 2px and 6px except full circles for bullets, stops and pins.",
       "Don't let a panel cover the centre of the map permanently.",
